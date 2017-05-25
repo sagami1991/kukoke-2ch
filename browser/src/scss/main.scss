@@ -1,0 +1,69 @@
+$tofuBoarder: #bbbbbb;
+$hoverColor: #d5e1f2;
+$hoverBorderColor: #97b4dc;
+$activeColor: #c2cddc;
+$activeBorderColor: #97b4dc;
+$kukokeBlue: #5c86a7;
+
+@import "./tofu/_tofu.scss";
+@import "./view/_side-bar.scss";
+@import "./component/_component.scss";
+@import "./panel/_panel.scss";
+@import "./common/_popup.scss";
+
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	font-size: 13px;
+	color: #333;
+}
+body, input, textarea, button {
+	font-family: メイリオ, "Yu Gothic", "MS PGothic";
+	// line-height: 14px;
+	// font-weight: 500;
+	// font-family: "MS PGothic";
+
+}
+.emoji {
+}
+
+*, *:before {
+	box-sizing: border-box;
+}
+
+.app-container {
+	height: calc(100% - 22px);
+	width: 100%;
+	display: flex;
+}
+
+.status-bar-container {
+	padding: 0 10px;
+	font-size: 12px;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	color: #eee;
+	height: 22px;
+	background-color: $kukokeBlue;
+}
+
+.icon {
+	fill: currentColor;
+	&.icon-s {
+		width: 13px;
+		min-width: 13px;
+		height: 13px;
+	}
+	&.icon-m {
+		width: 24px;
+		min-width: 24px;
+		height: 24px;
+	}
+}

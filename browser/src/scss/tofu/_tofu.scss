@@ -1,0 +1,91 @@
+
+$tofu-resizable-width: 6px;
+$baseWhite: #fefefe;
+.tofu-outer-container {
+	padding: 2px;
+	width: 100%;
+	height: 100%;
+	background-color: #e8e8e8;
+	background-image: url("../resource/logo.svg");
+	background-repeat: no-repeat;
+	background-position-y: center;
+	background-position-x: center;
+	
+	
+}
+.tofu-container {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	position: relative;
+}
+
+.tofu-shadow {
+	position: absolute;
+	background-color: rgba(210, 210, 210, 0.42);
+	transition-property: top, bottom, width, height;
+	transition-duration: .2s;
+	// margin: 6px;
+}
+.tofu-panel {
+	display: flex;
+	flex-direction: column;
+	position: absolute !important;
+	background-color: $baseWhite;
+	border: 1px solid $tofuBoarder;
+	box-shadow: 0 0 20px 4px rgba(0, 0, 0, 0.1);
+	&.tofu-stop {
+		transition-property: top, bottom, width, height;
+		transition-duration: .2s;
+	}
+	.tofu-top-bar {
+		height: 26px;
+		display: flex;
+		align-items: center;
+		cursor: default;
+		.tofu-title {
+			margin: 0 4px;
+			overflow: hidden;
+			white-space: nowrap;
+		}
+		.tofu-header-button {
+			align-items: center;
+			justify-content: center;
+			width: 24px;
+			height: 24px;
+			margin-right: 2px;
+			&:first-of-type {
+				margin-left: auto;
+			}
+		}
+	}
+	.panel-outer-container {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+	}
+	.tofu-resizable-bar {
+		position: absolute;
+		&.ui-resizable-e {
+			width: $tofu-resizable-width;
+			top: 20px;
+			bottom: $tofu-resizable-width;
+			right: 0;
+			cursor: e-resize;
+		}
+		&.ui-resizable-s {
+			bottom: 0;
+			right: $tofu-resizable-width;
+			left: 0;
+			height: $tofu-resizable-width;
+			cursor: s-resize;
+		}
+		&.ui-resizable-se {
+			width: $tofu-resizable-width;
+			height: $tofu-resizable-width;
+			bottom: 0;
+			right: 0;
+			cursor: se-resize;
+		}
+	}
+}

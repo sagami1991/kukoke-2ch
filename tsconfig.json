@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+		"module": "commonjs",
+		"experimentalDecorators": true,
+		"emitDecoratorMetadata": true,
+		"sourceMap": true,
+		"lib": ["es6", "dom"],
+		"strictNullChecks": true,
+		"baseUrl": "./src",
+		"types": [
+			"node"
+		]
+	},
+	"include": [
+        "./src/**/*.ts"
+    ],
+	"exclude": [
+		"node_modules"
+	]
+}

@@ -1,0 +1,17 @@
+.panel-bbs-menu {
+	.panel-command-bar {
+		.my-radio-component {
+			margin-right: 8px;
+		}
+	}
+	.panel-content {
+		.board-row {
+			padding: 2px 0 2px 4px;
+			cursor: default;
+			border-bottom: 1px solid $tofuBoarder;
+			&:hover {
+				background-color: $hoverColor;
+			}
+		}
+	}
+}

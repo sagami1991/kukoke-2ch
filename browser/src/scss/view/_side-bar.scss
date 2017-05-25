@@ -1,0 +1,24 @@
+$deep-dark: #ddd;
+$whiteGray: #c7c7c7;
+
+.side-bar-container {
+	min-width: 40px;
+	max-width: 40px;
+	background-color: #fbfbfb;;
+	border-right: 1px solid #e0e0e0;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	.side-line{
+		padding: 6px 0 4px 0;
+		border-bottom: 1px solid #e0e0e0;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		color:rgba(51, 51, 51, 0.85);
+		cursor: pointer;
+		.side-line-text {
+			font-size: 12px;
+		}
+	}
+}

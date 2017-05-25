@@ -1,0 +1,15 @@
+// 既定の設定とユーザー設定を上書きするには、このファイル内に設定を挿入します
+{
+	"editor.detectIndentation": false,
+	"editor.insertSpaces": false,
+	"files.exclude": {
+		"dist": true,
+		"node_modules": true,
+		"browser": true,
+		"build": true
+		// "**/*.js.map": {"when": "$(basename)"},
+		// "**/*.js": { "when": "$(basename).ts" }
+	},
+	"tslint.configFile": "./tslint.json",
+	"typescript.tsdk": "node_modules\\typescript\\lib"
+}

@@ -1,0 +1,70 @@
+@mixin resContainer {
+	padding: 8px 0;
+	border-bottom: 1px solid #ccc;
+	.res-header {
+		color: rgb(120,140,155);
+		font-size: 12px;
+		.res-no {
+			&.res-new {
+				font-weight: bold;
+			}
+		}
+		.res-no, .res-name, .res-user-id, .res-postdate {
+			padding-right: 4px;
+		}
+		.res-no, .res-user-id {
+			cursor: pointer;
+			&.red { color: $red }
+			&.blue{ color: rgb(132, 75, 191) }
+			&.normal { color: $normal }
+		}
+	}
+	.res-body {
+		word-wrap: break-word;
+		padding-left: 1em;
+		.res-anker, .res-image-link, .res-link {
+			color: $myBlue;
+			cursor: pointer;
+		}
+		.res-image-link:visited {
+			color: rgb(132, 75, 191);
+		}
+	}
+}
+.panel-res-list { 
+	.panel-command-bar {
+		.my-search-text-component {
+			margin-left: 4px;
+		}
+	}
+	.panel-content {
+		padding: 8px;
+		.res-container {
+			@include resContainer;
+		}
+	}
+}
+.res-popups {
+	border-top: 1px solid #c7c7c7;
+	border-bottom: 1px solid #c7c7c7;
+	.res-container {
+		@include resContainer;
+		padding: 8px;
+		background-color: #fefefe;
+		border: 1px solid #c7c7c7;
+		@for $i from 0 through 10 {
+			&.res-popup-nest-#{$i} {
+				margin-left: #{$i * 10}px;
+			}
+		}
+		&:not(:first-of-type) {
+			margin-top: -1px;
+		}
+		&:first-of-type {
+			border-top: none;
+		}
+		&:last-of-type {
+			border-bottom: none;
+		}
+	}
+}

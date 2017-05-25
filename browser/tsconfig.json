@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "target": "es2017", 
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "sourceMap": true,
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "strictNullChecks": true,
+        "baseUrl": "./src/ts",
+        "types": [
+            "node",
+            "jquery",
+            "jqueryui",
+            "lodash",
+            "toastr"
+        ]
+    },
+    "include": [
+        "./src/ts/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

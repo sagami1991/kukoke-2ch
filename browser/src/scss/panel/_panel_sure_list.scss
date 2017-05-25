@@ -1,0 +1,33 @@
+.panel-sure-list {
+	.panel-command-bar {
+		.my-search-text-component {
+			margin-left: 4px;
+		}
+	}
+	.panel-content {
+		.my-list-component {
+			.sure-td-new {
+				justify-content: center;
+				.sure-new {
+					background-color: #1f93f1;
+					border-radius: 10px;
+					padding: 0 6px;
+					color: #fff;
+				}
+			}
+			.sure-suretai {
+				word-break: break-all;
+				&.sure-saved {
+					color: rgb(132, 75, 191);
+				}
+			}
+			.sure-created-at {
+				color: gray;
+			}
+			.sure-ikioi{
+				&.ikioi-color-red{ color: rgb(210, 12, 12);}
+				&.ikioi-color-blackRed{color: rgb(160, 12, 12);}
+			}
+		}
+	}
+}

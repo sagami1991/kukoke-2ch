@@ -1,0 +1,29 @@
+{
+  "name": "kukoke-2ch",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron ./build/app.js --arch=ia32",
+    "package": "electron-packager ./build sample --platform=win32 --arch=x64 --no-prune --overwrite",
+    "build": "gulp watch"
+  },
+  "dependencies": {
+    "electron": "^1.7.1",
+    "lodash": "^4.17.4",
+    "source-map-support": "^0.4.5"
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.14.62",
+    "@types/node": "^6.0.45",
+    "gulp": "^3.9.1",
+    "gulp-sourcemaps": "^2.1.1",
+    "gulp-typescript": "^3.0.2",
+    "tree-kill": "^1.1.0",
+    "tslint": "^3.13.0",
+    "typescript": "^2.2.1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

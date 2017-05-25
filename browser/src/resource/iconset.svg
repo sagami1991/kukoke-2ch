@@ -1,0 +1,57 @@
+<svg style="display:none" width="580" height="400" xmlns="http://www.w3.org/2000/svg">
+	<defs>
+		<symbol id="icon-close" viewBox="0 0 15 15">
+			<path id="path111" stroke="#231F20" fill="none" d="M0.354,0.354L14.707,14.707" />
+			<path id="path113" stroke="#231F20" fill="none" d="M14.707,0.354L0.354,14.707" />
+		</symbol>
+		<symbol id="icon-maximize" viewBox="0 0 15 15">
+			<path id="path100" fill="#161717" d="M0,15L15,15 15,0 0,0z M0.997,1.002L14.004,1.002 14.004,13.998 0.997,13.998z" />
+		</symbol>
+		<symbol id="icon-search" viewBox="0 0 24 24">
+			<path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+			<path d="M0 0h24v24H0z" fill="none" />
+		</symbol>
+		<symbol id="icon-reload" viewBox="0 0 24 24">
+			<path fill="#5c86a7" d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+			<path d="M0 0h24v24H0z" fill="none" />
+		</symbol>
+		<symbol id="icon-pen" viewBox="0 0 24 24">
+			<path fill="#5c86a7" d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+			<path d="M0 0h24v24H0z" fill="none" />
+		</symbol>
+		<symbol id="icon-image" viewBox="0 0 40 40">
+			<path id="path306" fill="White" d="M0,38.571L38.571,38.571 38.571,0 0,0z" />
+			<path id="path308" fill="#3F7EB8" d="M14.286,0.467C13.668,-0.178 11.376,-0.133 10.715,0.467 7.979,2.947 0,11.181 0,11.181L0,18.324 31.429,18.324C31.429,18.324,18.811,5.189,14.286,0.467" />
+			<path id="path310" fill="#3F7EB8" d="M0.897,4.653L12.326,16.796 15.897,16.796 15.897,11.081C15.897,11.081 8.516,3.7 5.183,0.367 4.678,-0.138 2.86,-0.107 2.326,0.367 1.761,0.868 0.63,1.987 0.183,2.51 -0.486,3.294 0.897,4.653 0.897,4.653" />
+			<path id="path312" fill="#7C7C7D" d="M0,40L40,40 40,0 0,0z M0.714,0.714L39.285,0.714 39.285,39.285 0.714,39.285z" />
+			<path id="path314" fill="#ECC17D" d="M8.57,4.284C8.57,6.652 6.652,8.57 4.285,8.57 1.918,8.57 0,6.652 0,4.284 0,1.918 1.918,-0.001 4.285,-0.001 6.652,-0.001 8.57,1.918 8.57,4.284" />
+		</symbol>
+		<symbol id="icon-filter" viewBox="0 0 20 20" version="1.1" height="20" width="20">
+			<path id="path1523" fill="#7c7b7c" d=" M 0.000,2.222 L 8.148,10.370 L 8.148,20.000 L 11.852,20.000 L 11.852,10.370 L 20.000,2.222 L 20.000,0.000 L 0.000,0.000 L 0.000,2.222 Z M 1.111,1.482 L 1.111,1.111 L 1.482,1.111 L 9.630,9.259 L 9.630,18.889 L 9.259,18.889 L 9.259,9.630 L 1.111,1.482 Z" />
+			<path id="path1525" fill="#ffffff" d=" M 1.111,1.482 L 9.259,9.630 L 9.259,18.889 L 9.630,18.889 L 9.630,9.259 L 1.482,1.111 L 1.111,1.111 L 1.111,1.482 Z" />
+		</symbol>
+		<symbol id="icon-arrow-dropdown" fill="#666" height="24" viewBox="0 0 24 24" width="24">
+			<path d="M7 10l5 5 5-5z" />
+			<path d="M0 0h24v24H0z" fill="none" />
+		</symbol>
+		<symbol id="icon-navigate-back" fill="#5c86a7" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+			<path d="M0 0h24v24H0z" fill="none" />
+			<path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+		</symbol>
+		<symbol id="icon-ok" height="37" width="43" viewBox="0 0 37 43">
+			<path id="path54" fill="#7E7E7E" d="M37.24,0L16.124,26.7 5.375,14.494 0,18.309 16.508,37 43,3.815z" />
+		</symbol>
+		<symbol id="icon-assignment" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+			<path d="M0 0h24v24H0z" fill="none"/>
+			<path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+		</symbol>
+		<symbol id="icon-toc"  height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+			<path d="M3 9h14V7H3v2zm0 4h14v-2H3v2zm0 4h14v-2H3v2zm16 0h2v-2h-2v2zm0-10v2h2V7h-2zm0 6h2v-2h-2v2z"/>
+			<path d="M0 0h24v24H0z" fill="none"/>
+		</symbol>
+		<symbol id="icon-comment" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M21.99 4c0-1.1-.89-2-1.99-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14l4 4-.01-18zM18 14H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+</symbol>
+	</defs>
+</svg>

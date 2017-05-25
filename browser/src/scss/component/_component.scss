@@ -1,0 +1,166 @@
+$baseWhite: #fefefe;
+$myBlue: #5c86a7;
+$inputBorderColor: #bbb;
+
+input {
+	padding: 2px;
+	border-width: 1px;
+	border: 1px solid $inputBorderColor;
+}
+input::-webkit-input-placeholder {
+	font-size: 12px;
+}
+input, button, textarea {
+	&:focus {
+		outline: 0;
+		border-color: #5a9acc;;
+	}
+}
+
+.my-button-component {
+	padding: 0;
+	display: flex;
+	background-color: $baseWhite;
+	align-items: center;
+	justify-content: center;
+	&.my-button-normal {
+		min-width: 120px;
+		border: 1px solid $inputBorderColor;
+		.icon {
+			margin-right: 4px;
+		}
+		.my-button-label {
+			text-align: center;
+		}
+		.my-button-label-main {
+			font-size: 11px;
+		}
+		.my-button-label-sub {
+			font-size: 8px;
+			color: gray;
+		}
+		
+	}
+	&.my-button-icon-only {
+		width: 30px;
+		height: 30px;
+		border-width: 0;
+	}
+	&:hover {
+		background-color: $hoverColor;
+		border-color: $hoverBorderColor
+	}
+	&:active {
+		background-color: $activeColor;
+		border-color: $activeBorderColor
+	}
+}
+
+.my-radio-component {
+	display: flex;
+	.my-radio-item {
+	& {
+		display: flex;
+		align-items: center;
+		margin-left: 4px;
+		cursor: default;
+		.my-radio-mark {
+			height: 12px;
+			min-height: 12px;
+			width: 12px;
+			min-width: 12px;
+			border: 1px solid $tofuBoarder;
+			border-radius: 50%;
+			background-color: white;
+			margin-right: 3px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.my-radio-label {
+			white-space: nowrap;
+		}
+		
+	}
+	&.my-radio-checked .my-radio-mark:before {
+		content: "";
+		border: 3px solid #666;
+		border-radius: 50%;
+	}
+	&:hover {
+		.my-radio-mark {
+			background-color: $hoverColor;
+		}
+	}
+
+	&:active {
+		.my-radio-mark {
+			background-color: $activeColor;
+		}
+	}
+	}
+}
+
+.my-search-text-component {
+	overflow: hidden;
+	white-space: nowrap;
+	input {
+		width: 100%;
+	}
+}
+
+.my-list-component {
+	.my-list-header {
+		display: flex;
+		background-color: $myBlue;
+		.my-list-th {
+			padding: 4px 4px;
+			cursor: default;
+			color: white;
+			
+			&:hover {
+				background-color: #859bad;
+			}
+		}
+	}
+	.my-list-tr {
+		display: flex;
+		cursor: default;
+		border-bottom: 1px solid $inputBorderColor;
+		padding: 2px 0;
+		.my-list-td {
+			padding: 0 4px;
+			display: flex;
+			align-items: center;
+		}
+		&:hover {
+			background-color: $hoverColor;
+		}
+		&:active {
+			background-color: $activeColor;
+		}
+	}
+}
+
+.my-dropdown-component {
+	display: flex;
+	align-items: center;
+	padding: 0 4px;
+	border: 1px solid $inputBorderColor;
+	cursor: default;
+	&:hover {
+		background-color: $hoverColor;
+		border-color: $hoverBorderColor
+	}
+	&:active {
+		background-color: $activeColor;
+		border-color: $activeBorderColor
+	}
+	.dropdown-item {
+		display: flex;
+		align-items: center;
+		.icon {
+			margin-right: 4px;
+		}
+	}
+}
