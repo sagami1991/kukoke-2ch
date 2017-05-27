@@ -1,3 +1,4 @@
+import { alertMessage } from '../common/utils';
 import { SureModel } from 'model/sureModel';
 import { ComponentScanner } from 'component/scanner';
 import { Button, ButtonOption, Textarea } from 'component/components';
@@ -45,7 +46,7 @@ export class FormPanel extends Panel<FormPanelEvent> {
 			iconSize: "s",
 			label: "書き込み",
 			subLabel: "Alt + W",
-			onClick: () => {}
+			onClick: () => { alertMessage("info", "未実装")}
 		});
 		this._el = ComponentScanner.scanHtml(this.template());
 		this._content = this._el.querySelector(".panel-content")!;

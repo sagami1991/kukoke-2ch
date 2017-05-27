@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "electron ./build/app.js --arch=ia32",
-    "package": "electron-packager ./build sample --platform=win32 --arch=x64 --no-prune --overwrite",
+    "package": "electron-packager ./build kukoke2ch --platform=win32 --arch=ia32 --no-prune --overwrite --electron-version=1.7.1 --icon=src/resources/app_icon.ico",
     "build": "gulp watch"
   },
   "dependencies": {
@@ -16,6 +16,7 @@
   "devDependencies": {
     "@types/lodash": "^4.14.62",
     "@types/node": "^6.0.45",
+    "electron-packager": "^8.7.0",
     "gulp": "^3.9.1",
     "gulp-sourcemaps": "^2.1.1",
     "gulp-typescript": "^3.0.2",

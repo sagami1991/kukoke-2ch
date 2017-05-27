@@ -72,6 +72,23 @@ class ResListService {
 		return resList;
 	}
 
+	/** 深さ優先でツリーつくる */
+	public deepSearchAnker(resList: ResModel[], index: number, popupReses: PopupRes[] = [], nestCount = 0) {
+		if (nestCount === 0) {
+			popupReses.push({nestCount: 0, res: resList[index]});
+		}
+		resList[index].fromAnkers.forEach((fromAnkerIndex) => {
+			popupReses.push({nestCount: nestCount + 1, res: resList[fromAnkerIndex]});
+			this.deepSearchAnker(resList, fromAnkerIndex, popupReses, nestCount + 1);
+		});
+		return popupReses;
+	}
+
+	public async deleteSure(sure: SureModel) {
+		await sureRepository.deleteSure(sure.id);
+		await FileUtil.deleteFile(sure.getDatFilePath());
+	}
+
 	private async createResList(sure: SureModel, dat: Buffer, responseHeaders: XhrHeaders, oldResCount: number) {
 		const datStr = sjisBufferToStr(dat!);
 		const resList = this.toResList(datStr, oldResCount);
@@ -84,20 +101,8 @@ class ResListService {
 
 	private async updateSureTable(sure: SureModel) {
 		await db.transaction("rw", db.sures, async () => {
-			await sureRepository.upsertSure(sure.toJSON());
+			await sureRepository.putSure(sure.toJSON());
 		});
-	}
-
-	/** 深さ優先でツリーつくる */
-	public deepSearchAnker(resList: ResModel[], index: number, popupReses: PopupRes[] = [], nestCount = 0) {
-		if (nestCount === 0) {
-			popupReses.push({nestCount: 0, res: resList[index]});
-		}
-		resList[index].fromAnkers.forEach((fromAnkerIndex) => {
-			popupReses.push({nestCount: nestCount + 1, res: resList[fromAnkerIndex]});
-			this.deepSearchAnker(resList, fromAnkerIndex, popupReses, nestCount + 1);
-		});
-		return popupReses;
 	}
 
 	private toResListFromSaved(savedDat: Buffer) {

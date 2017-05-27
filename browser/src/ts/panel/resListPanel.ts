@@ -1,3 +1,4 @@
+import { alertMessage } from '../common/utils';
 import { notify } from '../common/libs';
 import { Popup } from '../common/popup';
 import { PopupRes } from 'service/resListService';
@@ -7,10 +8,11 @@ import { ResModel } from 'model/resModel';
 import { tmpl, ElemUtil } from 'common/commons';
 import { ComponentScanner } from 'component/scanner';
 import { Button, SearchText, Dropdown} from 'component/components';
-import { ButtonOption, SearchTextOption, DropdownOption} from 'component/components';
+import { ButtonOption, SearchTextOption, DropdownOption, MenuButtonOption } from 'component/components';
 import { resListService } from 'service/resListService';
 import { Panel, PanelType } from './basePanel';
 import { OpenFormOption } from "panel/formPanel";
+import { MenuButton } from "component/menuButton";
 
 interface ResListStorage {
 	sureId: number | null;
@@ -37,7 +39,8 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	private readonly _createButton: Button;
 	private readonly _filterDropdown: Dropdown;
 	private readonly _searchText: SearchText;
-	private readonly _deleteButton: Button;
+	private readonly _urlButton: Button;
+	private readonly _menuButton: MenuButton;
 
 	private template() {
 		return `
@@ -48,7 +51,8 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 					${this._createButton.html()}
 					${this._filterDropdown.html()}
 					${this._searchText.html()}
-					${this._deleteButton.html()}
+					${this._urlButton.html()}
+					${this._menuButton.html()}
 				</div>
 				<div class="panel-content">
 				</div>
@@ -99,7 +103,13 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		this._createButton = new Button(this.getSubmitButtonOption());
 		this._searchText = new SearchText(this.getSearchTextOption());
 		this._filterDropdown = new Dropdown(this.getDropdownOption());
-		this._deleteButton = new Button(this.getDeleteButtonOption());
+		this._urlButton = new Button({
+			icon: "icon-link",
+			label: "URL",
+			className: "url-button",
+			onClick: () => alertMessage("info", "未実装")
+		});
+		this._menuButton = new MenuButton(this.getMenuButtonOption());
 		this._el = ComponentScanner.scanHtml(this.template());
 		this._content = this._el.querySelector(".panel-content")!;
 		this.addClickEvent(this._content);
@@ -107,9 +117,14 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 
 	public async init() {
 		if (this._storage.sureId !== null) {
-			const sureModel = await SureModel.createInstanceFromId(this._storage.sureId);
-			const resList = await resListService.getResListFromCache(sureModel);
-			this.changeResList(sureModel, resList);
+			try {
+				const sureModel = await SureModel.createInstanceFromId(this._storage.sureId);
+				const resList = await resListService.getResListFromCache(sureModel);
+				this.changeResList(sureModel, resList);
+			} catch (error) {
+				this._storage.sureId = null;
+				console.error(error);
+			}
 		}
 	}
 
@@ -177,11 +192,23 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		};
 	}
 
-	private getDeleteButtonOption(): ButtonOption {
+	private getMenuButtonOption(): MenuButtonOption {
 		return {
-			icon: "icon-delete-forever",
-			style: "icon-only",
-			onClick: () => ""
+			items: [
+				{
+					label: "ログを削除",
+					onSelect: () => this.deleteLog()
+				}, {
+					label: "次スレを検索",
+					onSelect: () => alertMessage("info", "未実装")
+				}, {
+					label: "板を開く",
+					onSelect: () => alertMessage("info", "未実装")
+				}, {
+					label: "ブラウザで開く",
+					onSelect: () => alertMessage("info", "未実装")
+				}
+			]
 		};
 	}
 
@@ -229,8 +256,24 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	}
 
 	private reload() {
-		this.changeResListFromServer(this._openedSure!);
+		if (this._openedSure) {
+			this.changeResListFromServer(this._openedSure);
+		}
 	}
+
+	private async deleteLog() {
+		if (this._openedSure) {
+			const sure = this._openedSure;
+			this._content.innerHTML = "";
+			this._openedSure = undefined;
+			this._resCollection = [];
+			this._title = "";
+			await resListService.deleteSure(sure);
+			this.trigger("changeSure", sure);
+			this.trigger("changeTitle", "");
+		}
+	}
+
 	private filter(type: FilterType) {
 		if (!this._resCollection) {
 			return;
@@ -244,6 +287,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			break;
 		case "image": // TODO
 		case "link": // TODO
+			alertMessage("info", "未実装");
 			break;
 		}
 		this.reRender(reses);

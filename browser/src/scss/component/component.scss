@@ -14,12 +14,31 @@ input, button, textarea {
 	}
 }
 
+@mixin commonHoverBg {
+	&:hover {
+		background-color: $hoverColor;
+	}
+	&:active {
+		background-color: $activeColor;
+	}
+}
+@mixin commonHoverBorder {
+	&:hover {
+		border-color: $hoverBorderColor;
+	}
+	&:active {
+		border-color: $activeBorderColor;
+	}	
+}
+
 .my-button-component {
 	padding: 0;
 	display: flex;
 	background-color: $baseWhite;
 	align-items: center;
 	justify-content: center;
+	@include commonHoverBg;
+	@include commonHoverBorder;
 	&.my-button-normal {
 		min-width: 120px;
 		border: 1px solid $inputBorderColor;
@@ -42,14 +61,6 @@ input, button, textarea {
 		width: 30px;
 		height: 30px;
 		border-width: 0;
-	}
-	&:hover {
-		background-color: $hoverColor;
-		border-color: $hoverBorderColor;
-	}
-	&:active {
-		background-color: $activeColor;
-		border-color: $activeBorderColor;
 	}
 }
 
@@ -125,16 +136,11 @@ input, button, textarea {
 		cursor: default;
 		border-bottom: 1px solid $inputBorderColor;
 		padding: 2px 0;
+		@include commonHoverBg;
 		.my-list-td {
 			padding: 0 4px;
 			display: flex;
 			align-items: center;
-		}
-		&:hover {
-			background-color: $hoverColor;
-		}
-		&:active {
-			background-color: $activeColor;
 		}
 	}
 }
@@ -143,14 +149,13 @@ input, button, textarea {
 	display: flex;
 	align-items: center;
 	cursor: default;
+	border-bottom: 1px solid $inputBorderColor;
+	@include commonHoverBg;
+	&:last-of-type {
+		border-bottom-width: 0;
+	}	
 	.icon {
 		margin-right: 4px;
-	}
-	&:hover {
-		background-color: $hoverColor;
-	}
-	&:active {
-		background-color: $activeColor;
 	}
 }
 .my-dropdown-component {
@@ -159,14 +164,8 @@ input, button, textarea {
 	padding: 0 4px;
 	border: 1px solid $inputBorderColor;
 	cursor: default;
-	&:hover {
-		background-color: $hoverColor;
-		border-color: $hoverBorderColor;
-	}
-	&:active {
-		background-color: $activeColor;
-		border-color: $activeBorderColor;
-	}
+	@include commonHoverBg;
+	@include commonHoverBorder;
 	.dropdown-item {
 		@include dropdownItem;
 	}
@@ -174,6 +173,23 @@ input, button, textarea {
 .dropdown-items {
 	border: 1px solid $inputBorderColor;
 	.dropdown-item {
+		@include dropdownItem;
+		padding: 2px 4px;
+	}
+}
+
+.menu-button-component {
+	width: 30px;
+    height: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	@include commonHoverBg;
+}
+
+.menu-items {
+	border: 1px solid $inputBorderColor;
+	.menu-item {
 		@include dropdownItem;
 		padding: 2px 4px;
 	}

@@ -20,6 +20,10 @@ class SureRepository {
 			 .sortBy("index"); // メモ: インデックス使用でのソートではない
 	}
 
+	public deleteSure(id: number) {
+		return db.sures.delete(id);
+	}
+
 	public deleteNotSavedSureByBoard(bId: number) {
 		return db.sures
 			.where(["bId", "saved"])
@@ -34,7 +38,7 @@ class SureRepository {
 			.modify({enabled: 0});
 	}
 
-	public upsertSure(sure: SureTable) {
+	public putSure(sure: SureTable) {
 		return db.sures.put(sure);
 	}
 

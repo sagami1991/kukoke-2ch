@@ -1,4 +1,3 @@
-import { jsonParse, jsonString } from './utils';
 import * as fs from "fs";
 import {electron} from "./libs";
 
@@ -17,13 +16,6 @@ export namespace FileUtil {
 		});
 	};
 
-	export async function readJsonFile<T>(path: string) {
-		const buffer = await readFile(path);
-		if (buffer === null) {
-			return null;
-		}
-		return jsonParse<T>(buffer.toString());
-	}
 
 	export function wrtiteFile(path: string, data: Buffer | string) {
 		return new Promise((resolve, reject) => {
@@ -38,7 +30,13 @@ export namespace FileUtil {
 		});
 	};
 
-	export async function writeJsonFile(path: string, obj: any) {
-		await wrtiteFile(path, jsonString(obj));
+	/** 失敗しても必ずresolve */
+	export function deleteFile(path: string) {
+		return new Promise((resolve, reject) => {
+			fs.unlink(path, (err) => {
+				resolve();
+			});
+		});
 	}
+
 }

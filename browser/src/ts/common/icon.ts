@@ -4,7 +4,7 @@ export type MyIcon =
 	"icon-close" | "icon-maximize" | "icon-search" | "icon-reload" | "icon-pen" |
 	"icon-image" | "icon-link" | "icon-arrow-dropdown" | "icon-filter" |
 	"icon-navigate-back" | "icon-ok" | "icon-assignment" | "icon-toc" | "icon-comment" |
-	"icon-delete-forever";
+	"icon-delete-forever" | "icon-menu";
 export type MyIconSize = "s" | "m";
 
 const fixedSizeMap: {[key in MyIcon]?: {width: number, height: number}} = {
