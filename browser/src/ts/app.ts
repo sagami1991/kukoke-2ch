@@ -1,7 +1,6 @@
 import { FormPanel } from './panel/formPanel';
 import { createObserverId } from './base/observable';
 import { db } from './database/database';
-import { SureModel } from './nichan/model/sureModel';
 import { ResListPanel } from './panel/resListPanel';
 import { SureListPanel } from './panel/sureListPanel';
 import { BbsMenuPanel } from './panel/bbsMenuPanel';
@@ -11,7 +10,6 @@ import { LeftSideBarView } from './view/leftSideBarView';
 import { shell } from "electron";
 import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/resizable";
-import { BoardAttr } from "database/tables";
 
 class MyApp {
 	// views
@@ -81,7 +79,7 @@ class MyApp {
 		});
 		this._sureListPanel.addListener("openSure", kariId, async (sure) => {
 			await this.preListenPanel(this._resListPanel);
-			this._resListPanel.openSure(sure);
+			this._resListPanel.changeResListFromServer(sure);
 		});
 		this._resListPanel.addListener("changeSure", kariId, async (sure) => {
 			// await this.preListenPanel(this._sureListPanel);

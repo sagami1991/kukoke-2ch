@@ -1,16 +1,17 @@
+import { notify } from '../common/libs';
 import { SureAttr, BoardAttr } from 'database/tables';
 import { sureRepository } from "database/sureRepository";
-import { SureModel } from 'nichan/model/sureModel';
-import { NichanSureListClient } from "nichan/client/nichanSureListClient";
+import { SureModel } from 'model/sureModel';
+import { NichanSureListClient } from "client/nichanSureListClient";
 import { db } from "database/database";
 
 class SureListService {
-	public async fetchSureCollectionFromDb(board: BoardAttr): Promise<SureModel[]> {
+	public async getSuresFromDb(board: BoardAttr): Promise<SureModel[]> {
 		const sureAttrs = await sureRepository.getEnableSuresByBoard(board.domain, board.path);
-		return this.toCollection(sureAttrs, board);
+		return this.toModels(sureAttrs, board);
 	}
 
-	public async fetchSureCollection(board: BoardAttr): Promise<SureModel[]> {
+	public async getSuresFromNichan(board: BoardAttr): Promise<SureModel[]> {
 		const html = await NichanSureListClient.fetchSures(board);
 		const fetchedSures = this.htmlToSureAttrList(html, board);
 		const sureAttrs = await db.transaction("rw", db.sures, async () => {
@@ -18,11 +19,10 @@ class SureListService {
 			await sureRepository.disableSureByBoard(board.domain, board.path);
 			await sureRepository.upsertAllSure(fetchedSures);
 			return await sureRepository.getEnableSuresByBoard(board.domain, board.path);
-		}).catch(e => {
-			console.error(e);
-			throw e;
 		});
-		return this.toCollection(sureAttrs, board);
+		// TODO キャッシュから読み込んでも200番が返ってくるので304判定できない
+		notify.success("スレ一覧取得完了");
+		return this.toModels(sureAttrs, board);
 	}
 
 
@@ -52,7 +52,7 @@ class SureListService {
 		return sures;
 	}
 
-	private toCollection(sures: SureAttr[], board: BoardAttr) {
+	private toModels(sures: SureAttr[], board: BoardAttr) {
 		const models: SureModel[] = [];
 		let ikioiAve = 0;
 		sures.forEach(attr => {

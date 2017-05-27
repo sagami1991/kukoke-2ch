@@ -1,7 +1,7 @@
-import { boardRepository } from '../../database/boardRepository';
-import { db } from '../../database/database';
-import { ElemUtil } from 'commons/commons';
-import { BbsMenuClient } from "nichan/client/nichanBbsmenuClient";
+import { boardRepository } from 'database/boardRepository';
+import { db } from 'database/database';
+import { ElemUtil } from 'common/commons';
+import { BbsMenuClient } from "client/nichanBbsmenuClient";
 import { BoardAttr } from "database/tables";
 
 class BbsMenuService {

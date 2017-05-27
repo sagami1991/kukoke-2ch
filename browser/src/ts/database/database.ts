@@ -1,7 +1,7 @@
 import { PanelType } from '../tofu/tofuDefs';
 import Dexie from "dexie";
 import { SureAttr, BoardAttr, PanelBlockState} from "database/tables";
-import { CONSTS } from "const";
+import { Consts } from "const";
 
 class Database extends Dexie {
 	public readonly sures:  Dexie.Table<SureAttr, [string, string, number]>;
@@ -31,7 +31,7 @@ class Database extends Dexie {
 
 	public async initQuery() {
 		await this.transaction("rw", this.panelStates, async () => {
-			for (let panelState of CONSTS.DEFAULT_TOFU_STATES) {
+			for (let panelState of Consts.DEFAULT_TOFU_STATES) {
 				const storedState = await this.panelStates.get(panelState.panelType);
 				if (!storedState) {
 					await this.panelStates.add(panelState);

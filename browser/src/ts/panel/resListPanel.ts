@@ -1,18 +1,17 @@
-import { notify } from '../commons/libs';
-import { Popup } from '../commons/popup';
-import { PopupRes } from '../nichan/service/resListService';
+import { notify } from '../common/libs';
+import { Popup } from '../common/popup';
+import { PopupRes } from 'service/resListService';
 import { SureAttr } from 'database/tables';
-import { tmpl, StorageType, ElemUtil } from 'commons/commons';
-import { ResAttr } from 'nichan/interfaces';
+import { SureModel } from 'model/sureModel';
+import { ResModel } from 'model/resModel';
+import { tmpl, ElemUtil } from 'common/commons';
 import { ComponentScanner } from 'component/scanner';
 import { Button, SearchText, Dropdown} from 'component/components';
 import { ButtonOption, SearchTextOption, DropdownOption} from 'component/components';
-import { resListService } from 'nichan/service/resListService';
-import { SureModel } from 'nichan/model/sureModel';
-import { BasePanelEvent, Panel } from './basePanel';
+import { resListService } from 'service/resListService';
+import { Panel } from './basePanel';
 import { PanelType } from "tofu/tofuDefs";
 import { OpenFormOption } from "panel/formPanel";
-import { emoji } from "commons/emoji";
 
 interface ResListStorage {
 	sure: SureAttr | null;
@@ -20,13 +19,13 @@ interface ResListStorage {
 
 interface ResListPanelEvent {
 	"changeSure": SureModel;
-	"openForm": OpenFormOption; 
+	"openForm": OpenFormOption;
 }
 export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	private _content: Element;
 	private _openedSure: SureModel | undefined;
-	private _allResList: ResAttr[];
-	private _displayResList: ResAttr[];
+	private _allResList: ResModel[];
+	private _displayResList: ResModel[];
 
 	public get panelType(): PanelType {
 		return "res";
@@ -37,6 +36,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	private readonly _createButton: Button;
 	private readonly _filterDropdown: Dropdown;
 	private readonly _searchText: SearchText;
+	private readonly _deleteButton: Button;
 
 	private template() {
 		return `
@@ -47,6 +47,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 					${this._createButton.html()}
 					${this._filterDropdown.html()}
 					${this._searchText.html()}
+					${this._deleteButton.html()}
 				</div>
 				<div class="panel-content">
 				</div>
@@ -58,11 +59,11 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		return tmpl.each(this._displayResList, res => this.resTemplate(res));
 	}
 
-	private resTemplate(res: ResAttr, className?: string) {
+	private resTemplate(res: ResModel, className?: string) {
 		return `
 		<div class="res-container ${className || ""}">
 			<div class="res-header">
-				<span class="res-no ${res.noColor} ${tmpl.when(res.isNew, () => "res-new")}"
+				<span class="res-no ${res.getResColor()} ${tmpl.when(res.isNew, () => "res-new")}"
 					res-index = "${res.index}"
 				 >
 					${res.index + 1}
@@ -74,8 +75,8 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 					${res.postDate}
 				</span>
 				${tmpl.when(res.userId, () => `
-					<span class="res-user-id ${res.idColor}">
-						ID:${res.userId} (${res.idCount})
+					<span class="res-user-id ${res.getIdColor()}" res-index="${res.index}">
+						ID:${res.userId} (${res.getIdCountFormat()})
 					</span>
 				`)}
 				${tmpl.when(res.userBe, () => `
@@ -85,7 +86,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 				`)}
 			</div>
 			<div class="res-body">
-				${emoji.replace(res.body)}
+				${res.body}
 			</div>
 		</div>
 		`;
@@ -98,20 +99,21 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		this._createButton = new Button(this.getSubmitButtonOption());
 		this._searchText = new SearchText(this.getSearchTextOption());
 		this._filterDropdown = new Dropdown(this.getDropdownOption());
+		this._deleteButton = new Button(this.getDeleteButtonOption());
 		this._el = ComponentScanner.scanHtml(this.template());
 		this._content = this._el.querySelector(".panel-content")!;
 	}
 
 	public async init() {
-		this.addDomEvent(this._content);
+		this.addClickEvent(this._content);
 		if (this._storage.sure) {
 			const sureModel  = await resListService.attrToModel(this._storage.sure);
 			const resList = await resListService.getResListFromCache(sureModel);
-			this.setResList(sureModel, resList);
+			this.changeResList(sureModel, resList);
 		}
 	}
 
-	private addDomEvent(parent: Element) {
+	private addClickEvent(parent: Element) {
 		ElemUtil.addDelegateEventListener(parent, "click", ".res-no", (e, current) => {
 			const index = current.getAttribute("res-index");
 			if (index === null) {
@@ -125,7 +127,21 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			if (index === null) {
 				throw new Error();
 			}
-			this.popup([{nestCount: 0, res: this._allResList[+index -1]}], current);
+			const res = this._allResList[+index];
+			if (!res) {
+				return;
+			}
+			this.popup([{nestCount: 0, res: res}], current);
+		});
+
+		ElemUtil.addDelegateEventListener(parent, "click", ".res-user-id", (e, current) => {
+			const index = current.getAttribute("res-index");
+			if (index === null) {
+				throw new Error();
+			}
+			const userResIndexes = this._allResList[+index].userIndexes;
+			const userReses = userResIndexes.map<PopupRes>(index => ({nestCount: 0, res: this._allResList[index]}));
+			this.popup(userReses, current);
 		});
 	}
 
@@ -157,7 +173,15 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			icon: "icon-reload",
 			iconSize: "m",
 			style: "icon-only",
-			onClick: () => this.openSure(this._openedSure!)
+			onClick: () => this.changeResListFromServer(this._openedSure!)
+		};
+	}
+
+	private getDeleteButtonOption(): ButtonOption {
+		return {
+			icon: "icon-delete-forever",
+			style: "icon-only",
+			onClick: () => ""
 		};
 	}
 
@@ -208,15 +232,17 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			sure: this._openedSure
 		});
 	}
-	public async openSure(sure: SureModel) {
-		const mode = !sure.equal(this._openedSure) ? "fetch" : "reload";
-		const resList = await resListService.getResListFromServer(sure, mode);
-		this.setResList(sure, resList);
+
+	public async changeResListFromServer(sure: SureModel) {
+		const isChangeSure = !sure.equal(this._openedSure);
+		const resList = await resListService.getResListFromServer(sure);
+		this.changeResList(sure, resList);
 		this.trigger("changeSure", sure);
-		if (mode === "fetch") {
+		if (isChangeSure) {
 			this._content.scrollTop = 0;
 		}
 	}
+
 	private popup(reses: PopupRes[], target: Element) {
 		const popupHtml = `
 		<div class="res-popups">
@@ -225,12 +251,11 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			)}
 		</div>`;
 		const popupElem = ElemUtil.parseDom(popupHtml);
-		this.addDomEvent(popupElem);
+		this.addClickEvent(popupElem);
 		new Popup(popupElem, target);
-
 	}
 
-	private setResList(sure: SureModel, resList: ResAttr[]) {
+	private changeResList(sure: SureModel, resList: ResModel[]) {
 		this._allResList = resList;
 		this._displayResList = this._allResList;
 		this._content.innerHTML = this.resListTemplate();

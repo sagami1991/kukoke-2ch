@@ -1,3 +1,4 @@
+import { notify } from './libs';
 import { statusBar } from '../view/statusBarView';
 import { MyPromise } from './promise';
 import { decode } from 'iconv-lite';
@@ -22,13 +23,12 @@ export function xhrRequest(option: RequestOption) {
 	const xhr = new XMLHttpRequest();
 	return new MyPromise<XhrResponse>((resolve, reject) => {
 		xhr.open(option.method || "GET", option.url, true);
-		statusBar.message(`リクエスト開始 ${option.url}`);
-		setRequestHeaders(xhr, option);
 		xhr.onerror = () => {
-			statusBar.message(`リクエスト失敗 ${option.url}`);
+			notify.error("リクエスト失敗");
 			reject();
 		};
 		xhr.responseType = 'arraybuffer';
+		setRequestHeaders(xhr, option);
 		xhr.onload = () => {
 			statusBar.message(`レスポンス完了 url: ${option.url} status: ${xhr.status}`);
 			resolve({
@@ -56,7 +56,7 @@ export function sjisBufferToStr(sjisBuffer: Buffer) {
 
 function setRequestHeaders(xhr: XMLHttpRequest, options: RequestOption): void {
 	if (options.headers) {
-		outer: for (let k in options.headers) {
+		outer: for (let [k, v] of Object.entries(options.headers)) {
 			switch (k) {
 				case 'User-Agent':
 				case 'Accept-Encoding':
@@ -64,7 +64,9 @@ function setRequestHeaders(xhr: XMLHttpRequest, options: RequestOption): void {
 					// unsafe headers
 					continue outer;
 			}
-			xhr.setRequestHeader(k, options.headers[k]);
+			if (v) {
+				xhr.setRequestHeader(k, v);
+			}
 		}
 	}
 }

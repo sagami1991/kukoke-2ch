@@ -1,5 +1,5 @@
 import { PanelType } from '../tofu/tofuDefs';
-import { MyStorage } from 'commons/commons';
+import { MyStorage } from 'common/commons';
 import { Observable } from 'base/observable';
 export interface BasePanelEvent {
 	"changeTitle": string;

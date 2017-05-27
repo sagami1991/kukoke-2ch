@@ -3,10 +3,10 @@ import { ComponentScanner } from 'component/scanner';
 import { Button, ButtonOption } from 'component/components';
 import { Panel } from 'panel/basePanel';
 import { BlockPosition, BlockSize, BlockState, PanelType } from './tofuDefs';
-import { ElemUtil } from "commons/element";
+import { ElemUtil } from "common/element";
 import { blockStateRepository } from "database/blockStateRepository";
 import { db } from "database/database";
-import { emoji } from "commons/emoji";
+import { emoji } from "common/emoji";
 interface BlockEvent {
 	removed: undefined;
 }

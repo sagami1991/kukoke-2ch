@@ -1,4 +1,4 @@
-import { xhrRequest, sjisBufferToStr } from '../../commons/commons';
+import { xhrRequest, sjisBufferToStr } from 'common/commons';
 import { BoardAttr } from "database/tables";
 
 export class NichanSureListClient {
@@ -6,6 +6,7 @@ export class NichanSureListClient {
 		const res = await xhrRequest({
 			url: `http://${board.subDomain}.${board.domain}/${board.path}/subject.txt`,
 		});
+		console.debug(res.statusCode);
 		return sjisBufferToStr(res.body);
 	}
 }

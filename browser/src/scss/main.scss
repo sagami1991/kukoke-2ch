@@ -10,6 +10,7 @@ $kukokeBlue: #5c86a7;
 @import "./component/_component.scss";
 @import "./panel/_panel.scss";
 @import "./common/_popup.scss";
+@import "./common/_emoji.scss";
 
 html, body {
 	height: 100%;
@@ -29,8 +30,6 @@ body, input, textarea, button {
 	// font-weight: 500;
 	// font-family: "MS PGothic";
 
-}
-.emoji {
 }
 
 *, *:before {

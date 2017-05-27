@@ -1,7 +1,7 @@
-import { alertMessage } from '../commons/utils';
-import { getSvgIcon, MyIcon, MyIconSize } from '../commons/commons';
+import { alertMessage } from '../common/utils';
+import { getSvgIcon, MyIcon, MyIconSize } from '../common/commons';
 import { BaseComponent, ComponentOption } from './baseComponent';
-import { tmpl } from "commons/tmpl";
+import { tmpl } from "common/tmpl";
 export interface DropdownItem {
 	readonly icon?: MyIcon;
 	readonly label: string;

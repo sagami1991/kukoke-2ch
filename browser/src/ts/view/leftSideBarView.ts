@@ -1,4 +1,4 @@
-import { ElemUtil, getSvgIcon, alertMessage } from "../commons/commons";
+import { ElemUtil, getSvgIcon, alertMessage } from "../common/commons";
 
 export type TofuType = "board" | "sure" | "res";
 export class LeftSideBarView {

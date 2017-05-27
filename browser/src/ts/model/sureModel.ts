@@ -1,6 +1,4 @@
-import { XhrHeaders } from 'commons/request';
 import { SureAttr, BoardAttr } from 'database/tables';
-import { Nichan } from "nichan/constants";
 
 export class SureModel {
 	private readonly _board: BoardAttr;
@@ -29,6 +27,9 @@ export class SureModel {
 	public get savedResCount() { return this._savedResCount; }
 	public get saved() { return this._saved; }
 	public get enabled() { return this._enabled; }
+
+	public set enabled(enable: boolean) { this._enabled = enable; }
+
 	constructor(sure: SureAttr, board: BoardAttr) {
 		this._board = board;
 		this._datNo = sure.datNo;
@@ -51,21 +52,20 @@ export class SureModel {
 		return this.resCount / deltaTime * 1000 * 3600 * 24;
 	}
 
-	public postSaveDat(title: string, dat: Buffer, headers: XhrHeaders, resLength: number) {
+	public update(title: string, byteLength: number, lastModified: string, resLength: number) {
 		this._displayName = title;
 		this._saved = true;
-		this._byteLength = dat.byteLength;
-		this._lastModified = headers["last-modified"];
-		const threadStatus = +headers["thread-status"];
-		this._enabled = this.isEnable(threadStatus);
+		this._byteLength = byteLength;
+		this._lastModified = lastModified;
+		// const threadStatus = +headers["thread-status"];
 		this._resCount = resLength;
 		this._savedResCount = resLength;
 		this._isTemporary = true;
 	}
 
-	private isEnable(threadStatus: Nichan.ThreadStatus) {
-		return threadStatus === Nichan.ThreadStatus.ENABLED;
-	}
+	// private isEnable(threadStatus: Nichan.ThreadStatus) {
+	// 	return threadStatus === Nichan.ThreadStatus.ENABLED;
+	// }
 
 	public reset() {
 		this._saved = false;

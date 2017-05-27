@@ -1,5 +1,5 @@
-import { mapToFormData, xhrRequest } from '../../commons/commons';
-import { Nichan } from "../constants";
+import { mapToFormData, xhrRequest } from 'common/commons';
+import { Nichan } from "const";
 
 export class NichanAuthClient {
 	private static lastFetchDate: Date | undefined;

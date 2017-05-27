@@ -1,4 +1,4 @@
-import {_} from "commons/libs";
+import {_} from "common/libs";
 type Key<T, K extends keyof T> = Map<string, Map<K, (args: T[K]) => void>>;
 
 export class Observable<T> {

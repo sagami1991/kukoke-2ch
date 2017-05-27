@@ -1,5 +1,5 @@
 import { BlockState, BlockPosition, BlockSize } from './tofuDefs';
-import { ElemUtil } from "../commons/element";
+import { ElemUtil } from "../common/element";
 
 // TODO 継承
 export class TofuShadow {

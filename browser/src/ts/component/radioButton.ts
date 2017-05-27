@@ -1,6 +1,6 @@
-import { tmpl } from '../commons/commons';
+import { tmpl } from '../common/commons';
 import { BaseComponent, ComponentOption } from './baseComponent';
-import { ElemUtil } from "../commons/element";
+import { ElemUtil } from "../common/element";
 export interface RadioButtonOption<T extends string> extends ComponentOption {
 	items: { label: string, value: T }[];
 	initValue: T;

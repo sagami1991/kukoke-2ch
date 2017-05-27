@@ -1,6 +1,6 @@
 import { PanelType } from '../tofu/tofuDefs';
-import { StorageType } from 'commons/commons';
-import { bbsMenuService } from 'nichan/service/bbsMenuService';
+import { StorageType } from 'common/commons';
+import { bbsMenuService } from 'service/bbsMenuService';
 import { ComponentScanner } from 'component/scanner';
 import { RadioButton, RadioButtonOption, SearchText, SearchTextOption, List, ListOption, Button, ButtonOption } from 'component/components';
 import { BasePanelEvent, Panel } from './basePanel';

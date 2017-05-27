@@ -1,12 +1,13 @@
-import { tmpl } from 'commons/commons';
+import { tmpl } from 'common/commons';
 import { List, Button, SearchText} from 'component/components';
 import { ListOption , ButtonOption, SearchTextOption } from 'component/components';
 import { ComponentScanner } from 'component/scanner';
-import { sureListService } from 'nichan/service/sureListService';
-import { SureModel } from 'nichan/model/sureModel';
+import { sureListService } from 'service/sureListService';
+import { SureModel } from 'model/sureModel';
 import { Panel } from './basePanel';
 import { BoardAttr } from "database/tables";
 import { PanelType } from "tofu/tofuDefs";
+import { emoji } from "common/emoji";
 
 interface SureListStorage {
 	board: BoardAttr | null;
@@ -129,7 +130,7 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 				},
 				{
 					label: "スレタイ",
-					parse: (sure) => sure.titleName, // TODO エスケープ済みっぽいが危険
+					parse: (sure) => emoji.replace(sure.titleName), // TODO エスケープ済みっぽいが危険
 					className: (sure) => `sure-suretai ${sure.saved ? "sure-saved" : ""}`,
 					width: 400
 				}, {
@@ -155,21 +156,21 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 
 	private async refreshFromDb() {
 		if (this._openedBoard) {
-			const sureCollection = await sureListService.fetchSureCollectionFromDb(this._openedBoard);
+			const sureCollection = await sureListService.getSuresFromDb(this._openedBoard);
 			this.changeSureCollection(sureCollection);
 		}
 	}
 
 	private async reload() {
 		if (this._openedBoard) {
-			const sureCollection = await sureListService.fetchSureCollection(this._openedBoard);
+			const sureCollection = await sureListService.getSuresFromNichan(this._openedBoard);
 			this.changeSureCollection(sureCollection);
 		}
 	}
 
 	public async openBoard(board: BoardAttr) {
 		this._openedBoard = board;
-		const sureCollection = await sureListService.fetchSureCollection(board);
+		const sureCollection = await sureListService.getSuresFromNichan(board);
 		this.changeSureCollection(sureCollection);
 		this.trigger("changeTitle", this._title);
 	}

@@ -1,5 +1,5 @@
-import { SureModel } from '../nichan/model/sureModel';
-import { PanelType } from '../tofu/tofuDefs';
+import { SureModel } from 'model/sureModel';
+import { PanelType } from 'tofu/tofuDefs';
 import { ComponentScanner } from 'component/scanner';
 import { Button, ButtonOption, Textarea } from 'component/components';
 import { Panel } from './basePanel';

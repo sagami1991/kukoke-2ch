@@ -1,4 +1,4 @@
-import { ElemUtil } from "commons/element";
+import { ElemUtil } from "common/element";
 
 export class Popup {
 	private static popups: Popup[] | undefined;

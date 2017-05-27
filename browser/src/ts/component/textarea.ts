@@ -1,4 +1,4 @@
-import { tmpl } from '../commons/commons';
+import { tmpl } from '../common/commons';
 import { BaseComponent, ComponentOption } from './baseComponent';
 export interface TextareaOption extends ComponentOption {
 	initValue?: string;

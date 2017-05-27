@@ -28,6 +28,7 @@ class MainApp {
 		await mkdir("image");
 		const restoreData = await this.restoreWindowState();
 		this.mainWindow = new BrowserWindow(restoreData.browserOptions);
+		this.mainWindow.webContents.setUserAgent("Mozilla/3.0 (compatible; JaneStyle/3.83)");
 		if (restoreData.maximized) {
 			this.mainWindow.maximize();
 		}

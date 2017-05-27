@@ -1,7 +1,7 @@
-import { alertMessage } from '../commons/utils';
+import { alertMessage } from '../common/utils';
 import { BaseComponent, ComponentOption } from './baseComponent';
-import { tmpl } from '../commons/commons';
-import { ElemUtil } from "../commons/element";
+import { tmpl } from '../common/commons';
+import { ElemUtil } from "../common/element";
 
 interface CellOption<T> {
 	readonly label: string;

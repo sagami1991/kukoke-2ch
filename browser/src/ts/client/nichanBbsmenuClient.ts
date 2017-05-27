@@ -1,5 +1,5 @@
-import { xhrRequest, sjisBufferToStr } from '../../commons/commons';
-import { Nichan } from '../constants';
+import { xhrRequest, sjisBufferToStr } from 'common/commons';
+import { Nichan } from 'const';
 
 export class BbsMenuClient {
 	public static async fetchBoards(): Promise<string> {

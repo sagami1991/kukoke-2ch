@@ -1,0 +1,7093 @@
+[
+    {
+        "charCode": "2049",
+        "pointerCode": [8265],
+        "raw": "⁉️",
+        "x": 0,
+        "y": 3
+    },
+    {
+        "charCode": "2122",
+        "pointerCode": [8482],
+        "raw": "™️",
+        "x": 0,
+        "y": 4
+    },
+    {
+        "charCode": "2139",
+        "pointerCode": [8505],
+        "raw": "ℹ️",
+        "x": 0,
+        "y": 5
+    },
+    {
+        "charCode": "2194",
+        "pointerCode": [8596],
+        "raw": "↔️",
+        "x": 0,
+        "y": 6
+    },
+    {
+        "charCode": "2195",
+        "pointerCode": [8597],
+        "raw": "↕️",
+        "x": 0,
+        "y": 7
+    },
+    {
+        "charCode": "2196",
+        "pointerCode": [8598],
+        "raw": "↖️",
+        "x": 0,
+        "y": 8
+    },
+    {
+        "charCode": "2197",
+        "pointerCode": [8599],
+        "raw": "↗️",
+        "x": 0,
+        "y": 9
+    },
+    {
+        "charCode": "2198",
+        "pointerCode": [8600],
+        "raw": "↘️",
+        "x": 0,
+        "y": 10
+    },
+    {
+        "charCode": "2199",
+        "pointerCode": [8601],
+        "raw": "↙️",
+        "x": 0,
+        "y": 11
+    },
+    {
+        "charCode": "2328",
+        "pointerCode": [9000],
+        "raw": "⌨️",
+        "x": 0,
+        "y": 16
+    },
+    {
+        "charCode": "2600",
+        "pointerCode": [9728],
+        "raw": "☀️",
+        "x": 1,
+        "y": 0
+    },
+    {
+        "charCode": "2601",
+        "pointerCode": [9729],
+        "raw": "☁️",
+        "x": 1,
+        "y": 1
+    },
+    {
+        "charCode": "2602",
+        "pointerCode": [9730],
+        "raw": "☂️",
+        "x": 1,
+        "y": 2
+    },
+    {
+        "charCode": "2603",
+        "pointerCode": [9731],
+        "raw": "☃️",
+        "x": 1,
+        "y": 3
+    },
+    {
+        "charCode": "2604",
+        "pointerCode": [9732],
+        "raw": "☄️",
+        "x": 1,
+        "y": 4
+    },
+    {
+        "charCode": "2611",
+        "pointerCode": [9745],
+        "raw": "☑️",
+        "x": 1,
+        "y": 6
+    },
+    {
+        "charCode": "2614",
+        "pointerCode": [9748],
+        "raw": "☔️",
+        "x": 1,
+        "y": 7
+    },
+    {
+        "charCode": "2615",
+        "pointerCode": [9749],
+        "raw": "☕️",
+        "x": 1,
+        "y": 8
+    },
+    {
+        "charCode": "2618",
+        "pointerCode": [9752],
+        "raw": "☘",
+        "x": 1,
+        "y": 9
+    },
+    {
+        "charCode": "2620",
+        "pointerCode": [9760],
+        "raw": "☠️",
+        "x": 1,
+        "y": 16
+    },
+    {
+        "charCode": "2622",
+        "pointerCode": [9762],
+        "raw": "☢️",
+        "x": 1,
+        "y": 17
+    },
+    {
+        "charCode": "2623",
+        "pointerCode": [9763],
+        "raw": "☣️",
+        "x": 1,
+        "y": 18
+    },
+    {
+        "charCode": "2626",
+        "pointerCode": [9766],
+        "raw": "☦️",
+        "x": 1,
+        "y": 19
+    },
+    {
+        "charCode": "2638",
+        "pointerCode": [9784],
+        "raw": "☸️",
+        "x": 1,
+        "y": 23
+    },
+    {
+        "charCode": "2639",
+        "pointerCode": [9785],
+        "raw": "☹️",
+        "x": 1,
+        "y": 24
+    },
+    {
+        "charCode": "2648",
+        "pointerCode": [9800],
+        "raw": "♈️",
+        "x": 1,
+        "y": 26
+    },
+    {
+        "charCode": "2649",
+        "pointerCode": [9801],
+        "raw": "♉️",
+        "x": 1,
+        "y": 27
+    },
+    {
+        "charCode": "2650",
+        "pointerCode": [9808],
+        "raw": "♐️",
+        "x": 1,
+        "y": 34
+    },
+    {
+        "charCode": "2651",
+        "pointerCode": [9809],
+        "raw": "♑️",
+        "x": 1,
+        "y": 35
+    },
+    {
+        "charCode": "2652",
+        "pointerCode": [9810],
+        "raw": "♒️",
+        "x": 1,
+        "y": 36
+    },
+    {
+        "charCode": "2653",
+        "pointerCode": [9811],
+        "raw": "♓️",
+        "x": 1,
+        "y": 37
+    },
+    {
+        "charCode": "2660",
+        "pointerCode": [9824],
+        "raw": "♠️",
+        "x": 1,
+        "y": 38
+    },
+    {
+        "charCode": "2663",
+        "pointerCode": [9827],
+        "raw": "♣️",
+        "x": 1,
+        "y": 39
+    },
+    {
+        "charCode": "2665",
+        "pointerCode": [9829],
+        "raw": "♥️",
+        "x": 1,
+        "y": 40
+    },
+    {
+        "charCode": "2666",
+        "pointerCode": [9830],
+        "raw": "♦️",
+        "x": 2,
+        "y": 0
+    },
+    {
+        "charCode": "2668",
+        "pointerCode": [9832],
+        "raw": "♨️",
+        "x": 2,
+        "y": 1
+    },
+    {
+        "charCode": "2692",
+        "pointerCode": [9874],
+        "raw": "⚒",
+        "x": 2,
+        "y": 4
+    },
+    {
+        "charCode": "2693",
+        "pointerCode": [9875],
+        "raw": "⚓️",
+        "x": 2,
+        "y": 5
+    },
+    {
+        "charCode": "2694",
+        "pointerCode": [9876],
+        "raw": "⚔",
+        "x": 2,
+        "y": 6
+    },
+    {
+        "charCode": "2696",
+        "pointerCode": [9878],
+        "raw": "⚖",
+        "x": 2,
+        "y": 7
+    },
+    {
+        "charCode": "2697",
+        "pointerCode": [9879],
+        "raw": "⚗",
+        "x": 2,
+        "y": 8
+    },
+    {
+        "charCode": "2699",
+        "pointerCode": [9881],
+        "raw": "⚙",
+        "x": 2,
+        "y": 9
+    },
+    {
+        "charCode": "2702",
+        "pointerCode": [9986],
+        "raw": "✂️",
+        "x": 3,
+        "y": 5
+    },
+    {
+        "charCode": "2705",
+        "pointerCode": [9989],
+        "raw": "✅",
+        "x": 3,
+        "y": 6
+    },
+    {
+        "charCode": "2708",
+        "pointerCode": [9992],
+        "raw": "✈️",
+        "x": 3,
+        "y": 7
+    },
+    {
+        "charCode": "2709",
+        "pointerCode": [9993],
+        "raw": "✉️",
+        "x": 3,
+        "y": 8
+    },
+    {
+        "charCode": "2712",
+        "pointerCode": [10002],
+        "raw": "✒️",
+        "x": 3,
+        "y": 34
+    },
+    {
+        "charCode": "2714",
+        "pointerCode": [10004],
+        "raw": "✔️",
+        "x": 3,
+        "y": 35
+    },
+    {
+        "charCode": "2716",
+        "pointerCode": [10006],
+        "raw": "✖️",
+        "x": 3,
+        "y": 36
+    },
+    {
+        "charCode": "2721",
+        "pointerCode": [10017],
+        "raw": "✡️",
+        "x": 3,
+        "y": 38
+    },
+    {
+        "charCode": "2728",
+        "pointerCode": [10024],
+        "raw": "✨",
+        "x": 3,
+        "y": 39
+    },
+    {
+        "charCode": "2733",
+        "pointerCode": [10035],
+        "raw": "✳️",
+        "x": 3,
+        "y": 40
+    },
+    {
+        "charCode": "2734",
+        "pointerCode": [10036],
+        "raw": "✴️",
+        "x": 4,
+        "y": 0
+    },
+    {
+        "charCode": "2744",
+        "pointerCode": [10052],
+        "raw": "❄️",
+        "x": 4,
+        "y": 1
+    },
+    {
+        "charCode": "2747",
+        "pointerCode": [10055],
+        "raw": "❇️",
+        "x": 4,
+        "y": 2
+    },
+    {
+        "charCode": "2753",
+        "pointerCode": [10067],
+        "raw": "❓",
+        "x": 4,
+        "y": 5
+    },
+    {
+        "charCode": "2754",
+        "pointerCode": [10068],
+        "raw": "❔",
+        "x": 4,
+        "y": 6
+    },
+    {
+        "charCode": "2755",
+        "pointerCode": [10069],
+        "raw": "❕",
+        "x": 4,
+        "y": 7
+    },
+    {
+        "charCode": "2757",
+        "pointerCode": [10071],
+        "raw": "❗️",
+        "x": 4,
+        "y": 8
+    },
+    {
+        "charCode": "2763",
+        "pointerCode": [10083],
+        "raw": "❣️",
+        "x": 4,
+        "y": 9
+    },
+    {
+        "charCode": "2764",
+        "pointerCode": [10084],
+        "raw": "❤️",
+        "x": 4,
+        "y": 10
+    },
+    {
+        "charCode": "2795",
+        "pointerCode": [10133],
+        "raw": "➕",
+        "x": 4,
+        "y": 11
+    },
+    {
+        "charCode": "2796",
+        "pointerCode": [10134],
+        "raw": "➖",
+        "x": 4,
+        "y": 12
+    },
+    {
+        "charCode": "2797",
+        "pointerCode": [10135],
+        "raw": "➗",
+        "x": 4,
+        "y": 13
+    },
+    {
+        "charCode": "2934",
+        "pointerCode": [10548],
+        "raw": "⤴️",
+        "x": 4,
+        "y": 17
+    },
+    {
+        "charCode": "2935",
+        "pointerCode": [10549],
+        "raw": "⤵️",
+        "x": 4,
+        "y": 18
+    },
+    {
+        "charCode": "3030",
+        "pointerCode": [12336],
+        "raw": "〰️",
+        "x": 4,
+        "y": 26
+    },
+    {
+        "charCode": "3297",
+        "pointerCode": [12951],
+        "raw": "㊗️",
+        "x": 4,
+        "y": 28
+    },
+    {
+        "charCode": "3299",
+        "pointerCode": [12953],
+        "raw": "㊙️",
+        "x": 4,
+        "y": 29
+    },
+    {
+        "charCode": "00a9",
+        "pointerCode": [169],
+        "raw": "©️",
+        "x": 0,
+        "y": 0
+    },
+    {
+        "charCode": "00ae",
+        "pointerCode": [174],
+        "raw": "®️",
+        "x": 0,
+        "y": 1
+    },
+    {
+        "charCode": "203c",
+        "pointerCode": [8252],
+        "raw": "‼️",
+        "x": 0,
+        "y": 2
+    },
+    {
+        "charCode": "21a9",
+        "pointerCode": [8617],
+        "raw": "↩️",
+        "x": 0,
+        "y": 12
+    },
+    {
+        "charCode": "21aa",
+        "pointerCode": [8618],
+        "raw": "↪️",
+        "x": 0,
+        "y": 13
+    },
+    {
+        "charCode": "231a",
+        "pointerCode": [8986],
+        "raw": "⌚️",
+        "x": 0,
+        "y": 14
+    },
+    {
+        "charCode": "231b",
+        "pointerCode": [8987],
+        "raw": "⌛️",
+        "x": 0,
+        "y": 15
+    },
+    {
+        "charCode": "23cf",
+        "pointerCode": [9167],
+        "raw": "⏏",
+        "x": 0,
+        "y": 17
+    },
+    {
+        "charCode": "23e9",
+        "pointerCode": [9193],
+        "raw": "⏩",
+        "x": 0,
+        "y": 18
+    },
+    {
+        "charCode": "23ea",
+        "pointerCode": [9194],
+        "raw": "⏪",
+        "x": 0,
+        "y": 19
+    },
+    {
+        "charCode": "23eb",
+        "pointerCode": [9195],
+        "raw": "⏫",
+        "x": 0,
+        "y": 20
+    },
+    {
+        "charCode": "23ec",
+        "pointerCode": [9196],
+        "raw": "⏬",
+        "x": 0,
+        "y": 21
+    },
+    {
+        "charCode": "23ed",
+        "pointerCode": [9197],
+        "raw": "⏭",
+        "x": 0,
+        "y": 22
+    },
+    {
+        "charCode": "23ee",
+        "pointerCode": [9198],
+        "raw": "⏮",
+        "x": 0,
+        "y": 23
+    },
+    {
+        "charCode": "23ef",
+        "pointerCode": [9199],
+        "raw": "⏯",
+        "x": 0,
+        "y": 24
+    },
+    {
+        "charCode": "23f0",
+        "pointerCode": [9200],
+        "raw": "⏰",
+        "x": 0,
+        "y": 25
+    },
+    {
+        "charCode": "23f1",
+        "pointerCode": [9201],
+        "raw": "⏱",
+        "x": 0,
+        "y": 26
+    },
+    {
+        "charCode": "23f2",
+        "pointerCode": [9202],
+        "raw": "⏲",
+        "x": 0,
+        "y": 27
+    },
+    {
+        "charCode": "23f3",
+        "pointerCode": [9203],
+        "raw": "⏳",
+        "x": 0,
+        "y": 28
+    },
+    {
+        "charCode": "23f8",
+        "pointerCode": [9208],
+        "raw": "⏸",
+        "x": 0,
+        "y": 29
+    },
+    {
+        "charCode": "23f9",
+        "pointerCode": [9209],
+        "raw": "⏹",
+        "x": 0,
+        "y": 30
+    },
+    {
+        "charCode": "23fa",
+        "pointerCode": [9210],
+        "raw": "⏺",
+        "x": 0,
+        "y": 31
+    },
+    {
+        "charCode": "24c2",
+        "pointerCode": [9410],
+        "raw": "Ⓜ️",
+        "x": 0,
+        "y": 32
+    },
+    {
+        "charCode": "25aa",
+        "pointerCode": [9642],
+        "raw": "▪️",
+        "x": 0,
+        "y": 33
+    },
+    {
+        "charCode": "25ab",
+        "pointerCode": [9643],
+        "raw": "▫️",
+        "x": 0,
+        "y": 34
+    },
+    {
+        "charCode": "25b6",
+        "pointerCode": [9654],
+        "raw": "▶️",
+        "x": 0,
+        "y": 35
+    },
+    {
+        "charCode": "25c0",
+        "pointerCode": [9664],
+        "raw": "◀️",
+        "x": 0,
+        "y": 36
+    },
+    {
+        "charCode": "25fb",
+        "pointerCode": [9723],
+        "raw": "◻️",
+        "x": 0,
+        "y": 37
+    },
+    {
+        "charCode": "25fc",
+        "pointerCode": [9724],
+        "raw": "◼️",
+        "x": 0,
+        "y": 38
+    },
+    {
+        "charCode": "25fd",
+        "pointerCode": [9725],
+        "raw": "◽️",
+        "x": 0,
+        "y": 39
+    },
+    {
+        "charCode": "25fe",
+        "pointerCode": [9726],
+        "raw": "◾️",
+        "x": 0,
+        "y": 40
+    },
+    {
+        "charCode": "260e",
+        "pointerCode": [9742],
+        "raw": "☎️",
+        "x": 1,
+        "y": 5
+    },
+    {
+        "charCode": "261d",
+        "pointerCode": [9757],
+        "raw": "☝️",
+        "x": 1,
+        "y": 10
+    },
+    {
+        "charCode": "262a",
+        "pointerCode": [9770],
+        "raw": "☪️",
+        "x": 1,
+        "y": 20
+    },
+    {
+        "charCode": "262e",
+        "pointerCode": [9774],
+        "raw": "☮️",
+        "x": 1,
+        "y": 21
+    },
+    {
+        "charCode": "262f",
+        "pointerCode": [9775],
+        "raw": "☯️",
+        "x": 1,
+        "y": 22
+    },
+    {
+        "charCode": "263a",
+        "pointerCode": [9786],
+        "raw": "☺️",
+        "x": 1,
+        "y": 25
+    },
+    {
+        "charCode": "264a",
+        "pointerCode": [9802],
+        "raw": "♊️",
+        "x": 1,
+        "y": 28
+    },
+    {
+        "charCode": "264b",
+        "pointerCode": [9803],
+        "raw": "♋️",
+        "x": 1,
+        "y": 29
+    },
+    {
+        "charCode": "264c",
+        "pointerCode": [9804],
+        "raw": "♌️",
+        "x": 1,
+        "y": 30
+    },
+    {
+        "charCode": "264d",
+        "pointerCode": [9805],
+        "raw": "♍️",
+        "x": 1,
+        "y": 31
+    },
+    {
+        "charCode": "264e",
+        "pointerCode": [9806],
+        "raw": "♎️",
+        "x": 1,
+        "y": 32
+    },
+    {
+        "charCode": "264f",
+        "pointerCode": [9807],
+        "raw": "♏️",
+        "x": 1,
+        "y": 33
+    },
+    {
+        "charCode": "267b",
+        "pointerCode": [9851],
+        "raw": "♻️",
+        "x": 2,
+        "y": 2
+    },
+    {
+        "charCode": "267f",
+        "pointerCode": [9855],
+        "raw": "♿️",
+        "x": 2,
+        "y": 3
+    },
+    {
+        "charCode": "269b",
+        "pointerCode": [9883],
+        "raw": "⚛",
+        "x": 2,
+        "y": 10
+    },
+    {
+        "charCode": "269c",
+        "pointerCode": [9884],
+        "raw": "⚜",
+        "x": 2,
+        "y": 11
+    },
+    {
+        "charCode": "26a0",
+        "pointerCode": [9888],
+        "raw": "⚠️",
+        "x": 2,
+        "y": 12
+    },
+    {
+        "charCode": "26a1",
+        "pointerCode": [9889],
+        "raw": "⚡️",
+        "x": 2,
+        "y": 13
+    },
+    {
+        "charCode": "26aa",
+        "pointerCode": [9898],
+        "raw": "⚪️",
+        "x": 2,
+        "y": 14
+    },
+    {
+        "charCode": "26ab",
+        "pointerCode": [9899],
+        "raw": "⚫️",
+        "x": 2,
+        "y": 15
+    },
+    {
+        "charCode": "26b0",
+        "pointerCode": [9904],
+        "raw": "⚰",
+        "x": 2,
+        "y": 16
+    },
+    {
+        "charCode": "26b1",
+        "pointerCode": [9905],
+        "raw": "⚱",
+        "x": 2,
+        "y": 17
+    },
+    {
+        "charCode": "26bd",
+        "pointerCode": [9917],
+        "raw": "⚽️",
+        "x": 2,
+        "y": 18
+    },
+    {
+        "charCode": "26be",
+        "pointerCode": [9918],
+        "raw": "⚾️",
+        "x": 2,
+        "y": 19
+    },
+    {
+        "charCode": "26c4",
+        "pointerCode": [9924],
+        "raw": "⛄️",
+        "x": 2,
+        "y": 20
+    },
+    {
+        "charCode": "26c5",
+        "pointerCode": [9925],
+        "raw": "⛅️",
+        "x": 2,
+        "y": 21
+    },
+    {
+        "charCode": "26c8",
+        "pointerCode": [9928],
+        "raw": "⛈",
+        "x": 2,
+        "y": 22
+    },
+    {
+        "charCode": "26ce",
+        "pointerCode": [9934],
+        "raw": "⛎",
+        "x": 2,
+        "y": 23
+    },
+    {
+        "charCode": "26cf",
+        "pointerCode": [9935],
+        "raw": "⛏",
+        "x": 2,
+        "y": 24
+    },
+    {
+        "charCode": "26d1",
+        "pointerCode": [9937],
+        "raw": "⛑",
+        "x": 2,
+        "y": 25
+    },
+    {
+        "charCode": "26d3",
+        "pointerCode": [9939],
+        "raw": "⛓",
+        "x": 2,
+        "y": 26
+    },
+    {
+        "charCode": "26d4",
+        "pointerCode": [9940],
+        "raw": "⛔️",
+        "x": 2,
+        "y": 27
+    },
+    {
+        "charCode": "26e9",
+        "pointerCode": [9961],
+        "raw": "⛩",
+        "x": 2,
+        "y": 28
+    },
+    {
+        "charCode": "26ea",
+        "pointerCode": [9962],
+        "raw": "⛪️",
+        "x": 2,
+        "y": 29
+    },
+    {
+        "charCode": "26f0",
+        "pointerCode": [9968],
+        "raw": "⛰",
+        "x": 2,
+        "y": 30
+    },
+    {
+        "charCode": "26f1",
+        "pointerCode": [9969],
+        "raw": "⛱",
+        "x": 2,
+        "y": 31
+    },
+    {
+        "charCode": "26f2",
+        "pointerCode": [9970],
+        "raw": "⛲️",
+        "x": 2,
+        "y": 32
+    },
+    {
+        "charCode": "26f3",
+        "pointerCode": [9971],
+        "raw": "⛳️",
+        "x": 2,
+        "y": 33
+    },
+    {
+        "charCode": "26f4",
+        "pointerCode": [9972],
+        "raw": "⛴",
+        "x": 2,
+        "y": 34
+    },
+    {
+        "charCode": "26f5",
+        "pointerCode": [9973],
+        "raw": "⛵️",
+        "x": 2,
+        "y": 35
+    },
+    {
+        "charCode": "26f7",
+        "pointerCode": [9975],
+        "raw": "⛷",
+        "x": 2,
+        "y": 36
+    },
+    {
+        "charCode": "26f8",
+        "pointerCode": [9976],
+        "raw": "⛸",
+        "x": 2,
+        "y": 37
+    },
+    {
+        "charCode": "26f9",
+        "pointerCode": [9977],
+        "raw": "⛹",
+        "x": 2,
+        "y": 38
+    },
+    {
+        "charCode": "26fa",
+        "pointerCode": [9978],
+        "raw": "⛺️",
+        "x": 3,
+        "y": 3
+    },
+    {
+        "charCode": "26fd",
+        "pointerCode": [9981],
+        "raw": "⛽️",
+        "x": 3,
+        "y": 4
+    },
+    {
+        "charCode": "270a",
+        "pointerCode": [9994],
+        "raw": "✊",
+        "x": 3,
+        "y": 9
+    },
+    {
+        "charCode": "270b",
+        "pointerCode": [9995],
+        "raw": "✋",
+        "x": 3,
+        "y": 15
+    },
+    {
+        "charCode": "270c",
+        "pointerCode": [9996],
+        "raw": "✌️",
+        "x": 3,
+        "y": 21
+    },
+    {
+        "charCode": "270d",
+        "pointerCode": [9997],
+        "raw": "✍️",
+        "x": 3,
+        "y": 27
+    },
+    {
+        "charCode": "270f",
+        "pointerCode": [9999],
+        "raw": "✏️",
+        "x": 3,
+        "y": 33
+    },
+    {
+        "charCode": "271d",
+        "pointerCode": [10013],
+        "raw": "✝️",
+        "x": 3,
+        "y": 37
+    },
+    {
+        "charCode": "274c",
+        "pointerCode": [10060],
+        "raw": "❌",
+        "x": 4,
+        "y": 3
+    },
+    {
+        "charCode": "274e",
+        "pointerCode": [10062],
+        "raw": "❎",
+        "x": 4,
+        "y": 4
+    },
+    {
+        "charCode": "27a1",
+        "pointerCode": [10145],
+        "raw": "➡️",
+        "x": 4,
+        "y": 14
+    },
+    {
+        "charCode": "27b0",
+        "pointerCode": [10160],
+        "raw": "➰",
+        "x": 4,
+        "y": 15
+    },
+    {
+        "charCode": "27bf",
+        "pointerCode": [10175],
+        "raw": "➿",
+        "x": 4,
+        "y": 16
+    },
+    {
+        "charCode": "2b05",
+        "pointerCode": [11013],
+        "raw": "⬅️",
+        "x": 4,
+        "y": 19
+    },
+    {
+        "charCode": "2b06",
+        "pointerCode": [11014],
+        "raw": "⬆️",
+        "x": 4,
+        "y": 20
+    },
+    {
+        "charCode": "2b07",
+        "pointerCode": [11015],
+        "raw": "⬇️",
+        "x": 4,
+        "y": 21
+    },
+    {
+        "charCode": "2b1b",
+        "pointerCode": [11035],
+        "raw": "⬛️",
+        "x": 4,
+        "y": 22
+    },
+    {
+        "charCode": "2b1c",
+        "pointerCode": [11036],
+        "raw": "⬜️",
+        "x": 4,
+        "y": 23
+    },
+    {
+        "charCode": "2b50",
+        "pointerCode": [11088],
+        "raw": "⭐️",
+        "x": 4,
+        "y": 24
+    },
+    {
+        "charCode": "2b55",
+        "pointerCode": [11093],
+        "raw": "⭕️",
+        "x": 4,
+        "y": 25
+    },
+    {
+        "charCode": "303d",
+        "pointerCode": [12349],
+        "raw": "〽️",
+        "x": 4,
+        "y": 27
+    },
+    {
+        "charCode": "1f004",
+        "pointerCode": [126980],
+        "raw": "🀄️",
+        "x": 4,
+        "y": 30
+    },
+    {
+        "charCode": "1f0cf",
+        "pointerCode": [127183],
+        "raw": "🃏",
+        "x": 4,
+        "y": 31
+    },
+    {
+        "charCode": "1f170",
+        "pointerCode": [127344],
+        "raw": "🅰️",
+        "x": 4,
+        "y": 32
+    },
+    {
+        "charCode": "1f171",
+        "pointerCode": [127345],
+        "raw": "🅱️",
+        "x": 4,
+        "y": 33
+    },
+    {
+        "charCode": "1f17e",
+        "pointerCode": [127358],
+        "raw": "🅾️",
+        "x": 4,
+        "y": 34
+    },
+    {
+        "charCode": "1f17f",
+        "pointerCode": [127359],
+        "raw": "🅿️",
+        "x": 4,
+        "y": 35
+    },
+    {
+        "charCode": "1f18e",
+        "pointerCode": [127374],
+        "raw": "🆎",
+        "x": 4,
+        "y": 36
+    },
+    {
+        "charCode": "1f191",
+        "pointerCode": [127377],
+        "raw": "🆑",
+        "x": 4,
+        "y": 37
+    },
+    {
+        "charCode": "1f192",
+        "pointerCode": [127378],
+        "raw": "🆒",
+        "x": 4,
+        "y": 38
+    },
+    {
+        "charCode": "1f193",
+        "pointerCode": [127379],
+        "raw": "🆓",
+        "x": 4,
+        "y": 39
+    },
+    {
+        "charCode": "1f194",
+        "pointerCode": [127380],
+        "raw": "🆔",
+        "x": 4,
+        "y": 40
+    },
+    {
+        "charCode": "1f195",
+        "pointerCode": [127381],
+        "raw": "🆕",
+        "x": 5,
+        "y": 0
+    },
+    {
+        "charCode": "1f196",
+        "pointerCode": [127382],
+        "raw": "🆖",
+        "x": 5,
+        "y": 1
+    },
+    {
+        "charCode": "1f197",
+        "pointerCode": [127383],
+        "raw": "🆗",
+        "x": 5,
+        "y": 2
+    },
+    {
+        "charCode": "1f198",
+        "pointerCode": [127384],
+        "raw": "🆘",
+        "x": 5,
+        "y": 3
+    },
+    {
+        "charCode": "1f199",
+        "pointerCode": [127385],
+        "raw": "🆙",
+        "x": 5,
+        "y": 4
+    },
+    {
+        "charCode": "1f19a",
+        "pointerCode": [127386],
+        "raw": "🆚",
+        "x": 5,
+        "y": 5
+    },
+    {
+        "charCode": "1f201",
+        "pointerCode": [127489],
+        "raw": "🈁",
+        "x": 5,
+        "y": 6
+    },
+    {
+        "charCode": "1f202",
+        "pointerCode": [127490],
+        "raw": "🈂️",
+        "x": 5,
+        "y": 7
+    },
+    {
+        "charCode": "1f21a",
+        "pointerCode": [127514],
+        "raw": "🈚️",
+        "x": 5,
+        "y": 8
+    },
+    {
+        "charCode": "1f22f",
+        "pointerCode": [127535],
+        "raw": "🈯️",
+        "x": 5,
+        "y": 9
+    },
+    {
+        "charCode": "1f232",
+        "pointerCode": [127538],
+        "raw": "🈲",
+        "x": 5,
+        "y": 10
+    },
+    {
+        "charCode": "1f233",
+        "pointerCode": [127539],
+        "raw": "🈳",
+        "x": 5,
+        "y": 11
+    },
+    {
+        "charCode": "1f234",
+        "pointerCode": [127540],
+        "raw": "🈴",
+        "x": 5,
+        "y": 12
+    },
+    {
+        "charCode": "1f235",
+        "pointerCode": [127541],
+        "raw": "🈵",
+        "x": 5,
+        "y": 13
+    },
+    {
+        "charCode": "1f236",
+        "pointerCode": [127542],
+        "raw": "🈶",
+        "x": 5,
+        "y": 14
+    },
+    {
+        "charCode": "1f237",
+        "pointerCode": [127543],
+        "raw": "🈷️",
+        "x": 5,
+        "y": 15
+    },
+    {
+        "charCode": "1f238",
+        "pointerCode": [127544],
+        "raw": "🈸",
+        "x": 5,
+        "y": 16
+    },
+    {
+        "charCode": "1f239",
+        "pointerCode": [127545],
+        "raw": "🈹",
+        "x": 5,
+        "y": 17
+    },
+    {
+        "charCode": "1f23a",
+        "pointerCode": [127546],
+        "raw": "🈺",
+        "x": 5,
+        "y": 18
+    },
+    {
+        "charCode": "1f250",
+        "pointerCode": [127568],
+        "raw": "🉐",
+        "x": 5,
+        "y": 19
+    },
+    {
+        "charCode": "1f251",
+        "pointerCode": [127569],
+        "raw": "🉑",
+        "x": 5,
+        "y": 20
+    },
+    {
+        "charCode": "1f300",
+        "pointerCode": [127744],
+        "raw": "🌀",
+        "x": 5,
+        "y": 21
+    },
+    {
+        "charCode": "1f301",
+        "pointerCode": [127745],
+        "raw": "🌁",
+        "x": 5,
+        "y": 22
+    },
+    {
+        "charCode": "1f302",
+        "pointerCode": [127746],
+        "raw": "🌂",
+        "x": 5,
+        "y": 23
+    },
+    {
+        "charCode": "1f303",
+        "pointerCode": [127747],
+        "raw": "🌃",
+        "x": 5,
+        "y": 24
+    },
+    {
+        "charCode": "1f304",
+        "pointerCode": [127748],
+        "raw": "🌄",
+        "x": 5,
+        "y": 25
+    },
+    {
+        "charCode": "1f305",
+        "pointerCode": [127749],
+        "raw": "🌅",
+        "x": 5,
+        "y": 26
+    },
+    {
+        "charCode": "1f306",
+        "pointerCode": [127750],
+        "raw": "🌆",
+        "x": 5,
+        "y": 27
+    },
+    {
+        "charCode": "1f307",
+        "pointerCode": [127751],
+        "raw": "🌇",
+        "x": 5,
+        "y": 28
+    },
+    {
+        "charCode": "1f308",
+        "pointerCode": [127752],
+        "raw": "🌈",
+        "x": 5,
+        "y": 29
+    },
+    {
+        "charCode": "1f309",
+        "pointerCode": [127753],
+        "raw": "🌉",
+        "x": 5,
+        "y": 30
+    },
+    {
+        "charCode": "1f30a",
+        "pointerCode": [127754],
+        "raw": "🌊",
+        "x": 5,
+        "y": 31
+    },
+    {
+        "charCode": "1f30b",
+        "pointerCode": [127755],
+        "raw": "🌋",
+        "x": 5,
+        "y": 32
+    },
+    {
+        "charCode": "1f30c",
+        "pointerCode": [127756],
+        "raw": "🌌",
+        "x": 5,
+        "y": 33
+    },
+    {
+        "charCode": "1f30d",
+        "pointerCode": [127757],
+        "raw": "🌍",
+        "x": 5,
+        "y": 34
+    },
+    {
+        "charCode": "1f30e",
+        "pointerCode": [127758],
+        "raw": "🌎",
+        "x": 5,
+        "y": 35
+    },
+    {
+        "charCode": "1f30f",
+        "pointerCode": [127759],
+        "raw": "🌏",
+        "x": 5,
+        "y": 36
+    },
+    {
+        "charCode": "1f310",
+        "pointerCode": [127760],
+        "raw": "🌐",
+        "x": 5,
+        "y": 37
+    },
+    {
+        "charCode": "1f311",
+        "pointerCode": [127761],
+        "raw": "🌑",
+        "x": 5,
+        "y": 38
+    },
+    {
+        "charCode": "1f312",
+        "pointerCode": [127762],
+        "raw": "🌒",
+        "x": 5,
+        "y": 39
+    },
+    {
+        "charCode": "1f313",
+        "pointerCode": [127763],
+        "raw": "🌓",
+        "x": 5,
+        "y": 40
+    },
+    {
+        "charCode": "1f314",
+        "pointerCode": [127764],
+        "raw": "🌔",
+        "x": 6,
+        "y": 0
+    },
+    {
+        "charCode": "1f315",
+        "pointerCode": [127765],
+        "raw": "🌕",
+        "x": 6,
+        "y": 1
+    },
+    {
+        "charCode": "1f316",
+        "pointerCode": [127766],
+        "raw": "🌖",
+        "x": 6,
+        "y": 2
+    },
+    {
+        "charCode": "1f317",
+        "pointerCode": [127767],
+        "raw": "🌗",
+        "x": 6,
+        "y": 3
+    },
+    {
+        "charCode": "1f318",
+        "pointerCode": [127768],
+        "raw": "🌘",
+        "x": 6,
+        "y": 4
+    },
+    {
+        "charCode": "1f319",
+        "pointerCode": [127769],
+        "raw": "🌙",
+        "x": 6,
+        "y": 5
+    },
+    {
+        "charCode": "1f31a",
+        "pointerCode": [127770],
+        "raw": "🌚",
+        "x": 6,
+        "y": 6
+    },
+    {
+        "charCode": "1f31b",
+        "pointerCode": [127771],
+        "raw": "🌛",
+        "x": 6,
+        "y": 7
+    },
+    {
+        "charCode": "1f31c",
+        "pointerCode": [127772],
+        "raw": "🌜",
+        "x": 6,
+        "y": 8
+    },
+    {
+        "charCode": "1f31d",
+        "pointerCode": [127773],
+        "raw": "🌝",
+        "x": 6,
+        "y": 9
+    },
+    {
+        "charCode": "1f31e",
+        "pointerCode": [127774],
+        "raw": "🌞",
+        "x": 6,
+        "y": 10
+    },
+    {
+        "charCode": "1f31f",
+        "pointerCode": [127775],
+        "raw": "🌟",
+        "x": 6,
+        "y": 11
+    },
+    {
+        "charCode": "1f320",
+        "pointerCode": [127776],
+        "raw": "🌠",
+        "x": 6,
+        "y": 12
+    },
+    {
+        "charCode": "1f321",
+        "pointerCode": [127777],
+        "raw": "🌡",
+        "x": 6,
+        "y": 13
+    },
+    {
+        "charCode": "1f324",
+        "pointerCode": [127780],
+        "raw": "🌤",
+        "x": 6,
+        "y": 14
+    },
+    {
+        "charCode": "1f325",
+        "pointerCode": [127781],
+        "raw": "🌥",
+        "x": 6,
+        "y": 15
+    },
+    {
+        "charCode": "1f326",
+        "pointerCode": [127782],
+        "raw": "🌦",
+        "x": 6,
+        "y": 16
+    },
+    {
+        "charCode": "1f327",
+        "pointerCode": [127783],
+        "raw": "🌧",
+        "x": 6,
+        "y": 17
+    },
+    {
+        "charCode": "1f328",
+        "pointerCode": [127784],
+        "raw": "🌨",
+        "x": 6,
+        "y": 18
+    },
+    {
+        "charCode": "1f329",
+        "pointerCode": [127785],
+        "raw": "🌩",
+        "x": 6,
+        "y": 19
+    },
+    {
+        "charCode": "1f32a",
+        "pointerCode": [127786],
+        "raw": "🌪",
+        "x": 6,
+        "y": 20
+    },
+    {
+        "charCode": "1f32b",
+        "pointerCode": [127787],
+        "raw": "🌫",
+        "x": 6,
+        "y": 21
+    },
+    {
+        "charCode": "1f32c",
+        "pointerCode": [127788],
+        "raw": "🌬",
+        "x": 6,
+        "y": 22
+    },
+    {
+        "charCode": "1f32d",
+        "pointerCode": [127789],
+        "raw": "🌭",
+        "x": 6,
+        "y": 23
+    },
+    {
+        "charCode": "1f32e",
+        "pointerCode": [127790],
+        "raw": "🌮",
+        "x": 6,
+        "y": 24
+    },
+    {
+        "charCode": "1f32f",
+        "pointerCode": [127791],
+        "raw": "🌯",
+        "x": 6,
+        "y": 25
+    },
+    {
+        "charCode": "1f330",
+        "pointerCode": [127792],
+        "raw": "🌰",
+        "x": 6,
+        "y": 26
+    },
+    {
+        "charCode": "1f331",
+        "pointerCode": [127793],
+        "raw": "🌱",
+        "x": 6,
+        "y": 27
+    },
+    {
+        "charCode": "1f332",
+        "pointerCode": [127794],
+        "raw": "🌲",
+        "x": 6,
+        "y": 28
+    },
+    {
+        "charCode": "1f333",
+        "pointerCode": [127795],
+        "raw": "🌳",
+        "x": 6,
+        "y": 29
+    },
+    {
+        "charCode": "1f334",
+        "pointerCode": [127796],
+        "raw": "🌴",
+        "x": 6,
+        "y": 30
+    },
+    {
+        "charCode": "1f335",
+        "pointerCode": [127797],
+        "raw": "🌵",
+        "x": 6,
+        "y": 31
+    },
+    {
+        "charCode": "1f336",
+        "pointerCode": [127798],
+        "raw": "🌶",
+        "x": 6,
+        "y": 32
+    },
+    {
+        "charCode": "1f337",
+        "pointerCode": [127799],
+        "raw": "🌷",
+        "x": 6,
+        "y": 33
+    },
+    {
+        "charCode": "1f338",
+        "pointerCode": [127800],
+        "raw": "🌸",
+        "x": 6,
+        "y": 34
+    },
+    {
+        "charCode": "1f339",
+        "pointerCode": [127801],
+        "raw": "🌹",
+        "x": 6,
+        "y": 35
+    },
+    {
+        "charCode": "1f33a",
+        "pointerCode": [127802],
+        "raw": "🌺",
+        "x": 6,
+        "y": 36
+    },
+    {
+        "charCode": "1f33b",
+        "pointerCode": [127803],
+        "raw": "🌻",
+        "x": 6,
+        "y": 37
+    },
+    {
+        "charCode": "1f33c",
+        "pointerCode": [127804],
+        "raw": "🌼",
+        "x": 6,
+        "y": 38
+    },
+    {
+        "charCode": "1f33d",
+        "pointerCode": [127805],
+        "raw": "🌽",
+        "x": 6,
+        "y": 39
+    },
+    {
+        "charCode": "1f33e",
+        "pointerCode": [127806],
+        "raw": "🌾",
+        "x": 6,
+        "y": 40
+    },
+    {
+        "charCode": "1f33f",
+        "pointerCode": [127807],
+        "raw": "🌿",
+        "x": 7,
+        "y": 0
+    },
+    {
+        "charCode": "1f340",
+        "pointerCode": [127808],
+        "raw": "🍀",
+        "x": 7,
+        "y": 1
+    },
+    {
+        "charCode": "1f341",
+        "pointerCode": [127809],
+        "raw": "🍁",
+        "x": 7,
+        "y": 2
+    },
+    {
+        "charCode": "1f342",
+        "pointerCode": [127810],
+        "raw": "🍂",
+        "x": 7,
+        "y": 3
+    },
+    {
+        "charCode": "1f343",
+        "pointerCode": [127811],
+        "raw": "🍃",
+        "x": 7,
+        "y": 4
+    },
+    {
+        "charCode": "1f344",
+        "pointerCode": [127812],
+        "raw": "🍄",
+        "x": 7,
+        "y": 5
+    },
+    {
+        "charCode": "1f345",
+        "pointerCode": [127813],
+        "raw": "🍅",
+        "x": 7,
+        "y": 6
+    },
+    {
+        "charCode": "1f346",
+        "pointerCode": [127814],
+        "raw": "🍆",
+        "x": 7,
+        "y": 7
+    },
+    {
+        "charCode": "1f347",
+        "pointerCode": [127815],
+        "raw": "🍇",
+        "x": 7,
+        "y": 8
+    },
+    {
+        "charCode": "1f348",
+        "pointerCode": [127816],
+        "raw": "🍈",
+        "x": 7,
+        "y": 9
+    },
+    {
+        "charCode": "1f349",
+        "pointerCode": [127817],
+        "raw": "🍉",
+        "x": 7,
+        "y": 10
+    },
+    {
+        "charCode": "1f34a",
+        "pointerCode": [127818],
+        "raw": "🍊",
+        "x": 7,
+        "y": 11
+    },
+    {
+        "charCode": "1f34b",
+        "pointerCode": [127819],
+        "raw": "🍋",
+        "x": 7,
+        "y": 12
+    },
+    {
+        "charCode": "1f34c",
+        "pointerCode": [127820],
+        "raw": "🍌",
+        "x": 7,
+        "y": 13
+    },
+    {
+        "charCode": "1f34d",
+        "pointerCode": [127821],
+        "raw": "🍍",
+        "x": 7,
+        "y": 14
+    },
+    {
+        "charCode": "1f34e",
+        "pointerCode": [127822],
+        "raw": "🍎",
+        "x": 7,
+        "y": 15
+    },
+    {
+        "charCode": "1f34f",
+        "pointerCode": [127823],
+        "raw": "🍏",
+        "x": 7,
+        "y": 16
+    },
+    {
+        "charCode": "1f350",
+        "pointerCode": [127824],
+        "raw": "🍐",
+        "x": 7,
+        "y": 17
+    },
+    {
+        "charCode": "1f351",
+        "pointerCode": [127825],
+        "raw": "🍑",
+        "x": 7,
+        "y": 18
+    },
+    {
+        "charCode": "1f352",
+        "pointerCode": [127826],
+        "raw": "🍒",
+        "x": 7,
+        "y": 19
+    },
+    {
+        "charCode": "1f353",
+        "pointerCode": [127827],
+        "raw": "🍓",
+        "x": 7,
+        "y": 20
+    },
+    {
+        "charCode": "1f354",
+        "pointerCode": [127828],
+        "raw": "🍔",
+        "x": 7,
+        "y": 21
+    },
+    {
+        "charCode": "1f355",
+        "pointerCode": [127829],
+        "raw": "🍕",
+        "x": 7,
+        "y": 22
+    },
+    {
+        "charCode": "1f356",
+        "pointerCode": [127830],
+        "raw": "🍖",
+        "x": 7,
+        "y": 23
+    },
+    {
+        "charCode": "1f357",
+        "pointerCode": [127831],
+        "raw": "🍗",
+        "x": 7,
+        "y": 24
+    },
+    {
+        "charCode": "1f358",
+        "pointerCode": [127832],
+        "raw": "🍘",
+        "x": 7,
+        "y": 25
+    },
+    {
+        "charCode": "1f359",
+        "pointerCode": [127833],
+        "raw": "🍙",
+        "x": 7,
+        "y": 26
+    },
+    {
+        "charCode": "1f35a",
+        "pointerCode": [127834],
+        "raw": "🍚",
+        "x": 7,
+        "y": 27
+    },
+    {
+        "charCode": "1f35b",
+        "pointerCode": [127835],
+        "raw": "🍛",
+        "x": 7,
+        "y": 28
+    },
+    {
+        "charCode": "1f35c",
+        "pointerCode": [127836],
+        "raw": "🍜",
+        "x": 7,
+        "y": 29
+    },
+    {
+        "charCode": "1f35d",
+        "pointerCode": [127837],
+        "raw": "🍝",
+        "x": 7,
+        "y": 30
+    },
+    {
+        "charCode": "1f35e",
+        "pointerCode": [127838],
+        "raw": "🍞",
+        "x": 7,
+        "y": 31
+    },
+    {
+        "charCode": "1f35f",
+        "pointerCode": [127839],
+        "raw": "🍟",
+        "x": 7,
+        "y": 32
+    },
+    {
+        "charCode": "1f360",
+        "pointerCode": [127840],
+        "raw": "🍠",
+        "x": 7,
+        "y": 33
+    },
+    {
+        "charCode": "1f361",
+        "pointerCode": [127841],
+        "raw": "🍡",
+        "x": 7,
+        "y": 34
+    },
+    {
+        "charCode": "1f362",
+        "pointerCode": [127842],
+        "raw": "🍢",
+        "x": 7,
+        "y": 35
+    },
+    {
+        "charCode": "1f363",
+        "pointerCode": [127843],
+        "raw": "🍣",
+        "x": 7,
+        "y": 36
+    },
+    {
+        "charCode": "1f364",
+        "pointerCode": [127844],
+        "raw": "🍤",
+        "x": 7,
+        "y": 37
+    },
+    {
+        "charCode": "1f365",
+        "pointerCode": [127845],
+        "raw": "🍥",
+        "x": 7,
+        "y": 38
+    },
+    {
+        "charCode": "1f366",
+        "pointerCode": [127846],
+        "raw": "🍦",
+        "x": 7,
+        "y": 39
+    },
+    {
+        "charCode": "1f367",
+        "pointerCode": [127847],
+        "raw": "🍧",
+        "x": 7,
+        "y": 40
+    },
+    {
+        "charCode": "1f368",
+        "pointerCode": [127848],
+        "raw": "🍨",
+        "x": 8,
+        "y": 0
+    },
+    {
+        "charCode": "1f369",
+        "pointerCode": [127849],
+        "raw": "🍩",
+        "x": 8,
+        "y": 1
+    },
+    {
+        "charCode": "1f36a",
+        "pointerCode": [127850],
+        "raw": "🍪",
+        "x": 8,
+        "y": 2
+    },
+    {
+        "charCode": "1f36b",
+        "pointerCode": [127851],
+        "raw": "🍫",
+        "x": 8,
+        "y": 3
+    },
+    {
+        "charCode": "1f36c",
+        "pointerCode": [127852],
+        "raw": "🍬",
+        "x": 8,
+        "y": 4
+    },
+    {
+        "charCode": "1f36d",
+        "pointerCode": [127853],
+        "raw": "🍭",
+        "x": 8,
+        "y": 5
+    },
+    {
+        "charCode": "1f36e",
+        "pointerCode": [127854],
+        "raw": "🍮",
+        "x": 8,
+        "y": 6
+    },
+    {
+        "charCode": "1f36f",
+        "pointerCode": [127855],
+        "raw": "🍯",
+        "x": 8,
+        "y": 7
+    },
+    {
+        "charCode": "1f370",
+        "pointerCode": [127856],
+        "raw": "🍰",
+        "x": 8,
+        "y": 8
+    },
+    {
+        "charCode": "1f371",
+        "pointerCode": [127857],
+        "raw": "🍱",
+        "x": 8,
+        "y": 9
+    },
+    {
+        "charCode": "1f372",
+        "pointerCode": [127858],
+        "raw": "🍲",
+        "x": 8,
+        "y": 10
+    },
+    {
+        "charCode": "1f373",
+        "pointerCode": [127859],
+        "raw": "🍳",
+        "x": 8,
+        "y": 11
+    },
+    {
+        "charCode": "1f374",
+        "pointerCode": [127860],
+        "raw": "🍴",
+        "x": 8,
+        "y": 12
+    },
+    {
+        "charCode": "1f375",
+        "pointerCode": [127861],
+        "raw": "🍵",
+        "x": 8,
+        "y": 13
+    },
+    {
+        "charCode": "1f376",
+        "pointerCode": [127862],
+        "raw": "🍶",
+        "x": 8,
+        "y": 14
+    },
+    {
+        "charCode": "1f377",
+        "pointerCode": [127863],
+        "raw": "🍷",
+        "x": 8,
+        "y": 15
+    },
+    {
+        "charCode": "1f378",
+        "pointerCode": [127864],
+        "raw": "🍸",
+        "x": 8,
+        "y": 16
+    },
+    {
+        "charCode": "1f379",
+        "pointerCode": [127865],
+        "raw": "🍹",
+        "x": 8,
+        "y": 17
+    },
+    {
+        "charCode": "1f37a",
+        "pointerCode": [127866],
+        "raw": "🍺",
+        "x": 8,
+        "y": 18
+    },
+    {
+        "charCode": "1f37b",
+        "pointerCode": [127867],
+        "raw": "🍻",
+        "x": 8,
+        "y": 19
+    },
+    {
+        "charCode": "1f37c",
+        "pointerCode": [127868],
+        "raw": "🍼",
+        "x": 8,
+        "y": 20
+    },
+    {
+        "charCode": "1f37d",
+        "pointerCode": [127869],
+        "raw": "🍽",
+        "x": 8,
+        "y": 21
+    },
+    {
+        "charCode": "1f37e",
+        "pointerCode": [127870],
+        "raw": "🍾",
+        "x": 8,
+        "y": 22
+    },
+    {
+        "charCode": "1f37f",
+        "pointerCode": [127871],
+        "raw": "🍿",
+        "x": 8,
+        "y": 23
+    },
+    {
+        "charCode": "1f380",
+        "pointerCode": [127872],
+        "raw": "🎀",
+        "x": 8,
+        "y": 24
+    },
+    {
+        "charCode": "1f381",
+        "pointerCode": [127873],
+        "raw": "🎁",
+        "x": 8,
+        "y": 25
+    },
+    {
+        "charCode": "1f382",
+        "pointerCode": [127874],
+        "raw": "🎂",
+        "x": 8,
+        "y": 26
+    },
+    {
+        "charCode": "1f383",
+        "pointerCode": [127875],
+        "raw": "🎃",
+        "x": 8,
+        "y": 27
+    },
+    {
+        "charCode": "1f384",
+        "pointerCode": [127876],
+        "raw": "🎄",
+        "x": 8,
+        "y": 28
+    },
+    {
+        "charCode": "1f385",
+        "pointerCode": [127877],
+        "raw": "🎅",
+        "x": 8,
+        "y": 29
+    },
+    {
+        "charCode": "1f386",
+        "pointerCode": [127878],
+        "raw": "🎆",
+        "x": 8,
+        "y": 35
+    },
+    {
+        "charCode": "1f387",
+        "pointerCode": [127879],
+        "raw": "🎇",
+        "x": 8,
+        "y": 36
+    },
+    {
+        "charCode": "1f388",
+        "pointerCode": [127880],
+        "raw": "🎈",
+        "x": 8,
+        "y": 37
+    },
+    {
+        "charCode": "1f389",
+        "pointerCode": [127881],
+        "raw": "🎉",
+        "x": 8,
+        "y": 38
+    },
+    {
+        "charCode": "1f38a",
+        "pointerCode": [127882],
+        "raw": "🎊",
+        "x": 8,
+        "y": 39
+    },
+    {
+        "charCode": "1f38b",
+        "pointerCode": [127883],
+        "raw": "🎋",
+        "x": 8,
+        "y": 40
+    },
+    {
+        "charCode": "1f38c",
+        "pointerCode": [127884],
+        "raw": "🎌",
+        "x": 9,
+        "y": 0
+    },
+    {
+        "charCode": "1f38d",
+        "pointerCode": [127885],
+        "raw": "🎍",
+        "x": 9,
+        "y": 1
+    },
+    {
+        "charCode": "1f38e",
+        "pointerCode": [127886],
+        "raw": "🎎",
+        "x": 9,
+        "y": 2
+    },
+    {
+        "charCode": "1f38f",
+        "pointerCode": [127887],
+        "raw": "🎏",
+        "x": 9,
+        "y": 3
+    },
+    {
+        "charCode": "1f390",
+        "pointerCode": [127888],
+        "raw": "🎐",
+        "x": 9,
+        "y": 4
+    },
+    {
+        "charCode": "1f391",
+        "pointerCode": [127889],
+        "raw": "🎑",
+        "x": 9,
+        "y": 5
+    },
+    {
+        "charCode": "1f392",
+        "pointerCode": [127890],
+        "raw": "🎒",
+        "x": 9,
+        "y": 6
+    },
+    {
+        "charCode": "1f393",
+        "pointerCode": [127891],
+        "raw": "🎓",
+        "x": 9,
+        "y": 7
+    },
+    {
+        "charCode": "1f396",
+        "pointerCode": [127894],
+        "raw": "🎖",
+        "x": 9,
+        "y": 8
+    },
+    {
+        "charCode": "1f397",
+        "pointerCode": [127895],
+        "raw": "🎗",
+        "x": 9,
+        "y": 9
+    },
+    {
+        "charCode": "1f399",
+        "pointerCode": [127897],
+        "raw": "🎙",
+        "x": 9,
+        "y": 10
+    },
+    {
+        "charCode": "1f39a",
+        "pointerCode": [127898],
+        "raw": "🎚",
+        "x": 9,
+        "y": 11
+    },
+    {
+        "charCode": "1f39b",
+        "pointerCode": [127899],
+        "raw": "🎛",
+        "x": 9,
+        "y": 12
+    },
+    {
+        "charCode": "1f39e",
+        "pointerCode": [127902],
+        "raw": "🎞",
+        "x": 9,
+        "y": 13
+    },
+    {
+        "charCode": "1f39f",
+        "pointerCode": [127903],
+        "raw": "🎟",
+        "x": 9,
+        "y": 14
+    },
+    {
+        "charCode": "1f3a0",
+        "pointerCode": [127904],
+        "raw": "🎠",
+        "x": 9,
+        "y": 15
+    },
+    {
+        "charCode": "1f3a1",
+        "pointerCode": [127905],
+        "raw": "🎡",
+        "x": 9,
+        "y": 16
+    },
+    {
+        "charCode": "1f3a2",
+        "pointerCode": [127906],
+        "raw": "🎢",
+        "x": 9,
+        "y": 17
+    },
+    {
+        "charCode": "1f3a3",
+        "pointerCode": [127907],
+        "raw": "🎣",
+        "x": 9,
+        "y": 18
+    },
+    {
+        "charCode": "1f3a4",
+        "pointerCode": [127908],
+        "raw": "🎤",
+        "x": 9,
+        "y": 19
+    },
+    {
+        "charCode": "1f3a5",
+        "pointerCode": [127909],
+        "raw": "🎥",
+        "x": 9,
+        "y": 20
+    },
+    {
+        "charCode": "1f3a6",
+        "pointerCode": [127910],
+        "raw": "🎦",
+        "x": 9,
+        "y": 21
+    },
+    {
+        "charCode": "1f3a7",
+        "pointerCode": [127911],
+        "raw": "🎧",
+        "x": 9,
+        "y": 22
+    },
+    {
+        "charCode": "1f3a8",
+        "pointerCode": [127912],
+        "raw": "🎨",
+        "x": 9,
+        "y": 23
+    },
+    {
+        "charCode": "1f3a9",
+        "pointerCode": [127913],
+        "raw": "🎩",
+        "x": 9,
+        "y": 24
+    },
+    {
+        "charCode": "1f3aa",
+        "pointerCode": [127914],
+        "raw": "🎪",
+        "x": 9,
+        "y": 25
+    },
+    {
+        "charCode": "1f3ab",
+        "pointerCode": [127915],
+        "raw": "🎫",
+        "x": 9,
+        "y": 26
+    },
+    {
+        "charCode": "1f3ac",
+        "pointerCode": [127916],
+        "raw": "🎬",
+        "x": 9,
+        "y": 27
+    },
+    {
+        "charCode": "1f3ad",
+        "pointerCode": [127917],
+        "raw": "🎭",
+        "x": 9,
+        "y": 28
+    },
+    {
+        "charCode": "1f3ae",
+        "pointerCode": [127918],
+        "raw": "🎮",
+        "x": 9,
+        "y": 29
+    },
+    {
+        "charCode": "1f3af",
+        "pointerCode": [127919],
+        "raw": "🎯",
+        "x": 9,
+        "y": 30
+    },
+    {
+        "charCode": "1f3b0",
+        "pointerCode": [127920],
+        "raw": "🎰",
+        "x": 9,
+        "y": 31
+    },
+    {
+        "charCode": "1f3b1",
+        "pointerCode": [127921],
+        "raw": "🎱",
+        "x": 9,
+        "y": 32
+    },
+    {
+        "charCode": "1f3b2",
+        "pointerCode": [127922],
+        "raw": "🎲",
+        "x": 9,
+        "y": 33
+    },
+    {
+        "charCode": "1f3b3",
+        "pointerCode": [127923],
+        "raw": "🎳",
+        "x": 9,
+        "y": 34
+    },
+    {
+        "charCode": "1f3b4",
+        "pointerCode": [127924],
+        "raw": "🎴",
+        "x": 9,
+        "y": 35
+    },
+    {
+        "charCode": "1f3b5",
+        "pointerCode": [127925],
+        "raw": "🎵",
+        "x": 9,
+        "y": 36
+    },
+    {
+        "charCode": "1f3b6",
+        "pointerCode": [127926],
+        "raw": "🎶",
+        "x": 9,
+        "y": 37
+    },
+    {
+        "charCode": "1f3b7",
+        "pointerCode": [127927],
+        "raw": "🎷",
+        "x": 9,
+        "y": 38
+    },
+    {
+        "charCode": "1f3b8",
+        "pointerCode": [127928],
+        "raw": "🎸",
+        "x": 9,
+        "y": 39
+    },
+    {
+        "charCode": "1f3b9",
+        "pointerCode": [127929],
+        "raw": "🎹",
+        "x": 9,
+        "y": 40
+    },
+    {
+        "charCode": "1f3ba",
+        "pointerCode": [127930],
+        "raw": "🎺",
+        "x": 10,
+        "y": 0
+    },
+    {
+        "charCode": "1f3bb",
+        "pointerCode": [127931],
+        "raw": "🎻",
+        "x": 10,
+        "y": 1
+    },
+    {
+        "charCode": "1f3bc",
+        "pointerCode": [127932],
+        "raw": "🎼",
+        "x": 10,
+        "y": 2
+    },
+    {
+        "charCode": "1f3bd",
+        "pointerCode": [127933],
+        "raw": "🎽",
+        "x": 10,
+        "y": 3
+    },
+    {
+        "charCode": "1f3be",
+        "pointerCode": [127934],
+        "raw": "🎾",
+        "x": 10,
+        "y": 4
+    },
+    {
+        "charCode": "1f3bf",
+        "pointerCode": [127935],
+        "raw": "🎿",
+        "x": 10,
+        "y": 5
+    },
+    {
+        "charCode": "1f3c0",
+        "pointerCode": [127936],
+        "raw": "🏀",
+        "x": 10,
+        "y": 6
+    },
+    {
+        "charCode": "1f3c1",
+        "pointerCode": [127937],
+        "raw": "🏁",
+        "x": 10,
+        "y": 7
+    },
+    {
+        "charCode": "1f3c2",
+        "pointerCode": [127938],
+        "raw": "🏂",
+        "x": 10,
+        "y": 8
+    },
+    {
+        "charCode": "1f3c3",
+        "pointerCode": [127939],
+        "raw": "🏃",
+        "x": 10,
+        "y": 9
+    },
+    {
+        "charCode": "1f3c4",
+        "pointerCode": [127940],
+        "raw": "🏄",
+        "x": 10,
+        "y": 15
+    },
+    {
+        "charCode": "1f3c5",
+        "pointerCode": [127941],
+        "raw": "🏅",
+        "x": 10,
+        "y": 21
+    },
+    {
+        "charCode": "1f3c6",
+        "pointerCode": [127942],
+        "raw": "🏆",
+        "x": 10,
+        "y": 22
+    },
+    {
+        "charCode": "1f3c7",
+        "pointerCode": [127943],
+        "raw": "🏇",
+        "x": 10,
+        "y": 23
+    },
+    {
+        "charCode": "1f3c8",
+        "pointerCode": [127944],
+        "raw": "🏈",
+        "x": 10,
+        "y": 29
+    },
+    {
+        "charCode": "1f3c9",
+        "pointerCode": [127945],
+        "raw": "🏉",
+        "x": 10,
+        "y": 30
+    },
+    {
+        "charCode": "1f3ca",
+        "pointerCode": [127946],
+        "raw": "🏊",
+        "x": 10,
+        "y": 31
+    },
+    {
+        "charCode": "1f3cb",
+        "pointerCode": [127947],
+        "raw": "🏋",
+        "x": 10,
+        "y": 37
+    },
+    {
+        "charCode": "1f3cc",
+        "pointerCode": [127948],
+        "raw": "🏌",
+        "x": 11,
+        "y": 2
+    },
+    {
+        "charCode": "1f3cd",
+        "pointerCode": [127949],
+        "raw": "🏍",
+        "x": 11,
+        "y": 3
+    },
+    {
+        "charCode": "1f3ce",
+        "pointerCode": [127950],
+        "raw": "🏎",
+        "x": 11,
+        "y": 4
+    },
+    {
+        "charCode": "1f3cf",
+        "pointerCode": [127951],
+        "raw": "🏏",
+        "x": 11,
+        "y": 5
+    },
+    {
+        "charCode": "1f3d0",
+        "pointerCode": [127952],
+        "raw": "🏐",
+        "x": 11,
+        "y": 6
+    },
+    {
+        "charCode": "1f3d1",
+        "pointerCode": [127953],
+        "raw": "🏑",
+        "x": 11,
+        "y": 7
+    },
+    {
+        "charCode": "1f3d2",
+        "pointerCode": [127954],
+        "raw": "🏒",
+        "x": 11,
+        "y": 8
+    },
+    {
+        "charCode": "1f3d3",
+        "pointerCode": [127955],
+        "raw": "🏓",
+        "x": 11,
+        "y": 9
+    },
+    {
+        "charCode": "1f3d4",
+        "pointerCode": [127956],
+        "raw": "🏔",
+        "x": 11,
+        "y": 10
+    },
+    {
+        "charCode": "1f3d5",
+        "pointerCode": [127957],
+        "raw": "🏕",
+        "x": 11,
+        "y": 11
+    },
+    {
+        "charCode": "1f3d6",
+        "pointerCode": [127958],
+        "raw": "🏖",
+        "x": 11,
+        "y": 12
+    },
+    {
+        "charCode": "1f3d7",
+        "pointerCode": [127959],
+        "raw": "🏗",
+        "x": 11,
+        "y": 13
+    },
+    {
+        "charCode": "1f3d8",
+        "pointerCode": [127960],
+        "raw": "🏘",
+        "x": 11,
+        "y": 14
+    },
+    {
+        "charCode": "1f3d9",
+        "pointerCode": [127961],
+        "raw": "🏙",
+        "x": 11,
+        "y": 15
+    },
+    {
+        "charCode": "1f3da",
+        "pointerCode": [127962],
+        "raw": "🏚",
+        "x": 11,
+        "y": 16
+    },
+    {
+        "charCode": "1f3db",
+        "pointerCode": [127963],
+        "raw": "🏛",
+        "x": 11,
+        "y": 17
+    },
+    {
+        "charCode": "1f3dc",
+        "pointerCode": [127964],
+        "raw": "🏜",
+        "x": 11,
+        "y": 18
+    },
+    {
+        "charCode": "1f3dd",
+        "pointerCode": [127965],
+        "raw": "🏝",
+        "x": 11,
+        "y": 19
+    },
+    {
+        "charCode": "1f3de",
+        "pointerCode": [127966],
+        "raw": "🏞",
+        "x": 11,
+        "y": 20
+    },
+    {
+        "charCode": "1f3df",
+        "pointerCode": [127967],
+        "raw": "🏟",
+        "x": 11,
+        "y": 21
+    },
+    {
+        "charCode": "1f3e0",
+        "pointerCode": [127968],
+        "raw": "🏠",
+        "x": 11,
+        "y": 22
+    },
+    {
+        "charCode": "1f3e1",
+        "pointerCode": [127969],
+        "raw": "🏡",
+        "x": 11,
+        "y": 23
+    },
+    {
+        "charCode": "1f3e2",
+        "pointerCode": [127970],
+        "raw": "🏢",
+        "x": 11,
+        "y": 24
+    },
+    {
+        "charCode": "1f3e3",
+        "pointerCode": [127971],
+        "raw": "🏣",
+        "x": 11,
+        "y": 25
+    },
+    {
+        "charCode": "1f3e4",
+        "pointerCode": [127972],
+        "raw": "🏤",
+        "x": 11,
+        "y": 26
+    },
+    {
+        "charCode": "1f3e5",
+        "pointerCode": [127973],
+        "raw": "🏥",
+        "x": 11,
+        "y": 27
+    },
+    {
+        "charCode": "1f3e6",
+        "pointerCode": [127974],
+        "raw": "🏦",
+        "x": 11,
+        "y": 28
+    },
+    {
+        "charCode": "1f3e7",
+        "pointerCode": [127975],
+        "raw": "🏧",
+        "x": 11,
+        "y": 29
+    },
+    {
+        "charCode": "1f3e8",
+        "pointerCode": [127976],
+        "raw": "🏨",
+        "x": 11,
+        "y": 30
+    },
+    {
+        "charCode": "1f3e9",
+        "pointerCode": [127977],
+        "raw": "🏩",
+        "x": 11,
+        "y": 31
+    },
+    {
+        "charCode": "1f3ea",
+        "pointerCode": [127978],
+        "raw": "🏪",
+        "x": 11,
+        "y": 32
+    },
+    {
+        "charCode": "1f3eb",
+        "pointerCode": [127979],
+        "raw": "🏫",
+        "x": 11,
+        "y": 33
+    },
+    {
+        "charCode": "1f3ec",
+        "pointerCode": [127980],
+        "raw": "🏬",
+        "x": 11,
+        "y": 34
+    },
+    {
+        "charCode": "1f3ed",
+        "pointerCode": [127981],
+        "raw": "🏭",
+        "x": 11,
+        "y": 35
+    },
+    {
+        "charCode": "1f3ee",
+        "pointerCode": [127982],
+        "raw": "🏮",
+        "x": 11,
+        "y": 36
+    },
+    {
+        "charCode": "1f3ef",
+        "pointerCode": [127983],
+        "raw": "🏯",
+        "x": 11,
+        "y": 37
+    },
+    {
+        "charCode": "1f3f0",
+        "pointerCode": [127984],
+        "raw": "🏰",
+        "x": 11,
+        "y": 38
+    },
+    {
+        "charCode": "1f3f3",
+        "pointerCode": [127987],
+        "raw": "🏳",
+        "x": 11,
+        "y": 39
+    },
+    {
+        "charCode": "1f3f4",
+        "pointerCode": [127988],
+        "raw": "🏴",
+        "x": 11,
+        "y": 40
+    },
+    {
+        "charCode": "1f3f5",
+        "pointerCode": [127989],
+        "raw": "🏵",
+        "x": 12,
+        "y": 0
+    },
+    {
+        "charCode": "1f3f7",
+        "pointerCode": [127991],
+        "raw": "🏷",
+        "x": 12,
+        "y": 1
+    },
+    {
+        "charCode": "1f3f8",
+        "pointerCode": [127992],
+        "raw": "🏸",
+        "x": 12,
+        "y": 2
+    },
+    {
+        "charCode": "1f3f9",
+        "pointerCode": [127993],
+        "raw": "🏹",
+        "x": 12,
+        "y": 3
+    },
+    {
+        "charCode": "1f3fa",
+        "pointerCode": [127994],
+        "raw": "🏺",
+        "x": 12,
+        "y": 4
+    },
+    {
+        "charCode": "1f3fb",
+        "pointerCode": [127995],
+        "raw": "🏻",
+        "x": 12,
+        "y": 5
+    },
+    {
+        "charCode": "1f3fc",
+        "pointerCode": [127996],
+        "raw": "🏼",
+        "x": 12,
+        "y": 6
+    },
+    {
+        "charCode": "1f3fd",
+        "pointerCode": [127997],
+        "raw": "🏽",
+        "x": 12,
+        "y": 7
+    },
+    {
+        "charCode": "1f3fe",
+        "pointerCode": [127998],
+        "raw": "🏾",
+        "x": 12,
+        "y": 8
+    },
+    {
+        "charCode": "1f3ff",
+        "pointerCode": [127999],
+        "raw": "🏿",
+        "x": 12,
+        "y": 9
+    },
+    {
+        "charCode": "1f400",
+        "pointerCode": [128000],
+        "raw": "🐀",
+        "x": 12,
+        "y": 10
+    },
+    {
+        "charCode": "1f401",
+        "pointerCode": [128001],
+        "raw": "🐁",
+        "x": 12,
+        "y": 11
+    },
+    {
+        "charCode": "1f402",
+        "pointerCode": [128002],
+        "raw": "🐂",
+        "x": 12,
+        "y": 12
+    },
+    {
+        "charCode": "1f403",
+        "pointerCode": [128003],
+        "raw": "🐃",
+        "x": 12,
+        "y": 13
+    },
+    {
+        "charCode": "1f404",
+        "pointerCode": [128004],
+        "raw": "🐄",
+        "x": 12,
+        "y": 14
+    },
+    {
+        "charCode": "1f405",
+        "pointerCode": [128005],
+        "raw": "🐅",
+        "x": 12,
+        "y": 15
+    },
+    {
+        "charCode": "1f406",
+        "pointerCode": [128006],
+        "raw": "🐆",
+        "x": 12,
+        "y": 16
+    },
+    {
+        "charCode": "1f407",
+        "pointerCode": [128007],
+        "raw": "🐇",
+        "x": 12,
+        "y": 17
+    },
+    {
+        "charCode": "1f408",
+        "pointerCode": [128008],
+        "raw": "🐈",
+        "x": 12,
+        "y": 18
+    },
+    {
+        "charCode": "1f409",
+        "pointerCode": [128009],
+        "raw": "🐉",
+        "x": 12,
+        "y": 19
+    },
+    {
+        "charCode": "1f40a",
+        "pointerCode": [128010],
+        "raw": "🐊",
+        "x": 12,
+        "y": 20
+    },
+    {
+        "charCode": "1f40b",
+        "pointerCode": [128011],
+        "raw": "🐋",
+        "x": 12,
+        "y": 21
+    },
+    {
+        "charCode": "1f40c",
+        "pointerCode": [128012],
+        "raw": "🐌",
+        "x": 12,
+        "y": 22
+    },
+    {
+        "charCode": "1f40d",
+        "pointerCode": [128013],
+        "raw": "🐍",
+        "x": 12,
+        "y": 23
+    },
+    {
+        "charCode": "1f40e",
+        "pointerCode": [128014],
+        "raw": "🐎",
+        "x": 12,
+        "y": 24
+    },
+    {
+        "charCode": "1f40f",
+        "pointerCode": [128015],
+        "raw": "🐏",
+        "x": 12,
+        "y": 25
+    },
+    {
+        "charCode": "1f410",
+        "pointerCode": [128016],
+        "raw": "🐐",
+        "x": 12,
+        "y": 26
+    },
+    {
+        "charCode": "1f411",
+        "pointerCode": [128017],
+        "raw": "🐑",
+        "x": 12,
+        "y": 27
+    },
+    {
+        "charCode": "1f412",
+        "pointerCode": [128018],
+        "raw": "🐒",
+        "x": 12,
+        "y": 28
+    },
+    {
+        "charCode": "1f413",
+        "pointerCode": [128019],
+        "raw": "🐓",
+        "x": 12,
+        "y": 29
+    },
+    {
+        "charCode": "1f414",
+        "pointerCode": [128020],
+        "raw": "🐔",
+        "x": 12,
+        "y": 30
+    },
+    {
+        "charCode": "1f415",
+        "pointerCode": [128021],
+        "raw": "🐕",
+        "x": 12,
+        "y": 31
+    },
+    {
+        "charCode": "1f416",
+        "pointerCode": [128022],
+        "raw": "🐖",
+        "x": 12,
+        "y": 32
+    },
+    {
+        "charCode": "1f417",
+        "pointerCode": [128023],
+        "raw": "🐗",
+        "x": 12,
+        "y": 33
+    },
+    {
+        "charCode": "1f418",
+        "pointerCode": [128024],
+        "raw": "🐘",
+        "x": 12,
+        "y": 34
+    },
+    {
+        "charCode": "1f419",
+        "pointerCode": [128025],
+        "raw": "🐙",
+        "x": 12,
+        "y": 35
+    },
+    {
+        "charCode": "1f41a",
+        "pointerCode": [128026],
+        "raw": "🐚",
+        "x": 12,
+        "y": 36
+    },
+    {
+        "charCode": "1f41b",
+        "pointerCode": [128027],
+        "raw": "🐛",
+        "x": 12,
+        "y": 37
+    },
+    {
+        "charCode": "1f41c",
+        "pointerCode": [128028],
+        "raw": "🐜",
+        "x": 12,
+        "y": 38
+    },
+    {
+        "charCode": "1f41d",
+        "pointerCode": [128029],
+        "raw": "🐝",
+        "x": 12,
+        "y": 39
+    },
+    {
+        "charCode": "1f41e",
+        "pointerCode": [128030],
+        "raw": "🐞",
+        "x": 12,
+        "y": 40
+    },
+    {
+        "charCode": "1f41f",
+        "pointerCode": [128031],
+        "raw": "🐟",
+        "x": 13,
+        "y": 0
+    },
+    {
+        "charCode": "1f420",
+        "pointerCode": [128032],
+        "raw": "🐠",
+        "x": 13,
+        "y": 1
+    },
+    {
+        "charCode": "1f421",
+        "pointerCode": [128033],
+        "raw": "🐡",
+        "x": 13,
+        "y": 2
+    },
+    {
+        "charCode": "1f422",
+        "pointerCode": [128034],
+        "raw": "🐢",
+        "x": 13,
+        "y": 3
+    },
+    {
+        "charCode": "1f423",
+        "pointerCode": [128035],
+        "raw": "🐣",
+        "x": 13,
+        "y": 4
+    },
+    {
+        "charCode": "1f424",
+        "pointerCode": [128036],
+        "raw": "🐤",
+        "x": 13,
+        "y": 5
+    },
+    {
+        "charCode": "1f425",
+        "pointerCode": [128037],
+        "raw": "🐥",
+        "x": 13,
+        "y": 6
+    },
+    {
+        "charCode": "1f426",
+        "pointerCode": [128038],
+        "raw": "🐦",
+        "x": 13,
+        "y": 7
+    },
+    {
+        "charCode": "1f427",
+        "pointerCode": [128039],
+        "raw": "🐧",
+        "x": 13,
+        "y": 8
+    },
+    {
+        "charCode": "1f428",
+        "pointerCode": [128040],
+        "raw": "🐨",
+        "x": 13,
+        "y": 9
+    },
+    {
+        "charCode": "1f429",
+        "pointerCode": [128041],
+        "raw": "🐩",
+        "x": 13,
+        "y": 10
+    },
+    {
+        "charCode": "1f42a",
+        "pointerCode": [128042],
+        "raw": "🐪",
+        "x": 13,
+        "y": 11
+    },
+    {
+        "charCode": "1f42b",
+        "pointerCode": [128043],
+        "raw": "🐫",
+        "x": 13,
+        "y": 12
+    },
+    {
+        "charCode": "1f42c",
+        "pointerCode": [128044],
+        "raw": "🐬",
+        "x": 13,
+        "y": 13
+    },
+    {
+        "charCode": "1f42d",
+        "pointerCode": [128045],
+        "raw": "🐭",
+        "x": 13,
+        "y": 14
+    },
+    {
+        "charCode": "1f42e",
+        "pointerCode": [128046],
+        "raw": "🐮",
+        "x": 13,
+        "y": 15
+    },
+    {
+        "charCode": "1f42f",
+        "pointerCode": [128047],
+        "raw": "🐯",
+        "x": 13,
+        "y": 16
+    },
+    {
+        "charCode": "1f430",
+        "pointerCode": [128048],
+        "raw": "🐰",
+        "x": 13,
+        "y": 17
+    },
+    {
+        "charCode": "1f431",
+        "pointerCode": [128049],
+        "raw": "🐱",
+        "x": 13,
+        "y": 18
+    },
+    {
+        "charCode": "1f432",
+        "pointerCode": [128050],
+        "raw": "🐲",
+        "x": 13,
+        "y": 19
+    },
+    {
+        "charCode": "1f433",
+        "pointerCode": [128051],
+        "raw": "🐳",
+        "x": 13,
+        "y": 20
+    },
+    {
+        "charCode": "1f434",
+        "pointerCode": [128052],
+        "raw": "🐴",
+        "x": 13,
+        "y": 21
+    },
+    {
+        "charCode": "1f435",
+        "pointerCode": [128053],
+        "raw": "🐵",
+        "x": 13,
+        "y": 22
+    },
+    {
+        "charCode": "1f436",
+        "pointerCode": [128054],
+        "raw": "🐶",
+        "x": 13,
+        "y": 23
+    },
+    {
+        "charCode": "1f437",
+        "pointerCode": [128055],
+        "raw": "🐷",
+        "x": 13,
+        "y": 24
+    },
+    {
+        "charCode": "1f438",
+        "pointerCode": [128056],
+        "raw": "🐸",
+        "x": 13,
+        "y": 25
+    },
+    {
+        "charCode": "1f439",
+        "pointerCode": [128057],
+        "raw": "🐹",
+        "x": 13,
+        "y": 26
+    },
+    {
+        "charCode": "1f43a",
+        "pointerCode": [128058],
+        "raw": "🐺",
+        "x": 13,
+        "y": 27
+    },
+    {
+        "charCode": "1f43b",
+        "pointerCode": [128059],
+        "raw": "🐻",
+        "x": 13,
+        "y": 28
+    },
+    {
+        "charCode": "1f43c",
+        "pointerCode": [128060],
+        "raw": "🐼",
+        "x": 13,
+        "y": 29
+    },
+    {
+        "charCode": "1f43d",
+        "pointerCode": [128061],
+        "raw": "🐽",
+        "x": 13,
+        "y": 30
+    },
+    {
+        "charCode": "1f43e",
+        "pointerCode": [128062],
+        "raw": "🐾",
+        "x": 13,
+        "y": 31
+    },
+    {
+        "charCode": "1f43f",
+        "pointerCode": [128063],
+        "raw": "🐿",
+        "x": 13,
+        "y": 32
+    },
+    {
+        "charCode": "1f440",
+        "pointerCode": [128064],
+        "raw": "👀",
+        "x": 13,
+        "y": 33
+    },
+    {
+        "charCode": "1f441",
+        "pointerCode": [128065],
+        "raw": "👁",
+        "x": 13,
+        "y": 34
+    },
+    {
+        "charCode": "1f442",
+        "pointerCode": [128066],
+        "raw": "👂",
+        "x": 13,
+        "y": 35
+    },
+    {
+        "charCode": "1f443",
+        "pointerCode": [128067],
+        "raw": "👃",
+        "x": 14,
+        "y": 0
+    },
+    {
+        "charCode": "1f444",
+        "pointerCode": [128068],
+        "raw": "👄",
+        "x": 14,
+        "y": 6
+    },
+    {
+        "charCode": "1f445",
+        "pointerCode": [128069],
+        "raw": "👅",
+        "x": 14,
+        "y": 7
+    },
+    {
+        "charCode": "1f446",
+        "pointerCode": [128070],
+        "raw": "👆",
+        "x": 14,
+        "y": 8
+    },
+    {
+        "charCode": "1f447",
+        "pointerCode": [128071],
+        "raw": "👇",
+        "x": 14,
+        "y": 14
+    },
+    {
+        "charCode": "1f448",
+        "pointerCode": [128072],
+        "raw": "👈",
+        "x": 14,
+        "y": 20
+    },
+    {
+        "charCode": "1f449",
+        "pointerCode": [128073],
+        "raw": "👉",
+        "x": 14,
+        "y": 26
+    },
+    {
+        "charCode": "1f44a",
+        "pointerCode": [128074],
+        "raw": "👊",
+        "x": 14,
+        "y": 32
+    },
+    {
+        "charCode": "1f44b",
+        "pointerCode": [128075],
+        "raw": "👋",
+        "x": 14,
+        "y": 38
+    },
+    {
+        "charCode": "1f44c",
+        "pointerCode": [128076],
+        "raw": "👌",
+        "x": 15,
+        "y": 3
+    },
+    {
+        "charCode": "1f44d",
+        "pointerCode": [128077],
+        "raw": "👍",
+        "x": 15,
+        "y": 9
+    },
+    {
+        "charCode": "1f44e",
+        "pointerCode": [128078],
+        "raw": "👎",
+        "x": 15,
+        "y": 15
+    },
+    {
+        "charCode": "1f44f",
+        "pointerCode": [128079],
+        "raw": "👏",
+        "x": 15,
+        "y": 21
+    },
+    {
+        "charCode": "1f450",
+        "pointerCode": [128080],
+        "raw": "👐",
+        "x": 15,
+        "y": 27
+    },
+    {
+        "charCode": "1f451",
+        "pointerCode": [128081],
+        "raw": "👑",
+        "x": 15,
+        "y": 33
+    },
+    {
+        "charCode": "1f452",
+        "pointerCode": [128082],
+        "raw": "👒",
+        "x": 15,
+        "y": 34
+    },
+    {
+        "charCode": "1f453",
+        "pointerCode": [128083],
+        "raw": "👓",
+        "x": 15,
+        "y": 35
+    },
+    {
+        "charCode": "1f454",
+        "pointerCode": [128084],
+        "raw": "👔",
+        "x": 15,
+        "y": 36
+    },
+    {
+        "charCode": "1f455",
+        "pointerCode": [128085],
+        "raw": "👕",
+        "x": 15,
+        "y": 37
+    },
+    {
+        "charCode": "1f456",
+        "pointerCode": [128086],
+        "raw": "👖",
+        "x": 15,
+        "y": 38
+    },
+    {
+        "charCode": "1f457",
+        "pointerCode": [128087],
+        "raw": "👗",
+        "x": 15,
+        "y": 39
+    },
+    {
+        "charCode": "1f458",
+        "pointerCode": [128088],
+        "raw": "👘",
+        "x": 15,
+        "y": 40
+    },
+    {
+        "charCode": "1f459",
+        "pointerCode": [128089],
+        "raw": "👙",
+        "x": 16,
+        "y": 0
+    },
+    {
+        "charCode": "1f45a",
+        "pointerCode": [128090],
+        "raw": "👚",
+        "x": 16,
+        "y": 1
+    },
+    {
+        "charCode": "1f45b",
+        "pointerCode": [128091],
+        "raw": "👛",
+        "x": 16,
+        "y": 2
+    },
+    {
+        "charCode": "1f45c",
+        "pointerCode": [128092],
+        "raw": "👜",
+        "x": 16,
+        "y": 3
+    },
+    {
+        "charCode": "1f45d",
+        "pointerCode": [128093],
+        "raw": "👝",
+        "x": 16,
+        "y": 4
+    },
+    {
+        "charCode": "1f45e",
+        "pointerCode": [128094],
+        "raw": "👞",
+        "x": 16,
+        "y": 5
+    },
+    {
+        "charCode": "1f45f",
+        "pointerCode": [128095],
+        "raw": "👟",
+        "x": 16,
+        "y": 6
+    },
+    {
+        "charCode": "1f460",
+        "pointerCode": [128096],
+        "raw": "👠",
+        "x": 16,
+        "y": 7
+    },
+    {
+        "charCode": "1f461",
+        "pointerCode": [128097],
+        "raw": "👡",
+        "x": 16,
+        "y": 8
+    },
+    {
+        "charCode": "1f462",
+        "pointerCode": [128098],
+        "raw": "👢",
+        "x": 16,
+        "y": 9
+    },
+    {
+        "charCode": "1f463",
+        "pointerCode": [128099],
+        "raw": "👣",
+        "x": 16,
+        "y": 10
+    },
+    {
+        "charCode": "1f464",
+        "pointerCode": [128100],
+        "raw": "👤",
+        "x": 16,
+        "y": 11
+    },
+    {
+        "charCode": "1f465",
+        "pointerCode": [128101],
+        "raw": "👥",
+        "x": 16,
+        "y": 12
+    },
+    {
+        "charCode": "1f466",
+        "pointerCode": [128102],
+        "raw": "👦",
+        "x": 16,
+        "y": 13
+    },
+    {
+        "charCode": "1f467",
+        "pointerCode": [128103],
+        "raw": "👧",
+        "x": 16,
+        "y": 19
+    },
+    {
+        "charCode": "1f468",
+        "pointerCode": [128104],
+        "raw": "👨",
+        "x": 16,
+        "y": 25
+    },
+    {
+        "charCode": "1f469",
+        "pointerCode": [128105],
+        "raw": "👩",
+        "x": 16,
+        "y": 31
+    },
+    {
+        "charCode": "1f46a",
+        "pointerCode": [128104],
+        "raw": "👨‍👩‍👦",
+        "x": 16,
+        "y": 37
+    },
+    {
+        "charCode": "1f46b",
+        "pointerCode": [128107],
+        "raw": "👫",
+        "x": 16,
+        "y": 38
+    },
+    {
+        "charCode": "1f46c",
+        "pointerCode": [128108],
+        "raw": "👬",
+        "x": 16,
+        "y": 39
+    },
+    {
+        "charCode": "1f46d",
+        "pointerCode": [128109],
+        "raw": "👭",
+        "x": 16,
+        "y": 40
+    },
+    {
+        "charCode": "1f46e",
+        "pointerCode": [128110],
+        "raw": "👮",
+        "x": 17,
+        "y": 0
+    },
+    {
+        "charCode": "1f46f",
+        "pointerCode": [128111],
+        "raw": "👯",
+        "x": 17,
+        "y": 6
+    },
+    {
+        "charCode": "1f470",
+        "pointerCode": [128112],
+        "raw": "👰",
+        "x": 17,
+        "y": 7
+    },
+    {
+        "charCode": "1f471",
+        "pointerCode": [128113],
+        "raw": "👱",
+        "x": 17,
+        "y": 13
+    },
+    {
+        "charCode": "1f472",
+        "pointerCode": [128114],
+        "raw": "👲",
+        "x": 17,
+        "y": 19
+    },
+    {
+        "charCode": "1f473",
+        "pointerCode": [128115],
+        "raw": "👳",
+        "x": 17,
+        "y": 25
+    },
+    {
+        "charCode": "1f474",
+        "pointerCode": [128116],
+        "raw": "👴",
+        "x": 17,
+        "y": 31
+    },
+    {
+        "charCode": "1f475",
+        "pointerCode": [128117],
+        "raw": "👵",
+        "x": 17,
+        "y": 37
+    },
+    {
+        "charCode": "1f476",
+        "pointerCode": [128118],
+        "raw": "👶",
+        "x": 18,
+        "y": 2
+    },
+    {
+        "charCode": "1f477",
+        "pointerCode": [128119],
+        "raw": "👷",
+        "x": 18,
+        "y": 8
+    },
+    {
+        "charCode": "1f478",
+        "pointerCode": [128120],
+        "raw": "👸",
+        "x": 18,
+        "y": 14
+    },
+    {
+        "charCode": "1f479",
+        "pointerCode": [128121],
+        "raw": "👹",
+        "x": 18,
+        "y": 20
+    },
+    {
+        "charCode": "1f47a",
+        "pointerCode": [128122],
+        "raw": "👺",
+        "x": 18,
+        "y": 21
+    },
+    {
+        "charCode": "1f47b",
+        "pointerCode": [128123],
+        "raw": "👻",
+        "x": 18,
+        "y": 22
+    },
+    {
+        "charCode": "1f47c",
+        "pointerCode": [128124],
+        "raw": "👼",
+        "x": 18,
+        "y": 23
+    },
+    {
+        "charCode": "1f47d",
+        "pointerCode": [128125],
+        "raw": "👽",
+        "x": 18,
+        "y": 29
+    },
+    {
+        "charCode": "1f47e",
+        "pointerCode": [128126],
+        "raw": "👾",
+        "x": 18,
+        "y": 30
+    },
+    {
+        "charCode": "1f47f",
+        "pointerCode": [128127],
+        "raw": "👿",
+        "x": 18,
+        "y": 31
+    },
+    {
+        "charCode": "1f480",
+        "pointerCode": [128128],
+        "raw": "💀",
+        "x": 18,
+        "y": 32
+    },
+    {
+        "charCode": "1f481",
+        "pointerCode": [128129],
+        "raw": "💁",
+        "x": 18,
+        "y": 33
+    },
+    {
+        "charCode": "1f482",
+        "pointerCode": [128130],
+        "raw": "💂",
+        "x": 18,
+        "y": 39
+    },
+    {
+        "charCode": "1f483",
+        "pointerCode": [128131],
+        "raw": "💃",
+        "x": 19,
+        "y": 4
+    },
+    {
+        "charCode": "1f484",
+        "pointerCode": [128132],
+        "raw": "💄",
+        "x": 19,
+        "y": 10
+    },
+    {
+        "charCode": "1f485",
+        "pointerCode": [128133],
+        "raw": "💅",
+        "x": 19,
+        "y": 11
+    },
+    {
+        "charCode": "1f486",
+        "pointerCode": [128134],
+        "raw": "💆",
+        "x": 19,
+        "y": 17
+    },
+    {
+        "charCode": "1f487",
+        "pointerCode": [128135],
+        "raw": "💇",
+        "x": 19,
+        "y": 23
+    },
+    {
+        "charCode": "1f488",
+        "pointerCode": [128136],
+        "raw": "💈",
+        "x": 19,
+        "y": 29
+    },
+    {
+        "charCode": "1f489",
+        "pointerCode": [128137],
+        "raw": "💉",
+        "x": 19,
+        "y": 30
+    },
+    {
+        "charCode": "1f48a",
+        "pointerCode": [128138],
+        "raw": "💊",
+        "x": 19,
+        "y": 31
+    },
+    {
+        "charCode": "1f48b",
+        "pointerCode": [128139],
+        "raw": "💋",
+        "x": 19,
+        "y": 32
+    },
+    {
+        "charCode": "1f48c",
+        "pointerCode": [128140],
+        "raw": "💌",
+        "x": 19,
+        "y": 33
+    },
+    {
+        "charCode": "1f48d",
+        "pointerCode": [128141],
+        "raw": "💍",
+        "x": 19,
+        "y": 34
+    },
+    {
+        "charCode": "1f48e",
+        "pointerCode": [128142],
+        "raw": "💎",
+        "x": 19,
+        "y": 35
+    },
+    {
+        "charCode": "1f48f",
+        "pointerCode": [128143],
+        "raw": "💏",
+        "x": 19,
+        "y": 36
+    },
+    {
+        "charCode": "1f490",
+        "pointerCode": [128144],
+        "raw": "💐",
+        "x": 19,
+        "y": 37
+    },
+    {
+        "charCode": "1f491",
+        "pointerCode": [128145],
+        "raw": "💑",
+        "x": 19,
+        "y": 38
+    },
+    {
+        "charCode": "1f492",
+        "pointerCode": [128146],
+        "raw": "💒",
+        "x": 19,
+        "y": 39
+    },
+    {
+        "charCode": "1f493",
+        "pointerCode": [128147],
+        "raw": "💓",
+        "x": 19,
+        "y": 40
+    },
+    {
+        "charCode": "1f494",
+        "pointerCode": [128148],
+        "raw": "💔",
+        "x": 20,
+        "y": 0
+    },
+    {
+        "charCode": "1f495",
+        "pointerCode": [128149],
+        "raw": "💕",
+        "x": 20,
+        "y": 1
+    },
+    {
+        "charCode": "1f496",
+        "pointerCode": [128150],
+        "raw": "💖",
+        "x": 20,
+        "y": 2
+    },
+    {
+        "charCode": "1f497",
+        "pointerCode": [128151],
+        "raw": "💗",
+        "x": 20,
+        "y": 3
+    },
+    {
+        "charCode": "1f498",
+        "pointerCode": [128152],
+        "raw": "💘",
+        "x": 20,
+        "y": 4
+    },
+    {
+        "charCode": "1f499",
+        "pointerCode": [128153],
+        "raw": "💙",
+        "x": 20,
+        "y": 5
+    },
+    {
+        "charCode": "1f49a",
+        "pointerCode": [128154],
+        "raw": "💚",
+        "x": 20,
+        "y": 6
+    },
+    {
+        "charCode": "1f49b",
+        "pointerCode": [128155],
+        "raw": "💛",
+        "x": 20,
+        "y": 7
+    },
+    {
+        "charCode": "1f49c",
+        "pointerCode": [128156],
+        "raw": "💜",
+        "x": 20,
+        "y": 8
+    },
+    {
+        "charCode": "1f49d",
+        "pointerCode": [128157],
+        "raw": "💝",
+        "x": 20,
+        "y": 9
+    },
+    {
+        "charCode": "1f49e",
+        "pointerCode": [128158],
+        "raw": "💞",
+        "x": 20,
+        "y": 10
+    },
+    {
+        "charCode": "1f49f",
+        "pointerCode": [128159],
+        "raw": "💟",
+        "x": 20,
+        "y": 11
+    },
+    {
+        "charCode": "1f4a0",
+        "pointerCode": [128160],
+        "raw": "💠",
+        "x": 20,
+        "y": 12
+    },
+    {
+        "charCode": "1f4a1",
+        "pointerCode": [128161],
+        "raw": "💡",
+        "x": 20,
+        "y": 13
+    },
+    {
+        "charCode": "1f4a2",
+        "pointerCode": [128162],
+        "raw": "💢",
+        "x": 20,
+        "y": 14
+    },
+    {
+        "charCode": "1f4a3",
+        "pointerCode": [128163],
+        "raw": "💣",
+        "x": 20,
+        "y": 15
+    },
+    {
+        "charCode": "1f4a4",
+        "pointerCode": [128164],
+        "raw": "💤",
+        "x": 20,
+        "y": 16
+    },
+    {
+        "charCode": "1f4a5",
+        "pointerCode": [128165],
+        "raw": "💥",
+        "x": 20,
+        "y": 17
+    },
+    {
+        "charCode": "1f4a6",
+        "pointerCode": [128166],
+        "raw": "💦",
+        "x": 20,
+        "y": 18
+    },
+    {
+        "charCode": "1f4a7",
+        "pointerCode": [128167],
+        "raw": "💧",
+        "x": 20,
+        "y": 19
+    },
+    {
+        "charCode": "1f4a8",
+        "pointerCode": [128168],
+        "raw": "💨",
+        "x": 20,
+        "y": 20
+    },
+    {
+        "charCode": "1f4a9",
+        "pointerCode": [128169],
+        "raw": "💩",
+        "x": 20,
+        "y": 21
+    },
+    {
+        "charCode": "1f4aa",
+        "pointerCode": [128170],
+        "raw": "💪",
+        "x": 20,
+        "y": 22
+    },
+    {
+        "charCode": "1f4ab",
+        "pointerCode": [128171],
+        "raw": "💫",
+        "x": 20,
+        "y": 28
+    },
+    {
+        "charCode": "1f4ac",
+        "pointerCode": [128172],
+        "raw": "💬",
+        "x": 20,
+        "y": 29
+    },
+    {
+        "charCode": "1f4ad",
+        "pointerCode": [128173],
+        "raw": "💭",
+        "x": 20,
+        "y": 30
+    },
+    {
+        "charCode": "1f4ae",
+        "pointerCode": [128174],
+        "raw": "💮",
+        "x": 20,
+        "y": 31
+    },
+    {
+        "charCode": "1f4af",
+        "pointerCode": [128175],
+        "raw": "💯",
+        "x": 20,
+        "y": 32
+    },
+    {
+        "charCode": "1f4b0",
+        "pointerCode": [128176],
+        "raw": "💰",
+        "x": 20,
+        "y": 33
+    },
+    {
+        "charCode": "1f4b1",
+        "pointerCode": [128177],
+        "raw": "💱",
+        "x": 20,
+        "y": 34
+    },
+    {
+        "charCode": "1f4b2",
+        "pointerCode": [128178],
+        "raw": "💲",
+        "x": 20,
+        "y": 35
+    },
+    {
+        "charCode": "1f4b3",
+        "pointerCode": [128179],
+        "raw": "💳",
+        "x": 20,
+        "y": 36
+    },
+    {
+        "charCode": "1f4b4",
+        "pointerCode": [128180],
+        "raw": "💴",
+        "x": 20,
+        "y": 37
+    },
+    {
+        "charCode": "1f4b5",
+        "pointerCode": [128181],
+        "raw": "💵",
+        "x": 20,
+        "y": 38
+    },
+    {
+        "charCode": "1f4b6",
+        "pointerCode": [128182],
+        "raw": "💶",
+        "x": 20,
+        "y": 39
+    },
+    {
+        "charCode": "1f4b7",
+        "pointerCode": [128183],
+        "raw": "💷",
+        "x": 20,
+        "y": 40
+    },
+    {
+        "charCode": "1f4b8",
+        "pointerCode": [128184],
+        "raw": "💸",
+        "x": 21,
+        "y": 0
+    },
+    {
+        "charCode": "1f4b9",
+        "pointerCode": [128185],
+        "raw": "💹",
+        "x": 21,
+        "y": 1
+    },
+    {
+        "charCode": "1f4ba",
+        "pointerCode": [128186],
+        "raw": "💺",
+        "x": 21,
+        "y": 2
+    },
+    {
+        "charCode": "1f4bb",
+        "pointerCode": [128187],
+        "raw": "💻",
+        "x": 21,
+        "y": 3
+    },
+    {
+        "charCode": "1f4bc",
+        "pointerCode": [128188],
+        "raw": "💼",
+        "x": 21,
+        "y": 4
+    },
+    {
+        "charCode": "1f4bd",
+        "pointerCode": [128189],
+        "raw": "💽",
+        "x": 21,
+        "y": 5
+    },
+    {
+        "charCode": "1f4be",
+        "pointerCode": [128190],
+        "raw": "💾",
+        "x": 21,
+        "y": 6
+    },
+    {
+        "charCode": "1f4bf",
+        "pointerCode": [128191],
+        "raw": "💿",
+        "x": 21,
+        "y": 7
+    },
+    {
+        "charCode": "1f4c0",
+        "pointerCode": [128192],
+        "raw": "📀",
+        "x": 21,
+        "y": 8
+    },
+    {
+        "charCode": "1f4c1",
+        "pointerCode": [128193],
+        "raw": "📁",
+        "x": 21,
+        "y": 9
+    },
+    {
+        "charCode": "1f4c2",
+        "pointerCode": [128194],
+        "raw": "📂",
+        "x": 21,
+        "y": 10
+    },
+    {
+        "charCode": "1f4c3",
+        "pointerCode": [128195],
+        "raw": "📃",
+        "x": 21,
+        "y": 11
+    },
+    {
+        "charCode": "1f4c4",
+        "pointerCode": [128196],
+        "raw": "📄",
+        "x": 21,
+        "y": 12
+    },
+    {
+        "charCode": "1f4c5",
+        "pointerCode": [128197],
+        "raw": "📅",
+        "x": 21,
+        "y": 13
+    },
+    {
+        "charCode": "1f4c6",
+        "pointerCode": [128198],
+        "raw": "📆",
+        "x": 21,
+        "y": 14
+    },
+    {
+        "charCode": "1f4c7",
+        "pointerCode": [128199],
+        "raw": "📇",
+        "x": 21,
+        "y": 15
+    },
+    {
+        "charCode": "1f4c8",
+        "pointerCode": [128200],
+        "raw": "📈",
+        "x": 21,
+        "y": 16
+    },
+    {
+        "charCode": "1f4c9",
+        "pointerCode": [128201],
+        "raw": "📉",
+        "x": 21,
+        "y": 17
+    },
+    {
+        "charCode": "1f4ca",
+        "pointerCode": [128202],
+        "raw": "📊",
+        "x": 21,
+        "y": 18
+    },
+    {
+        "charCode": "1f4cb",
+        "pointerCode": [128203],
+        "raw": "📋",
+        "x": 21,
+        "y": 19
+    },
+    {
+        "charCode": "1f4cc",
+        "pointerCode": [128204],
+        "raw": "📌",
+        "x": 21,
+        "y": 20
+    },
+    {
+        "charCode": "1f4cd",
+        "pointerCode": [128205],
+        "raw": "📍",
+        "x": 21,
+        "y": 21
+    },
+    {
+        "charCode": "1f4ce",
+        "pointerCode": [128206],
+        "raw": "📎",
+        "x": 21,
+        "y": 22
+    },
+    {
+        "charCode": "1f4cf",
+        "pointerCode": [128207],
+        "raw": "📏",
+        "x": 21,
+        "y": 23
+    },
+    {
+        "charCode": "1f4d0",
+        "pointerCode": [128208],
+        "raw": "📐",
+        "x": 21,
+        "y": 24
+    },
+    {
+        "charCode": "1f4d1",
+        "pointerCode": [128209],
+        "raw": "📑",
+        "x": 21,
+        "y": 25
+    },
+    {
+        "charCode": "1f4d2",
+        "pointerCode": [128210],
+        "raw": "📒",
+        "x": 21,
+        "y": 26
+    },
+    {
+        "charCode": "1f4d3",
+        "pointerCode": [128211],
+        "raw": "📓",
+        "x": 21,
+        "y": 27
+    },
+    {
+        "charCode": "1f4d4",
+        "pointerCode": [128212],
+        "raw": "📔",
+        "x": 21,
+        "y": 28
+    },
+    {
+        "charCode": "1f4d5",
+        "pointerCode": [128213],
+        "raw": "📕",
+        "x": 21,
+        "y": 29
+    },
+    {
+        "charCode": "1f4d6",
+        "pointerCode": [128214],
+        "raw": "📖",
+        "x": 21,
+        "y": 30
+    },
+    {
+        "charCode": "1f4d7",
+        "pointerCode": [128215],
+        "raw": "📗",
+        "x": 21,
+        "y": 31
+    },
+    {
+        "charCode": "1f4d8",
+        "pointerCode": [128216],
+        "raw": "📘",
+        "x": 21,
+        "y": 32
+    },
+    {
+        "charCode": "1f4d9",
+        "pointerCode": [128217],
+        "raw": "📙",
+        "x": 21,
+        "y": 33
+    },
+    {
+        "charCode": "1f4da",
+        "pointerCode": [128218],
+        "raw": "📚",
+        "x": 21,
+        "y": 34
+    },
+    {
+        "charCode": "1f4db",
+        "pointerCode": [128219],
+        "raw": "📛",
+        "x": 21,
+        "y": 35
+    },
+    {
+        "charCode": "1f4dc",
+        "pointerCode": [128220],
+        "raw": "📜",
+        "x": 21,
+        "y": 36
+    },
+    {
+        "charCode": "1f4dd",
+        "pointerCode": [128221],
+        "raw": "📝",
+        "x": 21,
+        "y": 37
+    },
+    {
+        "charCode": "1f4de",
+        "pointerCode": [128222],
+        "raw": "📞",
+        "x": 21,
+        "y": 38
+    },
+    {
+        "charCode": "1f4df",
+        "pointerCode": [128223],
+        "raw": "📟",
+        "x": 21,
+        "y": 39
+    },
+    {
+        "charCode": "1f4e0",
+        "pointerCode": [128224],
+        "raw": "📠",
+        "x": 21,
+        "y": 40
+    },
+    {
+        "charCode": "1f4e1",
+        "pointerCode": [128225],
+        "raw": "📡",
+        "x": 22,
+        "y": 0
+    },
+    {
+        "charCode": "1f4e2",
+        "pointerCode": [128226],
+        "raw": "📢",
+        "x": 22,
+        "y": 1
+    },
+    {
+        "charCode": "1f4e3",
+        "pointerCode": [128227],
+        "raw": "📣",
+        "x": 22,
+        "y": 2
+    },
+    {
+        "charCode": "1f4e4",
+        "pointerCode": [128228],
+        "raw": "📤",
+        "x": 22,
+        "y": 3
+    },
+    {
+        "charCode": "1f4e5",
+        "pointerCode": [128229],
+        "raw": "📥",
+        "x": 22,
+        "y": 4
+    },
+    {
+        "charCode": "1f4e6",
+        "pointerCode": [128230],
+        "raw": "📦",
+        "x": 22,
+        "y": 5
+    },
+    {
+        "charCode": "1f4e7",
+        "pointerCode": [128231],
+        "raw": "📧",
+        "x": 22,
+        "y": 6
+    },
+    {
+        "charCode": "1f4e8",
+        "pointerCode": [128232],
+        "raw": "📨",
+        "x": 22,
+        "y": 7
+    },
+    {
+        "charCode": "1f4e9",
+        "pointerCode": [128233],
+        "raw": "📩",
+        "x": 22,
+        "y": 8
+    },
+    {
+        "charCode": "1f4ea",
+        "pointerCode": [128234],
+        "raw": "📪",
+        "x": 22,
+        "y": 9
+    },
+    {
+        "charCode": "1f4eb",
+        "pointerCode": [128235],
+        "raw": "📫",
+        "x": 22,
+        "y": 10
+    },
+    {
+        "charCode": "1f4ec",
+        "pointerCode": [128236],
+        "raw": "📬",
+        "x": 22,
+        "y": 11
+    },
+    {
+        "charCode": "1f4ed",
+        "pointerCode": [128237],
+        "raw": "📭",
+        "x": 22,
+        "y": 12
+    },
+    {
+        "charCode": "1f4ee",
+        "pointerCode": [128238],
+        "raw": "📮",
+        "x": 22,
+        "y": 13
+    },
+    {
+        "charCode": "1f4ef",
+        "pointerCode": [128239],
+        "raw": "📯",
+        "x": 22,
+        "y": 14
+    },
+    {
+        "charCode": "1f4f0",
+        "pointerCode": [128240],
+        "raw": "📰",
+        "x": 22,
+        "y": 15
+    },
+    {
+        "charCode": "1f4f1",
+        "pointerCode": [128241],
+        "raw": "📱",
+        "x": 22,
+        "y": 16
+    },
+    {
+        "charCode": "1f4f2",
+        "pointerCode": [128242],
+        "raw": "📲",
+        "x": 22,
+        "y": 17
+    },
+    {
+        "charCode": "1f4f3",
+        "pointerCode": [128243],
+        "raw": "📳",
+        "x": 22,
+        "y": 18
+    },
+    {
+        "charCode": "1f4f4",
+        "pointerCode": [128244],
+        "raw": "📴",
+        "x": 22,
+        "y": 19
+    },
+    {
+        "charCode": "1f4f5",
+        "pointerCode": [128245],
+        "raw": "📵",
+        "x": 22,
+        "y": 20
+    },
+    {
+        "charCode": "1f4f6",
+        "pointerCode": [128246],
+        "raw": "📶",
+        "x": 22,
+        "y": 21
+    },
+    {
+        "charCode": "1f4f7",
+        "pointerCode": [128247],
+        "raw": "📷",
+        "x": 22,
+        "y": 22
+    },
+    {
+        "charCode": "1f4f8",
+        "pointerCode": [128248],
+        "raw": "📸",
+        "x": 22,
+        "y": 23
+    },
+    {
+        "charCode": "1f4f9",
+        "pointerCode": [128249],
+        "raw": "📹",
+        "x": 22,
+        "y": 24
+    },
+    {
+        "charCode": "1f4fa",
+        "pointerCode": [128250],
+        "raw": "📺",
+        "x": 22,
+        "y": 25
+    },
+    {
+        "charCode": "1f4fb",
+        "pointerCode": [128251],
+        "raw": "📻",
+        "x": 22,
+        "y": 26
+    },
+    {
+        "charCode": "1f4fc",
+        "pointerCode": [128252],
+        "raw": "📼",
+        "x": 22,
+        "y": 27
+    },
+    {
+        "charCode": "1f4fd",
+        "pointerCode": [128253],
+        "raw": "📽",
+        "x": 22,
+        "y": 28
+    },
+    {
+        "charCode": "1f4ff",
+        "pointerCode": [128255],
+        "raw": "📿",
+        "x": 22,
+        "y": 29
+    },
+    {
+        "charCode": "1f500",
+        "pointerCode": [128256],
+        "raw": "🔀",
+        "x": 22,
+        "y": 30
+    },
+    {
+        "charCode": "1f501",
+        "pointerCode": [128257],
+        "raw": "🔁",
+        "x": 22,
+        "y": 31
+    },
+    {
+        "charCode": "1f502",
+        "pointerCode": [128258],
+        "raw": "🔂",
+        "x": 22,
+        "y": 32
+    },
+    {
+        "charCode": "1f503",
+        "pointerCode": [128259],
+        "raw": "🔃",
+        "x": 22,
+        "y": 33
+    },
+    {
+        "charCode": "1f504",
+        "pointerCode": [128260],
+        "raw": "🔄",
+        "x": 22,
+        "y": 34
+    },
+    {
+        "charCode": "1f505",
+        "pointerCode": [128261],
+        "raw": "🔅",
+        "x": 22,
+        "y": 35
+    },
+    {
+        "charCode": "1f506",
+        "pointerCode": [128262],
+        "raw": "🔆",
+        "x": 22,
+        "y": 36
+    },
+    {
+        "charCode": "1f507",
+        "pointerCode": [128263],
+        "raw": "🔇",
+        "x": 22,
+        "y": 37
+    },
+    {
+        "charCode": "1f508",
+        "pointerCode": [128264],
+        "raw": "🔈",
+        "x": 22,
+        "y": 38
+    },
+    {
+        "charCode": "1f509",
+        "pointerCode": [128265],
+        "raw": "🔉",
+        "x": 22,
+        "y": 39
+    },
+    {
+        "charCode": "1f50a",
+        "pointerCode": [128266],
+        "raw": "🔊",
+        "x": 22,
+        "y": 40
+    },
+    {
+        "charCode": "1f50b",
+        "pointerCode": [128267],
+        "raw": "🔋",
+        "x": 23,
+        "y": 0
+    },
+    {
+        "charCode": "1f50c",
+        "pointerCode": [128268],
+        "raw": "🔌",
+        "x": 23,
+        "y": 1
+    },
+    {
+        "charCode": "1f50d",
+        "pointerCode": [128269],
+        "raw": "🔍",
+        "x": 23,
+        "y": 2
+    },
+    {
+        "charCode": "1f50e",
+        "pointerCode": [128270],
+        "raw": "🔎",
+        "x": 23,
+        "y": 3
+    },
+    {
+        "charCode": "1f50f",
+        "pointerCode": [128271],
+        "raw": "🔏",
+        "x": 23,
+        "y": 4
+    },
+    {
+        "charCode": "1f510",
+        "pointerCode": [128272],
+        "raw": "🔐",
+        "x": 23,
+        "y": 5
+    },
+    {
+        "charCode": "1f511",
+        "pointerCode": [128273],
+        "raw": "🔑",
+        "x": 23,
+        "y": 6
+    },
+    {
+        "charCode": "1f512",
+        "pointerCode": [128274],
+        "raw": "🔒",
+        "x": 23,
+        "y": 7
+    },
+    {
+        "charCode": "1f513",
+        "pointerCode": [128275],
+        "raw": "🔓",
+        "x": 23,
+        "y": 8
+    },
+    {
+        "charCode": "1f514",
+        "pointerCode": [128276],
+        "raw": "🔔",
+        "x": 23,
+        "y": 9
+    },
+    {
+        "charCode": "1f515",
+        "pointerCode": [128277],
+        "raw": "🔕",
+        "x": 23,
+        "y": 10
+    },
+    {
+        "charCode": "1f516",
+        "pointerCode": [128278],
+        "raw": "🔖",
+        "x": 23,
+        "y": 11
+    },
+    {
+        "charCode": "1f517",
+        "pointerCode": [128279],
+        "raw": "🔗",
+        "x": 23,
+        "y": 12
+    },
+    {
+        "charCode": "1f518",
+        "pointerCode": [128280],
+        "raw": "🔘",
+        "x": 23,
+        "y": 13
+    },
+    {
+        "charCode": "1f519",
+        "pointerCode": [128281],
+        "raw": "🔙",
+        "x": 23,
+        "y": 14
+    },
+    {
+        "charCode": "1f51a",
+        "pointerCode": [128282],
+        "raw": "🔚",
+        "x": 23,
+        "y": 15
+    },
+    {
+        "charCode": "1f51b",
+        "pointerCode": [128283],
+        "raw": "🔛",
+        "x": 23,
+        "y": 16
+    },
+    {
+        "charCode": "1f51c",
+        "pointerCode": [128284],
+        "raw": "🔜",
+        "x": 23,
+        "y": 17
+    },
+    {
+        "charCode": "1f51d",
+        "pointerCode": [128285],
+        "raw": "🔝",
+        "x": 23,
+        "y": 18
+    },
+    {
+        "charCode": "1f51e",
+        "pointerCode": [128286],
+        "raw": "🔞",
+        "x": 23,
+        "y": 19
+    },
+    {
+        "charCode": "1f51f",
+        "pointerCode": [128287],
+        "raw": "🔟",
+        "x": 23,
+        "y": 20
+    },
+    {
+        "charCode": "1f520",
+        "pointerCode": [128288],
+        "raw": "🔠",
+        "x": 23,
+        "y": 21
+    },
+    {
+        "charCode": "1f521",
+        "pointerCode": [128289],
+        "raw": "🔡",
+        "x": 23,
+        "y": 22
+    },
+    {
+        "charCode": "1f522",
+        "pointerCode": [128290],
+        "raw": "🔢",
+        "x": 23,
+        "y": 23
+    },
+    {
+        "charCode": "1f523",
+        "pointerCode": [128291],
+        "raw": "🔣",
+        "x": 23,
+        "y": 24
+    },
+    {
+        "charCode": "1f524",
+        "pointerCode": [128292],
+        "raw": "🔤",
+        "x": 23,
+        "y": 25
+    },
+    {
+        "charCode": "1f525",
+        "pointerCode": [128293],
+        "raw": "🔥",
+        "x": 23,
+        "y": 26
+    },
+    {
+        "charCode": "1f526",
+        "pointerCode": [128294],
+        "raw": "🔦",
+        "x": 23,
+        "y": 27
+    },
+    {
+        "charCode": "1f527",
+        "pointerCode": [128295],
+        "raw": "🔧",
+        "x": 23,
+        "y": 28
+    },
+    {
+        "charCode": "1f528",
+        "pointerCode": [128296],
+        "raw": "🔨",
+        "x": 23,
+        "y": 29
+    },
+    {
+        "charCode": "1f529",
+        "pointerCode": [128297],
+        "raw": "🔩",
+        "x": 23,
+        "y": 30
+    },
+    {
+        "charCode": "1f52a",
+        "pointerCode": [128298],
+        "raw": "🔪",
+        "x": 23,
+        "y": 31
+    },
+    {
+        "charCode": "1f52b",
+        "pointerCode": [128299],
+        "raw": "🔫",
+        "x": 23,
+        "y": 32
+    },
+    {
+        "charCode": "1f52c",
+        "pointerCode": [128300],
+        "raw": "🔬",
+        "x": 23,
+        "y": 33
+    },
+    {
+        "charCode": "1f52d",
+        "pointerCode": [128301],
+        "raw": "🔭",
+        "x": 23,
+        "y": 34
+    },
+    {
+        "charCode": "1f52e",
+        "pointerCode": [128302],
+        "raw": "🔮",
+        "x": 23,
+        "y": 35
+    },
+    {
+        "charCode": "1f52f",
+        "pointerCode": [128303],
+        "raw": "🔯",
+        "x": 23,
+        "y": 36
+    },
+    {
+        "charCode": "1f530",
+        "pointerCode": [128304],
+        "raw": "🔰",
+        "x": 23,
+        "y": 37
+    },
+    {
+        "charCode": "1f531",
+        "pointerCode": [128305],
+        "raw": "🔱",
+        "x": 23,
+        "y": 38
+    },
+    {
+        "charCode": "1f532",
+        "pointerCode": [128306],
+        "raw": "🔲",
+        "x": 23,
+        "y": 39
+    },
+    {
+        "charCode": "1f533",
+        "pointerCode": [128307],
+        "raw": "🔳",
+        "x": 23,
+        "y": 40
+    },
+    {
+        "charCode": "1f534",
+        "pointerCode": [128308],
+        "raw": "🔴",
+        "x": 24,
+        "y": 0
+    },
+    {
+        "charCode": "1f535",
+        "pointerCode": [128309],
+        "raw": "🔵",
+        "x": 24,
+        "y": 1
+    },
+    {
+        "charCode": "1f536",
+        "pointerCode": [128310],
+        "raw": "🔶",
+        "x": 24,
+        "y": 2
+    },
+    {
+        "charCode": "1f537",
+        "pointerCode": [128311],
+        "raw": "🔷",
+        "x": 24,
+        "y": 3
+    },
+    {
+        "charCode": "1f538",
+        "pointerCode": [128312],
+        "raw": "🔸",
+        "x": 24,
+        "y": 4
+    },
+    {
+        "charCode": "1f539",
+        "pointerCode": [128313],
+        "raw": "🔹",
+        "x": 24,
+        "y": 5
+    },
+    {
+        "charCode": "1f53a",
+        "pointerCode": [128314],
+        "raw": "🔺",
+        "x": 24,
+        "y": 6
+    },
+    {
+        "charCode": "1f53b",
+        "pointerCode": [128315],
+        "raw": "🔻",
+        "x": 24,
+        "y": 7
+    },
+    {
+        "charCode": "1f53c",
+        "pointerCode": [128316],
+        "raw": "🔼",
+        "x": 24,
+        "y": 8
+    },
+    {
+        "charCode": "1f53d",
+        "pointerCode": [128317],
+        "raw": "🔽",
+        "x": 24,
+        "y": 9
+    },
+    {
+        "charCode": "1f549",
+        "pointerCode": [128329],
+        "raw": "🕉",
+        "x": 24,
+        "y": 10
+    },
+    {
+        "charCode": "1f54a",
+        "pointerCode": [128330],
+        "raw": "🕊",
+        "x": 24,
+        "y": 11
+    },
+    {
+        "charCode": "1f54b",
+        "pointerCode": [128331],
+        "raw": "🕋",
+        "x": 24,
+        "y": 12
+    },
+    {
+        "charCode": "1f54c",
+        "pointerCode": [128332],
+        "raw": "🕌",
+        "x": 24,
+        "y": 13
+    },
+    {
+        "charCode": "1f54d",
+        "pointerCode": [128333],
+        "raw": "🕍",
+        "x": 24,
+        "y": 14
+    },
+    {
+        "charCode": "1f54e",
+        "pointerCode": [128334],
+        "raw": "🕎",
+        "x": 24,
+        "y": 15
+    },
+    {
+        "charCode": "1f550",
+        "pointerCode": [128336],
+        "raw": "🕐",
+        "x": 24,
+        "y": 16
+    },
+    {
+        "charCode": "1f551",
+        "pointerCode": [128337],
+        "raw": "🕑",
+        "x": 24,
+        "y": 17
+    },
+    {
+        "charCode": "1f552",
+        "pointerCode": [128338],
+        "raw": "🕒",
+        "x": 24,
+        "y": 18
+    },
+    {
+        "charCode": "1f553",
+        "pointerCode": [128339],
+        "raw": "🕓",
+        "x": 24,
+        "y": 19
+    },
+    {
+        "charCode": "1f554",
+        "pointerCode": [128340],
+        "raw": "🕔",
+        "x": 24,
+        "y": 20
+    },
+    {
+        "charCode": "1f555",
+        "pointerCode": [128341],
+        "raw": "🕕",
+        "x": 24,
+        "y": 21
+    },
+    {
+        "charCode": "1f556",
+        "pointerCode": [128342],
+        "raw": "🕖",
+        "x": 24,
+        "y": 22
+    },
+    {
+        "charCode": "1f557",
+        "pointerCode": [128343],
+        "raw": "🕗",
+        "x": 24,
+        "y": 23
+    },
+    {
+        "charCode": "1f558",
+        "pointerCode": [128344],
+        "raw": "🕘",
+        "x": 24,
+        "y": 24
+    },
+    {
+        "charCode": "1f559",
+        "pointerCode": [128345],
+        "raw": "🕙",
+        "x": 24,
+        "y": 25
+    },
+    {
+        "charCode": "1f55a",
+        "pointerCode": [128346],
+        "raw": "🕚",
+        "x": 24,
+        "y": 26
+    },
+    {
+        "charCode": "1f55b",
+        "pointerCode": [128347],
+        "raw": "🕛",
+        "x": 24,
+        "y": 27
+    },
+    {
+        "charCode": "1f55c",
+        "pointerCode": [128348],
+        "raw": "🕜",
+        "x": 24,
+        "y": 28
+    },
+    {
+        "charCode": "1f55d",
+        "pointerCode": [128349],
+        "raw": "🕝",
+        "x": 24,
+        "y": 29
+    },
+    {
+        "charCode": "1f55e",
+        "pointerCode": [128350],
+        "raw": "🕞",
+        "x": 24,
+        "y": 30
+    },
+    {
+        "charCode": "1f55f",
+        "pointerCode": [128351],
+        "raw": "🕟",
+        "x": 24,
+        "y": 31
+    },
+    {
+        "charCode": "1f560",
+        "pointerCode": [128352],
+        "raw": "🕠",
+        "x": 24,
+        "y": 32
+    },
+    {
+        "charCode": "1f561",
+        "pointerCode": [128353],
+        "raw": "🕡",
+        "x": 24,
+        "y": 33
+    },
+    {
+        "charCode": "1f562",
+        "pointerCode": [128354],
+        "raw": "🕢",
+        "x": 24,
+        "y": 34
+    },
+    {
+        "charCode": "1f563",
+        "pointerCode": [128355],
+        "raw": "🕣",
+        "x": 24,
+        "y": 35
+    },
+    {
+        "charCode": "1f564",
+        "pointerCode": [128356],
+        "raw": "🕤",
+        "x": 24,
+        "y": 36
+    },
+    {
+        "charCode": "1f565",
+        "pointerCode": [128357],
+        "raw": "🕥",
+        "x": 24,
+        "y": 37
+    },
+    {
+        "charCode": "1f566",
+        "pointerCode": [128358],
+        "raw": "🕦",
+        "x": 24,
+        "y": 38
+    },
+    {
+        "charCode": "1f567",
+        "pointerCode": [128359],
+        "raw": "🕧",
+        "x": 24,
+        "y": 39
+    },
+    {
+        "charCode": "1f56f",
+        "pointerCode": [128367],
+        "raw": "🕯",
+        "x": 24,
+        "y": 40
+    },
+    {
+        "charCode": "1f570",
+        "pointerCode": [128368],
+        "raw": "🕰",
+        "x": 25,
+        "y": 0
+    },
+    {
+        "charCode": "1f573",
+        "pointerCode": [128371],
+        "raw": "🕳",
+        "x": 25,
+        "y": 1
+    },
+    {
+        "charCode": "1f574",
+        "pointerCode": [128372],
+        "raw": "🕴",
+        "x": 25,
+        "y": 2
+    },
+    {
+        "charCode": "1f575",
+        "pointerCode": [128373],
+        "raw": "🕵",
+        "x": 25,
+        "y": 3
+    },
+    {
+        "charCode": "1f576",
+        "pointerCode": [128374],
+        "raw": "🕶",
+        "x": 25,
+        "y": 9
+    },
+    {
+        "charCode": "1f577",
+        "pointerCode": [128375],
+        "raw": "🕷",
+        "x": 25,
+        "y": 10
+    },
+    {
+        "charCode": "1f578",
+        "pointerCode": [128376],
+        "raw": "🕸",
+        "x": 25,
+        "y": 11
+    },
+    {
+        "charCode": "1f579",
+        "pointerCode": [128377],
+        "raw": "🕹",
+        "x": 25,
+        "y": 12
+    },
+    {
+        "charCode": "1f587",
+        "pointerCode": [128391],
+        "raw": "🖇",
+        "x": 25,
+        "y": 13
+    },
+    {
+        "charCode": "1f58a",
+        "pointerCode": [128394],
+        "raw": "🖊",
+        "x": 25,
+        "y": 14
+    },
+    {
+        "charCode": "1f58b",
+        "pointerCode": [128395],
+        "raw": "🖋",
+        "x": 25,
+        "y": 15
+    },
+    {
+        "charCode": "1f58c",
+        "pointerCode": [128396],
+        "raw": "🖌",
+        "x": 25,
+        "y": 16
+    },
+    {
+        "charCode": "1f58d",
+        "pointerCode": [128397],
+        "raw": "🖍",
+        "x": 25,
+        "y": 17
+    },
+    {
+        "charCode": "1f590",
+        "pointerCode": [128400],
+        "raw": "🖐",
+        "x": 25,
+        "y": 18
+    },
+    {
+        "charCode": "1f595",
+        "pointerCode": [128405],
+        "raw": "🖕",
+        "x": 25,
+        "y": 24
+    },
+    {
+        "charCode": "1f596",
+        "pointerCode": [128406],
+        "raw": "🖖",
+        "x": 25,
+        "y": 30
+    },
+    {
+        "charCode": "1f5a5",
+        "pointerCode": [128421],
+        "raw": "🖥",
+        "x": 25,
+        "y": 36
+    },
+    {
+        "charCode": "1f5a8",
+        "pointerCode": [128424],
+        "raw": "🖨",
+        "x": 25,
+        "y": 37
+    },
+    {
+        "charCode": "1f5b1",
+        "pointerCode": [128433],
+        "raw": "🖱",
+        "x": 25,
+        "y": 38
+    },
+    {
+        "charCode": "1f5b2",
+        "pointerCode": [128434],
+        "raw": "🖲",
+        "x": 25,
+        "y": 39
+    },
+    {
+        "charCode": "1f5bc",
+        "pointerCode": [128444],
+        "raw": "🖼",
+        "x": 25,
+        "y": 40
+    },
+    {
+        "charCode": "1f5c2",
+        "pointerCode": [128450],
+        "raw": "🗂",
+        "x": 26,
+        "y": 0
+    },
+    {
+        "charCode": "1f5c3",
+        "pointerCode": [128451],
+        "raw": "🗃",
+        "x": 26,
+        "y": 1
+    },
+    {
+        "charCode": "1f5c4",
+        "pointerCode": [128452],
+        "raw": "🗄",
+        "x": 26,
+        "y": 2
+    },
+    {
+        "charCode": "1f5d1",
+        "pointerCode": [128465],
+        "raw": "🗑",
+        "x": 26,
+        "y": 3
+    },
+    {
+        "charCode": "1f5d2",
+        "pointerCode": [128466],
+        "raw": "🗒",
+        "x": 26,
+        "y": 4
+    },
+    {
+        "charCode": "1f5d3",
+        "pointerCode": [128467],
+        "raw": "🗓",
+        "x": 26,
+        "y": 5
+    },
+    {
+        "charCode": "1f5dc",
+        "pointerCode": [128476],
+        "raw": "🗜",
+        "x": 26,
+        "y": 6
+    },
+    {
+        "charCode": "1f5dd",
+        "pointerCode": [128477],
+        "raw": "🗝",
+        "x": 26,
+        "y": 7
+    },
+    {
+        "charCode": "1f5de",
+        "pointerCode": [128478],
+        "raw": "🗞",
+        "x": 26,
+        "y": 8
+    },
+    {
+        "charCode": "1f5e1",
+        "pointerCode": [128481],
+        "raw": "🗡",
+        "x": 26,
+        "y": 9
+    },
+    {
+        "charCode": "1f5e3",
+        "pointerCode": [128483],
+        "raw": "🗣",
+        "x": 26,
+        "y": 10
+    },
+    {
+        "charCode": "1f5e8",
+        "pointerCode": [128488],
+        "raw": "🗨",
+        "x": 26,
+        "y": 11
+    },
+    {
+        "charCode": "1f5ef",
+        "pointerCode": [128495],
+        "raw": "🗯",
+        "x": 26,
+        "y": 12
+    },
+    {
+        "charCode": "1f5f3",
+        "pointerCode": [128499],
+        "raw": "🗳",
+        "x": 26,
+        "y": 13
+    },
+    {
+        "charCode": "1f5fa",
+        "pointerCode": [128506],
+        "raw": "🗺",
+        "x": 26,
+        "y": 14
+    },
+    {
+        "charCode": "1f5fb",
+        "pointerCode": [128507],
+        "raw": "🗻",
+        "x": 26,
+        "y": 15
+    },
+    {
+        "charCode": "1f5fc",
+        "pointerCode": [128508],
+        "raw": "🗼",
+        "x": 26,
+        "y": 16
+    },
+    {
+        "charCode": "1f5fd",
+        "pointerCode": [128509],
+        "raw": "🗽",
+        "x": 26,
+        "y": 17
+    },
+    {
+        "charCode": "1f5fe",
+        "pointerCode": [128510],
+        "raw": "🗾",
+        "x": 26,
+        "y": 18
+    },
+    {
+        "charCode": "1f5ff",
+        "pointerCode": [128511],
+        "raw": "🗿",
+        "x": 26,
+        "y": 19
+    },
+    {
+        "charCode": "1f600",
+        "pointerCode": [128512],
+        "raw": "😀",
+        "x": 26,
+        "y": 20
+    },
+    {
+        "charCode": "1f601",
+        "pointerCode": [128513],
+        "raw": "😁",
+        "x": 26,
+        "y": 21
+    },
+    {
+        "charCode": "1f602",
+        "pointerCode": [128514],
+        "raw": "😂",
+        "x": 26,
+        "y": 22
+    },
+    {
+        "charCode": "1f603",
+        "pointerCode": [128515],
+        "raw": "😃",
+        "x": 26,
+        "y": 23
+    },
+    {
+        "charCode": "1f604",
+        "pointerCode": [128516],
+        "raw": "😄",
+        "x": 26,
+        "y": 24
+    },
+    {
+        "charCode": "1f605",
+        "pointerCode": [128517],
+        "raw": "😅",
+        "x": 26,
+        "y": 25
+    },
+    {
+        "charCode": "1f606",
+        "pointerCode": [128518],
+        "raw": "😆",
+        "x": 26,
+        "y": 26
+    },
+    {
+        "charCode": "1f607",
+        "pointerCode": [128519],
+        "raw": "😇",
+        "x": 26,
+        "y": 27
+    },
+    {
+        "charCode": "1f608",
+        "pointerCode": [128520],
+        "raw": "😈",
+        "x": 26,
+        "y": 28
+    },
+    {
+        "charCode": "1f609",
+        "pointerCode": [128521],
+        "raw": "😉",
+        "x": 26,
+        "y": 29
+    },
+    {
+        "charCode": "1f60a",
+        "pointerCode": [128522],
+        "raw": "😊",
+        "x": 26,
+        "y": 30
+    },
+    {
+        "charCode": "1f60b",
+        "pointerCode": [128523],
+        "raw": "😋",
+        "x": 26,
+        "y": 31
+    },
+    {
+        "charCode": "1f60c",
+        "pointerCode": [128524],
+        "raw": "😌",
+        "x": 26,
+        "y": 32
+    },
+    {
+        "charCode": "1f60d",
+        "pointerCode": [128525],
+        "raw": "😍",
+        "x": 26,
+        "y": 33
+    },
+    {
+        "charCode": "1f60e",
+        "pointerCode": [128526],
+        "raw": "😎",
+        "x": 26,
+        "y": 34
+    },
+    {
+        "charCode": "1f60f",
+        "pointerCode": [128527],
+        "raw": "😏",
+        "x": 26,
+        "y": 35
+    },
+    {
+        "charCode": "1f610",
+        "pointerCode": [128528],
+        "raw": "😐",
+        "x": 26,
+        "y": 36
+    },
+    {
+        "charCode": "1f611",
+        "pointerCode": [128529],
+        "raw": "😑",
+        "x": 26,
+        "y": 37
+    },
+    {
+        "charCode": "1f612",
+        "pointerCode": [128530],
+        "raw": "😒",
+        "x": 26,
+        "y": 38
+    },
+    {
+        "charCode": "1f613",
+        "pointerCode": [128531],
+        "raw": "😓",
+        "x": 26,
+        "y": 39
+    },
+    {
+        "charCode": "1f614",
+        "pointerCode": [128532],
+        "raw": "😔",
+        "x": 26,
+        "y": 40
+    },
+    {
+        "charCode": "1f615",
+        "pointerCode": [128533],
+        "raw": "😕",
+        "x": 27,
+        "y": 0
+    },
+    {
+        "charCode": "1f616",
+        "pointerCode": [128534],
+        "raw": "😖",
+        "x": 27,
+        "y": 1
+    },
+    {
+        "charCode": "1f617",
+        "pointerCode": [128535],
+        "raw": "😗",
+        "x": 27,
+        "y": 2
+    },
+    {
+        "charCode": "1f618",
+        "pointerCode": [128536],
+        "raw": "😘",
+        "x": 27,
+        "y": 3
+    },
+    {
+        "charCode": "1f619",
+        "pointerCode": [128537],
+        "raw": "😙",
+        "x": 27,
+        "y": 4
+    },
+    {
+        "charCode": "1f61a",
+        "pointerCode": [128538],
+        "raw": "😚",
+        "x": 27,
+        "y": 5
+    },
+    {
+        "charCode": "1f61b",
+        "pointerCode": [128539],
+        "raw": "😛",
+        "x": 27,
+        "y": 6
+    },
+    {
+        "charCode": "1f61c",
+        "pointerCode": [128540],
+        "raw": "😜",
+        "x": 27,
+        "y": 7
+    },
+    {
+        "charCode": "1f61d",
+        "pointerCode": [128541],
+        "raw": "😝",
+        "x": 27,
+        "y": 8
+    },
+    {
+        "charCode": "1f61e",
+        "pointerCode": [128542],
+        "raw": "😞",
+        "x": 27,
+        "y": 9
+    },
+    {
+        "charCode": "1f61f",
+        "pointerCode": [128543],
+        "raw": "😟",
+        "x": 27,
+        "y": 10
+    },
+    {
+        "charCode": "1f620",
+        "pointerCode": [128544],
+        "raw": "😠",
+        "x": 27,
+        "y": 11
+    },
+    {
+        "charCode": "1f621",
+        "pointerCode": [128545],
+        "raw": "😡",
+        "x": 27,
+        "y": 12
+    },
+    {
+        "charCode": "1f622",
+        "pointerCode": [128546],
+        "raw": "😢",
+        "x": 27,
+        "y": 13
+    },
+    {
+        "charCode": "1f623",
+        "pointerCode": [128547],
+        "raw": "😣",
+        "x": 27,
+        "y": 14
+    },
+    {
+        "charCode": "1f624",
+        "pointerCode": [128548],
+        "raw": "😤",
+        "x": 27,
+        "y": 15
+    },
+    {
+        "charCode": "1f625",
+        "pointerCode": [128549],
+        "raw": "😥",
+        "x": 27,
+        "y": 16
+    },
+    {
+        "charCode": "1f626",
+        "pointerCode": [128550],
+        "raw": "😦",
+        "x": 27,
+        "y": 17
+    },
+    {
+        "charCode": "1f627",
+        "pointerCode": [128551],
+        "raw": "😧",
+        "x": 27,
+        "y": 18
+    },
+    {
+        "charCode": "1f628",
+        "pointerCode": [128552],
+        "raw": "😨",
+        "x": 27,
+        "y": 19
+    },
+    {
+        "charCode": "1f629",
+        "pointerCode": [128553],
+        "raw": "😩",
+        "x": 27,
+        "y": 20
+    },
+    {
+        "charCode": "1f62a",
+        "pointerCode": [128554],
+        "raw": "😪",
+        "x": 27,
+        "y": 21
+    },
+    {
+        "charCode": "1f62b",
+        "pointerCode": [128555],
+        "raw": "😫",
+        "x": 27,
+        "y": 22
+    },
+    {
+        "charCode": "1f62c",
+        "pointerCode": [128556],
+        "raw": "😬",
+        "x": 27,
+        "y": 23
+    },
+    {
+        "charCode": "1f62d",
+        "pointerCode": [128557],
+        "raw": "😭",
+        "x": 27,
+        "y": 24
+    },
+    {
+        "charCode": "1f62e",
+        "pointerCode": [128558],
+        "raw": "😮",
+        "x": 27,
+        "y": 25
+    },
+    {
+        "charCode": "1f62f",
+        "pointerCode": [128559],
+        "raw": "😯",
+        "x": 27,
+        "y": 26
+    },
+    {
+        "charCode": "1f630",
+        "pointerCode": [128560],
+        "raw": "😰",
+        "x": 27,
+        "y": 27
+    },
+    {
+        "charCode": "1f631",
+        "pointerCode": [128561],
+        "raw": "😱",
+        "x": 27,
+        "y": 28
+    },
+    {
+        "charCode": "1f632",
+        "pointerCode": [128562],
+        "raw": "😲",
+        "x": 27,
+        "y": 29
+    },
+    {
+        "charCode": "1f633",
+        "pointerCode": [128563],
+        "raw": "😳",
+        "x": 27,
+        "y": 30
+    },
+    {
+        "charCode": "1f634",
+        "pointerCode": [128564],
+        "raw": "😴",
+        "x": 27,
+        "y": 31
+    },
+    {
+        "charCode": "1f635",
+        "pointerCode": [128565],
+        "raw": "😵",
+        "x": 27,
+        "y": 32
+    },
+    {
+        "charCode": "1f636",
+        "pointerCode": [128566],
+        "raw": "😶",
+        "x": 27,
+        "y": 33
+    },
+    {
+        "charCode": "1f637",
+        "pointerCode": [128567],
+        "raw": "😷",
+        "x": 27,
+        "y": 34
+    },
+    {
+        "charCode": "1f638",
+        "pointerCode": [128568],
+        "raw": "😸",
+        "x": 27,
+        "y": 35
+    },
+    {
+        "charCode": "1f639",
+        "pointerCode": [128569],
+        "raw": "😹",
+        "x": 27,
+        "y": 36
+    },
+    {
+        "charCode": "1f63a",
+        "pointerCode": [128570],
+        "raw": "😺",
+        "x": 27,
+        "y": 37
+    },
+    {
+        "charCode": "1f63b",
+        "pointerCode": [128571],
+        "raw": "😻",
+        "x": 27,
+        "y": 38
+    },
+    {
+        "charCode": "1f63c",
+        "pointerCode": [128572],
+        "raw": "😼",
+        "x": 27,
+        "y": 39
+    },
+    {
+        "charCode": "1f63d",
+        "pointerCode": [128573],
+        "raw": "😽",
+        "x": 27,
+        "y": 40
+    },
+    {
+        "charCode": "1f63e",
+        "pointerCode": [128574],
+        "raw": "😾",
+        "x": 28,
+        "y": 0
+    },
+    {
+        "charCode": "1f63f",
+        "pointerCode": [128575],
+        "raw": "😿",
+        "x": 28,
+        "y": 1
+    },
+    {
+        "charCode": "1f640",
+        "pointerCode": [128576],
+        "raw": "🙀",
+        "x": 28,
+        "y": 2
+    },
+    {
+        "charCode": "1f641",
+        "pointerCode": [128577],
+        "raw": "🙁",
+        "x": 28,
+        "y": 3
+    },
+    {
+        "charCode": "1f642",
+        "pointerCode": [128578],
+        "raw": "🙂",
+        "x": 28,
+        "y": 4
+    },
+    {
+        "charCode": "1f643",
+        "pointerCode": [128579],
+        "raw": "🙃",
+        "x": 28,
+        "y": 5
+    },
+    {
+        "charCode": "1f644",
+        "pointerCode": [128580],
+        "raw": "🙄",
+        "x": 28,
+        "y": 6
+    },
+    {
+        "charCode": "1f645",
+        "pointerCode": [128581],
+        "raw": "🙅",
+        "x": 28,
+        "y": 7
+    },
+    {
+        "charCode": "1f646",
+        "pointerCode": [128582],
+        "raw": "🙆",
+        "x": 28,
+        "y": 13
+    },
+    {
+        "charCode": "1f647",
+        "pointerCode": [128583],
+        "raw": "🙇",
+        "x": 28,
+        "y": 19
+    },
+    {
+        "charCode": "1f648",
+        "pointerCode": [128584],
+        "raw": "🙈",
+        "x": 28,
+        "y": 25
+    },
+    {
+        "charCode": "1f649",
+        "pointerCode": [128585],
+        "raw": "🙉",
+        "x": 28,
+        "y": 26
+    },
+    {
+        "charCode": "1f64a",
+        "pointerCode": [128586],
+        "raw": "🙊",
+        "x": 28,
+        "y": 27
+    },
+    {
+        "charCode": "1f64b",
+        "pointerCode": [128587],
+        "raw": "🙋",
+        "x": 28,
+        "y": 28
+    },
+    {
+        "charCode": "1f64c",
+        "pointerCode": [128588],
+        "raw": "🙌",
+        "x": 28,
+        "y": 34
+    },
+    {
+        "charCode": "1f64d",
+        "pointerCode": [128589],
+        "raw": "🙍",
+        "x": 28,
+        "y": 40
+    },
+    {
+        "charCode": "1f64e",
+        "pointerCode": [128590],
+        "raw": "🙎",
+        "x": 29,
+        "y": 5
+    },
+    {
+        "charCode": "1f64f",
+        "pointerCode": [128591],
+        "raw": "🙏",
+        "x": 29,
+        "y": 11
+    },
+    {
+        "charCode": "1f680",
+        "pointerCode": [128640],
+        "raw": "🚀",
+        "x": 29,
+        "y": 17
+    },
+    {
+        "charCode": "1f681",
+        "pointerCode": [128641],
+        "raw": "🚁",
+        "x": 29,
+        "y": 18
+    },
+    {
+        "charCode": "1f682",
+        "pointerCode": [128642],
+        "raw": "🚂",
+        "x": 29,
+        "y": 19
+    },
+    {
+        "charCode": "1f683",
+        "pointerCode": [128643],
+        "raw": "🚃",
+        "x": 29,
+        "y": 20
+    },
+    {
+        "charCode": "1f684",
+        "pointerCode": [128644],
+        "raw": "🚄",
+        "x": 29,
+        "y": 21
+    },
+    {
+        "charCode": "1f685",
+        "pointerCode": [128645],
+        "raw": "🚅",
+        "x": 29,
+        "y": 22
+    },
+    {
+        "charCode": "1f686",
+        "pointerCode": [128646],
+        "raw": "🚆",
+        "x": 29,
+        "y": 23
+    },
+    {
+        "charCode": "1f687",
+        "pointerCode": [128647],
+        "raw": "🚇",
+        "x": 29,
+        "y": 24
+    },
+    {
+        "charCode": "1f688",
+        "pointerCode": [128648],
+        "raw": "🚈",
+        "x": 29,
+        "y": 25
+    },
+    {
+        "charCode": "1f689",
+        "pointerCode": [128649],
+        "raw": "🚉",
+        "x": 29,
+        "y": 26
+    },
+    {
+        "charCode": "1f68a",
+        "pointerCode": [128650],
+        "raw": "🚊",
+        "x": 29,
+        "y": 27
+    },
+    {
+        "charCode": "1f68b",
+        "pointerCode": [128651],
+        "raw": "🚋",
+        "x": 29,
+        "y": 28
+    },
+    {
+        "charCode": "1f68c",
+        "pointerCode": [128652],
+        "raw": "🚌",
+        "x": 29,
+        "y": 29
+    },
+    {
+        "charCode": "1f68d",
+        "pointerCode": [128653],
+        "raw": "🚍",
+        "x": 29,
+        "y": 30
+    },
+    {
+        "charCode": "1f68e",
+        "pointerCode": [128654],
+        "raw": "🚎",
+        "x": 29,
+        "y": 31
+    },
+    {
+        "charCode": "1f68f",
+        "pointerCode": [128655],
+        "raw": "🚏",
+        "x": 29,
+        "y": 32
+    },
+    {
+        "charCode": "1f690",
+        "pointerCode": [128656],
+        "raw": "🚐",
+        "x": 29,
+        "y": 33
+    },
+    {
+        "charCode": "1f691",
+        "pointerCode": [128657],
+        "raw": "🚑",
+        "x": 29,
+        "y": 34
+    },
+    {
+        "charCode": "1f692",
+        "pointerCode": [128658],
+        "raw": "🚒",
+        "x": 29,
+        "y": 35
+    },
+    {
+        "charCode": "1f693",
+        "pointerCode": [128659],
+        "raw": "🚓",
+        "x": 29,
+        "y": 36
+    },
+    {
+        "charCode": "1f694",
+        "pointerCode": [128660],
+        "raw": "🚔",
+        "x": 29,
+        "y": 37
+    },
+    {
+        "charCode": "1f695",
+        "pointerCode": [128661],
+        "raw": "🚕",
+        "x": 29,
+        "y": 38
+    },
+    {
+        "charCode": "1f696",
+        "pointerCode": [128662],
+        "raw": "🚖",
+        "x": 29,
+        "y": 39
+    },
+    {
+        "charCode": "1f697",
+        "pointerCode": [128663],
+        "raw": "🚗",
+        "x": 29,
+        "y": 40
+    },
+    {
+        "charCode": "1f698",
+        "pointerCode": [128664],
+        "raw": "🚘",
+        "x": 30,
+        "y": 0
+    },
+    {
+        "charCode": "1f699",
+        "pointerCode": [128665],
+        "raw": "🚙",
+        "x": 30,
+        "y": 1
+    },
+    {
+        "charCode": "1f69a",
+        "pointerCode": [128666],
+        "raw": "🚚",
+        "x": 30,
+        "y": 2
+    },
+    {
+        "charCode": "1f69b",
+        "pointerCode": [128667],
+        "raw": "🚛",
+        "x": 30,
+        "y": 3
+    },
+    {
+        "charCode": "1f69c",
+        "pointerCode": [128668],
+        "raw": "🚜",
+        "x": 30,
+        "y": 4
+    },
+    {
+        "charCode": "1f69d",
+        "pointerCode": [128669],
+        "raw": "🚝",
+        "x": 30,
+        "y": 5
+    },
+    {
+        "charCode": "1f69e",
+        "pointerCode": [128670],
+        "raw": "🚞",
+        "x": 30,
+        "y": 6
+    },
+    {
+        "charCode": "1f69f",
+        "pointerCode": [128671],
+        "raw": "🚟",
+        "x": 30,
+        "y": 7
+    },
+    {
+        "charCode": "1f6a0",
+        "pointerCode": [128672],
+        "raw": "🚠",
+        "x": 30,
+        "y": 8
+    },
+    {
+        "charCode": "1f6a1",
+        "pointerCode": [128673],
+        "raw": "🚡",
+        "x": 30,
+        "y": 9
+    },
+    {
+        "charCode": "1f6a2",
+        "pointerCode": [128674],
+        "raw": "🚢",
+        "x": 30,
+        "y": 10
+    },
+    {
+        "charCode": "1f6a3",
+        "pointerCode": [128675],
+        "raw": "🚣",
+        "x": 30,
+        "y": 11
+    },
+    {
+        "charCode": "1f6a4",
+        "pointerCode": [128676],
+        "raw": "🚤",
+        "x": 30,
+        "y": 17
+    },
+    {
+        "charCode": "1f6a5",
+        "pointerCode": [128677],
+        "raw": "🚥",
+        "x": 30,
+        "y": 18
+    },
+    {
+        "charCode": "1f6a6",
+        "pointerCode": [128678],
+        "raw": "🚦",
+        "x": 30,
+        "y": 19
+    },
+    {
+        "charCode": "1f6a7",
+        "pointerCode": [128679],
+        "raw": "🚧",
+        "x": 30,
+        "y": 20
+    },
+    {
+        "charCode": "1f6a8",
+        "pointerCode": [128680],
+        "raw": "🚨",
+        "x": 30,
+        "y": 21
+    },
+    {
+        "charCode": "1f6a9",
+        "pointerCode": [128681],
+        "raw": "🚩",
+        "x": 30,
+        "y": 22
+    },
+    {
+        "charCode": "1f6aa",
+        "pointerCode": [128682],
+        "raw": "🚪",
+        "x": 30,
+        "y": 23
+    },
+    {
+        "charCode": "1f6ab",
+        "pointerCode": [128683],
+        "raw": "🚫",
+        "x": 30,
+        "y": 24
+    },
+    {
+        "charCode": "1f6ac",
+        "pointerCode": [128684],
+        "raw": "🚬",
+        "x": 30,
+        "y": 25
+    },
+    {
+        "charCode": "1f6ad",
+        "pointerCode": [128685],
+        "raw": "🚭",
+        "x": 30,
+        "y": 26
+    },
+    {
+        "charCode": "1f6ae",
+        "pointerCode": [128686],
+        "raw": "🚮",
+        "x": 30,
+        "y": 27
+    },
+    {
+        "charCode": "1f6af",
+        "pointerCode": [128687],
+        "raw": "🚯",
+        "x": 30,
+        "y": 28
+    },
+    {
+        "charCode": "1f6b0",
+        "pointerCode": [128688],
+        "raw": "🚰",
+        "x": 30,
+        "y": 29
+    },
+    {
+        "charCode": "1f6b1",
+        "pointerCode": [128689],
+        "raw": "🚱",
+        "x": 30,
+        "y": 30
+    },
+    {
+        "charCode": "1f6b2",
+        "pointerCode": [128690],
+        "raw": "🚲",
+        "x": 30,
+        "y": 31
+    },
+    {
+        "charCode": "1f6b3",
+        "pointerCode": [128691],
+        "raw": "🚳",
+        "x": 30,
+        "y": 32
+    },
+    {
+        "charCode": "1f6b4",
+        "pointerCode": [128692],
+        "raw": "🚴",
+        "x": 30,
+        "y": 33
+    },
+    {
+        "charCode": "1f6b5",
+        "pointerCode": [128693],
+        "raw": "🚵",
+        "x": 30,
+        "y": 39
+    },
+    {
+        "charCode": "1f6b6",
+        "pointerCode": [128694],
+        "raw": "🚶",
+        "x": 31,
+        "y": 4
+    },
+    {
+        "charCode": "1f6b7",
+        "pointerCode": [128695],
+        "raw": "🚷",
+        "x": 31,
+        "y": 10
+    },
+    {
+        "charCode": "1f6b8",
+        "pointerCode": [128696],
+        "raw": "🚸",
+        "x": 31,
+        "y": 11
+    },
+    {
+        "charCode": "1f6b9",
+        "pointerCode": [128697],
+        "raw": "🚹",
+        "x": 31,
+        "y": 12
+    },
+    {
+        "charCode": "1f6ba",
+        "pointerCode": [128698],
+        "raw": "🚺",
+        "x": 31,
+        "y": 13
+    },
+    {
+        "charCode": "1f6bb",
+        "pointerCode": [128699],
+        "raw": "🚻",
+        "x": 31,
+        "y": 14
+    },
+    {
+        "charCode": "1f6bc",
+        "pointerCode": [128700],
+        "raw": "🚼",
+        "x": 31,
+        "y": 15
+    },
+    {
+        "charCode": "1f6bd",
+        "pointerCode": [128701],
+        "raw": "🚽",
+        "x": 31,
+        "y": 16
+    },
+    {
+        "charCode": "1f6be",
+        "pointerCode": [128702],
+        "raw": "🚾",
+        "x": 31,
+        "y": 17
+    },
+    {
+        "charCode": "1f6bf",
+        "pointerCode": [128703],
+        "raw": "🚿",
+        "x": 31,
+        "y": 18
+    },
+    {
+        "charCode": "1f6c0",
+        "pointerCode": [128704],
+        "raw": "🛀",
+        "x": 31,
+        "y": 19
+    },
+    {
+        "charCode": "1f6c1",
+        "pointerCode": [128705],
+        "raw": "🛁",
+        "x": 31,
+        "y": 25
+    },
+    {
+        "charCode": "1f6c2",
+        "pointerCode": [128706],
+        "raw": "🛂",
+        "x": 31,
+        "y": 26
+    },
+    {
+        "charCode": "1f6c3",
+        "pointerCode": [128707],
+        "raw": "🛃",
+        "x": 31,
+        "y": 27
+    },
+    {
+        "charCode": "1f6c4",
+        "pointerCode": [128708],
+        "raw": "🛄",
+        "x": 31,
+        "y": 28
+    },
+    {
+        "charCode": "1f6c5",
+        "pointerCode": [128709],
+        "raw": "🛅",
+        "x": 31,
+        "y": 29
+    },
+    {
+        "charCode": "1f6cb",
+        "pointerCode": [128715],
+        "raw": "🛋",
+        "x": 31,
+        "y": 30
+    },
+    {
+        "charCode": "1f6cc",
+        "pointerCode": [128716],
+        "raw": "🛌",
+        "x": 31,
+        "y": 31
+    },
+    {
+        "charCode": "1f6cd",
+        "pointerCode": [128717],
+        "raw": "🛍",
+        "x": 31,
+        "y": 32
+    },
+    {
+        "charCode": "1f6ce",
+        "pointerCode": [128718],
+        "raw": "🛎",
+        "x": 31,
+        "y": 33
+    },
+    {
+        "charCode": "1f6cf",
+        "pointerCode": [128719],
+        "raw": "🛏",
+        "x": 31,
+        "y": 34
+    },
+    {
+        "charCode": "1f6d0",
+        "pointerCode": [128720],
+        "raw": "🛐",
+        "x": 31,
+        "y": 35
+    },
+    {
+        "charCode": "1f6e0",
+        "pointerCode": [128736],
+        "raw": "🛠",
+        "x": 31,
+        "y": 36
+    },
+    {
+        "charCode": "1f6e1",
+        "pointerCode": [128737],
+        "raw": "🛡",
+        "x": 31,
+        "y": 37
+    },
+    {
+        "charCode": "1f6e2",
+        "pointerCode": [128738],
+        "raw": "🛢",
+        "x": 31,
+        "y": 38
+    },
+    {
+        "charCode": "1f6e3",
+        "pointerCode": [128739],
+        "raw": "🛣",
+        "x": 31,
+        "y": 39
+    },
+    {
+        "charCode": "1f6e4",
+        "pointerCode": [128740],
+        "raw": "🛤",
+        "x": 31,
+        "y": 40
+    },
+    {
+        "charCode": "1f6e5",
+        "pointerCode": [128741],
+        "raw": "🛥",
+        "x": 32,
+        "y": 0
+    },
+    {
+        "charCode": "1f6e9",
+        "pointerCode": [128745],
+        "raw": "🛩",
+        "x": 32,
+        "y": 1
+    },
+    {
+        "charCode": "1f6eb",
+        "pointerCode": [128747],
+        "raw": "🛫",
+        "x": 32,
+        "y": 2
+    },
+    {
+        "charCode": "1f6ec",
+        "pointerCode": [128748],
+        "raw": "🛬",
+        "x": 32,
+        "y": 3
+    },
+    {
+        "charCode": "1f6f0",
+        "pointerCode": [128752],
+        "raw": "🛰",
+        "x": 32,
+        "y": 4
+    },
+    {
+        "charCode": "1f6f3",
+        "pointerCode": [128755],
+        "raw": "🛳",
+        "x": 32,
+        "y": 5
+    },
+    {
+        "charCode": "1f910",
+        "pointerCode": [129296],
+        "raw": "🤐",
+        "x": 32,
+        "y": 6
+    },
+    {
+        "charCode": "1f911",
+        "pointerCode": [129297],
+        "raw": "🤑",
+        "x": 32,
+        "y": 7
+    },
+    {
+        "charCode": "1f912",
+        "pointerCode": [129298],
+        "raw": "🤒",
+        "x": 32,
+        "y": 8
+    },
+    {
+        "charCode": "1f913",
+        "pointerCode": [129299],
+        "raw": "🤓",
+        "x": 32,
+        "y": 9
+    },
+    {
+        "charCode": "1f914",
+        "pointerCode": [129300],
+        "raw": "🤔",
+        "x": 32,
+        "y": 10
+    },
+    {
+        "charCode": "1f915",
+        "pointerCode": [129301],
+        "raw": "🤕",
+        "x": 32,
+        "y": 11
+    },
+    {
+        "charCode": "1f916",
+        "pointerCode": [129302],
+        "raw": "🤖",
+        "x": 32,
+        "y": 12
+    },
+    {
+        "charCode": "1f917",
+        "pointerCode": [129303],
+        "raw": "🤗",
+        "x": 32,
+        "y": 13
+    },
+    {
+        "charCode": "1f918",
+        "pointerCode": [129304],
+        "raw": "🤘",
+        "x": 32,
+        "y": 14
+    },
+    {
+        "charCode": "1f980",
+        "pointerCode": [129408],
+        "raw": "🦀",
+        "x": 32,
+        "y": 20
+    },
+    {
+        "charCode": "1f981",
+        "pointerCode": [129409],
+        "raw": "🦁",
+        "x": 32,
+        "y": 21
+    },
+    {
+        "charCode": "1f982",
+        "pointerCode": [129410],
+        "raw": "🦂",
+        "x": 32,
+        "y": 22
+    },
+    {
+        "charCode": "1f983",
+        "pointerCode": [129411],
+        "raw": "🦃",
+        "x": 32,
+        "y": 23
+    },
+    {
+        "charCode": "1f984",
+        "pointerCode": [129412],
+        "raw": "🦄",
+        "x": 32,
+        "y": 24
+    },
+    {
+        "charCode": "1f9c0",
+        "pointerCode": [129472],
+        "raw": "🧀",
+        "x": 32,
+        "y": 25
+    }
+]

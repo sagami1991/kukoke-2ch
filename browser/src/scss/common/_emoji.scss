@@ -1,0 +1,13 @@
+.emoji {
+	background-image: url(../resource/emoji-sheet.png);
+	$emojiSize: 18px;
+	display: inline-block;
+	width: $emojiSize;
+	height: $emojiSize;
+	text-indent: 100%;
+	color: transparent;
+	overflow: hidden;
+	background-size: 4100%;
+	vertical-align: middle;
+	margin: -4px 1px 0 1px;
+}

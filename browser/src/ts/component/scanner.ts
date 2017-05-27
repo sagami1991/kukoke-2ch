@@ -1,6 +1,6 @@
 import { BaseComponent, ComponentOption } from './baseComponent';
-import { _ } from "../commons/libs";
-import { ElemUtil } from "../commons/element";
+import { _ } from "../common/libs";
+import { ElemUtil } from "../common/element";
 export class ComponentScanner {
 	private static components: {
 		component: BaseComponent,

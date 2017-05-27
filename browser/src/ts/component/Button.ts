@@ -1,4 +1,4 @@
-import { getSvgIcon, MyIcon, MyIconSize } from 'commons/commons';
+import { getSvgIcon, MyIcon, MyIconSize } from 'common/commons';
 import { BaseComponent, ComponentOption } from './baseComponent';
 export interface ButtonOption extends ComponentOption {
 	readonly label?: string;
@@ -18,7 +18,7 @@ export class Button extends BaseComponent<ButtonOption> {
 			class="my-button-component my-button-${this.option!.style || "normal"} ${this.getClassNames()}"
 			${this.htmlAttr()}
 		>
-			${getSvgIcon(this.option!.icon, this.option!.iconSize || "s")}
+			${getSvgIcon(this.option!.icon, this.option!.iconSize)}
 			<div class="my-button-labels">
 				<div class="my-button-label-main">
 					${this.option!.label || ""}
