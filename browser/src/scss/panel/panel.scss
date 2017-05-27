@@ -1,10 +1,7 @@
-$red: rgb(210, 12, 12);
-$normal: rgb(120,140,155);
-$myBlue: #5c86a7;
+@import "./panel-bbs-menu.scss";
+@import "./panel-sure-list.scss";
+@import "./panel-res-list.scss";
 
-@import "./panel_bbs_menu.scss";
-@import "./panel_sure_list.scss";
-@import "./panel_res_list.scss";
 .panel-container {
 	display: flex;
 	flex-direction: column;

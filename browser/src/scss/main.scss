@@ -1,16 +1,16 @@
-$tofuBoarder: #bbbbbb;
-$hoverColor: #d5e1f2;
-$hoverBorderColor: #97b4dc;
-$activeColor: #c2cddc;
-$activeBorderColor: #97b4dc;
-$kukokeBlue: #5c86a7;
+@import "./const.scss";
 
-@import "./tofu/_tofu.scss";
-@import "./view/_side-bar.scss";
-@import "./component/_component.scss";
-@import "./panel/_panel.scss";
-@import "./common/_popup.scss";
-@import "./common/_emoji.scss";
+@import "./tofu/tofu.scss";
+@import "./view/side-bar.scss";
+@import "./view/status-bar.scss";
+@import "./component/component.scss";
+@import "./panel/panel.scss";
+@import "./common/popup.scss";
+@import "./common/emoji.scss";
+
+*, *:before {
+	box-sizing: border-box;
+}
 
 html, body {
 	height: 100%;
@@ -24,17 +24,11 @@ body {
 	font-size: 13px;
 	color: #333;
 }
+
 body, input, textarea, button {
 	font-family: メイリオ, "Yu Gothic", "MS PGothic";
-	// line-height: 14px;
-	// font-weight: 500;
-	// font-family: "MS PGothic";
-
 }
 
-*, *:before {
-	box-sizing: border-box;
-}
 
 .app-container {
 	height: calc(100% - 22px);
@@ -43,8 +37,8 @@ body, input, textarea, button {
 }
 
 .status-bar-container {
-	padding: 0 10px;
 	font-size: 12px;
+	padding: 0 10px;
 	display: flex;
 	align-items: center;
 	overflow: hidden;

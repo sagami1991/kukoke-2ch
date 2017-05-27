@@ -1,8 +1,12 @@
+$resColorNormal: rgb(120,140,155);
+$resColorBlue: rgb(132, 75, 191);
+$resColorRed: rgb(210, 12, 12);
+
 @mixin resContainer {
 	padding: 8px 0;
 	border-bottom: 1px solid #ccc;
 	.res-header {
-		color: rgb(120,140,155);
+		color: $resColorNormal;
 		font-size: 12px;
 		.res-no {
 			&.res-new {
@@ -14,16 +18,16 @@
 		}
 		.res-no, .res-user-id {
 			cursor: pointer;
-			&.red { color: $red }
-			&.blue{ color: rgb(132, 75, 191) }
-			&.normal { color: $normal }
+			&.red { color: $resColorRed; }
+			&.blue{ color: $resColorBlue; }
+			&.normal { color: $resColorNormal; }
 		}
 	}
 	.res-body {
 		word-wrap: break-word;
 		padding-left: 1em;
 		.res-anker, .res-image-link, .res-link {
-			color: $myBlue;
+			color: $kukokeBlue;
 			cursor: pointer;
 		}
 		.res-image-link:visited {

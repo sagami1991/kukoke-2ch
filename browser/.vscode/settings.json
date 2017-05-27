@@ -9,5 +9,11 @@
 		"**/*.js": { "when": "$(basename).ts" }
 	},
 	"tslint.configFile": "./tslint.json",
-	"typescript.tsdk": "node_modules\\typescript\\lib"
+	"typescript.tsdk": "node_modules\\typescript\\lib",
+	"csscomb.formatOnSave": true,
+	"csscomb.preset": "yandex",
+	"csscomb.preset": {
+		"remove-empty-rulesets": true,
+		"always-semicolon": true
+	}
 }

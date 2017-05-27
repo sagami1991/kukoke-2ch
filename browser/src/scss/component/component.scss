@@ -1,6 +1,3 @@
-$baseWhite: #fefefe;
-$myBlue: #5c86a7;
-$inputBorderColor: #bbb;
 
 input {
 	padding: 2px;
@@ -48,11 +45,11 @@ input, button, textarea {
 	}
 	&:hover {
 		background-color: $hoverColor;
-		border-color: $hoverBorderColor
+		border-color: $hoverBorderColor;
 	}
 	&:active {
 		background-color: $activeColor;
-		border-color: $activeBorderColor
+		border-color: $activeBorderColor;
 	}
 }
 
@@ -112,7 +109,7 @@ input, button, textarea {
 .my-list-component {
 	.my-list-header {
 		display: flex;
-		background-color: $myBlue;
+		background-color: $kukokeBlue;
 		.my-list-th {
 			padding: 4px 4px;
 			cursor: default;
@@ -150,11 +147,11 @@ input, button, textarea {
 	cursor: default;
 	&:hover {
 		background-color: $hoverColor;
-		border-color: $hoverBorderColor
+		border-color: $hoverBorderColor;
 	}
 	&:active {
 		background-color: $activeColor;
-		border-color: $activeBorderColor
+		border-color: $activeBorderColor;
 	}
 	.dropdown-item {
 		display: flex;

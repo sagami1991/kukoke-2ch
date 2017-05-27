@@ -1,6 +1,7 @@
+$emojiSize: 18px;
+
 .emoji {
 	background-image: url(../resource/emoji-sheet.png);
-	$emojiSize: 18px;
 	display: inline-block;
 	width: $emojiSize;
 	height: $emojiSize;
