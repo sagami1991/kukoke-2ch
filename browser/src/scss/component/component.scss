@@ -139,6 +139,20 @@ input, button, textarea {
 	}
 }
 
+@mixin dropdownItem {
+	display: flex;
+	align-items: center;
+	cursor: default;
+	.icon {
+		margin-right: 4px;
+	}
+	&:hover {
+		background-color: $hoverColor;
+	}
+	&:active {
+		background-color: $activeColor;
+	}
+}
 .my-dropdown-component {
 	display: flex;
 	align-items: center;
@@ -154,10 +168,13 @@ input, button, textarea {
 		border-color: $activeBorderColor;
 	}
 	.dropdown-item {
-		display: flex;
-		align-items: center;
-		.icon {
-			margin-right: 4px;
-		}
+		@include dropdownItem;
+	}
+}
+.dropdown-items {
+	border: 1px solid $inputBorderColor;
+	.dropdown-item {
+		@include dropdownItem;
+		padding: 2px 4px;
 	}
 }

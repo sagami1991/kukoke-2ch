@@ -1,6 +1,6 @@
-import { PanelType } from '../tofu/tofuDefs';
+import { PanelType } from 'panel/basePanel';
 import { _ } from "./libs";
-export type StorageType = 
+export type StorageType =
 "sureList" | "bbsMenuPanel" | "resList" | "SureListService" | PanelType;
 
 export class MyStorage {

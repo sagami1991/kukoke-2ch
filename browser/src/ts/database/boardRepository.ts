@@ -1,15 +1,19 @@
-import { BoardAttr } from './tables';
+import { BoardTable, BoardAttr } from './tables';
 import { db } from "database/database";
 
 class BoardRepository {
-	public getBoard(domain: string, path: string) {
+	public getBoard(id: number) {
+		return db.boards.get(id);
+	}
+
+	public getBoardByDomainAndPath(domain: string, path: string) {
 		return db.boards
 			.where(["domain", "path"])
 			.equals([domain, path])
 			.first();
 	}
 
-	public getBoardsByKeys(keys: [string, string][]) {
+	public getBoardsByDomainAndPath(keys: [string, string][]) {
 		return db.boards
 			.where(["domain", "path"])
 			.anyOf(<any>keys)
@@ -27,18 +31,18 @@ class BoardRepository {
 			.toArray();
 	}
 
-	public putBoard(board: BoardAttr) {
+	public putBoard(board: BoardTable) {
 		return db.boards.put(board);
 	}
 
 	public async upsertBoards(boards: BoardAttr[]) {
 		// TODO いい方法考える
 		for (let board of boards) {
-			const storedBoard = await db.boards.get([board.domain, board.path]);
-			if (storedBoard) {
-				await db.boards.update([board.domain, board.path], board);
+			const boardFromDb = await this.getBoardByDomainAndPath(board.domain, board.path);
+			if (boardFromDb) {
+				await db.boards.update(boardFromDb.id, board);
 			} else {
-				await db.boards.add(board);
+				await db.boards.add(<BoardTable>board);
 			}
 		}
 	}

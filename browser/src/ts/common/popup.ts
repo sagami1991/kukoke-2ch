@@ -13,7 +13,7 @@ export class Popup {
 		return `<div class="popup-overlay"></div>`;
 	}
 
-	constructor(elem: Element, target: Element) {
+	constructor(innerElem: Element, target: Element) {
 		this.popupElem = ElemUtil.parseDom(this.teml());
 		const rect = target.getBoundingClientRect();
 		const bottom = ElemUtil.appElem.clientHeight - rect.bottom;
@@ -21,13 +21,14 @@ export class Popup {
 			this.popupElem.style.bottom = bottom + 8 + "px";
 			this.popupElem.style.maxHeight = `calc(100% - ${bottom + 8}px)`;
 		} else {
-			this.popupElem.style.top = rect.top + "px";
-			this.popupElem.style.maxHeight = `calc(100% - ${rect.top + 8}px)`;
+			const top = rect.top + rect.height;
+			this.popupElem.style.top = top + "px";
+			this.popupElem.style.maxHeight = `calc(100% - ${top + 8}px)`;
 
 		}
 		this.popupElem.style.left = rect.left + "px";
 		this.overlayElem = ElemUtil.parseDom(this.overlay());
-		this.popupElem.appendChild(elem);
+		this.popupElem.appendChild(innerElem);
 		if (!Popup.popups) {
 			ElemUtil.appElem.appendChild(this.overlayElem);
 			this.overlayElem.addEventListener("click", () => {

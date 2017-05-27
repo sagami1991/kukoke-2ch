@@ -13,5 +13,3 @@ export interface BlockSize {
 	width: number;
 	height: number;
 }
-
-export type PanelType = "board" | "sure" | "res" | "form";

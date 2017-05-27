@@ -1,10 +1,11 @@
-import { PanelType } from '../tofu/tofuDefs';
 import { MyStorage } from 'common/commons';
 import { Observable } from 'base/observable';
 export interface BasePanelEvent {
 	"changeTitle": string;
 	"hoge": number;
 };
+export type PanelType = "board" | "sureList" | "resList" | "form";
+
 export abstract class Panel<T = BasePanelEvent, S = {}> extends Observable<T & BasePanelEvent> {
 	protected _el: Element;
 	protected _title: string;
@@ -15,6 +16,7 @@ export abstract class Panel<T = BasePanelEvent, S = {}> extends Observable<T & B
 	public get title(): string { return this._title; }
 	constructor() {
 		super();
+		this._title = "";
 		this._storage = this.getSavedStorage();
 	}
 

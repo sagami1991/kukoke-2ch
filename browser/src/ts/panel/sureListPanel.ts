@@ -1,16 +1,16 @@
+import { boardRepository } from '../database/boardRepository';
 import { tmpl } from 'common/commons';
 import { List, Button, SearchText} from 'component/components';
 import { ListOption , ButtonOption, SearchTextOption } from 'component/components';
 import { ComponentScanner } from 'component/scanner';
 import { sureListService } from 'service/sureListService';
 import { SureModel } from 'model/sureModel';
-import { Panel } from './basePanel';
-import { BoardAttr } from "database/tables";
-import { PanelType } from "tofu/tofuDefs";
-import { emoji } from "common/emoji";
+import { Panel, PanelType } from './basePanel';
+import { BoardTable } from "database/tables";
+import { emojiUtil } from "common/emoji";
 
 interface SureListStorage {
-	board: BoardAttr | null;
+	boardId: number | null;
 }
 
 interface SureListPanelEvent {
@@ -18,12 +18,12 @@ interface SureListPanelEvent {
 }
 export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 	private _sures: SureModel[];
-	private _displaySures: SureModel[];
-	private _openedBoard: BoardAttr | null;
+	private _openedBoard: BoardTable | undefined;
 
 	public get panelType(): PanelType {
-		return "sure";
+		return "sureList";
 	}
+
 	// components
 	private readonly _backButton: Button;
 	private readonly _reloadButton: Button;
@@ -49,8 +49,6 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 
 	constructor() {
 		super();
-		this._openedBoard = this._storage.board;
-		this._title = this._openedBoard ? this._openedBoard.displayName : "";
 		this._backButton = new Button(this.getBackButtonOption());
 		this._reloadButton = new Button(this.getReloadButtonOption());
 		this._createButton = new Button(this.getWriteButtonOption());
@@ -60,20 +58,25 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 	}
 
 	public async init() {
-		await this.refreshFromDb();
+		if (this._storage.boardId !== null) {
+			const board = await boardRepository.getBoard(this._storage.boardId);
+			if (board) {
+				await this.refreshFromDb(board);
+			}
+		}
 	}
 
 	/** @override */
 	protected getStorageForSave(): SureListStorage {
 		return {
-			board: this._openedBoard
+			boardId: this._openedBoard ? this._openedBoard.id : null
 		};
 	}
 
 	/** @override */
 	protected getDefaultStorage(): SureListStorage {
 		return {
-			board: null
+			boardId: null
 		};
 	}
 
@@ -107,7 +110,7 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 	private getSearchTextOption(): SearchTextOption {
 		return {
 			width: 160,
-			placeholder: "スレ名",
+			placeholder: "スレタイを検索",
 			onChange: (text) => this.search(text)
 		};
 	}
@@ -130,7 +133,7 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 				},
 				{
 					label: "スレタイ",
-					parse: (sure) => emoji.replace(sure.titleName), // TODO エスケープ済みっぽいが危険
+					parse: (sure) => emojiUtil.replace(sure.titleName), // TODO エスケープ済みっぽいが危険
 					className: (sure) => `sure-suretai ${sure.saved ? "sure-saved" : ""}`,
 					width: 400
 				}, {
@@ -154,45 +157,48 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 		};
 	}
 
-	private async refreshFromDb() {
-		if (this._openedBoard) {
-			const sureCollection = await sureListService.getSuresFromDb(this._openedBoard);
-			this.changeSureCollection(sureCollection);
-		}
+	public async openBoard(board: BoardTable) {
+		this._openedBoard = board;
+		const sureCollection = await sureListService.getSuresFromNichan(board);
+		this.changeSureCollection(sureCollection, board);
 	}
 
 	private async reload() {
 		if (this._openedBoard) {
 			const sureCollection = await sureListService.getSuresFromNichan(this._openedBoard);
-			this.changeSureCollection(sureCollection);
+			this.changeSureCollection(sureCollection, this._openedBoard);
 		}
 	}
 
-	public async openBoard(board: BoardAttr) {
-		this._openedBoard = board;
-		const sureCollection = await sureListService.getSuresFromNichan(board);
-		this.changeSureCollection(sureCollection);
-		this.trigger("changeTitle", this._title);
+	private async refreshFromDb(board: BoardTable) {
+		const sureCollection = await sureListService.getSuresFromDb(board);
+		this.changeSureCollection(sureCollection, board);
 	}
 
-	public async changeSure(sure: SureModel) {
+
+	public async onChangeSureModel(sure: SureModel) {
 		if (this._openedBoard && this._openedBoard.path === sure.board.path) {
-			await this.refreshFromDb();
+			await this.refreshFromDb(this._openedBoard);
 		}
 	}
 
-	private changeSureCollection(sures: SureModel[]) {
+	private changeSureCollection(sures: SureModel[], board: BoardTable) {
 		this._sures = sures;
-		this._displaySures = sures;
-		this._list.changeArray(this._displaySures);
+		this._openedBoard = board;
+		this._list.changeData(sures);
+		if (this._title !== board.displayName) {
+			this._title = board.displayName;
+			this.trigger("changeTitle", this._title);
+
+		}
 	}
 
 	private search(text: string) {
 		if (!this._sures) {
 			return;
 		}
-		this._displaySures = this._sures.filter(sure => sure.titleName.match(text) !== null);
-		this._list.changeArray(this._displaySures);
+		const sures = this._sures.filter(sure => sure.titleName.match(text) !== null);
+		this._list.changeData(sures);
 	};
 
 

@@ -1,14 +1,13 @@
-import { PanelType } from '../tofu/tofuDefs';
 import { StorageType } from 'common/commons';
 import { bbsMenuService } from 'service/bbsMenuService';
 import { ComponentScanner } from 'component/scanner';
 import { RadioButton, RadioButtonOption, SearchText, SearchTextOption, List, ListOption, Button, ButtonOption } from 'component/components';
-import { BasePanelEvent, Panel } from './basePanel';
-import { BoardAttr } from "database/tables";
+import { BasePanelEvent, Panel, PanelType } from './basePanel';
+import { BoardTable } from "database/tables";
 
 type BbsMenuMode =  "allList" | "history";
 interface BbsMenuPanelEvent {
-	"openBoard": BoardAttr;
+	"openBoard": BoardTable;
 }
 interface BbsMenuStorage {
 	mode: BbsMenuMode;
@@ -16,15 +15,15 @@ interface BbsMenuStorage {
 
 export class BbsMenuPanel extends Panel<BbsMenuPanelEvent, BbsMenuStorage> {
 	private _mode: BbsMenuMode;
-	private _allBoards: BoardAttr[];
-	private _displayBoards: BoardAttr[];
+	private _allBoards: BoardTable[];
+	private _displayBoards: BoardTable[];
 
 	public get panelType(): PanelType {
 		return "board";
 	}
 
 	// components
-	private readonly _list: List<BoardAttr>;
+	private readonly _list: List<BoardTable>;
 	private readonly _modeRadio: RadioButton<BbsMenuMode>;
 	private readonly _reloadButton: Button;
 	private readonly _searchText: SearchText;
@@ -47,14 +46,22 @@ export class BbsMenuPanel extends Panel<BbsMenuPanelEvent, BbsMenuStorage> {
 		super();
 		this._title = "板一覧";
 		this._mode = this._storage.mode;
-		this._list = new List<BoardAttr>(this.getListOption());
+		this._list = new List<BoardTable>(this.getListOption());
 		this._modeRadio = new RadioButton<BbsMenuMode>(this.getRadioButtonOption());
 		this._reloadButton = new Button(this.getReloadButtonOption());
 		this._searchText = new SearchText(this.getSearchTextOption());
 		this._el = ComponentScanner.scanHtml(this.template());
 	}
 
-	private getListOption(): ListOption<BoardAttr> {
+	public async init() {
+		this._allBoards = await bbsMenuService.getAllBoardsFromDb();
+		if (this._allBoards.length === 0) {
+			this._allBoards = await bbsMenuService.getBoardsFromNichan();
+		};
+		await this.refreshBoards();
+	}
+
+	private getListOption(): ListOption<BoardTable> {
 		return {
 			array: [],
 			cellOptions: [
@@ -94,7 +101,7 @@ export class BbsMenuPanel extends Panel<BbsMenuPanelEvent, BbsMenuStorage> {
 	private getSearchTextOption(): SearchTextOption {
 		return {
 			width: 160,
-			placeholder: "板名",
+			placeholder: "板名を検索",
 			onChange: (text) => this.search(text)
 		};
 	}
@@ -104,19 +111,11 @@ export class BbsMenuPanel extends Panel<BbsMenuPanelEvent, BbsMenuStorage> {
 			return;
 		}
 		this._displayBoards = this._allBoards.filter(board => board.displayName.match(text) !== null);
-		this._list.changeArray(this._displayBoards);
+		this._list.changeData(this._displayBoards);
 	};
 
-	public async init() {
-		this._allBoards = await bbsMenuService.getAllBoardsFromDb();
-		if (this._allBoards.length === 0) {
-			this._allBoards = await bbsMenuService.getBoardsFromServer();
-		};
-		await this.refreshBoards();
-	}
-
 	private async reload() {
-		this._allBoards = await bbsMenuService.getBoardsFromServer();
+		this._allBoards = await bbsMenuService.getBoardsFromNichan();
 		await this.refreshBoards();
 	}
 
@@ -129,10 +128,10 @@ export class BbsMenuPanel extends Panel<BbsMenuPanelEvent, BbsMenuStorage> {
 			this._displayBoards = await bbsMenuService.getBoardsHistories();
 			break;
 		}
-		this._list.changeArray(this._displayBoards);
+		this._list.changeData(this._displayBoards);
 	}
 
-	private openBoard(board: BoardAttr) {
+	private openBoard(board: BoardTable) {
 		bbsMenuService.addHistory(board);
 		this.trigger("openBoard", board);
 	}

@@ -1,10 +1,9 @@
 import { SureModel } from 'model/sureModel';
-import { PanelType } from 'tofu/tofuDefs';
 import { ComponentScanner } from 'component/scanner';
 import { Button, ButtonOption, Textarea } from 'component/components';
-import { Panel } from './basePanel';
+import { Panel, PanelType } from './basePanel';
 
-type SubmitType =  "res" | "sure";
+type SubmitType =  "resList" | "sureList";
 export interface OpenFormOption {
 	submitType: SubmitType;
 	sure: SureModel;

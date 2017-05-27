@@ -72,6 +72,11 @@ export class ResModel {
 		this._isNew = attr.isNew;
 	}
 
+	public getIndexFormat() {
+		const count = this._fromAnkers.length;
+		return count ? `(${count})` : ``; 
+	}
+
 	/** (2/4)のような文字列 */
 	public getIdCountFormat() {
 		return `${this._userIndexes.indexOf(this._index) + 1}/${this._userIndexes.length}`;

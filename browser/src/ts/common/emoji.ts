@@ -28,8 +28,8 @@ class Emoji {
 			if (!emoji) {
 				return $1;
 			}
-			return `<span` +
-					`class="emoji"` +
+			return `<span ` +
+					`class="emoji" ` +
 					`style="` +
 						`background-position-x: ${2.5 * emoji.x}%;` +
 						`background-position-y: ${2.5 * emoji.y}%;` +
@@ -38,4 +38,4 @@ class Emoji {
 	}
 }
 
-export const emoji = new Emoji();
+export const emojiUtil = new Emoji();

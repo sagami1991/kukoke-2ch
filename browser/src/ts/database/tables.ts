@@ -1,8 +1,15 @@
-import { PanelType, BlockState } from "tofu/tofuDefs";
+import { BoardAttr } from './tables';
+import { PanelType } from 'panel/basePanel';
+import { BlockState } from "tofu/tofuDefs";
 
 /** 
- * 主キー（domain, path）
+ * 主キー (id) オートインクリメント
+ * ユニーク制約 (domain, path)
  */
+export interface BoardTable extends BoardAttr {
+	id: number;
+}
+
 export interface BoardAttr {
 	domain: string;
 	path: string;
@@ -12,15 +19,19 @@ export interface BoardAttr {
 }
 
 /**
- * 主キー (bDomain, bPath, datNo)
- * インデックス (bDomain, bPath) // TODO 複合キーの途中までインデックスなしで走査する方法
- * インデックス (bDomain, bPath, saved)
- * インデックス (bDomain, bPath, enabled)
+ * 主キー (id)  オートインクリメント
+ * ユニーク制約 (bid, datNo)
+ * インデックス (bid) // TODO 複合キーの途中までインデックスなしで走査する方法
+ * インデックス (bid, saved)
+ * インデックス (bid, enabled)
  * インデックス (isTemporary)
  */
+export interface SureTable extends SureAttr {
+	id: number;
+}
+
 export interface SureAttr {
-	bDomain: string;
-	bPath: string;
+	bId: number;
 	datNo: number;
 	index?: number;
 	displayName: string;
@@ -31,14 +42,13 @@ export interface SureAttr {
 	isTemporary?: 0 | 1;
 	byteLength?: number;
 	lastModified?: string;
-	// TODO 更新日時
 }
 
 /**
  * 主キー（id）オートインクリメント
  * インデックス（url）プライマリ
  */
-export interface ImageAttr {
+export interface ImageTable {
 	id?: number;
 	url: string;
 }
@@ -46,7 +56,7 @@ export interface ImageAttr {
 /**
  * 主キー（panelType）
  */
-export interface PanelBlockState {
+export interface PanelBlockStateTable {
 	panelType: PanelType;
 	blockState: BlockState;
 }

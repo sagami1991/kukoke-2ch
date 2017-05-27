@@ -1,5 +1,5 @@
-import { PanelType } from '../tofu/tofuDefs';
-import { PanelBlockState } from './tables';
+import { PanelType } from 'panel/basePanel';
+import { PanelBlockStateTable } from './tables';
 import { db } from "database/database";
 
 class BlockStateRepository {
@@ -13,7 +13,7 @@ class BlockStateRepository {
 		return db.panelStates.toArray();
 	}
 
-	public putState(blockState: PanelBlockState) {
+	public putState(blockState: PanelBlockStateTable) {
 		return db.panelStates.put(blockState);
 	}
 

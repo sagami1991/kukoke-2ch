@@ -1,31 +1,21 @@
-import { PanelType } from '../tofu/tofuDefs';
+import { PanelType } from 'panel/basePanel';
 import Dexie from "dexie";
-import { SureAttr, BoardAttr, PanelBlockState} from "database/tables";
+import { SureTable, BoardTable, PanelBlockStateTable} from "database/tables";
 import { Consts } from "const";
 
 class Database extends Dexie {
-	public readonly sures:  Dexie.Table<SureAttr, [string, string, number]>;
-	public readonly boards:  Dexie.Table<BoardAttr, [string, string]>;
-	public readonly panelStates: Dexie.Table<PanelBlockState, PanelType>;
+	public readonly sures:  Dexie.Table<SureTable, number>;
+	public readonly boards:  Dexie.Table<BoardTable, number>;
+	public readonly panelStates: Dexie.Table<PanelBlockStateTable, PanelType>;
 	constructor() {
 		super("kukoke", {
 			autoOpen: false
 		});
+
 		this.version(1).stores({
-			boards: "[domain+path], *isTemporary",
-			sures: "[bDomain+bPath+datNo], [bDomain+bPath+saved], *isTemporary"
-		});
-
-		this.version(2).stores({
+			boards: "++id, &[domain+path], *isTemporary",
+			sures: "++id, &[bId+datNo], [bId], [bId+saved], [bId+enabled], *isTemporary",
 			panelStates: "panelType"
-		});
-
-		this.version(3).stores({
-			sures: "[bDomain+bPath+datNo], [bDomain+bPath], [bDomain+bPath+saved], *isTemporary"
-		});
-
-		this.version(4).stores({
-			sures: "[bDomain+bPath+datNo], [bDomain+bPath], [bDomain+bPath+saved], [bDomain+bPath+enabled], *isTemporary"
 		});
 	}
 

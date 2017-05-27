@@ -83,7 +83,7 @@ class MyApp {
 		});
 		this._resListPanel.addListener("changeSure", kariId, async (sure) => {
 			// await this.preListenPanel(this._sureListPanel);
-			this._sureListPanel.changeSure(sure);
+			this._sureListPanel.onChangeSureModel(sure);
 		});
 		this._resListPanel.addListener("openForm", kariId, async (option) => {
 			await this.preListenPanel(this._formPanel);

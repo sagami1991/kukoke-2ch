@@ -1,12 +1,11 @@
 import { createObserverId, Observable } from 'base/observable';
 import { ComponentScanner } from 'component/scanner';
 import { Button, ButtonOption } from 'component/components';
-import { Panel } from 'panel/basePanel';
-import { BlockPosition, BlockSize, BlockState, PanelType } from './tofuDefs';
-import { ElemUtil } from "common/element";
+import { Panel, PanelType } from 'panel/basePanel';
+import { BlockPosition, BlockSize, BlockState } from './tofuDefs';
 import { blockStateRepository } from "database/blockStateRepository";
 import { db } from "database/database";
-import { emoji } from "common/emoji";
+import { emojiUtil } from "common/emoji";
 interface BlockEvent {
 	removed: undefined;
 }
@@ -25,7 +24,7 @@ export class TofuBlock extends Observable<BlockEvent> {
 	public get el() {
 		return this._el;
 	}
-	public get panelType() {
+	public get panelType(): PanelType {
 		return this._panel.panelType;
 	}
 	public get state(): BlockState {
@@ -39,7 +38,7 @@ export class TofuBlock extends Observable<BlockEvent> {
 			<div class="tofu-panel">
 				<div class="tofu-top-bar">
 					<div class="tofu-title">
-						${emoji.replace(this._panel.title)}
+						${emojiUtil.replace(this._panel.title)}
 					</div>
 					${this._maximizeButton.html()}
 					${this._closeButton.html()}
@@ -63,7 +62,7 @@ export class TofuBlock extends Observable<BlockEvent> {
 		this._observerId = createObserverId();
 		this._panel.addListener("changeTitle", this._observerId, (title) => {
 			// TODO xss確認
-			this._titleElem.innerHTML = emoji.replace(title);
+			this._titleElem.innerHTML = emojiUtil.replace(title);
 		});
 
 	}
@@ -112,8 +111,7 @@ export class TofuBlock extends Observable<BlockEvent> {
 		this._size.height = Math.round(size.height / this._unitY) * this._unitY;
 	}
 
-	public onStart(zIndex: number) {
-		this._el.style.zIndex = "" + zIndex;
+	public onStart() {
 		this._el.classList.remove("tofu-stop");
 	}
 

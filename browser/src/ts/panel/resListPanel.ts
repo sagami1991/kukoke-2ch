@@ -1,7 +1,7 @@
 import { notify } from '../common/libs';
 import { Popup } from '../common/popup';
 import { PopupRes } from 'service/resListService';
-import { SureAttr } from 'database/tables';
+import { SureTable } from 'database/tables';
 import { SureModel } from 'model/sureModel';
 import { ResModel } from 'model/resModel';
 import { tmpl, ElemUtil } from 'common/commons';
@@ -9,27 +9,28 @@ import { ComponentScanner } from 'component/scanner';
 import { Button, SearchText, Dropdown} from 'component/components';
 import { ButtonOption, SearchTextOption, DropdownOption} from 'component/components';
 import { resListService } from 'service/resListService';
-import { Panel } from './basePanel';
-import { PanelType } from "tofu/tofuDefs";
+import { Panel, PanelType } from './basePanel';
 import { OpenFormOption } from "panel/formPanel";
 
 interface ResListStorage {
-	sure: SureAttr | null;
+	sureId: number | null;
 }
 
 interface ResListPanelEvent {
 	"changeSure": SureModel;
 	"openForm": OpenFormOption;
 }
+
+type FilterType = "none" | "popularity" | "image" | "link";
 export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	private _content: Element;
 	private _openedSure: SureModel | undefined;
-	private _allResList: ResModel[];
-	private _displayResList: ResModel[];
+	private _resCollection: ResModel[];
 
 	public get panelType(): PanelType {
-		return "res";
+		return "resList";
 	}
+
 	// components
 	private readonly _backButton: Button;
 	private readonly _refreshButton: Button;
@@ -55,8 +56,8 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		`;
 	}
 
-	private resListTemplate() {
-		return tmpl.each(this._displayResList, res => this.resTemplate(res));
+	private resListTemplate(reses: ResModel[]) {
+		return tmpl.each(reses, res => this.resTemplate(res));
 	}
 
 	private resTemplate(res: ResModel, className?: string) {
@@ -66,7 +67,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 				<span class="res-no ${res.getResColor()} ${tmpl.when(res.isNew, () => "res-new")}"
 					res-index = "${res.index}"
 				 >
-					${res.index + 1}
+					${res.index + 1}${res.getIndexFormat()}
 				</span>
 				<span class="res-name">
 					名前: ${res.name}
@@ -93,7 +94,6 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	}
 	constructor() {
 		super();
-		this._title = "";
 		this._backButton = new Button(this.getBackButtonOption());
 		this._refreshButton = new Button(this.getRefreshButtonOption());
 		this._createButton = new Button(this.getSubmitButtonOption());
@@ -102,12 +102,12 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		this._deleteButton = new Button(this.getDeleteButtonOption());
 		this._el = ComponentScanner.scanHtml(this.template());
 		this._content = this._el.querySelector(".panel-content")!;
+		this.addClickEvent(this._content);
 	}
 
 	public async init() {
-		this.addClickEvent(this._content);
-		if (this._storage.sure) {
-			const sureModel  = await resListService.attrToModel(this._storage.sure);
+		if (this._storage.sureId !== null) {
+			const sureModel = await SureModel.createInstanceFromId(this._storage.sureId);
 			const resList = await resListService.getResListFromCache(sureModel);
 			this.changeResList(sureModel, resList);
 		}
@@ -119,7 +119,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			if (index === null) {
 				throw new Error();
 			}
-			const result = resListService.deepSearchAnker(this._allResList, +index);
+			const result = resListService.deepSearchAnker(this._resCollection, +index);
 			this.popup(result, current);
 		});
 		ElemUtil.addDelegateEventListener(parent, "click", ".res-anker", (e, current) => {
@@ -127,7 +127,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			if (index === null) {
 				throw new Error();
 			}
-			const res = this._allResList[+index];
+			const res = this._resCollection[+index];
 			if (!res) {
 				return;
 			}
@@ -139,8 +139,8 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			if (index === null) {
 				throw new Error();
 			}
-			const userResIndexes = this._allResList[+index].userIndexes;
-			const userReses = userResIndexes.map<PopupRes>(index => ({nestCount: 0, res: this._allResList[index]}));
+			const userResIndexes = this._resCollection[+index].userIndexes;
+			const userReses = userResIndexes.map<PopupRes>(index => ({nestCount: 0, res: this._resCollection[index]}));
 			this.popup(userReses, current);
 		});
 	}
@@ -148,14 +148,14 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	/** @override */
 	protected getStorageForSave(): ResListStorage {
 		return {
-			sure: this._openedSure ? this._openedSure.toJSON() : null
+			sureId: this._openedSure ? this._openedSure.id : null
 		};
 	}
 
 	/** @override */
 	protected getDefaultStorage(): ResListStorage {
 		return {
-			sure: null
+			sureId: null
 		};
 	}
 
@@ -173,7 +173,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			icon: "icon-reload",
 			iconSize: "m",
 			style: "icon-only",
-			onClick: () => this.changeResListFromServer(this._openedSure!)
+			onClick: () => this.reload()
 		};
 	}
 
@@ -188,12 +188,12 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	private getSearchTextOption(): SearchTextOption {
 		return {
 			width: 160,
-			placeholder: "本文",
+			placeholder: "本文を検索",
 			onChange: (text) => this.search(text)
 		};
 	}
 
-	private getDropdownOption(): DropdownOption {
+	private getDropdownOption(): DropdownOption<FilterType> {
 		return {
 			defaultItem: {
 				icon: "icon-filter",
@@ -201,14 +201,21 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			},
 			items: [
 				{
-					label: "人気レス"
+					label: "フィルターなし",
+					id: "none"
 				}, {
-					label: "画像レス"
+					label: "人気レス",
+					id: "popularity"
 				}, {
-					label: "リンクレス"
+					label: "画像レス",
+					id: "image"
+				}, {
+					label: "リンクレス",
+					id: "link"
+
 				}
 			],
-			onSelect: () => alert("未実装")
+			onSelect: (filterType) => this.filter(filterType)
 		};
 	}
 
@@ -221,6 +228,27 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		};
 	}
 
+	private reload() {
+		this.changeResListFromServer(this._openedSure!);
+	}
+	private filter(type: FilterType) {
+		if (!this._resCollection) {
+			return;
+		}
+		let reses: ResModel[] = this._resCollection;
+		switch (type) {
+		case "none":
+			break;
+		case "popularity":
+			reses = this._resCollection.filter(res => res.fromAnkers.length >= 3);
+			break;
+		case "image": // TODO
+		case "link": // TODO
+			break;
+		}
+		this.reRender(reses);
+		return;
+	}
 
 	private openForm() {
 		if (!this._openedSure) {
@@ -228,7 +256,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			return;
 		}
 		this.trigger("openForm", {
-			submitType: "res",
+			submitType: "resList",
 			sure: this._openedSure
 		});
 	}
@@ -256,20 +284,22 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	}
 
 	private changeResList(sure: SureModel, resList: ResModel[]) {
-		this._allResList = resList;
-		this._displayResList = this._allResList;
-		this._content.innerHTML = this.resListTemplate();
+		this._resCollection = resList;
 		this._title = `${sure.board.displayName} - ${sure.titleName}`;
 		this.trigger("changeTitle", this._title);
 		this._openedSure = sure;
+		this.reRender(resList);
 	}
 
 	private search(text: string) {
-		if (!this._allResList) {
+		if (!this._resCollection) {
 			return;
 		}
-		this._displayResList = this._allResList.filter(res => res.body.match(text) !== null);
-		this._content.innerHTML = "";
-		this._content.innerHTML = this.resListTemplate();
+		const reses = this._resCollection.filter(res => res.body.match(text) !== null);
+		this.reRender(reses);
 	};
+
+	private reRender(reses: ResModel[]) {
+		this._content.innerHTML = this.resListTemplate(reses);
+	}
 }

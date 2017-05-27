@@ -1,7 +1,7 @@
-import { PanelBlockState } from "database/tables";
+import { PanelBlockStateTable } from "database/tables";
 
 export namespace Consts {
-	export const DEFAULT_TOFU_STATES: PanelBlockState[] = [
+	export const DEFAULT_TOFU_STATES: PanelBlockStateTable[] = [
 		{
 			panelType: "board",
 			blockState: {
@@ -10,14 +10,14 @@ export namespace Consts {
 			}
 		},
 		{
-			panelType: "sure",
+			panelType: "sureList",
 			blockState: {
 				position: { x: 120, y: 0, z: 0 },
 				size: { width: 630, height: 420 }
 			}
 		},
 		{
-			panelType: "res",
+			panelType: "resList",
 			blockState: {
 				position: { x: 0, y: 420, z: 0 },
 				size: { width: 750, height: 480 }

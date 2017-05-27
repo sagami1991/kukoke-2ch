@@ -5,7 +5,6 @@ import { tmpl } from "./tmpl";
 import { MyIcon, MyIconSize, getSvgIcon } from './icon';
 import { ElemUtil } from "./element";
 import { FileUtil } from "./file";
-import { inject, injectable } from "./inject";
 
 export {
 	RequestOption, xhrRequest, XhrResponse, mapToFormData, sjisBufferToStr,
@@ -14,6 +13,5 @@ export {
 	MyIcon, MyIconSize, getSvgIcon,
 	ElemUtil,
 	FileUtil,
-	inject, injectable,
 	jsonParse, jsonString, alertMessage
 };

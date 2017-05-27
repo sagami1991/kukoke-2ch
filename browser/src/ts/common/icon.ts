@@ -7,18 +7,20 @@ export type MyIcon =
 	"icon-delete-forever";
 export type MyIconSize = "s" | "m";
 
-const fixedSize: {[key in MyIcon]?: {width: number, height: number}} = {
+const fixedSizeMap: {[key in MyIcon]?: {width: number, height: number}} = {
 	"icon-ok": { width: 30, height: 20}
 };
 export function getSvgIcon(icon: MyIcon, size?: MyIconSize, className?: string): string {
+	const fixedSize = fixedSizeMap[icon];
 	return `
 		<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-${size || "m"} ${className || ""}"
-			${tmpl.when(fixedSize[icon], () => `
-			style="
-				width: ${fixedSize[icon]!.width}px;
-				min-width: ${fixedSize[icon]!.width}px;
-				height: ${fixedSize[icon]!.height}px;
-			"`)}
+			${fixedSize ? `
+				style="
+					width: ${fixedSize.width}px;
+					min-width: ${fixedSize.width}px;
+					height: ${fixedSize.height}px;
+				"` : ""
+			}
 		>
 			<use xlink:href="#${icon}"/>
 		</svg>

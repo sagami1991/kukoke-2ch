@@ -10,7 +10,7 @@ export namespace tmpl {
 	}
 
 	export function dateFormat(date: Date): string {
-		return dateFmt(date, "mm/dd hh:MM");
+		return dateFmt(date, "mm/dd HH:MM");
 		// return `${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
 	}
 

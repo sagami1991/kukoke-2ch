@@ -1,16 +1,15 @@
-import { Panel } from '../panel/basePanel';
-import { PanelType, BlockState } from './tofuDefs';
+import { Panel, PanelType } from 'panel/basePanel';
 import { TofuShadow } from './tofuShadow';
 import { TofuBlock } from './tofuBlock';
-import remove from "lodash/remove";
+import { _ } from "common/libs";
 import { createObserverId } from "base/observable";
 
 export class TofuSheet {
 	private readonly _el: HTMLDivElement;
 	private readonly _shadow: TofuShadow;
 	private readonly _blocks: TofuBlock[];
-	// TODO まずい
 	private _zIndex: number;
+	private _frontBlock: PanelType | undefined;
 
 	constructor() {
 		this._el = <HTMLDivElement> document.querySelector(".tofu-container")!;
@@ -19,28 +18,22 @@ export class TofuSheet {
 		this._zIndex = 1;
 	}
 
-
-	public togglePanel(type: PanelType, panel: Panel) {
-		// const target = remove(this._blocks, (block) => block. === type);
-		// if (target[0]) {
-		// 	// TODO 手前に
-		// 	target[0].block._el.remove();
-		// } else {
-		// 	this.addBlock(type, panel);
-		// }
-
-	}
-
 	public isOpenedPanel(panelType: PanelType): boolean {
 		return this._blocks.find(block => block.panelType === panelType) ? true : false;
 	}
+
 	public async addBlock(panel: Panel) {
 		const block = await this.createBlock(panel);
 		this._el.appendChild(block.el);
 		this._blocks.push(block);
 	}
+
 	public toFront(panelType: PanelType) {
-		 this._blocks.find(block => block.panelType === panelType)!.changeZindex(this._zIndex++);
+		if (this._frontBlock !== panelType) {
+			const block = this._blocks.find(block => block.panelType === panelType);
+			block!.changeZindex(this._zIndex++); // TODO null時処理
+			this._frontBlock = block!.panelType;
+		}
 	}
 
 	public init() {
@@ -56,10 +49,10 @@ export class TofuSheet {
 
 	private registerBlockEvent(block: TofuBlock) {
 		block.el.addEventListener("click", () => {
-			block.changeZindex(this._zIndex++);
+			this.toFront(block.panelType);
 		}, true);
 		block.addListener("removed", createObserverId(), () => {
-			remove(this._blocks, (tofu) => tofu === tofu);
+			_.remove(this._blocks, (tofu) => tofu === tofu);
 		});
 		const $block = $(block.el);
 		$block.draggable({
@@ -84,11 +77,14 @@ export class TofuSheet {
 			handles: "e, s, se",
 		});
 	}
+
 	private onTranceformStart(block: TofuBlock) {
 		this._shadow.changeCss(block.state);
 		this._shadow.show();
-		block.onStart(this._zIndex++);
+		block.onStart();
+		this.toFront(block.panelType);
 	}
+
 	private onTranceformStop(block: TofuBlock) {
 		this._shadow.hide();
 		block.validateState({width: this._el.clientWidth, height: this._el.clientHeight});

@@ -1,7 +1,10 @@
-import { SureAttr, BoardAttr } from 'database/tables';
+import { sureRepository } from '../database/sureRepository';
+import { SureTable, BoardTable } from 'database/tables';
+import { boardRepository } from "database/boardRepository";
 
 export class SureModel {
-	private readonly _board: BoardAttr;
+	private readonly _id: number;
+	private readonly _board: BoardTable;
 	private readonly _datNo: number;
 	private readonly _index?: number;
 	private _displayName: string;
@@ -17,6 +20,7 @@ export class SureModel {
 	private _ikioiColor: "red" | "blackRed" | "";
 	private readonly _createdAt: Date;
 
+	public get id() { return this._id; };
 	public get board() { return this._board; };
 	public get titleName() { return this._displayName; };
 	public get datNo() { return this._datNo; };
@@ -30,7 +34,20 @@ export class SureModel {
 
 	public set enabled(enable: boolean) { this._enabled = enable; }
 
-	constructor(sure: SureAttr, board: BoardAttr) {
+	public static async createInstanceFromId(id: number): Promise<SureModel> {
+		const sure = await sureRepository.getSure(id);
+		if (!sure) {
+			throw new Error("存在しないId");
+		}
+		const board = await boardRepository.getBoard(sure.bId);
+		if (!board) {
+			throw new Error("存在しない板");
+		}
+		return new SureModel(sure, board);
+	}
+
+	constructor(sure: SureTable, board: BoardTable) {
+		this._id = sure.id;
 		this._board = board;
 		this._datNo = sure.datNo;
 		this._index = sure.index;
@@ -57,15 +74,10 @@ export class SureModel {
 		this._saved = true;
 		this._byteLength = byteLength;
 		this._lastModified = lastModified;
-		// const threadStatus = +headers["thread-status"];
 		this._resCount = resLength;
 		this._savedResCount = resLength;
 		this._isTemporary = true;
 	}
-
-	// private isEnable(threadStatus: Nichan.ThreadStatus) {
-	// 	return threadStatus === Nichan.ThreadStatus.ENABLED;
-	// }
 
 	public reset() {
 		this._saved = false;
@@ -107,10 +119,10 @@ export class SureModel {
 		return (this._byteLength / 1000).toFixed(2);
 	}
 
-	public toJSON(): SureAttr {
+	public toJSON(): SureTable {
 		return {
-			bDomain: this._board.domain,
-			bPath: this._board.path,
+			id: this._id,
+			bId: this.board.id,
 			datNo: this._datNo,
 			index: this._index,
 			displayName: this._displayName,

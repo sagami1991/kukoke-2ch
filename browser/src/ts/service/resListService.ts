@@ -1,6 +1,6 @@
-import { emoji } from '../common/emoji';
+import { emojiUtil } from '../common/emoji';
 import { boardRepository } from 'database/boardRepository';
-import { SureAttr } from 'database/tables';
+import { SureTable } from 'database/tables';
 import { db } from 'database/database';
 import { sureRepository } from 'database/sureRepository';
 import { FileUtil, sjisBufferToStr } from "common/commons";
@@ -23,43 +23,39 @@ interface ResHeader {
 	beInfo?: ResBeInfo;
 }
 
-/** 主にdat解析系をやってるが、色々 */
 class ResListService {
-	public async attrToModel(sure: SureAttr) {
-		const board = await boardRepository.getBoard(sure.bDomain, sure.bPath);
-		if (!board) {
-			throw new Error("板がない");
-		}
-		return new SureModel(sure, board);
-	}
-
 
 	public async getResListFromCache(sure: SureModel) {
 		const savedDat = await this.readDatFile(sure);
-		if (savedDat === null) {
-			throw new Error("datFileが見つからない");
-		}
-		return this.toResList(sjisBufferToStr(savedDat), sure.resCount);
+		return this.toResListFromSaved(savedDat);
 	}
 
 	public async getResListFromServer(sure: SureModel): Promise<ResModel[]> {
-		const savedDat = await this.readDatFile(sure);
-		const result = await NichanResListClient.fetchResList(sure.board, sure.datNo, sure.getRequestHeader());
+		let savedDatFile: Buffer | null = null;
+		let requestHeader: XhrHeaders | undefined;
+		if (sure.saved) {
+			savedDatFile = await this.readDatFile(sure);
+			requestHeader = sure.getRequestHeader();
+		}
+		const result = await NichanResListClient.fetchResList(sure.board, sure.datNo, requestHeader);
 		let dat: Buffer;
 		let resList: ResModel[] = [];
 		switch (result.type) {
 		case "datOti":
 			sure.enabled = false;
 			this.updateSureTable(sure);
-			notify.warn("dat落ち");
-			resList = this.toResListFromSaved(savedDat);
+			savedDatFile = this.checkSavedDat(savedDatFile, sure);
+			resList = this.toResListFromSaved(savedDatFile);
+			notify.warning("dat落ち");
 			break;
 		case "notModified":
+			savedDatFile = this.checkSavedDat(savedDatFile, sure);
+			resList = this.toResListFromSaved(savedDatFile);
 			notify.info("新着なし");
-			resList = this.toResListFromSaved(savedDat);
 			break;
 		case "sabun":
-			dat = Buffer.concat([savedDat!, result.response!.body]);
+			savedDatFile = this.checkSavedDat(savedDatFile, sure);
+			dat = Buffer.concat([savedDatFile, result.response!.body]);
 			const oldResCount = sure.savedResCount || 0;
 			resList = await this.createResList(sure, dat, result.response!.headers, oldResCount);
 			notify.success(`新着あり ${sure.savedResCount! - oldResCount}件` );
@@ -104,22 +100,24 @@ class ResListService {
 		return popupReses;
 	}
 
-	private toResListFromSaved(savedDat: Buffer | null) {
-		if (savedDat === null) {
-			throw new Error("datFileが見つからない");
-		}
+	private toResListFromSaved(savedDat: Buffer) {
 		return this.toResList(sjisBufferToStr(savedDat), Infinity);
 	}
 
 	private async readDatFile(sure: SureModel) {
-		if (!sure.saved) {
-			return null;
-		}
-		const saveDat = await FileUtil.readFile(sure.getDatFilePath());
-		if (saveDat === null) {
+		let savedDat = await FileUtil.readFile(sure.getDatFilePath());
+		savedDat = this.checkSavedDat(savedDat, sure);
+		return savedDat;
+	}
+
+	private checkSavedDat(savedDat: Buffer | null, sure: SureModel) {
+		if (!savedDat) {
+			toastr.error("保存したdatFileが削除されています。");
 			sure.reset();
+			throw new Error("datFileが見つからない");
+		} else {
+			return savedDat;
 		}
-		return saveDat;
 	}
 
 	private async saveDatFile(path: string, dat: Buffer) {
@@ -128,7 +126,8 @@ class ResListService {
 
 	private extractTitle(datBody: string) {
 		const index = datBody.indexOf("\n");
-		let sureTitle = datBody.slice(0, index).split("<>")[4];
+		const firstRow = datBody.slice(0, index);
+		let sureTitle = firstRow.split("<>")[4];
 		sureTitle = sureTitle ? sureTitle.split(" [無断転載禁止]")[0] : "";
 		return sureTitle;
 	}
@@ -215,7 +214,7 @@ class ResListService {
 		body = body.replace(ResListService.LINK_REGEXP, `<a class="res-link" href="h$1">$&</a>`);
 		// // 画像
 		// body = body.replace(/(h?ttps?:.+\.(png|gif|jpg|jpeg))<br>/, `<span class="res-image-link">$1</span><br>`);
-		body = emoji.replace(body);
+		body = emojiUtil.replace(body);
 		return body;
 	}
 

@@ -76,7 +76,7 @@ export class List<T> extends BaseComponent<ListOption<T>> {
 	public initElem(elem: Element, option: ListOption<T>) {
 		this._tBodyContainer = elem.querySelector(".my-list-body")!;
 		this._cellOptions = option.cellOptions;
-		this.changeArray(option.array);
+		this.changeData(option.array);
 		const style = elem.querySelector("style")!;
 		style.innerHTML = this.styleTmpl(option);
 		this.registerEvent(elem, option.onRowClick);
@@ -97,7 +97,7 @@ export class List<T> extends BaseComponent<ListOption<T>> {
 		});
 	}
 
-	public changeArray(array: T[]) {
+	public changeData(array: T[]) {
 		this._list = array;
 		this.refresh();
 	}

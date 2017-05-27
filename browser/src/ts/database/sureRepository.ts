@@ -1,52 +1,55 @@
-import { SureAttr } from './tables';
+import { SureTable, SureAttr } from './tables';
 import { db } from "./database";
 
 class SureRepository {
-	public getSure(bDomain: string, bPath: string, datNo: number) {
+	public getSure(id: number) {
+		return db.sures.get(id);
+	}
+
+	public getSureByDatNo(bId: number, datNo: number) {
 		return db.sures
-			.where(["bDomain", "bPath", "datNo"])
-			.equals([bDomain, bPath, datNo])
+			.where(["bId", "datNo"])
+			.equals([bId, datNo])
 			.first();
 	}
 
-	public async getEnableSuresByBoard(bDomain: string, bPath: string, ) {
+	public async getEnableSuresByBoard(bId: number) {
 		return await db.sures
-			 .where(["bDomain", "bPath", "enabled"])
-			 .equals([bDomain, bPath, 1])
+			 .where(["bId", "enabled"])
+			 .equals([bId, 1])
 			 .sortBy("index"); // メモ: インデックス使用でのソートではない
 	}
 
-	public deleteNotSavedSureByBoard(bDomain: string, bPath: string) {
+	public deleteNotSavedSureByBoard(bId: number) {
 		return db.sures
-			.where(["bDomain", "bPath", "saved"])
-			.equals([bDomain, bPath, 0])
+			.where(["bId", "saved"])
+			.equals([bId, 0])
 			.delete();
 	}
 
-	public disableSureByBoard(bDomain: string, bPath: string) {
+	public disableSureByBoard(bId: number) {
 		return db.sures
-			.where(["bDomain", "bPath", "enabled"])
-			.equals([bDomain, bPath, 1])
+			.where(["bId", "enabled"])
+			.equals([bId, 1])
 			.modify({enabled: 0});
 	}
 
-	public upsertSure(sure: SureAttr) {
+	public upsertSure(sure: SureTable) {
 		return db.sures.put(sure);
 	}
 
 	public async upsertAllSure(sures: SureAttr[]) {
 		// TODO いい方法考える
 		for (let sure of sures) {
-			const saved = await db.sures.get([sure.bDomain, sure.bPath, sure.datNo]);
+			const saved = await this.getSureByDatNo(sure.bId, sure.datNo);
 			if (saved) {
-				await db.sures.update([sure.bDomain, sure.bPath, sure.datNo], {
+				await db.sures.update(saved.id, {
 					index: sure.index,
 					resCount: sure.resCount,
 					enabled: sure.enabled
 				});
 			} else {
-				await db.sures.add(sure);
-
+				await db.sures.add(<SureTable>sure);
 			}
 		}
 	}

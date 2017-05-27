@@ -2,10 +2,10 @@ import { boardRepository } from 'database/boardRepository';
 import { db } from 'database/database';
 import { ElemUtil } from 'common/commons';
 import { BbsMenuClient } from "client/nichanBbsmenuClient";
-import { BoardAttr } from "database/tables";
+import { BoardTable, BoardAttr } from "database/tables";
 
 class BbsMenuService {
-	public addHistory(board: BoardAttr) {
+	public addHistory(board: BoardTable) {
 		board.isTemporary = 1;
 		return boardRepository.putBoard(board);
 	}
@@ -18,16 +18,16 @@ class BbsMenuService {
 		return boardRepository.getAllBoards();
 	}
 
-	public async getBoardsFromServer() {
+	public async getBoardsFromNichan(): Promise<BoardTable[]> {
 		const html = await BbsMenuClient.fetchBoards();
 		const boards = this.htmlToBoards(html);
-		await db.transaction("rw", db.boards, async () => {
+		return await db.transaction("rw", db.boards, async () => {
 			await boardRepository.upsertBoards(boards);
+			return await boardRepository.getAllBoards();
 		});
-		return boards;
 	}
 
-	private htmlToBoards(resBody: string) {
+	private htmlToBoards(resBody: string): BoardAttr[] {
 		const boards: BoardAttr[] = [];
 		const aElems = ElemUtil.htmlParser(resBody).querySelectorAll("a");
 		for (const elem of aElems) {
