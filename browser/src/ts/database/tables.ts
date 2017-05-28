@@ -8,6 +8,7 @@ import { BlockState } from "tofu/tofuDefs";
  */
 export interface BoardTable extends BoardAttr {
 	id: number;
+	type?: "recentOpen";
 }
 
 export interface BoardAttr {
@@ -28,6 +29,7 @@ export interface BoardAttr {
  */
 export interface SureTable extends SureAttr {
 	id: number;
+	updatedAt: Date;
 }
 
 export interface SureAttr {

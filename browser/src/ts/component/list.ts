@@ -53,9 +53,15 @@ export class List<T> extends BaseComponent<ListOption<T>> {
 		`);
 
 	}
-	private styleTmpl(option: ListOption<T>) {
+	private styleTmpl(cellOptions: CellOption<T>[]) {
+		let totalWidth = 0;
+		cellOptions.forEach(cell => totalWidth += (cell.width || 0));
 		return `
-		${tmpl.each(option.cellOptions, (cell, i) => `
+		.my-list-component-${this._id} .my-list-header,
+		.my-list-component-${this._id} .my-list-tr {
+			${totalWidth ? `width: ${totalWidth}px;` : ""}
+		}
+		${tmpl.each(cellOptions, (cell, i) => `
 			.my-list-component-${this._id} .my-list-th:nth-child(${i + 1}),
 			.my-list-component-${this._id} .my-list-td:nth-child(${i + 1}) {
 				${tmpl.when(cell.width, () => `
@@ -78,7 +84,7 @@ export class List<T> extends BaseComponent<ListOption<T>> {
 		this._cellOptions = option.cellOptions;
 		this.changeData(option.array);
 		const style = elem.querySelector("style")!;
-		style.innerHTML = this.styleTmpl(option);
+		style.innerHTML = this.styleTmpl(option.cellOptions);
 		this.registerEvent(elem, option.onRowClick);
 	}
 

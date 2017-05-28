@@ -20,7 +20,7 @@ class Database extends Dexie {
 	}
 
 	public async initQuery() {
-		await this.transaction("rw", this.panelStates, async () => {
+		await this.transaction("rw", this.panelStates, this.sures, async () => {
 			for (let panelState of Consts.DEFAULT_TOFU_STATES) {
 				const storedState = await this.panelStates.get(panelState.panelType);
 				if (!storedState) {

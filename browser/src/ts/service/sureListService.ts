@@ -1,4 +1,5 @@
-import { notify } from '../common/libs';
+import { boardRepository } from '../database/boardRepository';
+import { notify, _ } from '../common/libs';
 import { SureTable, SureAttr, BoardTable } from 'database/tables';
 import { sureRepository } from "database/sureRepository";
 import { SureModel } from 'model/sureModel';
@@ -7,8 +8,25 @@ import { db } from "database/database";
 
 class SureListService {
 	public async getSuresFromDb(board: BoardTable): Promise<SureModel[]> {
-		const sureAttrs = await sureRepository.getEnableSuresByBoard(board.id!);
+		const sureAttrs = await sureRepository.getEnableSuresByBoard(board.id);
 		return this.toModels(sureAttrs, board);
+	}
+
+	public async getRecentOpenSures() {
+		const sureAttrs = await sureRepository.getRecentOpenSures();
+		const bIds = _.uniq(sureAttrs.map(sure => sure.bId));
+		const boards = await boardRepository.getBoardsByIds(bIds);
+		const boardMap = new Map(boards.map<[number, BoardTable]>(board => [board.id, board]));
+		const sureModels: SureModel[] = [];
+		sureAttrs.forEach(attr => {
+			const board = boardMap.get(attr.bId);
+			if (board) {
+				sureModels.push(new SureModel(attr, board));
+			} else {
+				console.info("板テーブルに存在しないスレを飛ばしました:" + attr);
+			}
+		});
+		return sureModels;
 	}
 
 	public async getSuresFromNichan(board: BoardTable): Promise<SureModel[]> {

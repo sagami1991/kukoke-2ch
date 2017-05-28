@@ -28,7 +28,7 @@ class MainApp {
 		await mkdir("image");
 		const restoreData = await this.restoreWindowState();
 		this.mainWindow = new BrowserWindow(restoreData.browserOptions);
-		this.mainWindow.webContents.setUserAgent("Mozilla/3.0 (compatible; JaneStyle/3.83)");
+		this.setAppSetting(this.mainWindow);
 		if (restoreData.maximized) {
 			this.mainWindow.maximize();
 		}
@@ -40,6 +40,20 @@ class MainApp {
 		});
 		this.initMenuBar();
 		console.log("launch window");
+	}
+
+	private setAppSetting(browser: Electron.BrowserWindow) {
+		browser.webContents.setUserAgent("Mozilla/3.0 (compatible; JaneStyle/3.83)");
+		browser.webContents.session.webRequest.onBeforeSendHeaders({
+			urls: ['*']
+		}, (details, callback) => {
+			const refrer = details.requestHeaders['Kukoke-Referer'];
+			if (refrer) {
+				delete details.requestHeaders['Kukoke-Referer']; 
+				details.requestHeaders['Referer'] = refrer;
+			}
+			callback({cancel: false, requestHeaders: details.requestHeaders});
+		});
 	}
 
 	private async restoreWindowState() {

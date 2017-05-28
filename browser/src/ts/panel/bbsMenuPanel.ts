@@ -1,13 +1,13 @@
-import { StorageType } from 'common/commons';
 import { bbsMenuService } from 'service/bbsMenuService';
 import { ComponentScanner } from 'component/scanner';
 import { RadioButton, RadioButtonOption, SearchText, SearchTextOption, List, ListOption, Button, ButtonOption } from 'component/components';
-import { BasePanelEvent, Panel, PanelType } from './basePanel';
+import { Panel, PanelType } from './basePanel';
 import { BoardTable } from "database/tables";
 
 type BbsMenuMode =  "allList" | "history";
 interface BbsMenuPanelEvent {
 	"openBoard": BoardTable;
+	"openRecent": void;
 }
 interface BbsMenuStorage {
 	mode: BbsMenuMode;
@@ -16,7 +16,6 @@ interface BbsMenuStorage {
 export class BbsMenuPanel extends Panel<BbsMenuPanelEvent, BbsMenuStorage> {
 	private _mode: BbsMenuMode;
 	private _allBoards: BoardTable[];
-	private _displayBoards: BoardTable[];
 
 	public get panelType(): PanelType {
 		return "board";
@@ -110,8 +109,8 @@ export class BbsMenuPanel extends Panel<BbsMenuPanelEvent, BbsMenuStorage> {
 		if (!this._allBoards || this._mode === "history") {
 			return;
 		}
-		this._displayBoards = this._allBoards.filter(board => board.displayName.match(text) !== null);
-		this._list.changeData(this._displayBoards);
+		const boards =  this._allBoards.filter(board => board.displayName.match(text) !== null);
+		this._list.changeData(boards);
 	};
 
 	private async reload() {
@@ -120,18 +119,35 @@ export class BbsMenuPanel extends Panel<BbsMenuPanelEvent, BbsMenuStorage> {
 	}
 
 	private async refreshBoards() {
+		let boards: BoardTable[] = [];
 		switch (this._mode) {
 		case "allList":
-			this._displayBoards = this._allBoards;
+			boards = this._allBoards;
 			break;
 		case "history":
-			this._displayBoards = await bbsMenuService.getBoardsHistories();
+			const historiedBoards = await bbsMenuService.getBoardsHistories();
+			boards = [this.getRecentOpenSure(), ...historiedBoards];
 			break;
 		}
-		this._list.changeData(this._displayBoards);
+		this._list.changeData(boards);
+	}
+
+	private getRecentOpenSure(): BoardTable {
+		return {
+			id: 0,
+			domain: "",
+			subDomain: "",
+			path: "",
+			displayName: "最近開いたスレ",
+			type: "recentOpen",
+		};
 	}
 
 	private openBoard(board: BoardTable) {
+		if (board.type === "recentOpen") {
+			this.trigger("openRecent", undefined);
+			return;
+		}
 		bbsMenuService.addHistory(board);
 		this.trigger("openBoard", board);
 	}

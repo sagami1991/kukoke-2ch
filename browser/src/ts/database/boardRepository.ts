@@ -6,23 +6,24 @@ class BoardRepository {
 		return db.boards.get(id);
 	}
 
-	public getBoardByDomainAndPath(domain: string, path: string) {
+	public getAllBoards() {
+		return db.boards.toArray();
+	}
+
+	private getBoardByDomainAndPath(domain: string, path: string) {
 		return db.boards
 			.where(["domain", "path"])
 			.equals([domain, path])
 			.first();
 	}
 
-	public getBoardsByDomainAndPath(keys: [string, string][]) {
+	public getBoardsByIds(ids: number[]) {
 		return db.boards
-			.where(["domain", "path"])
-			.anyOf(<any>keys)
+			.where("id")
+			.anyOf(ids)
 			.toArray();
 	}
 
-	public getAllBoards() {
-		return db.boards.toArray();
-	}
 
 	public getTempBoards() {
 		return db.boards

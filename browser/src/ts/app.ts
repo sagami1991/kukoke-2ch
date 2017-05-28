@@ -77,6 +77,10 @@ class MyApp {
 			await this.preListenPanel(this._sureListPanel);
 			this._sureListPanel.openBoard(board);
 		});
+		this._boardListPanel.addListener("openRecent", kariId, async () => {
+			await this.preListenPanel(this._sureListPanel);
+			this._sureListPanel.openRecent();
+		});
 		this._sureListPanel.addListener("openSure", kariId, async (sure) => {
 			await this.preListenPanel(this._resListPanel);
 			this._resListPanel.changeResListFromServer(sure);
@@ -88,6 +92,10 @@ class MyApp {
 		this._resListPanel.addListener("openForm", kariId, async (option) => {
 			await this.preListenPanel(this._formPanel);
 			this._formPanel.openForm(option);
+		});
+		this._formPanel.addListener("doneWrite", kariId, async (sure) => {
+			await this.preListenPanel(this._resListPanel);
+			this._resListPanel.changeResListFromServer(sure);
 		});
 	}
 

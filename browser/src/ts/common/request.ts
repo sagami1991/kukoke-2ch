@@ -6,16 +6,20 @@ import { decode } from 'iconv-lite';
 export interface RequestOption {
 	method?: "GET" | "POST";
 	url: string;
-	headers?: XhrHeaders;
-	data?: FormData;
+	headers?: XhrRequestHeaders;
+	data?: Map<string, string>;
+	contentType?: "application/x-www-form-urlencoded";
 }
 
-export interface XhrHeaders {
-	[name: string]: string;
+export interface XhrRequestHeaders {
+	"Kukoke-Referer"?: string;
+	"last-modified"?: string;
+	"If-Modified-Since"?: string;
+	"Range"?: string;
 }
 export interface XhrResponse {
 	statusCode: number;
-	headers: XhrHeaders;
+	headers: XhrRequestHeaders;
 	body: Buffer;
 }
 
@@ -29,6 +33,9 @@ export function xhrRequest(option: RequestOption) {
 		};
 		xhr.responseType = 'arraybuffer';
 		setRequestHeaders(xhr, option);
+		if (option.contentType) {
+			xhr.setRequestHeader("Content-Type", option.contentType);
+		}
 		xhr.onload = () => {
 			statusBar.message(`レスポンス完了 url: ${option.url} status: ${xhr.status}`);
 			resolve({
@@ -37,16 +44,16 @@ export function xhrRequest(option: RequestOption) {
 				body: new Buffer(new Uint8Array(xhr.response))
 			});
 		};
-		xhr.send(option.data);
+		xhr.send(option.data ? mapToForm(option.data) : undefined);
 	});
 }
 
-export function mapToFormData(map: { [key: string]: string }): FormData {
-	const form = new FormData;
-	Object.keys(map).forEach(key => {
-		form.append(key, map[key]);
-	});
-	return form;
+function mapToForm(map: Map<string, string>) {
+	return Array.from(map.entries())
+		.map(([k, v]) => {
+			return encodeURIComponent(k) + '=' + encodeURIComponent(v);
+		}).join('&')
+		.replace(/%20/g, '+');
 }
 
 /** SJISのバイナリデータをstringにする */

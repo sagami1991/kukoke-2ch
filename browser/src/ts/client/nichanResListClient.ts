@@ -1,5 +1,5 @@
-import { XhrHeaders } from 'common/request';
-import { mapToFormData,  xhrRequest, XhrResponse } from 'common/commons';
+import { XhrRequestHeaders } from 'common/request';
+import { xhrRequest, XhrResponse } from 'common/commons';
 import { NichanAuthClient } from './nichanAuthClient';
 import { Nichan } from "const";
 import { createHmac } from "crypto";
@@ -13,7 +13,7 @@ interface ResponseResult {
 
 export class NichanResListClient {
 	private static nichanSessionId: string;
-	public static async fetchResList(board: BoardTable, datNo: number, reqHeaders?: XhrHeaders): Promise<ResponseResult> {
+	public static async fetchResList(board: BoardTable, datNo: number, reqHeaders?: XhrRequestHeaders): Promise<ResponseResult> {
 		if (!this.nichanSessionId) {
 			this.nichanSessionId = await NichanAuthClient.getSessionId();
 		}
@@ -24,11 +24,12 @@ export class NichanResListClient {
 				method: "POST",
 				url: `https://api.2ch.net${uri}`,
 				headers: reqHeaders,
-				data: mapToFormData({
-					sid: this.nichanSessionId,
-					hobo: this.calcHoboValue(uri),
-					appkey: Nichan.APP_KEY,
-				}),
+				contentType: "application/x-www-form-urlencoded",
+				data: new Map([
+					["sid", this.nichanSessionId],
+					["hobo", this.calcHoboValue(uri)],
+					["appkey", Nichan.APP_KEY],
+				]),
 			});
 		} catch (error) {
 			// TODO ステータスコード501(dat落ち)がxhrのerrorが起きて拾えない

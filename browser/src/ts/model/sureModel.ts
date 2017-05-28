@@ -1,3 +1,4 @@
+import { XhrRequestHeaders } from '../common/request';
 import { sureRepository } from '../database/sureRepository';
 import { SureTable, BoardTable } from 'database/tables';
 import { boardRepository } from "database/boardRepository";
@@ -15,6 +16,7 @@ export class SureModel {
 	private _byteLength: number | undefined;
 	private _lastModified: string | undefined;
 	private _isTemporary: boolean;
+	private _updatedAt: Date;
 
 	private _ikioi: number;
 	private _ikioiColor: "red" | "blackRed" | "";
@@ -61,6 +63,7 @@ export class SureModel {
 		this._isTemporary = sure.isTemporary ? true : false;
 		this._createdAt = new Date(Number(sure.datNo) * 1000);
 		this._ikioi = this.calcIkioi();
+		this._updatedAt = sure.updatedAt;
 	}
 
 	private calcIkioi() {
@@ -101,7 +104,7 @@ export class SureModel {
 		}
 	}
 
-	public getRequestHeader() {
+	public getRequestHeader(): XhrRequestHeaders {
 		if (!this._saved) {
 			return {};
 		} else {
@@ -133,6 +136,7 @@ export class SureModel {
 			isTemporary: this._isTemporary ? 1 : 0,
 			byteLength: this._byteLength,
 			lastModified: this._lastModified,
+			updatedAt: this._updatedAt
 		};
 	}
 

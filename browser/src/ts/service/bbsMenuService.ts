@@ -1,7 +1,7 @@
 import { boardRepository } from 'database/boardRepository';
 import { db } from 'database/database';
 import { ElemUtil } from 'common/commons';
-import { BbsMenuClient } from "client/nichanBbsmenuClient";
+import { NichanBbsMenuClient } from "client/nichanBbsmenuClient";
 import { BoardTable, BoardAttr } from "database/tables";
 
 class BbsMenuService {
@@ -19,7 +19,7 @@ class BbsMenuService {
 	}
 
 	public async getBoardsFromNichan(): Promise<BoardTable[]> {
-		const html = await BbsMenuClient.fetchBoards();
+		const html = await NichanBbsMenuClient.fetchBoards();
 		const boards = this.htmlToBoards(html);
 		return await db.transaction("rw", db.boards, async () => {
 			await boardRepository.upsertBoards(boards);

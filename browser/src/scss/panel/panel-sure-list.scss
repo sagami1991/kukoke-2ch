@@ -14,11 +14,15 @@
 					padding: 0 6px;
 					color: #fff;
 				}
+
 			}
 			.sure-suretai {
 				word-break: break-all;
 				&.sure-saved {
 					color: rgb(132, 75, 191);
+				}
+				&.sure-oti {
+					color: #888;
 				}
 			}
 			.sure-created-at {

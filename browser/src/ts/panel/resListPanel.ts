@@ -123,7 +123,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 				this.changeResList(sureModel, resList);
 			} catch (error) {
 				this._storage.sureId = null;
-				console.error(error);
+				console.warn(error);
 			}
 		}
 	}

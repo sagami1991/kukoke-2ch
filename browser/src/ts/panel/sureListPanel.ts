@@ -63,6 +63,8 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 			if (board) {
 				await this.refreshFromDb(board);
 			}
+		} else {
+			await this.openRecent();
 		}
 	}
 
@@ -86,7 +88,7 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 			iconSize: "m",
 			style: "icon-only",
 			onClick: () => alert("未実装")
-		}
+		};
 	}
 
 	private getReloadButtonOption(): ButtonOption {
@@ -134,7 +136,7 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 				{
 					label: "スレタイ",
 					parse: (sure) => emojiUtil.replace(sure.titleName), // TODO エスケープ済みっぽいが危険
-					className: (sure) => `sure-suretai ${sure.saved ? "sure-saved" : ""}`,
+					className: (sure) => `sure-suretai ${!sure.enabled ?  "sure-oti" : sure.saved ? "sure-saved" : ""}`,
 					width: 400
 				}, {
 					label: "レス",
@@ -158,21 +160,26 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 	}
 
 	public async openBoard(board: BoardTable) {
-		this._openedBoard = board;
 		const sureCollection = await sureListService.getSuresFromNichan(board);
-		this.changeSureCollection(sureCollection, board);
+		this.changeSureCollection(sureCollection, board, board.displayName);
+	}
+
+	public async openRecent() {
+		const sureCollection = await sureListService.getRecentOpenSures();
+		this.changeSureCollection(sureCollection, undefined, "最近開いたスレ");
 	}
 
 	private async reload() {
 		if (this._openedBoard) {
-			const sureCollection = await sureListService.getSuresFromNichan(this._openedBoard);
-			this.changeSureCollection(sureCollection, this._openedBoard);
+			const board = this._openedBoard;
+			const sureCollection = await sureListService.getSuresFromNichan(board);
+			this.changeSureCollection(sureCollection, board, board.displayName);
 		}
 	}
 
 	private async refreshFromDb(board: BoardTable) {
 		const sureCollection = await sureListService.getSuresFromDb(board);
-		this.changeSureCollection(sureCollection, board);
+		this.changeSureCollection(sureCollection, board, board.displayName);
 	}
 
 
@@ -182,14 +189,13 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 		}
 	}
 
-	private changeSureCollection(sures: SureModel[], board: BoardTable) {
+	private changeSureCollection(sures: SureModel[], board: BoardTable | undefined, title: string) {
 		this._sures = sures;
 		this._openedBoard = board;
 		this._list.changeData(sures);
-		if (this._title !== board.displayName) {
-			this._title = board.displayName;
-			this.trigger("changeTitle", this._title);
-
+		if (this._title !== title) {
+			this._title = title;
+			this.trigger("changeTitle", title);
 		}
 	}
 

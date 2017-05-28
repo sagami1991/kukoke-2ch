@@ -1,4 +1,4 @@
-import { mapToFormData, xhrRequest } from 'common/commons';
+import { xhrRequest } from 'common/commons';
 import { Nichan } from "const";
 
 export class NichanAuthClient {
@@ -10,11 +10,12 @@ export class NichanAuthClient {
 		const res = await xhrRequest({
 			method: "POST",
 			url: "https://api.2ch.net/v1/auth/",
-			data: mapToFormData({
-				KY: Nichan.APP_KEY,
-				CT: Nichan.CT,
-				HB: Nichan.HB
-			})
+			contentType: "application/x-www-form-urlencoded",
+			data: new Map([
+				["KY", Nichan.APP_KEY],
+				["CT", Nichan.CT],
+				["HB", Nichan.HB]
+			])
 		});
 		const sessionId = res.body.toString().split(":")[1];
 		this.lastFetchDate = new Date();

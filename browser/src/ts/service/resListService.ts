@@ -7,7 +7,7 @@ import { FileUtil, sjisBufferToStr } from "common/commons";
 import { NichanResListClient } from 'client/nichanResListClient';
 import { ResModel, ResBeInfo } from 'model/resModel';
 import { SureModel } from 'model/sureModel';
-import { XhrHeaders } from "common/request";
+import { XhrRequestHeaders } from "common/request";
 import { notify } from "common/libs";
 
 export interface PopupRes {
@@ -32,7 +32,7 @@ class ResListService {
 
 	public async getResListFromServer(sure: SureModel): Promise<ResModel[]> {
 		let savedDatFile: Buffer | null = null;
-		let requestHeader: XhrHeaders | undefined;
+		let requestHeader: XhrRequestHeaders | undefined;
 		if (sure.saved) {
 			savedDatFile = await this.readDatFile(sure);
 			requestHeader = sure.getRequestHeader();
@@ -89,11 +89,11 @@ class ResListService {
 		await FileUtil.deleteFile(sure.getDatFilePath());
 	}
 
-	private async createResList(sure: SureModel, dat: Buffer, responseHeaders: XhrHeaders, oldResCount: number) {
+	private async createResList(sure: SureModel, dat: Buffer, responseHeaders: XhrRequestHeaders, oldResCount: number) {
 		const datStr = sjisBufferToStr(dat!);
 		const resList = this.toResList(datStr, oldResCount);
 		const sureTitle = this.extractTitle(datStr);
-		sure.update(sureTitle, dat!.byteLength, responseHeaders["last-modified"], resList.length);
+		sure.update(sureTitle, dat!.byteLength, responseHeaders["last-modified"]!, resList.length);
 		await this.saveDatFile(sure.getDatFilePath(), dat);
 		await this.updateSureTable(sure);
 		return resList;
