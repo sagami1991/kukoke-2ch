@@ -23,7 +23,7 @@ interface FormPanelEvent {
 	"doneWrite": SureModel;
 }
 
-export class FormPanel extends Panel<FormPanelEvent> {
+export class SubmitFormPanel extends Panel<FormPanelEvent> {
 	private _content: Element;
 	// private _option: SubmitOption | undefined;
 	private _sure: SureModel;

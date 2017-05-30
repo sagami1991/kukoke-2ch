@@ -134,7 +134,7 @@ export class BbsMenuPanel extends Panel<BbsMenuPanelEvent, BbsMenuStorage> {
 
 	private getRecentOpenSure(): BoardTable {
 		return {
-			id: 0,
+			id: -1,
 			domain: "",
 			subDomain: "",
 			path: "",

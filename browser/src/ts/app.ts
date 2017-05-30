@@ -1,4 +1,4 @@
-import { FormPanel } from './panel/formPanel';
+import { SubmitFormPanel } from './panel/formPanel';
 import { createObserverId } from './base/observable';
 import { db } from './database/database';
 import { ResListPanel } from './panel/resListPanel';
@@ -21,7 +21,7 @@ class MyApp {
 	private readonly _boardListPanel: BbsMenuPanel;
 	private readonly _sureListPanel: SureListPanel;
 	private readonly _resListPanel: ResListPanel;
-	private readonly _formPanel: FormPanel;
+	private readonly _submitFormPanel: SubmitFormPanel;
 
 	constructor() {
 		this._leftSideBar = new LeftSideBarView();
@@ -30,7 +30,7 @@ class MyApp {
 			this._boardListPanel = new BbsMenuPanel(),
 			this._sureListPanel = new SureListPanel(),
 			this._resListPanel = new ResListPanel(),
-			this._formPanel = new FormPanel()];
+			this._submitFormPanel = new SubmitFormPanel()];
 		this.init();
 	}
 
@@ -90,10 +90,10 @@ class MyApp {
 			this._sureListPanel.onChangeSureModel(sure);
 		});
 		this._resListPanel.addListener("openForm", kariId, async (option) => {
-			await this.preListenPanel(this._formPanel);
-			this._formPanel.openForm(option);
+			await this.preListenPanel(this._submitFormPanel);
+			this._submitFormPanel.openForm(option);
 		});
-		this._formPanel.addListener("doneWrite", kariId, async (sure) => {
+		this._submitFormPanel.addListener("doneWrite", kariId, async (sure) => {
 			await this.preListenPanel(this._resListPanel);
 			this._resListPanel.changeResListFromServer(sure);
 		});
