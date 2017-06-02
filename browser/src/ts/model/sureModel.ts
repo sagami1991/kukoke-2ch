@@ -20,6 +20,7 @@ export class SureModel {
 
 	private _ikioi: number;
 	private _ikioiColor: "red" | "blackRed" | "";
+	private _bookmarkIndex: number;
 	private readonly _createdAt: Date;
 
 	public get id() { return this._id; };
@@ -33,6 +34,8 @@ export class SureModel {
 	public get savedResCount() { return this._savedResCount; }
 	public get saved() { return this._saved; }
 	public get enabled() { return this._enabled; }
+	public get bookmarkIndex() { return this._bookmarkIndex; }
+	public set bookmarkIndex(bookmarkIndex: number) { this._bookmarkIndex = bookmarkIndex; }
 
 	public set enabled(enable: boolean) { this._enabled = enable; }
 
@@ -64,6 +67,7 @@ export class SureModel {
 		this._createdAt = new Date(Number(sure.datNo) * 1000);
 		this._ikioi = this.calcIkioi();
 		this._updatedAt = sure.updatedAt;
+		this._bookmarkIndex = sure.bookmarkIndex || 0;
 	}
 
 	private calcIkioi() {
@@ -136,7 +140,8 @@ export class SureModel {
 			isTemporary: this._isTemporary ? 1 : 0,
 			byteLength: this._byteLength,
 			lastModified: this._lastModified,
-			updatedAt: this._updatedAt
+			updatedAt: this._updatedAt,
+			bookmarkIndex: this._bookmarkIndex
 		};
 	}
 

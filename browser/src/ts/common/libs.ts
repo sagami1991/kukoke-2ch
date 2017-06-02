@@ -13,7 +13,10 @@ export namespace _ {
 }
 
 export namespace electron {
-	export const {app} = remote;
+	export const {
+		app,
+		Menu
+	 } = remote;
 }
 
 export const notify = toastr;

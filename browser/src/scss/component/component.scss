@@ -118,7 +118,12 @@ input, button, textarea {
 }
 
 .my-list-component {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 	.my-list-header {
+		width: 100%;
+		max-width: 100%;
 		display: flex;
 		background-color: $kukokeBlue;
 		.my-list-th {
@@ -131,7 +136,15 @@ input, button, textarea {
 			}
 		}
 	}
+	.my-list-body {
+		width: 100%;
+		max-width: 100%;
+		position: relative;
+		flex-grow: 1;
+	}
 	.my-list-tr {
+		width: 100%;
+		max-width: 100%;
 		display: flex;
 		cursor: default;
 		border-bottom: 1px solid $inputBorderColor;

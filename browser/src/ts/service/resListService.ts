@@ -7,7 +7,7 @@ import { FileUtil, sjisBufferToStr } from "common/commons";
 import { NichanResListClient } from 'client/nichanResListClient';
 import { ResModel, ResBeInfo } from 'model/resModel';
 import { SureModel } from 'model/sureModel';
-import { XhrRequestHeaders } from "common/request";
+import { XhrRequestHeaders, XhrResponseHeader } from "common/request";
 import { notify } from "common/libs";
 
 export interface PopupRes {
@@ -89,7 +89,7 @@ class ResListService {
 		await FileUtil.deleteFile(sure.getDatFilePath());
 	}
 
-	private async createResList(sure: SureModel, dat: Buffer, responseHeaders: XhrRequestHeaders, oldResCount: number) {
+	private async createResList(sure: SureModel, dat: Buffer, responseHeaders: XhrResponseHeader, oldResCount: number) {
 		const datStr = sjisBufferToStr(dat!);
 		const resList = this.toResList(datStr, oldResCount);
 		const sureTitle = this.extractTitle(datStr);
@@ -99,7 +99,7 @@ class ResListService {
 		return resList;
 	}
 
-	private async updateSureTable(sure: SureModel) {
+	public async updateSureTable(sure: SureModel) {
 		await db.transaction("rw", db.sures, async () => {
 			await sureRepository.putSure(sure.toJSON());
 		});

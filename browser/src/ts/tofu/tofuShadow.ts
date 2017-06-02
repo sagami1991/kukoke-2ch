@@ -1,5 +1,5 @@
 import { BlockState, BlockPosition, BlockSize } from './tofuDefs';
-import { ElemUtil } from "../common/element";
+import { ElementUtil } from "../common/element";
 
 // TODO 継承
 export class TofuShadow {
@@ -12,7 +12,7 @@ export class TofuShadow {
 	}
 
 	constructor() {
-		this._el = <HTMLDivElement>ElemUtil.parseDom(TofuShadow.template());
+		this._el = <HTMLDivElement>ElementUtil.createElement(TofuShadow.template());
 		this._position = { x: 0, y: 0, z: 0 };
 		this._size = { width: 0, height: 0 };
 		this.hide();

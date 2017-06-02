@@ -1,17 +1,15 @@
-export namespace ElemUtil {
-	export const appElem = document.querySelector(".app-container")!;
-	export function empty(parent: Element) {
-		parent.innerHTML = "";
-	}
+export namespace ElementUtil {
+	export const appContainer = document.querySelector(".app-container")!;
 
-	export function parseDom(html: string): HTMLElement {
-		const outer = document.createElement('div');
-		outer.innerHTML = html;
-		if (outer.childElementCount !== 1) {
-			throw new Error(`childElementの数が不正: ${outer.childElementCount}`);
+	export function createElement(html: string): HTMLElement {
+		const container = document.createElement('div');
+		container.innerHTML = html;
+		if (container.childElementCount !== 1) {
+			throw new Error(`childElementの数が不正: ${container.childElementCount}`);
 		}
-		const elem = <HTMLElement>outer.firstElementChild!;
-		return elem;
+		const element = container.firstElementChild!;
+		container.removeChild(element);
+		return <HTMLElement>element;
 	}
 
 	/** @deprecated */

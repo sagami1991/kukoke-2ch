@@ -1,8 +1,8 @@
+import { XhrRequestHeaders } from '../common/request';
 import { BoardTable } from '../database/tables';
 import { xhrRequest, sjisBufferToStr } from 'common/commons';
-import { Nichan } from 'const';
 import { NichanFormValue } from "panel/formPanel";
-import { ElemUtil } from "common/element";
+import { ElementUtil } from "common/element";
 
 interface SubmitResponse {
 	type: "success" | "fail" | "unexpectedCode";
@@ -13,12 +13,12 @@ export class NichanSubmitClient {
 	public static async submitRes(board: BoardTable, datNo: number, values: NichanFormValue): Promise<SubmitResponse> {
 		const res = await xhrRequest({
 			method: "POST",
-			headers: {
-				"Kukoke-Referer": `http://${board.subDomain}.${board.domain}/${board.path}`
+			headers: <XhrRequestHeaders>{
+				"Kukoke-Referer": `http://${board.subDomain}.${board.domain}/${board.path}`,
+				"Content-Type": "application/x-www-form-urlencoded"
 			},
 			url: `http://${board.subDomain}.${board.domain}/test/bbs.cgi`,
-			contentType: "application/x-www-form-urlencoded",
-			data: new Map([
+			formData: new Map([
 				["bbs", board.path],
 				["key", datNo.toString()],
 				["mail", values.mail],
@@ -31,7 +31,7 @@ export class NichanSubmitClient {
 		switch (res.statusCode) {
 		case 200:
 			const resBodey = sjisBufferToStr(res.body);
-			const html = ElemUtil.htmlParser(resBodey);
+			const html = ElementUtil.htmlParser(resBodey);
 			const titleElem = html.querySelector("title");
 			const bodyElem = html.querySelector("body");
 			if (!titleElem || !titleElem.textContent || !bodyElem || !bodyElem.textContent) {

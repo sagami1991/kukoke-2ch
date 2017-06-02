@@ -50,10 +50,10 @@ class MyApp {
 	}
 
 	private registerEvent() {
-		window.addEventListener("beforeunload", () => {
-			this._allPanels.forEach(panel => {
-				panel.saveStorage();
-			});
+		window.addEventListener("beforeunload", async () => {
+			for (const panel of this._allPanels) {
+				await panel.saveStorage();
+			}
 		});
 
 		window.addEventListener("click", event => {
@@ -83,7 +83,7 @@ class MyApp {
 		});
 		this._sureListPanel.addListener("openSure", kariId, async (sure) => {
 			await this.preListenPanel(this._resListPanel);
-			this._resListPanel.changeResListFromServer(sure);
+			this._resListPanel.openSure(sure);
 		});
 		this._resListPanel.addListener("changeSure", kariId, async (sure) => {
 			// await this.preListenPanel(this._sureListPanel);
@@ -95,7 +95,7 @@ class MyApp {
 		});
 		this._submitFormPanel.addListener("doneWrite", kariId, async (sure) => {
 			await this.preListenPanel(this._resListPanel);
-			this._resListPanel.changeResListFromServer(sure);
+			this._resListPanel.openSure(sure);
 		});
 	}
 

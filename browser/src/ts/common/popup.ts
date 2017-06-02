@@ -1,4 +1,4 @@
-import { ElemUtil } from "common/element";
+import { ElementUtil } from "common/element";
 
 export class Popup {
 	private static popups: Popup[] | undefined;
@@ -14,9 +14,9 @@ export class Popup {
 	}
 
 	constructor(innerElem: Element, target: Element) {
-		this.popupElem = ElemUtil.parseDom(this.teml());
+		this.popupElem = ElementUtil.createElement(this.teml());
 		const rect = target.getBoundingClientRect();
-		const bottom = ElemUtil.appElem.clientHeight - rect.bottom;
+		const bottom = ElementUtil.appContainer.clientHeight - rect.bottom;
 		if (rect.top > bottom) {
 			this.popupElem.style.bottom = bottom + 8 + "px";
 			this.popupElem.style.maxHeight = `calc(100% - ${bottom + 8}px)`;
@@ -27,10 +27,10 @@ export class Popup {
 
 		}
 		this.popupElem.style.left = rect.left + "px";
-		this.overlayElem = ElemUtil.parseDom(this.overlay());
+		this.overlayElem = ElementUtil.createElement(this.overlay());
 		this.popupElem.appendChild(innerElem);
 		if (!Popup.popups) {
-			ElemUtil.appElem.appendChild(this.overlayElem);
+			ElementUtil.appContainer.appendChild(this.overlayElem);
 			this.overlayElem.addEventListener("click", () => {
 				this.close();
 			});
@@ -38,7 +38,7 @@ export class Popup {
 		} else {
 			Popup.popups.push(this);
 		}
-		ElemUtil.appElem.appendChild(this.popupElem);
+		ElementUtil.appContainer.appendChild(this.popupElem);
 	}
 
 	public close() {

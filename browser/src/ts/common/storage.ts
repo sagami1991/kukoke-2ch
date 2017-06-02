@@ -1,7 +1,6 @@
 import { PanelType } from 'panel/basePanel';
 import { _ } from "./libs";
-export type StorageType =
-"sureList" | "bbsMenuPanel" | "resList" | "SureListService" | PanelType;
+export type StorageType = PanelType;
 
 export class MyStorage {
 	private static getKey(storageType: StorageType, keyName: string) {

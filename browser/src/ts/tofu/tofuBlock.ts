@@ -35,7 +35,7 @@ export class TofuBlock extends Observable<BlockEvent> {
 	}
 	private template() {
 		return `
-			<div class="tofu-panel">
+			<div class="tofu-block">
 				<div class="tofu-top-bar">
 					<div class="tofu-title">
 						${emojiUtil.replace(this._panel.title)}

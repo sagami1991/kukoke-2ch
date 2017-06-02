@@ -1,6 +1,6 @@
 import { BaseComponent, ComponentOption } from './baseComponent';
 import { _ } from "../common/libs";
-import { ElemUtil } from "../common/element";
+import { ElementUtil } from "../common/element";
 export class ComponentScanner {
 	private static components: {
 		component: BaseComponent,
@@ -13,7 +13,7 @@ export class ComponentScanner {
 		return this.id;
 	}
 	public static scanHtml(html: string) {
-		const outerElem = ElemUtil.parseDom(html);
+		const outerElem = ElementUtil.createElement(html);
 		this.scan(outerElem);
 		return outerElem;
 	}

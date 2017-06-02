@@ -27,7 +27,7 @@ $baseWhite: #fefefe;
 	transition-duration: .2s;
 	// margin: 6px;
 }
-.tofu-panel {
+.tofu-block {
 	display: flex;
 	flex-direction: column;
 	position: absolute !important;
@@ -70,13 +70,13 @@ $baseWhite: #fefefe;
 			width: $tofu-resizable-width;
 			top: 20px;
 			bottom: $tofu-resizable-width;
-			right: 0;
+			right: -3px;
 			cursor: e-resize;
 		}
 		&.ui-resizable-s {
 			bottom: 0;
 			right: $tofu-resizable-width;
-			left: 0;
+			left: -3px;
 			height: $tofu-resizable-width;
 			cursor: s-resize;
 		}

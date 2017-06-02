@@ -1,5 +1,5 @@
 import { boardRepository } from '../database/boardRepository';
-import { tmpl } from 'common/commons';
+import { templateUtil } from 'common/commons';
 import { List, Button, SearchText} from 'component/components';
 import { ListOption , ButtonOption, SearchTextOption } from 'component/components';
 import { ComponentScanner } from 'component/scanner';
@@ -145,12 +145,12 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 					width: 50
 				}, {
 					label: "勢い",
-					parse: (sure) => tmpl.numberFormat(sure.ikioi, 1),
+					parse: (sure) => templateUtil.numberFormat(sure.ikioi, 1),
 					className: (sure) => `sure-ikioi ikioi-color-${sure.ikioiColor}`,
 					width: 80
 				}, {
 					label: "日付",
-					parse: (sure) => tmpl.dateFormat(sure.createdAt),
+					parse: (sure) => templateUtil.dateFormat(sure.createdAt),
 					className: () => "sure-created-at",
 					width: 100
 				}

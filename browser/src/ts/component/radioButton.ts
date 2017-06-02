@@ -1,6 +1,6 @@
-import { tmpl } from '../common/commons';
+import { templateUtil } from '../common/commons';
 import { BaseComponent, ComponentOption } from './baseComponent';
-import { ElemUtil } from "../common/element";
+import { ElementUtil } from "../common/element";
 export interface RadioButtonOption<T extends string> extends ComponentOption {
 	items: { label: string, value: T }[];
 	initValue: T;
@@ -15,7 +15,7 @@ export class RadioButton<T extends string> extends BaseComponent<RadioButtonOpti
 				class="my-radio-component ${super.getClassNames()}"
 				${super.htmlAttr()}
 			>
-				${tmpl.each(this.option!.items, (item) => `
+				${templateUtil.each(this.option!.items, (item) => `
 					<div
 						class="my-radio-item"
 						value="${item.value}"
@@ -34,7 +34,7 @@ export class RadioButton<T extends string> extends BaseComponent<RadioButtonOpti
 		if (initItem) {
 			initItem.classList.add("my-radio-checked");
 		}
-		ElemUtil.addDelegateEventListener(elem, "click", ".my-radio-item", (event, target) => {
+		ElementUtil.addDelegateEventListener(elem, "click", ".my-radio-item", (event, target) => {
 			const value = <T>target.getAttribute("value");
 			const elems = elem.querySelectorAll(".my-radio-item");
 			for (const elem of elems) {

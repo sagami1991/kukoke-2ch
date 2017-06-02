@@ -1,6 +1,6 @@
 import { boardRepository } from 'database/boardRepository';
 import { db } from 'database/database';
-import { ElemUtil } from 'common/commons';
+import { ElementUtil } from 'common/commons';
 import { NichanBbsMenuClient } from "client/nichanBbsmenuClient";
 import { BoardTable, BoardAttr } from "database/tables";
 
@@ -29,7 +29,7 @@ class BbsMenuService {
 
 	private htmlToBoards(resBody: string): BoardAttr[] {
 		const boards: BoardAttr[] = [];
-		const aElems = ElemUtil.htmlParser(resBody).querySelectorAll("a");
+		const aElems = ElementUtil.htmlParser(resBody).querySelectorAll("a");
 		for (const elem of aElems) {
 			const href = elem.getAttribute("href");
 			if (href === null) {

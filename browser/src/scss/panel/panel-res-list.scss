@@ -3,7 +3,7 @@ $resColorBlue: rgb(132, 75, 191);
 $resColorRed: rgb(210, 12, 12);
 
 @mixin resContainer {
-	padding: 8px 0;
+	padding: 8px;
 	border-bottom: 1px solid #ccc;
 	.res-header {
 		color: $resColorNormal;
@@ -51,7 +51,6 @@ $resColorRed: rgb(210, 12, 12);
 		}
 	}
 	.panel-content {
-		padding: 8px;
 		.res-container {
 			@include resContainer;
 		}

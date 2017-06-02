@@ -1,17 +1,17 @@
 import { jsonParse, jsonString, alertMessage } from './utils';
 import { MyStorage, StorageType } from './storage';
 import { RequestOption, xhrRequest, XhrResponse, sjisBufferToStr } from "./request";
-import { tmpl } from "./tmpl";
+import { templateUtil } from "./tmpl";
 import { MyIcon, MyIconSize, getSvgIcon } from './icon';
-import { ElemUtil } from "./element";
+import { ElementUtil } from "./element";
 import { FileUtil } from "./file";
 
 export {
 	RequestOption, xhrRequest, XhrResponse, sjisBufferToStr,
-	tmpl,
+	templateUtil,
 	MyStorage, StorageType,
 	MyIcon, MyIconSize, getSvgIcon,
-	ElemUtil,
+	ElementUtil,
 	FileUtil,
 	jsonParse, jsonString, alertMessage
 };

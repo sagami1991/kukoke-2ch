@@ -32,7 +32,7 @@ export class SearchText extends BaseComponent<SearchTextOption> {
 					option.onChange(newValue);
 					this._timer = new Date().getTime();
 				}
-			}, 400);
+			}, 300);
 		});
 	}
 }

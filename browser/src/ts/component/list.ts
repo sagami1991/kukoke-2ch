@@ -1,7 +1,8 @@
 import { alertMessage } from '../common/utils';
 import { BaseComponent, ComponentOption } from './baseComponent';
-import { tmpl } from '../common/commons';
-import { ElemUtil } from "../common/element";
+import { templateUtil } from '../common/commons';
+import { ElementUtil } from "../common/element";
+import { VirtualScrollView } from "common/virtualScrollView/virtualScrollView";
 
 interface CellOption<T> {
 	readonly label: string;
@@ -17,18 +18,19 @@ export interface ListOption<T> extends ComponentOption {
 }
 
 export class List<T> extends BaseComponent<ListOption<T>> {
-	private _list: T[];
+	private _items: T[];
 	private _cellOptions: CellOption<T>[];
-	private _tBodyContainer: Element;
+	private _tBodyContainer: HTMLElement;
+	private _virtualList: VirtualScrollView;
 
 	private tableTmpl(option: ListOption<T>) {
 		return `
 		<div class="my-list-component my-list-component-${this._id} ${super.getClassNames()}"
 			${super.htmlAttr()}
 		>
-			${tmpl.when(!option.noHeader, () => `
+			${templateUtil.when(!option.noHeader, () => `
 				<div class="my-list-header">
-					${tmpl.each(option.cellOptions, (cell, i) => `
+					${templateUtil.each(option.cellOptions, (cell, i) => `
 						<div class="my-list-th">${cell.label}</div>	
 					`)}
 				</div>
@@ -41,30 +43,31 @@ export class List<T> extends BaseComponent<ListOption<T>> {
 		`;
 	}
 
-	private tBodyTmpl() {
-		return tmpl.each(this._list, (row, i) => `
+	private rowTmpl(row: T, i: number) {
+		return  `
 		<div class="my-list-tr" row-index="${i}">
-			${tmpl.each(this._cellOptions, (cell) => `
+			${templateUtil.each(this._cellOptions, (cell) => `
 				<div class="my-list-td ${cell.className ? cell.className(row) : ""}">	
 					${cell.parse(row)}
-				</div>					
+				</div>
 			`)}
 		</div>
-		`);
+		`;
 
 	}
 	private styleTmpl(cellOptions: CellOption<T>[]) {
-		let totalWidth = 0;
-		cellOptions.forEach(cell => totalWidth += (cell.width || 0));
+		// let totalWidth = 0;
+		// cellOptions.forEach(cell => totalWidth += (cell.width || 0));
+		// .my-list-component-${this._id} .my-list-header,
+		// .my-list-component-${this._id} .my-list-body,
+		// .my-list-component-${this._id} .my-list-tr {
+		// 	${totalWidth ? `min-width: ${totalWidth}px;` : ""}
+		// }
 		return `
-		.my-list-component-${this._id} .my-list-header,
-		.my-list-component-${this._id} .my-list-tr {
-			${totalWidth ? `width: ${totalWidth}px;` : ""}
-		}
-		${tmpl.each(cellOptions, (cell, i) => `
+		${templateUtil.each(cellOptions, (cell, i) => `
 			.my-list-component-${this._id} .my-list-th:nth-child(${i + 1}),
 			.my-list-component-${this._id} .my-list-td:nth-child(${i + 1}) {
-				${tmpl.when(cell.width, () => `
+				${templateUtil.when(cell.width, () => `
 					width: ${cell.width}px;
 					min-width: ${cell.width}px;
 				`)}
@@ -80,7 +83,13 @@ export class List<T> extends BaseComponent<ListOption<T>> {
 
 	/** @override */
 	public initElem(elem: Element, option: ListOption<T>) {
-		this._tBodyContainer = elem.querySelector(".my-list-body")!;
+		this._tBodyContainer = <HTMLElement> elem.querySelector(".my-list-body")!;
+		this._virtualList = new VirtualScrollView({
+			parent: this._tBodyContainer,
+			rowElements: [],
+			initIndex: 0,
+			minRowHeight: 25,
+		});
 		this._cellOptions = option.cellOptions;
 		this.changeData(option.array);
 		const style = elem.querySelector("style")!;
@@ -89,26 +98,27 @@ export class List<T> extends BaseComponent<ListOption<T>> {
 	}
 
 	private registerEvent(elem: Element, onRowClick: (row: T) => void) {
-		ElemUtil.addDelegateEventListener(elem, "click", ".my-list-tr", (e, currentTarget) => {
+		ElementUtil.addDelegateEventListener(elem, "click", ".my-list-tr", (e, currentTarget) => {
 			const index = currentTarget.getAttribute("row-index");
 			if (index === null) {
 				throw new Error("indexがnull");
 			}
-			const target = this._list[+index];
+			const target = this._items[+index];
 			onRowClick(target);
 		});
 
-		ElemUtil.addDelegateEventListener(elem, "click", ".my-list-th", (e, currentTarget) => {
+		ElementUtil.addDelegateEventListener(elem, "click", ".my-list-th", (e, currentTarget) => {
 			alertMessage("error", "未実装");
 		});
 	}
 
 	public changeData(array: T[]) {
-		this._list = array;
+		this._items = array;
 		this.refresh();
 	}
 
 	public refresh() {
-		this._tBodyContainer.innerHTML = this.tBodyTmpl();
+		const rowElems = this._items.map((item, i ) => ElementUtil.createElement(this.rowTmpl(item, i)));
+		this._virtualList.changeContents(rowElems);
 	}
 }

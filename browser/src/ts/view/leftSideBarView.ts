@@ -1,4 +1,4 @@
-import { ElemUtil, getSvgIcon, alertMessage } from "../common/commons";
+import { ElementUtil, getSvgIcon, alertMessage } from "../common/commons";
 
 export type TofuType = "board" | "sureList" | "resList";
 export class LeftSideBarView {
@@ -23,7 +23,7 @@ export class LeftSideBarView {
 	constructor() {
 		this._el = document.querySelector(".side-bar-container")!;
 		this._el.innerHTML = LeftSideBarView.template();
-		ElemUtil.addDelegateEventListener(this._el, "click", ".side-line", (e, target) => {
+		ElementUtil.addDelegateEventListener(this._el, "click", ".side-line", (e, target) => {
 			alertMessage("info", "未実装");
 		});
 	}

@@ -44,6 +44,7 @@ export interface SureAttr {
 	isTemporary?: 0 | 1;
 	byteLength?: number;
 	lastModified?: string;
+	bookmarkIndex?: number;
 }
 
 /**

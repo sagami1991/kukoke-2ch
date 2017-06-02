@@ -23,9 +23,8 @@ export class NichanResListClient {
 			res = await xhrRequest({
 				method: "POST",
 				url: `https://api.2ch.net${uri}`,
-				headers: reqHeaders,
-				contentType: "application/x-www-form-urlencoded",
-				data: new Map([
+				headers: <XhrRequestHeaders>{...reqHeaders, "Content-Type":  "application/x-www-form-urlencoded"},
+				formData: new Map([
 					["sid", this.nichanSessionId],
 					["hobo", this.calcHoboValue(uri)],
 					["appkey", Nichan.APP_KEY],
@@ -57,7 +56,7 @@ export class NichanResListClient {
 				type: "notModified",
 				response: res
 			};
-		case 401: // 期限切れ
+		case 401: // sessionIDの有効期限切れ
 			this.nichanSessionId = await NichanAuthClient.getSessionId();
 			return this.fetchResList(board, datNo, reqHeaders);
 		default:

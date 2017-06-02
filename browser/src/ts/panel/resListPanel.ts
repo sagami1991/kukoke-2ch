@@ -1,3 +1,4 @@
+import { VirtualScrollView, VirtualScrillViewOption } from "common/virtualScrollView/virtualScrollView";
 import { alertMessage } from '../common/utils';
 import { notify } from '../common/libs';
 import { Popup } from '../common/popup';
@@ -5,7 +6,7 @@ import { PopupRes } from 'service/resListService';
 import { SureTable } from 'database/tables';
 import { SureModel } from 'model/sureModel';
 import { ResModel } from 'model/resModel';
-import { tmpl, ElemUtil } from 'common/commons';
+import { templateUtil, ElementUtil } from 'common/commons';
 import { ComponentScanner } from 'component/scanner';
 import { Button, SearchText, Dropdown} from 'component/components';
 import { ButtonOption, SearchTextOption, DropdownOption, MenuButtonOption } from 'component/components';
@@ -24,35 +25,38 @@ interface ResListPanelEvent {
 }
 
 type FilterType = "none" | "popularity" | "image" | "link";
+type RefreshMode = "reload" | "change";
+type RenderMode = "all" | "filtering";
 export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
-	private _content: Element;
-	private _openedSure: SureModel | undefined;
-	private _resCollection: ResModel[];
-
+	private readonly content: HTMLElement;
+	private openedSure: SureModel | undefined;
+	private resCollection: ResModel[];
+	private renderMode: RenderMode;
 	public get panelType(): PanelType {
 		return "resList";
 	}
 
 	// components
-	private readonly _backButton: Button;
-	private readonly _refreshButton: Button;
-	private readonly _createButton: Button;
-	private readonly _filterDropdown: Dropdown;
-	private readonly _searchText: SearchText;
-	private readonly _urlButton: Button;
-	private readonly _menuButton: MenuButton;
+	private readonly virtialResList: VirtualScrollView;
+	private readonly backButton: Button;
+	private readonly refreshButton: Button;
+	private readonly createButton: Button;
+	private readonly filterDropdown: Dropdown;
+	private readonly searchText: SearchText;
+	private readonly urlButton: Button;
+	private readonly menuButton: MenuButton;
 
 	private template() {
 		return `
 			<div class="panel-container panel-res-list">
 				<div class="panel-command-bar">
-					${this._backButton.html()}
-					${this._refreshButton.html()}
-					${this._createButton.html()}
-					${this._filterDropdown.html()}
-					${this._searchText.html()}
-					${this._urlButton.html()}
-					${this._menuButton.html()}
+					${this.backButton.html()}
+					${this.refreshButton.html()}
+					${this.createButton.html()}
+					${this.filterDropdown.html()}
+					${this.searchText.html()}
+					${this.urlButton.html()}
+					${this.menuButton.html()}
 				</div>
 				<div class="panel-content">
 				</div>
@@ -60,110 +64,131 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		`;
 	}
 
-	private resListTemplate(reses: ResModel[]) {
-		return tmpl.each(reses, res => this.resTemplate(res));
-	}
 
 	private resTemplate(res: ResModel, className?: string) {
-		return `
-		<div class="res-container ${className || ""}">
-			<div class="res-header">
-				<span class="res-no ${res.getResColor()} ${tmpl.when(res.isNew, () => "res-new")}"
-					res-index = "${res.index}"
-				 >
-					${res.index + 1}${res.getIndexFormat()}
-				</span>
-				<span class="res-name">
-					名前: ${res.name}
-				</span>
-				<span class="res-postdate">
-					${res.postDate}
-				</span>
-				${tmpl.when(res.userId, () => `
-					<span class="res-user-id ${res.getIdColor()}" res-index="${res.index}">
-						ID:${res.userId} (${res.getIdCountFormat()})
-					</span>
-				`)}
-				${tmpl.when(res.userBe, () => `
-					<span class="res-user-be">
-						BE:${res.userBe!.displayName}
-					</span>
-				`)}
-			</div>
-			<div class="res-body">
-				${res.body}
-			</div>
-		</div>
-		`;
+		return `` +
+		`<div class="res-container ${className || ""}">` +
+			`<div class="res-header">` +
+				`<span class="res-no ${res.getResColor()} ${templateUtil.when(res.isNew, () => "res-new")}" ` +
+					`res-index = "${res.index}"` +
+				 `>` +
+					`${res.index + 1}${res.getIndexFormat()}` +
+				`</span>` +
+				`<span class="res-name">` +
+					`名前: ${res.name}` +
+				`</span>` +
+				`<span class="res-postdate">` +
+					`${res.postDate}` +
+				`</span>` +
+				`${templateUtil.when(res.userId, () => `` +
+					`<span class="res-user-id ${res.getIdColor()}" res-index="${res.index}">` +
+						`ID:${res.userId} (${res.getIdCountFormat()})` +
+					`</span>`
+				)}` +
+				`${templateUtil.when(res.userBe, () => `` +
+					`<span class="res-user-be">` +
+						`BE:${res.userBe!.displayName}` +
+					`</span>`
+				)}` +
+			`</div>` +
+			`<div class="res-body">` +
+				`${res.body}` +
+			`</div>` +
+		`</div>`
+		;
 	}
 	constructor() {
 		super();
-		this._backButton = new Button(this.getBackButtonOption());
-		this._refreshButton = new Button(this.getRefreshButtonOption());
-		this._createButton = new Button(this.getSubmitButtonOption());
-		this._searchText = new SearchText(this.getSearchTextOption());
-		this._filterDropdown = new Dropdown(this.getDropdownOption());
-		this._urlButton = new Button({
+		this.backButton = new Button(this.getBackButtonOption());
+		this.refreshButton = new Button(this.getRefreshButtonOption());
+		this.createButton = new Button(this.getSubmitButtonOption());
+		this.searchText = new SearchText(this.getSearchTextOption());
+		this.filterDropdown = new Dropdown(this.getDropdownOption());
+		this.urlButton = new Button({
 			icon: "icon-link",
 			label: "URL",
 			className: "url-button",
 			onClick: () => alertMessage("info", "未実装")
 		});
-		this._menuButton = new MenuButton(this.getMenuButtonOption());
+		this.menuButton = new MenuButton(this.getMenuButtonOption());
 		this._el = ComponentScanner.scanHtml(this.template());
-		this._content = this._el.querySelector(".panel-content")!;
-		this.addClickEvent(this._content);
+		this.content = <HTMLElement> this._el.querySelector(".panel-content");
+		this.addClickEvent(this.content);
+		this.virtialResList = new VirtualScrollView(this.getVirtualListOption())
 	}
 
 	public async init() {
 		if (this._storage.sureId !== null) {
 			try {
-				const sureModel = await SureModel.createInstanceFromId(this._storage.sureId);
-				const resList = await resListService.getResListFromCache(sureModel);
-				this.changeResList(sureModel, resList);
+				this.openedSure = await SureModel.createInstanceFromId(this._storage.sureId);
+				const resList = await resListService.getResListFromCache(this.openedSure);
+				this.setResCollection(this.openedSure, resList);
+				this.virtialResList.changeContents(this.getElems(resList), this.openedSure.bookmarkIndex);
 			} catch (error) {
 				this._storage.sureId = null;
-				console.warn(error);
+				console.error(error);
 			}
 		}
 	}
 
+	public async saveStorage() {
+		super.saveStorage();
+		await this.saveBookMark();
+	}
+
+	private async saveBookMark() {
+		const sure = this.openedSure;
+		if (sure) {
+			sure.bookmarkIndex = this.virtialResList.getNowIndex();
+			await resListService.updateSureTable(sure);
+		}
+	}
+
 	private addClickEvent(parent: Element) {
-		ElemUtil.addDelegateEventListener(parent, "click", ".res-no", (e, current) => {
+		ElementUtil.addDelegateEventListener(parent, "click", ".res-no", (e, current) => {
 			const index = current.getAttribute("res-index");
 			if (index === null) {
 				throw new Error();
 			}
-			const result = resListService.deepSearchAnker(this._resCollection, +index);
+			const result = resListService.deepSearchAnker(this.resCollection, +index);
 			this.popup(result, current);
 		});
-		ElemUtil.addDelegateEventListener(parent, "click", ".res-anker", (e, current) => {
+		ElementUtil.addDelegateEventListener(parent, "click", ".res-anker", (e, current) => {
 			const index = current.getAttribute("anker-to");
 			if (index === null) {
 				throw new Error();
 			}
-			const res = this._resCollection[+index];
+			const res = this.resCollection[+index];
 			if (!res) {
 				return;
 			}
 			this.popup([{nestCount: 0, res: res}], current);
 		});
 
-		ElemUtil.addDelegateEventListener(parent, "click", ".res-user-id", (e, current) => {
+		ElementUtil.addDelegateEventListener(parent, "click", ".res-user-id", (e, current) => {
 			const index = current.getAttribute("res-index");
 			if (index === null) {
 				throw new Error();
 			}
-			const userResIndexes = this._resCollection[+index].userIndexes;
-			const userReses = userResIndexes.map<PopupRes>(index => ({nestCount: 0, res: this._resCollection[index]}));
+			const userResIndexes = this.resCollection[+index].userIndexes;
+			const userReses = userResIndexes.map<PopupRes>(index => ({nestCount: 0, res: this.resCollection[index]}));
 			this.popup(userReses, current);
 		});
+	}
+
+	private getVirtualListOption(): VirtualScrillViewOption {
+		return {
+			rowElements: [],
+			minRowHeight: 55,
+			parent: this.content,
+			initIndex: 0
+		};
 	}
 
 	/** @override */
 	protected getStorageForSave(): ResListStorage {
 		return {
-			sureId: this._openedSure ? this._openedSure.id : null
+			sureId: this.openedSure ? this.openedSure.id : null
 		};
 	}
 
@@ -255,18 +280,21 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		};
 	}
 
-	private reload() {
-		if (this._openedSure) {
-			this.changeResListFromServer(this._openedSure);
+	private async reload() {
+		if (this.openedSure) {
+			const resList = await resListService.getResListFromServer(this.openedSure);
+			this.setResCollection(this.openedSure, resList);
+			this.virtialResList.changeContentsWithKeep(this.getElems(resList));
+			this.renderMode = "all";
 		}
 	}
 
 	private async deleteLog() {
-		if (this._openedSure) {
-			const sure = this._openedSure;
-			this._content.innerHTML = "";
-			this._openedSure = undefined;
-			this._resCollection = [];
+		if (this.openedSure) {
+			const sure = this.openedSure;
+			this.virtialResList.empty();
+			this.openedSure = undefined;
+			this.resCollection = [];
 			this._title = "";
 			await resListService.deleteSure(sure);
 			this.trigger("changeSure", sure);
@@ -275,75 +303,84 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	}
 
 	private filter(type: FilterType) {
-		if (!this._resCollection) {
+		if (!this.openedSure || !this.resCollection) {
 			return;
 		}
-		let reses: ResModel[] = this._resCollection;
+		let reses: ResModel[] = this.resCollection;
 		switch (type) {
 		case "none":
+			this.virtialResList.changeContents(this.getElems(reses), this.openedSure.bookmarkIndex);
+			this.renderMode = "all";
 			break;
 		case "popularity":
-			reses = this._resCollection.filter(res => res.fromAnkers.length >= 3);
+			reses = this.resCollection.filter(res => res.fromAnkers.length >= 3);
+			this.saveBookMark();
+			this.virtialResList.changeContents(this.getElems(reses));
+			this.renderMode = "filtering";
 			break;
 		case "image": // TODO
 		case "link": // TODO
 			alertMessage("info", "未実装");
 			break;
 		}
-		this.reRender(reses);
 		return;
 	}
 
 	private openForm() {
-		if (!this._openedSure) {
+		if (!this.openedSure) {
 			notify.error("スレが開かれていません");
 			return;
 		}
 		this.trigger("openForm", {
 			submitType: "resList",
-			sure: this._openedSure
+			sure: this.openedSure
 		});
 	}
 
-	public async changeResListFromServer(sure: SureModel) {
-		const isChangeSure = !sure.equal(this._openedSure);
+	public async openSure(sure: SureModel) {
+		this.saveBookMark();
+		this.openedSure = sure;
+		this.renderMode = "all";
 		const resList = await resListService.getResListFromServer(sure);
-		this.changeResList(sure, resList);
+		this.setResCollection(sure, resList);
+		this.virtialResList.changeContents(this.getElems(resList), sure.bookmarkIndex);
 		this.trigger("changeSure", sure);
-		if (isChangeSure) {
-			this._content.scrollTop = 0;
-		}
 	}
 
 	private popup(reses: PopupRes[], target: Element) {
 		const popupHtml = `
 		<div class="res-popups">
-			${tmpl.each(reses , (item) =>
+			${templateUtil.each(reses , (item) =>
 				this.resTemplate(item.res, `res-popup-nest-${item.nestCount}`)
 			)}
 		</div>`;
-		const popupElem = ElemUtil.parseDom(popupHtml);
+		const popupElem = ElementUtil.createElement(popupHtml);
 		this.addClickEvent(popupElem);
 		new Popup(popupElem, target);
 	}
 
-	private changeResList(sure: SureModel, resList: ResModel[]) {
-		this._resCollection = resList;
-		this._title = `${sure.board.displayName} - ${sure.titleName}`;
+	private setResCollection(sure: SureModel, resList: ResModel[]) {
+		this.resCollection = resList;
+		this._title = `${sure.board.displayName} - ${sure.titleName} (${resList.length})`;
 		this.trigger("changeTitle", this._title);
-		this._openedSure = sure;
-		this.reRender(resList);
 	}
 
 	private search(text: string) {
-		if (!this._resCollection) {
+		if (!this.openedSure || !this.resCollection) {
 			return;
 		}
-		const reses = this._resCollection.filter(res => res.body.match(text) !== null);
-		this.reRender(reses);
+		if (text === "") {
+			this.virtialResList.changeContents(this.getElems(this.resCollection), this.openedSure.bookmarkIndex);
+			this.renderMode = "all";
+			return;
+		}
+		this.saveBookMark();
+		const reses = this.resCollection.filter(res => res.body.match(text) !== null);
+		this.virtialResList.changeContents(this.getElems(reses));
+		this.renderMode = "filtering";
 	};
 
-	private reRender(reses: ResModel[]) {
-		this._content.innerHTML = this.resListTemplate(reses);
+	private getElems(reses: ResModel[]) {
+		return reses.map(res => ElementUtil.createElement(this.resTemplate(res)));
 	}
 }

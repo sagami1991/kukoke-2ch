@@ -1,9 +1,9 @@
 import { alertMessage } from '../common/utils';
 import { getSvgIcon, MyIcon, MyIconSize } from '../common/commons';
 import { BaseComponent, ComponentOption } from './baseComponent';
-import { tmpl } from "common/tmpl";
+import { templateUtil } from "common/tmpl";
 import { Popup } from "common/popup";
-import { ElemUtil } from "common/element";
+import { ElementUtil } from "common/element";
 export interface DropdownItem<T = string> {
 	readonly icon?: MyIcon;
 	readonly label: string;
@@ -32,7 +32,7 @@ export class Dropdown extends BaseComponent<DropdownOption> {
 	private itemTempl(item: DropdownItem, i: number) {
 		return `
 			<div class="dropdown-item" id="${item.id ? item.id : i}">
-				${tmpl.when(item.icon, () => `
+				${templateUtil.when(item.icon, () => `
 					${getSvgIcon(item.icon!, "s")}
 				`)}
 				<div class="dropdown-label">${item.label}</div>
@@ -44,7 +44,7 @@ export class Dropdown extends BaseComponent<DropdownOption> {
 	private itemListTempl(items: DropdownItem[]) {
 		return `
 			<div class="dropdown-items">
-				${tmpl.each(items, (item, i) => this.itemTempl(item, i))}
+				${templateUtil.each(items, (item, i) => this.itemTempl(item, i))}
 			</div>
 		`;
 	}
@@ -52,9 +52,9 @@ export class Dropdown extends BaseComponent<DropdownOption> {
 	/** @override */
 	public initElem(elem: Element, option: DropdownOption) {
 		const {items, onSelect} = option;
-		const itemsElem = ElemUtil.parseDom(this.itemListTempl(items));
+		const itemsElem = ElementUtil.createElement(this.itemListTempl(items));
 		let popup: Popup;
-		ElemUtil.addDelegateEventListener(itemsElem, "click", ".dropdown-item", (event, target) => {
+		ElementUtil.addDelegateEventListener(itemsElem, "click", ".dropdown-item", (event, target) => {
 			const itemId = target.getAttribute("id");
 			if (itemId) {
 				onSelect(itemId);

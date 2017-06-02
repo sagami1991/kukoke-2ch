@@ -1,0 +1,25 @@
+.virtual-list-container {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	.visible-rows-container {
+		position: absolute;
+		width: 100%;
+	}
+}
+
+.virtual-list-scroll-bar {
+	position: absolute;
+	width: 14px;
+	height: 100%;
+	top:0;
+	right: 0;
+	bottom: 0;
+	border-left: 1px solid rgba(187, 187, 187, 0.5);;
+	.virtual-list-slider {
+		position: absolute;
+		width: 100%;
+		background-color: rgba(0, 0, 0, 0.2);
+	}
+}

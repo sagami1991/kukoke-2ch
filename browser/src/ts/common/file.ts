@@ -24,7 +24,6 @@ export namespace FileUtil {
 					reject();
 					return;
 				}
-				console.log(`write file path = ${getPath(path)}`);
 				resolve();
 			});
 		});
