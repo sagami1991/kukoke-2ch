@@ -1,6 +1,6 @@
 import { XhrRequestError } from '../common/error';
 import { xhrRequest, IXhrResponse } from '../common/request';
-import { ImageTable, ImageType } from '../database/tables';
+import { ImageTable, TImageType } from '../database/tables';
 import { db } from '../database/database';
 import { CancelablePromise } from '../common/promise';
 import { Observable } from '../base/observable';
@@ -9,17 +9,17 @@ import { Consts } from "const";
 import { templateUtil, FileUtil } from "common/commons";
 import { electron } from "common/libs";
 
-interface ImageClientEvent {
+interface IImageClientEvent {
 	"progress": [number, number];
 	"done": ImageModel;
 	"abort": string;
 	"error": string;
 }
 
-const imageTypes: ImageType[] = ["image/png", "image/jpeg", "image/gif", "image/bmp"];
+const imageTypes: TImageType[] = ["image/png", "image/jpeg", "image/gif", "image/bmp"];
 
-/** TODO DBアクセス多い */
-export class ImageClient extends Observable<ImageClientEvent> {
+/** TODO クラス分け */
+export class ImageClient extends Observable<IImageClientEvent> {
 	private static clientMap: Map<string, ImageClient> = new Map();
 
 	private readonly url: string;
@@ -66,7 +66,7 @@ export class ImageClient extends Observable<ImageClientEvent> {
 			responseType: "blob",
 			onHeaderReceive: (header) => {
 				const byteSize = +header["content-length"]!;
-				const contentType = <ImageType>header["content-type"]!;
+				const contentType = <TImageType>header["content-type"]!;
 				if (!isLargeOk && byteSize >= 10000000) {
 					this.cancel("サイズが10MBを超えています" + byteSize);
 				}
@@ -150,7 +150,7 @@ export class ImageClient extends Observable<ImageClientEvent> {
 }
 
 interface IResizedImageInfo {
-	type: ImageType;
+	type: TImageType;
 	rawWidth: number;
 	rawHeight: number;
 	rawByteLength: number;
@@ -182,7 +182,7 @@ export class ImageModel {
 		return `${Consts.USER_PATH}/${AppConstant.THUBNAIL_DIR_NAME}/${this.attr.fileName}`;
 	}
 
-	public static getImageExtension(imageType: ImageType) {
+	public static getImageExtension(imageType: TImageType) {
 		switch (imageType) {
 			case "image/bmp":
 				return "bmp";
@@ -232,7 +232,7 @@ export class ImageModel {
 					canvasContext.drawImage(image, 0, 0, width, height);
 					const buffer = new Buffer(canvas.toDataURL(blob.type, 0.95).split(",")[1], "base64");
 					resolve({
-						type: <ImageType>blob.type,
+						type: <TImageType>blob.type,
 						rawWidth: image.width,
 						rawHeight: image.height,
 						rawByteLength: blob.size,

@@ -47,7 +47,7 @@ export interface SureAttr {
 	bookmarkIndex?: number;
 }
 
-export type ImageType = "image/png" | "image/jpeg" | "image/gif" | "image/bmp";
+export type TImageType = "image/png" | "image/jpeg" | "image/gif" | "image/bmp";
 /**
  * 主キー（id）オートインクリメント
  * ユニーク制約（url）
@@ -55,7 +55,7 @@ export type ImageType = "image/png" | "image/jpeg" | "image/gif" | "image/bmp";
 export interface ImageTable {
 	id?: number;
 	url: string;
-	imageType: ImageType;
+	imageType: TImageType;
 	fileName: string;
 	width: number;
 	height: number;
