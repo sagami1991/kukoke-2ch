@@ -1,6 +1,6 @@
-import { PanelType } from 'panel/basePanel';
+import { TPanelType } from 'panel/basePanel';
 import { _ } from "./libs";
-export type StorageType = PanelType;
+export type StorageType = TPanelType;
 
 export class MyStorage {
 	private static getKey(storageType: StorageType, keyName: string) {

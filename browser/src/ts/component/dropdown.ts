@@ -1,7 +1,5 @@
-import { alertMessage } from '../common/utils';
-import { getSvgIcon, MyIcon, MyIconSize } from '../common/commons';
+import { getSvgIcon, MyIcon, templateUtil } from 'common/commons';
 import { BaseComponent, ComponentOption } from './baseComponent';
-import { templateUtil } from "common/tmpl";
 import { Popup } from "common/popup";
 import { ElementUtil } from "common/element";
 export interface DropdownItem<T = string> {

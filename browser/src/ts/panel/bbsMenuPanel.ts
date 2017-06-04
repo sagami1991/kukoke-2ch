@@ -1,7 +1,7 @@
 import { bbsMenuService } from 'service/bbsMenuService';
 import { ComponentScanner } from 'component/scanner';
 import { RadioButton, RadioButtonOption, SearchText, SearchTextOption, List, ListOption, Button, ButtonOption } from 'component/components';
-import { Panel, PanelType } from './basePanel';
+import { Panel, TPanelType } from './basePanel';
 import { BoardTable } from "database/tables";
 
 type BbsMenuMode =  "allList" | "history";
@@ -17,7 +17,7 @@ export class BbsMenuPanel extends Panel<BbsMenuPanelEvent, BbsMenuStorage> {
 	private _mode: BbsMenuMode;
 	private _allBoards: BoardTable[];
 
-	public get panelType(): PanelType {
+	public get panelType(): TPanelType {
 		return "board";
 	}
 

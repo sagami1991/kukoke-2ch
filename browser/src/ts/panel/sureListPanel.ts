@@ -6,7 +6,7 @@ import { ListOption , ButtonOption, SearchTextOption } from 'component/component
 import { ComponentScanner } from 'component/scanner';
 import { sureListService } from 'service/sureListService';
 import { SureModel } from 'model/sureModel';
-import { Panel, PanelType } from './basePanel';
+import { Panel, TPanelType } from './basePanel';
 import { BoardTable } from "database/tables";
 import { emojiUtil } from "common/emoji";
 import { electron } from "common/libs";
@@ -22,7 +22,7 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 	private _sures: SureModel[];
 	private _openedBoard: BoardTable | undefined;
 
-	public get panelType(): PanelType {
+	public get panelType(): TPanelType {
 		return "sureList";
 	}
 

@@ -1,4 +1,4 @@
-import { Panel, PanelType } from 'panel/basePanel';
+import { Panel, TPanelType } from 'panel/basePanel';
 import { TofuShadow } from './tofuShadow';
 import { TofuBlock } from './tofuBlock';
 import { createObserverId } from "base/observable";
@@ -6,10 +6,10 @@ import { createObserverId } from "base/observable";
 export class TofuSheet {
 	private readonly el: HTMLDivElement;
 	private readonly shadow: TofuShadow;
-	private readonly blockMap: Map<PanelType, TofuBlock>;
+	private readonly blockMap: Map<TPanelType, TofuBlock>;
 	private readonly observerId: string;
 	private zIndex: number;
-	private frontBlock: PanelType | undefined;
+	private frontBlock: TPanelType | undefined;
 
 	constructor() {
 		this.el = <HTMLDivElement> document.querySelector(".tofu-container")!;
@@ -19,7 +19,7 @@ export class TofuSheet {
 		this.observerId = createObserverId();
 	}
 
-	public isOpenedPanel(panelType: PanelType): boolean {
+	public isOpenedPanel(panelType: TPanelType): boolean {
 		return this.blockMap.get(panelType) ? true : false;
 	}
 
@@ -29,7 +29,7 @@ export class TofuSheet {
 		this.blockMap.set(panel.panelType, block);
 	}
 
-	public closeBlock(panelType: PanelType) {
+	public closeBlock(panelType: TPanelType) {
 		const block = this.blockMap.get(panelType);
 		if (block) {
 			this.blockMap.delete(panelType);
@@ -39,7 +39,7 @@ export class TofuSheet {
 		}
 	}
 
-	public toFront(panelType: PanelType) {
+	public toFront(panelType: TPanelType) {
 		if (this.frontBlock !== panelType) {
 			const block = this.blockMap.get(panelType);
 			block!.changeZindex(this.zIndex++); // TODO null時処理

@@ -12,7 +12,7 @@ import { ComponentScanner } from 'component/scanner';
 import { Button, SearchText, Dropdown} from 'component/components';
 import { ButtonOption, SearchTextOption, DropdownOption, MenuButtonOption, ImageThumbnail } from 'component/components';
 import { resListService } from 'service/resListService';
-import { Panel, PanelType } from './basePanel';
+import { Panel, TPanelType } from './basePanel';
 import { OpenFormOption } from "panel/formPanel";
 import { MenuButton } from "component/menuButton";
 
@@ -33,7 +33,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	private openedSure: SureModel | undefined;
 	private resCollection: ResModel[];
 	private renderMode: RenderMode;
-	public get panelType(): PanelType {
+	public get panelType(): TPanelType {
 		return "resList";
 	}
 

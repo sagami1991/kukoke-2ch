@@ -1,5 +1,5 @@
 import { BoardAttr } from './tables';
-import { PanelType } from 'panel/basePanel';
+import { TPanelType } from 'panel/basePanel';
 import { BlockState } from "tofu/tofuDefs";
 
 /** 
@@ -76,6 +76,6 @@ export interface ImageTable {
  * 主キー（panelType）
  */
 export interface PanelBlockStateTable {
-	panelType: PanelType;
+	panelType: TPanelType;
 	blockState: BlockState;
 }

@@ -3,7 +3,7 @@ import { alertMessage } from '../common/utils';
 import { SureModel } from 'model/sureModel';
 import { ComponentScanner } from 'component/scanner';
 import { Button, ButtonOption, Textarea } from 'component/components';
-import { Panel, PanelType } from './basePanel';
+import { Panel, TPanelType } from './basePanel';
 import { NichanSubmitClient } from "client/nichanSubmitClient";
 
 type SubmitType =  "resList" | "sureList";
@@ -29,7 +29,7 @@ export class SubmitFormPanel extends Panel<FormPanelEvent> {
 	private _sure: SureModel;
 	private _textarea: Textarea;
 	private _submitButton: Button;
-	public get panelType(): PanelType {
+	public get panelType(): TPanelType {
 		return "form";
 	}
 

@@ -1,5 +1,5 @@
 import { ImageTable } from './tables';
-import { PanelType } from 'panel/basePanel';
+import { TPanelType } from 'panel/basePanel';
 import Dexie from "dexie";
 import { SureTable, BoardTable, PanelBlockStateTable} from "database/tables";
 import { Consts } from "const";
@@ -7,7 +7,7 @@ import { Consts } from "const";
 class Database extends Dexie {
 	public readonly sures:  Dexie.Table<SureTable, number>;
 	public readonly boards:  Dexie.Table<BoardTable, number>;
-	public readonly panelStates: Dexie.Table<PanelBlockStateTable, PanelType>;
+	public readonly panelStates: Dexie.Table<PanelBlockStateTable, TPanelType>;
 	public readonly images: Dexie.Table<ImageTable, number>;
 
 	constructor() {

@@ -1,5 +1,3 @@
-import { templateUtil } from "common/tmpl";
-
 export type MyIcon =
 	"icon-close" | "icon-maximize" | "icon-search" | "icon-reload" | "icon-pen" |
 	"icon-image" | "icon-link" | "icon-arrow-dropdown" | "icon-filter" |
