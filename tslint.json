@@ -26,7 +26,7 @@
     "no-eval": true,
     "trailing-comma": true,
     "no-unused-expression": true,
-    "no-unused-variable": true, //テンプレート側でメソッド使われる
+    "no-unused-variable": true,
     "no-unreachable": true,
     "no-use-before-declare": true,
     "one-line": [
