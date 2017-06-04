@@ -5,7 +5,10 @@
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"sourceMap": true,
-		"lib": ["es6", "dom"],
+		"lib": [
+			"es6",
+			"dom"
+		],
 		"strictNullChecks": true,
 		"baseUrl": "./src",
 		"types": [
@@ -13,8 +16,8 @@
 		]
 	},
 	"include": [
-        "./src/**/*.ts"
-    ],
+		"./src/**/*.ts"
+	],
 	"exclude": [
 		"node_modules"
 	]
