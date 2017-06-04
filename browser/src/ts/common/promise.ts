@@ -1,4 +1,4 @@
-type PromiseExecuter<T> = (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void
+// type PromiseExecuter<T> = (resolve: (value?: T | PromiseLike<T>) => void, reject: (reason?: any) => void) => void
 export class CancelablePromise<T> extends Promise<T> {
 	private cancelCallback: (() => void) | undefined;
 

@@ -1,5 +1,3 @@
-
-
 import { electron } from "common/libs";
 
 class ContextMenuController {

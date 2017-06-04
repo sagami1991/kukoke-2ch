@@ -1,9 +1,9 @@
-import { getSvgIcon, MyIcon, MyIconSize } from 'common/commons';
+import { getSvgIcon, TIconName, TIconSize } from 'common/commons';
 import { BaseComponent, ComponentOption } from './baseComponent';
 export interface ButtonOption extends ComponentOption {
 	readonly label?: string;
-	readonly icon: MyIcon;
-	readonly iconSize?: MyIconSize;
+	readonly icon: TIconName;
+	readonly iconSize?: TIconSize;
 	readonly style?: "icon-only" | "normal";
 	readonly onClick: () => void;
 	readonly subLabel?: string;

@@ -1,9 +1,9 @@
-import { getSvgIcon, MyIcon, templateUtil } from 'common/commons';
+import { getSvgIcon, TIconName, templateUtil } from 'common/commons';
 import { BaseComponent, ComponentOption } from './baseComponent';
 import { Popup } from "common/popup";
 import { ElementUtil } from "common/element";
 export interface MenuItem {
-	readonly icon?: MyIcon;
+	readonly icon?: TIconName;
 	readonly label: string;
 	readonly onSelect: () => void;
 }
