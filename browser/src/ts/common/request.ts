@@ -1,53 +1,79 @@
-import { notify } from './libs';
-import { statusBar } from '../view/statusBarView';
 import { CancelablePromise } from './promise';
 import { decode } from 'iconv-lite';
+import { XhrRequestError } from "common/error";
 
-export interface RequestOption {
+export interface IRequestOption {
 	method?: "GET" | "POST";
 	url: string;
-	headers?: XhrRequestHeaders;
+	headers?: IRequestHeaders;
 	formData?: Map<string, string>;
 	contentType?: "application/x-www-form-urlencoded";
+	onProgress?: (loaded: number, total: number) => void;
+	onHeaderReceive?: (responseHeader: IResponseHeader) => void;
+	onAbort?: () => void;
+	responseType?: "arraybuffer" | "blob";
 }
 
-export interface XhrRequestHeaders {
+export interface IRequestHeaders {
 	"Content-Type"?: "application/x-www-form-urlencoded";
 	"Kukoke-Referer"?: string;
 	"If-Modified-Since"?: string;
 	"Range"?: string;
 }
 
-export interface XhrResponseHeader {
+/** 全てlowercaseに変換している */
+export interface IResponseHeader {
+	"content-type"?: string;
+	"content-length"?: string;
 	"last-modified"?: string;
 }
 
-export interface XhrResponse {
+export interface IXhrResponse<T = Buffer> {
 	statusCode: number;
-	headers: XhrRequestHeaders;
-	body: Buffer;
+	headers: IResponseHeader;
+	body: T;
 }
 
-export function xhrRequest(option: RequestOption) {
+export function xhrRequest<T = Buffer>(option: IRequestOption) {
 	const xhr = new XMLHttpRequest();
-	return new CancelablePromise<XhrResponse>((resolve, reject) => {
+	return new CancelablePromise<IXhrResponse<T>>((resolve, reject) => {
+		const {onProgress, onHeaderReceive, onAbort, responseType} = option;
 		xhr.open(option.method || "GET", option.url, true);
-		xhr.responseType = 'arraybuffer';
+		xhr.responseType = option.responseType || "arraybuffer";
 		setRequestHeaders(xhr, option);
 		xhr.addEventListener("error", () => {
-			notify.error("リクエスト失敗");
-			reject("xhr error");
+			reject(new XhrRequestError("xhr error"));
+		});
+		xhr.addEventListener("abort", () => {
+			if (onAbort) {
+				onAbort();
+			}
+			reject("xhr abort");
+		});
+		xhr.addEventListener("readystatechange", () => {
+			if (xhr.readyState === XMLHttpRequest.HEADERS_RECEIVED) {
+				if (onHeaderReceive) {
+					onHeaderReceive(getResponseHeaders(xhr));
+				}
+			}
+		});
+		xhr.addEventListener("progress", (e) => {
+			if (onProgress) {
+				onProgress(e.loaded, e.total);
+			}
 		});
 		xhr.addEventListener("load", () => {
-			statusBar.message(`レスポンス完了 url: ${option.url} status: ${xhr.status}`);
+			let responseBody = xhr.responseType === "arraybuffer" ? new Buffer(new Uint8Array(xhr.response)) : xhr.response;
 			resolve({
 				statusCode: xhr.status,
 				headers: getResponseHeaders(xhr),
-				body: new Buffer(new Uint8Array(xhr.response))
+				body: responseBody
 			});
 
 		});
 		xhr.send(option.formData ? mapToForm(option.formData) : undefined);
+	}).setCancelCallback(() => {
+		xhr.abort();
 	});
 }
 
@@ -64,7 +90,7 @@ export function sjisBufferToStr(sjisBuffer: Buffer) {
 	return decode(sjisBuffer, "Shift_JIS");
 }
 
-function setRequestHeaders(xhr: XMLHttpRequest, options: RequestOption): void {
+function setRequestHeaders(xhr: XMLHttpRequest, options: IRequestOption): void {
 	if (options.headers) {
 		outer: for (let [k, v] of Object.entries(options.headers)) {
 			switch (k) {
@@ -81,7 +107,7 @@ function setRequestHeaders(xhr: XMLHttpRequest, options: RequestOption): void {
 	}
 }
 
-function getResponseHeaders(xhr: XMLHttpRequest): XhrResponseHeader {
+function getResponseHeaders(xhr: XMLHttpRequest): IResponseHeader {
 	const headers: { [name: string]: string } = Object.create(null);
 	for (const line of xhr.getAllResponseHeaders().split(/\r\n|\n|\r/g)) {
 		if (line) {

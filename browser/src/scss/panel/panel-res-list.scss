@@ -5,6 +5,9 @@ $resColorRed: rgb(210, 12, 12);
 @mixin resContainer {
 	padding: 8px;
 	border-bottom: 1px solid #ccc;
+	&[kukoke-active] {
+		background-color: $hoverColor;
+	}
 	.res-header {
 		color: $resColorNormal;
 		font-size: 12px;
@@ -32,6 +35,13 @@ $resColorRed: rgb(210, 12, 12);
 		}
 		.res-image-link:visited {
 			color: rgb(132, 75, 191);
+		}
+	}
+	.res-thumbnails {
+		display: flex;
+		padding-left: 1em;
+		.image-component {
+			margin-right: 10px;
 		}
 	}
 }

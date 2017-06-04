@@ -1,3 +1,4 @@
+import { contextMenuController } from '../common/contextmenu';
 import { boardRepository } from '../database/boardRepository';
 import { templateUtil } from 'common/commons';
 import { List, Button, SearchText} from 'component/components';
@@ -8,6 +9,7 @@ import { SureModel } from 'model/sureModel';
 import { Panel, PanelType } from './basePanel';
 import { BoardTable } from "database/tables";
 import { emojiUtil } from "common/emoji";
+import { electron } from "common/libs";
 
 interface SureListStorage {
 	boardId: number | null;
@@ -155,7 +157,13 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 					width: 100
 				}
 			],
-			onRowClick: (sure) => this.trigger("openSure", sure)
+			onRowClick: (sure) => this.trigger("openSure", sure),
+			onRowRightClick: (sure) => {
+				contextMenuController.addMenu([{
+					label: "ブラウザで開く",
+					click: () => electron.shell.openExternal(sure.getSureUrl())
+				}]);
+			},
 		};
 	}
 

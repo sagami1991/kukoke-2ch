@@ -1,3 +1,4 @@
+type EventName = "click" | "change" | "contextmenu";
 export namespace ElementUtil {
 	export const appContainer = document.querySelector(".app-container")!;
 
@@ -21,7 +22,7 @@ export namespace ElementUtil {
 		return elem;
 	}
 
-	export function addDelegateEventListener(elem: Element, eventName: "click" | "change", selector: string, cb: (event: Event, originalTarget: Element) => void) {
+	export function addDelegateEventListener(elem: Element, eventName: EventName, selector: string, cb: (event: Event, originalTarget: Element) => void) {
 		elem.addEventListener(eventName, (event) => {
 			let target = <Element>event.target;
 			while (target && target !== event.currentTarget) {

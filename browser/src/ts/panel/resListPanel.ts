@@ -1,15 +1,16 @@
+import { contextMenuController } from '../common/contextmenu';
 import { VirtualScrollView, VirtualScrillViewOption } from "common/virtualScrollView/virtualScrollView";
 import { alertMessage } from '../common/utils';
-import { notify } from '../common/libs';
+import { notify, electron } from '../common/libs';
 import { Popup } from '../common/popup';
-import { PopupRes } from 'service/resListService';
+import { IPopupRes } from 'service/resListService';
 import { SureTable } from 'database/tables';
 import { SureModel } from 'model/sureModel';
 import { ResModel } from 'model/resModel';
 import { templateUtil, ElementUtil } from 'common/commons';
 import { ComponentScanner } from 'component/scanner';
 import { Button, SearchText, Dropdown} from 'component/components';
-import { ButtonOption, SearchTextOption, DropdownOption, MenuButtonOption } from 'component/components';
+import { ButtonOption, SearchTextOption, DropdownOption, MenuButtonOption, ImageThumbnail } from 'component/components';
 import { resListService } from 'service/resListService';
 import { Panel, PanelType } from './basePanel';
 import { OpenFormOption } from "panel/formPanel";
@@ -44,7 +45,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	private readonly filterDropdown: Dropdown;
 	private readonly searchText: SearchText;
 	private readonly urlButton: Button;
-	private readonly menuButton: MenuButton;
+	private readonly menuButton: Button;
 
 	private template() {
 		return `
@@ -67,7 +68,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 
 	private resTemplate(res: ResModel, className?: string) {
 		return `` +
-		`<div class="res-container ${className || ""}">` +
+		`<div class="res-container ${className || ""}" res-index = "${res.index}">` +
 			`<div class="res-header">` +
 				`<span class="res-no ${res.getResColor()} ${templateUtil.when(res.isNew, () => "res-new")}" ` +
 					`res-index = "${res.index}"` +
@@ -94,6 +95,11 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			`<div class="res-body">` +
 				`${res.body}` +
 			`</div>` +
+			`<div class="res-thumbnails">${
+				templateUtil.each(res.imageUrls, url =>
+					new ImageThumbnail({url: url}).html()
+				)}
+			</div>` +
 		`</div>`
 		;
 	}
@@ -110,7 +116,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			className: "url-button",
 			onClick: () => alertMessage("info", "未実装")
 		});
-		this.menuButton = new MenuButton(this.getMenuButtonOption());
+		this.menuButton = new Button(this.getMenuButtonOption());
 		this._el = ComponentScanner.scanHtml(this.template());
 		this.content = <HTMLElement> this._el.querySelector(".panel-content");
 		this.addClickEvent(this.content);
@@ -153,6 +159,22 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			const result = resListService.deepSearchAnker(this.resCollection, +index);
 			this.popup(result, current);
 		});
+		ElementUtil.addDelegateEventListener(parent, "contextmenu", ".res-container", (e, current) => {
+			const index = current.getAttribute("res-index");
+			if (index === null) {
+				return;
+			}
+			current.setAttribute("kukoke-active", "true");
+			contextMenuController.addMenu([
+				{
+					label: "これにレス",
+					click: () => this.openForm(`>>${+index + 1}`)
+				}
+			]);
+			contextMenuController.setCallBack(() => {
+				current.removeAttribute("kukoke-active");
+			});
+		});
 		ElementUtil.addDelegateEventListener(parent, "click", ".res-anker", (e, current) => {
 			const index = current.getAttribute("anker-to");
 			if (index === null) {
@@ -171,9 +193,10 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 				throw new Error();
 			}
 			const userResIndexes = this.resCollection[+index].userIndexes;
-			const userReses = userResIndexes.map<PopupRes>(index => ({nestCount: 0, res: this.resCollection[index]}));
+			const userReses = userResIndexes.map<IPopupRes>(index => ({nestCount: 0, res: this.resCollection[index]}));
 			this.popup(userReses, current);
 		});
+
 	}
 
 	private getVirtualListOption(): VirtualScrillViewOption {
@@ -217,23 +240,31 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		};
 	}
 
-	private getMenuButtonOption(): MenuButtonOption {
+	private getMenuButtonOption(): ButtonOption {
 		return {
-			items: [
-				{
-					label: "ログを削除",
-					onSelect: () => this.deleteLog()
-				}, {
-					label: "次スレを検索",
-					onSelect: () => alertMessage("info", "未実装")
-				}, {
-					label: "板を開く",
-					onSelect: () => alertMessage("info", "未実装")
-				}, {
-					label: "ブラウザで開く",
-					onSelect: () => alertMessage("info", "未実装")
-				}
-			]
+			icon: "icon-menu",
+			style: "icon-only",
+			onClick: () => {
+				contextMenuController.popupMenu([
+					{
+						label: "ログを削除",
+						click: () => this.deleteLog()
+					}, {
+						label: "次スレを検索",
+						click: () => alertMessage("info", "未実装")
+					}, {
+						label: "板を開く",
+						click: () => alertMessage("info", "未実装")
+					}, {
+						label: "ブラウザで開く",
+						click: () => {
+							if (this.openedSure) {
+								electron.shell.openExternal(this.openedSure.getSureUrl());
+							}
+						}
+					}
+				]);
+			}
 		};
 	}
 
@@ -326,14 +357,15 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		return;
 	}
 
-	private openForm() {
+	private openForm(initBody?: string) {
 		if (!this.openedSure) {
 			notify.error("スレが開かれていません");
 			return;
 		}
 		this.trigger("openForm", {
 			submitType: "resList",
-			sure: this.openedSure
+			sure: this.openedSure,
+			initBody: initBody
 		});
 	}
 
@@ -347,14 +379,14 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		this.trigger("changeSure", sure);
 	}
 
-	private popup(reses: PopupRes[], target: Element) {
+	private popup(reses: IPopupRes[], target: Element) {
 		const popupHtml = `
 		<div class="res-popups">
 			${templateUtil.each(reses , (item) =>
 				this.resTemplate(item.res, `res-popup-nest-${item.nestCount}`)
 			)}
 		</div>`;
-		const popupElem = ElementUtil.createElement(popupHtml);
+		const popupElem =ComponentScanner.scanHtml(popupHtml);
 		this.addClickEvent(popupElem);
 		new Popup(popupElem, target);
 	}
@@ -381,6 +413,6 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	};
 
 	private getElems(reses: ResModel[]) {
-		return reses.map(res => ElementUtil.createElement(this.resTemplate(res)));
+		return reses.map(res => ComponentScanner.scanHtml(this.resTemplate(res)));
 	}
 }

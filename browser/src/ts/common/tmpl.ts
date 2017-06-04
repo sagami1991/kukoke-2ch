@@ -11,12 +11,18 @@ export namespace templateUtil {
 
 	export function dateFormat(date: Date): string {
 		return dateFmt(date, "mm/dd HH:MM");
-		// return `${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
 	}
-
+	export function dateFormatForFile(date: Date): string {
+		return dateFmt(date, "yyyy-mm-dd-HHMMssl");
+	}
 	export function numberFormat(num: number, decimal: number): string {
 		return new Number(num).toFixed(decimal);
 	}
+
+	export function kbFormat(byteLength: number) {
+		return `${new Number(byteLength / 1024).toFixed(1)}KB`;
+	}
+
 
 	export function when(condition: any, result: () => string): string {
 		if (condition) {

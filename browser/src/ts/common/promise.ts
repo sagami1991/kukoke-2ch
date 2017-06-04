@@ -11,5 +11,6 @@ export class CancelablePromise<T> extends Promise<T> {
 
 	public setCancelCallback(cancelCallback?: () => void) {
 		this.cancelCallback = cancelCallback;
+		return this;
 	}
 }

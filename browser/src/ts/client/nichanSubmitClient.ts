@@ -1,4 +1,4 @@
-import { XhrRequestHeaders } from '../common/request';
+import { IRequestHeaders } from '../common/request';
 import { BoardTable } from '../database/tables';
 import { xhrRequest, sjisBufferToStr } from 'common/commons';
 import { NichanFormValue } from "panel/formPanel";
@@ -13,7 +13,7 @@ export class NichanSubmitClient {
 	public static async submitRes(board: BoardTable, datNo: number, values: NichanFormValue): Promise<SubmitResponse> {
 		const res = await xhrRequest({
 			method: "POST",
-			headers: <XhrRequestHeaders>{
+			headers: <IRequestHeaders>{
 				"Kukoke-Referer": `http://${board.subDomain}.${board.domain}/${board.path}`,
 				"Content-Type": "application/x-www-form-urlencoded"
 			},

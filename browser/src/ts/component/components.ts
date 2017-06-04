@@ -6,6 +6,7 @@ import { RadioButton, RadioButtonOption } from './radioButton';
 import { Dropdown, DropdownOption } from './dropdown';
 import { Textarea } from "component/textarea";
 import { MenuButton, MenuButtonOption, MenuItem } from "component/menuButton";
+import { ImageThumbnail } from "component/image";
 
 export {
 	Button,
@@ -15,6 +16,7 @@ export {
 	MenuButton,
 	Dropdown,
 	Textarea,
+	ImageThumbnail
 };
 export {
 	ButtonOption,

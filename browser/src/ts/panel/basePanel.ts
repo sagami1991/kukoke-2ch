@@ -30,4 +30,8 @@ export abstract class Panel<T = BasePanelEvent, S = {}> extends Observable<T & B
 	public saveStorage() {
 		MyStorage.save(this.panelType, "storage", this.getStorageForSave());
 	}
+
+	public canClose() {
+		return false;
+	}
 }

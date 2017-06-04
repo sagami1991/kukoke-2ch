@@ -87,6 +87,8 @@ export class SubmitFormPanel extends Panel<FormPanelEvent> {
 
 	protected getStorageForSave() { return {}; };
 	protected getDefaultStorage() { return {}; };
-
+	public canClose() {
+		return true;
+	}
 
 }

@@ -11,7 +11,7 @@ export class Observable<T> {
 		this.listenMap.get(observerId)![name] = cb;
 	}
 
-	public removeListener(observerId: string) {
+	public disposeObserve(observerId: string) {
 		this.listenMap.delete(observerId);
 	}
 

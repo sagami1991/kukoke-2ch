@@ -1,7 +1,8 @@
-import { XhrRequestHeaders } from '../common/request';
+import { IRequestHeaders } from '../common/request';
 import { sureRepository } from '../database/sureRepository';
 import { SureTable, BoardTable } from 'database/tables';
 import { boardRepository } from "database/boardRepository";
+import { FileUtil } from "common/commons";
 
 export class SureModel {
 	private readonly _id: number;
@@ -95,7 +96,7 @@ export class SureModel {
 	}
 
 	public getDatFilePath() {
-		return `dat/${this._board.path}_${this._datNo}.dat`;
+		return FileUtil.getPath(`dat/${this._board.path}_${this._datNo}.dat`);
 	}
 
 	public setIkioiColor(ikioiAve: number) {
@@ -108,7 +109,7 @@ export class SureModel {
 		}
 	}
 
-	public getRequestHeader(): XhrRequestHeaders {
+	public getRequestHeader(): IRequestHeaders {
 		if (!this._saved) {
 			return {};
 		} else {
@@ -149,5 +150,9 @@ export class SureModel {
 		return self && this._board.domain === self._board.domain &&
 			this._board.path === self._board.path &&
 			this._datNo === self._datNo;
+	}
+
+	public getSureUrl() {
+		return `http://${this._board.subDomain}.${this._board.domain}/test/read.cgi/${this._board.path}/${this._datNo}/`;
 	}
 }

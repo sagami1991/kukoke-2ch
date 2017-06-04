@@ -7,30 +7,32 @@ import { blockStateRepository } from "database/blockStateRepository";
 import { db } from "database/database";
 import { emojiUtil } from "common/emoji";
 interface BlockEvent {
-	removed: undefined;
+	close: undefined;
 }
 export class TofuBlock extends Observable<BlockEvent> {
-	private readonly _el: HTMLElement;
-	private readonly _titleElem: Element;
-	private _position: BlockPosition;
-	private _size: BlockSize;
-	private readonly _unitX: number;
-	private readonly _unitY: number;
-	private _observerId: string;
+	private readonly panel: Panel;
+	private position: BlockPosition;
+	private size: BlockSize;
+	private readonly unitX: number;
+	private readonly unitY: number;
+	private observerId: string;
 
-	// compoinents
-	private readonly _closeButton: Button;
-	private readonly _maximizeButton: Button;
+	// elements and compoinents
+	private readonly _el: HTMLElement;
+	private readonly titleContainer: HTMLElement;
+	private readonly panelContainer: HTMLElement;
+	private readonly closeButton: Button;
+	private readonly maximizeButton: Button;
 	public get el() {
 		return this._el;
 	}
 	public get panelType(): PanelType {
-		return this._panel.panelType;
+		return this.panel.panelType;
 	}
 	public get state(): BlockState {
 		return {
-			position: this._position,
-			size: this._size
+			position: this.position,
+			size: this.size
 		};
 	}
 	private template() {
@@ -38,10 +40,10 @@ export class TofuBlock extends Observable<BlockEvent> {
 			<div class="tofu-block">
 				<div class="tofu-top-bar">
 					<div class="tofu-title">
-						${emojiUtil.replace(this._panel.title)}
+						${emojiUtil.replace(this.panel.title)}
 					</div>
-					${this._maximizeButton.html()}
-					${this._closeButton.html()}
+					${this.maximizeButton.html()}
+					${this.closeButton.html()}
 				</div>
 				<div class="panel-outer-container"></div>
 				<div class="tofu-resizable-bar ui-resizable-e"></div>
@@ -51,34 +53,35 @@ export class TofuBlock extends Observable<BlockEvent> {
 		`;
 	}
 
-	constructor(private readonly _panel: Panel) {
+	constructor(panel: Panel) {
 		super();
-		this._closeButton = new Button(this.getCloseButtonOption());
-		this._maximizeButton = new Button(this.getMaximizeButtonOption());
+		this.panel = panel;
+		this.closeButton = new Button(this.getCloseButtonOption());
+		this.maximizeButton = new Button(this.getMaximizeButtonOption());
 		this._el = ComponentScanner.scanHtml(this.template());
-		this._titleElem = this._el.querySelector(".tofu-title")!;
-		this._unitX = 30;
-		this._unitY = 30;
-		this._observerId = createObserverId();
-		this._panel.addListener("changeTitle", this._observerId, (title) => {
-			// TODO xss確認
-			this._titleElem.innerHTML = emojiUtil.replace(title);
+		this.titleContainer = <HTMLElement> this._el.querySelector(".tofu-title");
+		this.panelContainer = <HTMLElement> this._el.querySelector(".panel-outer-container");
+		this.unitX = 30;
+		this.unitY = 30;
+		this.observerId = createObserverId();
+		this.panel.addListener("changeTitle", this.observerId, (title) => {
+			this.titleContainer.innerHTML = emojiUtil.replace(title); // TODO xss確認
 		});
 
 	}
 
 	public async init() {
-		let state = await blockStateRepository.getState(this._panel.panelType);
+		let state = await blockStateRepository.getState(this.panel.panelType);
 		if (!state) {
 			state = {
 				position: {x: 120, y: 90, z: 0},
 				size: {width: 300, height: 300}
 			};
 		}
-		this._position = state.position;
-		this._size = state.size;
+		this.position = state.position;
+		this.size = state.size;
 		this.applyCss();
-		this._el.querySelector(".panel-outer-container")!.appendChild(this._panel.el);
+		this.panelContainer.appendChild(this.panel.el);
 	}
 
 	private getCloseButtonOption(): ButtonOption {
@@ -87,7 +90,7 @@ export class TofuBlock extends Observable<BlockEvent> {
 			icon: "icon-close",
 			iconSize: "s",
 			style: "icon-only",
-			onClick: () => alert("未実装")//this.remove()
+			onClick: () => this.close()
 		};
 	}
 
@@ -102,13 +105,13 @@ export class TofuBlock extends Observable<BlockEvent> {
 	}
 
 	public calcPos(position: BlockPosition) {
-		this._position.x = Math.round(position.x / this._unitX) * this._unitX;
-		this._position.y = Math.round(position.y / this._unitY) * this._unitY;
+		this.position.x = Math.round(position.x / this.unitX) * this.unitX;
+		this.position.y = Math.round(position.y / this.unitY) * this.unitY;
 	}
 
 	public calcSize(size: BlockSize) {
-		this._size.width = Math.round(size.width / this._unitX) * this._unitX;
-		this._size.height = Math.round(size.height / this._unitY) * this._unitY;
+		this.size.width = Math.round(size.width / this.unitX) * this.unitX;
+		this.size.height = Math.round(size.height / this.unitY) * this.unitY;
 	}
 
 	public onStart() {
@@ -132,42 +135,47 @@ export class TofuBlock extends Observable<BlockEvent> {
 
 	public validateState(parentSize: {width: number, height: number}) {
 		let kari: BlockState = {
-			position: { x: this._position.x, y: this._position.y, z: 0 },
-			size: {	width: this._size.width, height: this._size.height }
+			position: { x: this.position.x, y: this.position.y, z: 0 },
+			size: {	width: this.size.width, height: this.size.height }
 		};
 		if (kari.position.x < 0 ) {
 			kari.position.x = 0;
 		}
 		if (kari.position.x > parentSize.width) {
-			kari.position.x = parentSize.width - this._unitX;
+			kari.position.x = parentSize.width - this.unitX;
 		}
 		if (kari.position.y < 0) {
 			kari.position.y = 0;
 		}
 		if (kari.position.y > parentSize.height) {
-			kari.position.y = parentSize.height - this._unitY;
+			kari.position.y = parentSize.height - this.unitY;
 		}
 		if (kari.size.width + kari.position.x > parentSize.width) {
 			kari.size.width = parentSize.width - kari.position.x;
 		}
-		if (kari.size.width < this._unitX) {
-			kari.size.width = this._unitX;
+		if (kari.size.width < this.unitX) {
+			kari.size.width = this.unitX;
 		}
 		if (kari.size.height + kari.position.y > parentSize.height) {
 			kari.size.height = parentSize.height - kari.position.y;
 		}
-		if (kari.size.height < this._unitY) {
-			kari.size.height = this._unitY;
+		if (kari.size.height < this.unitY) {
+			kari.size.height = this.unitY;
 		}
 
 		this.calcPos(kari.position);
 		this.calcSize(kari.size);
 	}
 
-	private remove() {
-		this._el.remove();
-		this.trigger("removed", undefined);
-		this._panel.removeListener(this._observerId);
+	private close() {
+		if (this.panel.canClose()) {
+			this.trigger("close", undefined);
+		}
+	}
+
+	public onClose() {
+		this.panelContainer.removeChild(this.panel.el);
+		this.panel.disposeObserve(this.observerId);
 	}
 
 	private maximize() {
@@ -176,10 +184,10 @@ export class TofuBlock extends Observable<BlockEvent> {
 
 	/** 自分のプロパティの値をstyleに反映 */
 	private applyCss() {
-		this._el.style.left = this._position.x + "px";
-		this._el.style.top = this._position.y + "px";
-		this._el.style.width = this._size.width + "px";
-		this._el.style.height = this._size.height + "px";
+		this._el.style.left = this.position.x + "px";
+		this._el.style.top = this.position.y + "px";
+		this._el.style.width = this.size.width + "px";
+		this._el.style.height = this.size.height + "px";
 	}
 
 

@@ -2,6 +2,7 @@ import { readJsonFile, toJson, wrtiteJsonFile, mkdir } from './utils';
 import {app, BrowserWindow, Menu, MenuItem} from "electron";
 import * as Electron from "electron";
 import {getMenuItems} from "./appmenu";
+import {AppConstant} from "./const";
 class MainApp {
 
 	private readonly stateFilePath: string;
@@ -24,8 +25,8 @@ class MainApp {
 
 	private async initMainWindow() {
 		await mkdir("dat");
-		await mkdir("thumb");
-		await mkdir("image");
+		await mkdir(AppConstant.IMAGE_DIR_NAME);
+		await mkdir(AppConstant.THUBNAIL_DIR_NAME);
 		const restoreData = await this.restoreWindowState();
 		this.mainWindow = new BrowserWindow(restoreData.browserOptions);
 		this.setAppSetting(this.mainWindow);

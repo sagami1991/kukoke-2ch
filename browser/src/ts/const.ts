@@ -1,6 +1,8 @@
 import { PanelBlockStateTable } from "database/tables";
+import { electron } from "common/libs";
 
 export namespace Consts {
+	export const USER_PATH = `${electron.app.getPath("userData")}`;
 	export const DEFAULT_TOFU_STATES: PanelBlockStateTable[] = [
 		{
 			panelType: "board",

@@ -14,6 +14,7 @@ export interface ListOption<T> extends ComponentOption {
 	readonly array: T[];
 	readonly cellOptions: CellOption<T>[];
 	readonly onRowClick: (row: T) => void;
+	readonly onRowRightClick?: (row: T) => void;
 	readonly noHeader?: boolean;
 }
 
@@ -94,10 +95,10 @@ export class List<T> extends BaseComponent<ListOption<T>> {
 		this.changeData(option.array);
 		const style = elem.querySelector("style")!;
 		style.innerHTML = this.styleTmpl(option.cellOptions);
-		this.registerEvent(elem, option.onRowClick);
+		this.registerEvent(elem, option.onRowClick, option.onRowRightClick);
 	}
 
-	private registerEvent(elem: Element, onRowClick: (row: T) => void) {
+	private registerEvent(elem: Element, onRowClick: (row: T) => void, onRowRightClick?: (row: T) => void) {
 		ElementUtil.addDelegateEventListener(elem, "click", ".my-list-tr", (e, currentTarget) => {
 			const index = currentTarget.getAttribute("row-index");
 			if (index === null) {
@@ -105,6 +106,17 @@ export class List<T> extends BaseComponent<ListOption<T>> {
 			}
 			const target = this._items[+index];
 			onRowClick(target);
+		});
+
+		ElementUtil.addDelegateEventListener(elem, "contextmenu", ".my-list-tr", (e, currentTarget) => {
+			const index = currentTarget.getAttribute("row-index");
+			if (index === null) {
+				throw new Error("indexがnull");
+			}
+			const target = this._items[+index];
+			if (onRowRightClick) {
+				onRowRightClick(target);
+			}
 		});
 
 		ElementUtil.addDelegateEventListener(elem, "click", ".my-list-th", (e, currentTarget) => {

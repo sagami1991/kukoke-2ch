@@ -15,6 +15,7 @@ export namespace _ {
 export namespace electron {
 	export const {
 		app,
+		shell,
 		Menu
 	 } = remote;
 }

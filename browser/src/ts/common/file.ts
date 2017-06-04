@@ -1,27 +1,27 @@
 import * as fs from "fs";
-import {electron} from "./libs";
+import { Consts } from "const";
 
 
 export namespace FileUtil {
 
-	function getPath(path: string) {
-		return `${electron.app.getPath("userData")}/${path}`;
+	export function getPath(path: string) {
+		return `${Consts.USER_PATH}/${path}`;
 	}
 
 	export function readFile(path: string) {
 		return new Promise<Buffer | null>((resolve) => {
-			fs.readFile(getPath(path), (err, data) => {
+			fs.readFile(path, (err, data) => {
 				resolve(err ? null : data);
 			});
 		});
 	};
 
 
-	export function wrtiteFile(path: string, data: Buffer | string) {
+	export function wrtiteFile(path: string, data: Buffer | string | Blob) {
 		return new Promise((resolve, reject) => {
-			fs.writeFile(getPath(path), data, err => {
+			fs.writeFile(path, data, err => {
 				if (err) {
-					reject();
+					reject(err);
 					return;
 				}
 				resolve();
@@ -33,6 +33,9 @@ export namespace FileUtil {
 	export function deleteFile(path: string) {
 		return new Promise((resolve, reject) => {
 			fs.unlink(path, (err) => {
+				if (err) {
+					console.warn("failed delete file reason: " + err.message);
+				}
 				resolve();
 			});
 		});

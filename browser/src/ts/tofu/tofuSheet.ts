@@ -1,43 +1,55 @@
 import { Panel, PanelType } from 'panel/basePanel';
 import { TofuShadow } from './tofuShadow';
 import { TofuBlock } from './tofuBlock';
-import { _ } from "common/libs";
 import { createObserverId } from "base/observable";
 
 export class TofuSheet {
-	private readonly _el: HTMLDivElement;
-	private readonly _shadow: TofuShadow;
-	private readonly _blocks: TofuBlock[];
-	private _zIndex: number;
-	private _frontBlock: PanelType | undefined;
+	private readonly el: HTMLDivElement;
+	private readonly shadow: TofuShadow;
+	private readonly blockMap: Map<PanelType, TofuBlock>;
+	private readonly observerId: string;
+	private zIndex: number;
+	private frontBlock: PanelType | undefined;
 
 	constructor() {
-		this._el = <HTMLDivElement> document.querySelector(".tofu-container")!;
-		this._shadow = new TofuShadow();
-		this._blocks = [];
-		this._zIndex = 1;
+		this.el = <HTMLDivElement> document.querySelector(".tofu-container")!;
+		this.shadow = new TofuShadow();
+		this.blockMap = new Map();
+		this.zIndex = 1;
+		this.observerId = createObserverId();
 	}
 
 	public isOpenedPanel(panelType: PanelType): boolean {
-		return this._blocks.find(block => block.panelType === panelType) ? true : false;
+		return this.blockMap.get(panelType) ? true : false;
 	}
 
 	public async addBlock(panel: Panel) {
 		const block = await this.createBlock(panel);
-		this._el.appendChild(block.el);
-		this._blocks.push(block);
+		this.el.appendChild(block.el);
+		this.blockMap.set(panel.panelType, block);
 	}
 
-	public toFront(panelType: PanelType) {
-		if (this._frontBlock !== panelType) {
-			const block = this._blocks.find(block => block.panelType === panelType);
-			block!.changeZindex(this._zIndex++); // TODO null時処理
-			this._frontBlock = block!.panelType;
+	public closeBlock(panelType: PanelType) {
+		const block = this.blockMap.get(panelType);
+		if (block) {
+			this.blockMap.delete(panelType);
+			this.el.removeChild(block.el);
+			block.disposeObserve(this.observerId);
+			block.onClose();
 		}
 	}
 
+	public toFront(panelType: PanelType) {
+		if (this.frontBlock !== panelType) {
+			const block = this.blockMap.get(panelType);
+			block!.changeZindex(this.zIndex++); // TODO null時処理
+			this.frontBlock = block!.panelType;
+		}
+	}
+
+
 	public init() {
-		this._el.appendChild(this._shadow._el);
+		this.el.appendChild(this.shadow._el);
 	}
 
 	private async createBlock(panel: Panel) {
@@ -51,15 +63,15 @@ export class TofuSheet {
 		block.el.addEventListener("click", () => {
 			this.toFront(block.panelType);
 		}, true);
-		block.addListener("removed", createObserverId(), () => {
-			_.remove(this._blocks, (tofu) => tofu === tofu);
+		block.addListener("close", this.observerId, () => {
+			this.closeBlock(block.panelType);
 		});
 		const $block = $(block.el);
 		$block.draggable({
 			start: () => this.onTranceformStart(block),
 			drag: (e, ui) => {
 				block.calcPos({x: ui.position.left, y: ui.position.top, z: 0});
-				this._shadow.changeCss(block.state);
+				this.shadow.changeCss(block.state);
 			},
 			stop: () => this.onTranceformStop(block),
 			distance: 6,
@@ -70,7 +82,7 @@ export class TofuSheet {
 			start: () => this.onTranceformStart(block),
 			resize: (e, ui) => {
 				block.calcSize({width: <number>ui.size.width, height: <number>ui.size.height});
-				this._shadow.changeCss(block.state);
+				this.shadow.changeCss(block.state);
 			},
 			stop: () => this.onTranceformStop(block),
 			distance: 10,
@@ -79,15 +91,15 @@ export class TofuSheet {
 	}
 
 	private onTranceformStart(block: TofuBlock) {
-		this._shadow.changeCss(block.state);
-		this._shadow.show();
+		this.shadow.changeCss(block.state);
+		this.shadow.show();
 		block.onStart();
 		this.toFront(block.panelType);
 	}
 
 	private onTranceformStop(block: TofuBlock) {
-		this._shadow.hide();
-		block.validateState({width: this._el.clientWidth, height: this._el.clientHeight});
+		this.shadow.hide();
+		block.validateState({width: this.el.clientWidth, height: this.el.clientHeight});
 		block.onStop();
 	}
 }

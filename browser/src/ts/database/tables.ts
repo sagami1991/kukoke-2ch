@@ -47,13 +47,29 @@ export interface SureAttr {
 	bookmarkIndex?: number;
 }
 
+export type ImageType = "image/png" | "image/jpeg" | "image/gif" | "image/bmp";
 /**
  * 主キー（id）オートインクリメント
- * インデックス（url）プライマリ
+ * ユニーク制約（url）
  */
 export interface ImageTable {
 	id?: number;
 	url: string;
+	imageType: ImageType;
+	fileName: string;
+	width: number;
+	height: number;
+	byteLength: number,
+	exif: {
+		cameraMerkerName?: string;
+		cameraName?: string;
+		/** 撮影日時 */
+		datetime?: string;
+		/** 経度 */
+		gpsLongitude?: number;
+		/** 緯度 */
+		gpsLatitude?: number;
+	};
 }
 
 /**

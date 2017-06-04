@@ -5,22 +5,22 @@ import { db } from 'database/database';
 import { sureRepository } from 'database/sureRepository';
 import { FileUtil, sjisBufferToStr } from "common/commons";
 import { NichanResListClient } from 'client/nichanResListClient';
-import { ResModel, ResBeInfo } from 'model/resModel';
+import { ResModel, IUserBe } from 'model/resModel';
 import { SureModel } from 'model/sureModel';
-import { XhrRequestHeaders, XhrResponseHeader } from "common/request";
+import { IRequestHeaders, IResponseHeader } from "common/request";
 import { notify } from "common/libs";
 
-export interface PopupRes {
+export interface IPopupRes {
 	nestCount: number;
 	res: ResModel;
 }
 
-interface ResHeader {
+interface IResHeader {
 	name: string;
 	mail: string;
 	postDate: string;
 	userId: string;
-	beInfo?: ResBeInfo;
+	beInfo?: IUserBe;
 }
 
 class ResListService {
@@ -32,7 +32,7 @@ class ResListService {
 
 	public async getResListFromServer(sure: SureModel): Promise<ResModel[]> {
 		let savedDatFile: Buffer | null = null;
-		let requestHeader: XhrRequestHeaders | undefined;
+		let requestHeader: IRequestHeaders | undefined;
 		if (sure.saved) {
 			savedDatFile = await this.readDatFile(sure);
 			requestHeader = sure.getRequestHeader();
@@ -73,7 +73,7 @@ class ResListService {
 	}
 
 	/** 深さ優先でツリーつくる */
-	public deepSearchAnker(resList: ResModel[], index: number, popupReses: PopupRes[] = [], nestCount = 0) {
+	public deepSearchAnker(resList: ResModel[], index: number, popupReses: IPopupRes[] = [], nestCount = 0) {
 		if (nestCount === 0) {
 			popupReses.push({nestCount: 0, res: resList[index]});
 		}
@@ -89,7 +89,7 @@ class ResListService {
 		await FileUtil.deleteFile(sure.getDatFilePath());
 	}
 
-	private async createResList(sure: SureModel, dat: Buffer, responseHeaders: XhrResponseHeader, oldResCount: number) {
+	private async createResList(sure: SureModel, dat: Buffer, responseHeaders: IResponseHeader, oldResCount: number) {
 		const datStr = sjisBufferToStr(dat!);
 		const resList = this.toResList(datStr, oldResCount);
 		const sureTitle = this.extractTitle(datStr);
@@ -149,8 +149,10 @@ class ResListService {
 				return;
 			}
 			const {name, mail, postDate, userId, beInfo } = this.getResHeaders(splited);
-			this.setAnker(splited[3], index, resList);
+			const body = splited[3];
+			this.setAnker(body, index, resList);
 			this.pushUserResMap(userResMap, userId, index);
+			const imageUrls = this.getImageUrls(body);
 			const resAttr = new ResModel({
 				index: index,
 				name: name,
@@ -158,17 +160,29 @@ class ResListService {
 				postDate: postDate,
 				userId: userId,
 				userBe: beInfo,
-				body: splited[3],
+				body: body,
 				fromAnkers: [],
 				userIndexes: !userId ? [] : userResMap[userId],
-				isNew: index >= oldResCount
+				isNew: index >= oldResCount,
+				imageUrls: imageUrls
 			});
 			resList.push(resAttr);
 		});
 		return resList;
 	}
 
-	private getResHeaders(splited: string[]): ResHeader {
+
+	private getImageUrls(body: string): string[] {
+		const macher = /href="(http:\/\/[\w/:;%#\$&\?\(\)~\.=\+\-]+\.(png|gif|jpg|jpeg))">/g;
+		let array: RegExpExecArray | null;
+		const imgUrls: string[] = [];
+		while ((array = macher.exec(body)) !== null) {
+			imgUrls.push(array[1]);
+		}
+		return imgUrls;
+	}
+
+	private getResHeaders(splited: string[]): IResHeader {
 		const name = splited[0].replace(/<\/?b>|/g, "");
 		const mail = splited[1];
 		const dateAndId = splited[2].split(" ID:");
@@ -204,23 +218,23 @@ class ResListService {
 	private static BR_REGEXP = /\s<br>/g;
 	private static ANKER_REGEXP = /<a.+>&gt;&gt;([0-9]{1,4})-?<\/a>/g;
 	private static TAG_REGEXP = /<a.+>(.+)<\/a>/g;
-	private static LINK_REGEXP = /h?(ttps?:\/\/[\w/:;%#\$&\?\(\)~\.=\+\-]+)/g;
-
+	private static LINK_REGEXP = /h?(ttps?|sssp):\/\/([\w/:;%#\$&\?\(\)~\.=\+\-]+)/g;
+	private static IMAGE_REGEXP = /href="(http:\/\/[\w/:;%#\$&\?\(\)~\.=\+\-]+\.(png|gif|jpg|jpeg))">/g;
 
 	/** 本文整形 */
-	private bodyReplace(body: string) {
+	private bodyReplace(allBody: string) {
 		// 末尾整形
-		body = body.replace(ResListService.BR_REGEXP, "<br>");
+		allBody = allBody.replace(ResListService.BR_REGEXP, "<br>");
 		// アンカー
-		body = body.replace(ResListService.ANKER_REGEXP, ($$, $1) => `<span class="res-anker" anker-to="${+$1 - 1}">&gt;&gt;${$1}</span>`);
+		allBody = allBody.replace(ResListService.ANKER_REGEXP, ($$, $1) => `<span class="res-anker" anker-to="${+$1 - 1}">&gt;&gt;${$1}</span>`);
 		// その他アンカー系
-		body = body.replace(ResListService.TAG_REGEXP, `$1`);
+		allBody = allBody.replace(ResListService.TAG_REGEXP, `$1`);
 		// リンク
-		body = body.replace(ResListService.LINK_REGEXP, `<a class="res-link" href="h$1">$&</a>`);
+		allBody = allBody.replace(ResListService.LINK_REGEXP, `<a class="res-link" href="http://$2">$&</a>`);
 		// // 画像
 		// body = body.replace(/(h?ttps?:.+\.(png|gif|jpg|jpeg))<br>/, `<span class="res-image-link">$1</span><br>`);
-		body = emojiUtil.replace(body);
-		return body;
+		allBody = emojiUtil.replace(allBody);
+		return allBody;
 	}
 
 	/** アンカー先のankerFromに設定 */

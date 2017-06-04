@@ -7,9 +7,10 @@ import { BbsMenuPanel } from './panel/bbsMenuPanel';
 import { Panel } from './panel/basePanel';
 import { TofuSheet } from './tofu/tofuSheet';
 import { LeftSideBarView } from './view/leftSideBarView';
-import { shell } from "electron";
 import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/resizable";
+import "./common/contextmenu";
+import { electron } from "common/libs";
 
 class MyApp {
 	// views
@@ -62,7 +63,7 @@ class MyApp {
 				event.preventDefault();
 				const href = elem.getAttribute("href");
 				if (href) {
-					shell.openExternal(href);
+					electron.shell.openExternal(href);
 				}
 			}
 		});
@@ -94,6 +95,7 @@ class MyApp {
 			this._submitFormPanel.openForm(option);
 		});
 		this._submitFormPanel.addListener("doneWrite", kariId, async (sure) => {
+			this._tofuSheet.closeBlock(this._submitFormPanel.panelType);
 			await this.preListenPanel(this._resListPanel);
 			this._resListPanel.openSure(sure);
 		});

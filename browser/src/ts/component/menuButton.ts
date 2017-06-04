@@ -13,6 +13,7 @@ export interface MenuButtonOption extends ComponentOption {
 	readonly items: MenuItem[];
 }
 
+/** @deprecated 理由: electronのcontextmenu使えばいい */
 export class MenuButton extends BaseComponent<MenuButtonOption> {
 	/** @override */
 	public html() {

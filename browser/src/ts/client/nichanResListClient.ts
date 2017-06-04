@@ -1,29 +1,30 @@
-import { XhrRequestHeaders } from 'common/request';
-import { xhrRequest, XhrResponse } from 'common/commons';
+import { IRequestHeaders } from 'common/request';
+import { xhrRequest, IXhrResponse } from 'common/commons';
 import { NichanAuthClient } from './nichanAuthClient';
 import { Nichan } from "const";
 import { createHmac } from "crypto";
 import { BoardTable } from "database/tables";
 import { statusBar } from "view/statusBarView";
+import { XhrRequestError } from "common/error";
 
 interface ResponseResult {
 	type: "notModified" | "datOti" | "success" | "sabun" | "unexpectedCode";
-	response: XhrResponse | null;
+	response: IXhrResponse | null;
 }
 
 export class NichanResListClient {
 	private static nichanSessionId: string;
-	public static async fetchResList(board: BoardTable, datNo: number, reqHeaders?: XhrRequestHeaders): Promise<ResponseResult> {
+	public static async fetchResList(board: BoardTable, datNo: number, reqHeaders?: IRequestHeaders): Promise<ResponseResult> {
 		if (!this.nichanSessionId) {
 			this.nichanSessionId = await NichanAuthClient.getSessionId();
 		}
 		const uri = `/v1/${board.subDomain}/${board.path}/${datNo}`;
-		let res: XhrResponse;
+		let res: IXhrResponse;
 		try {
 			res = await xhrRequest({
 				method: "POST",
 				url: `https://api.2ch.net${uri}`,
-				headers: <XhrRequestHeaders>{...reqHeaders, "Content-Type":  "application/x-www-form-urlencoded"},
+				headers: <IRequestHeaders>{...reqHeaders, "Content-Type":  "application/x-www-form-urlencoded"},
 				formData: new Map([
 					["sid", this.nichanSessionId],
 					["hobo", this.calcHoboValue(uri)],
@@ -34,10 +35,13 @@ export class NichanResListClient {
 			// TODO ステータスコード501(dat落ち)がxhrのerrorが起きて拾えない
 			// エラー情報も何も取れないので強引にdat落ち判定にする
 			// このエラー調査する net::ERR_CONTENT_DECODING_FAILED
-			return {
-				type: "datOti",
-				response: null
-			};
+			if (error instanceof XhrRequestError) {
+				return {
+					type: "datOti",
+					response: null
+				};
+			}
+			throw error;
 		}
 		switch (res.statusCode) {
 		case 200: // 新規取得

@@ -1,3 +1,4 @@
+import { ImageTable } from './tables';
 import { PanelType } from 'panel/basePanel';
 import Dexie from "dexie";
 import { SureTable, BoardTable, PanelBlockStateTable} from "database/tables";
@@ -7,6 +8,8 @@ class Database extends Dexie {
 	public readonly sures:  Dexie.Table<SureTable, number>;
 	public readonly boards:  Dexie.Table<BoardTable, number>;
 	public readonly panelStates: Dexie.Table<PanelBlockStateTable, PanelType>;
+	public readonly images: Dexie.Table<ImageTable, number>;
+
 	constructor() {
 		super("kukoke", {
 			autoOpen: false
@@ -16,6 +19,10 @@ class Database extends Dexie {
 			boards: "++id, &[domain+path], *isTemporary",
 			sures: "++id, &[bId+datNo], [bId], [bId+saved], [bId+enabled], *isTemporary",
 			panelStates: "panelType"
+		});
+
+		this.version(2).stores({
+			images: "++id, &url"
 		});
 	}
 
