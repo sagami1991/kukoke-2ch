@@ -2,19 +2,19 @@ import { CancelablePromise } from './promise';
 import { decode } from 'iconv-lite';
 import { XhrRequestError } from "common/error";
 
-export interface IRequestOption {
+export interface RequestOption {
 	method?: "GET" | "POST";
 	url: string;
-	headers?: IRequestHeaders;
+	headers?: XhrRequestHeader;
 	formData?: Map<string, string>;
 	contentType?: "application/x-www-form-urlencoded";
 	onProgress?: (loaded: number, total: number) => void;
-	onHeaderReceive?: (responseHeader: IResponseHeader) => void;
+	onHeaderReceive?: (responseHeader: XhrResponseHeader) => void;
 	onAbort?: () => void;
 	responseType?: "arraybuffer" | "blob";
 }
 
-export interface IRequestHeaders {
+export interface XhrRequestHeader {
 	"Content-Type"?: "application/x-www-form-urlencoded";
 	"Kukoke-Referer"?: string;
 	"If-Modified-Since"?: string;
@@ -22,21 +22,21 @@ export interface IRequestHeaders {
 }
 
 /** 全てlowercaseに変換している */
-export interface IResponseHeader {
+export interface XhrResponseHeader {
 	"content-type"?: string;
 	"content-length"?: string;
 	"last-modified"?: string;
 }
 
-export interface IXhrResponse<T = Buffer> {
+export interface XhrResponse<T = Buffer> {
 	statusCode: number;
-	headers: IResponseHeader;
+	headers: XhrResponseHeader;
 	body: T;
 }
 
-export function xhrRequest<T = Buffer>(option: IRequestOption) {
+export function xhrRequest<T = Buffer>(option: RequestOption) {
 	const xhr = new XMLHttpRequest();
-	return new CancelablePromise<IXhrResponse<T>>((resolve, reject) => {
+	return new CancelablePromise<XhrResponse<T>>((resolve, reject) => {
 		const {onProgress, onHeaderReceive, onAbort, responseType} = option;
 		xhr.open(option.method || "GET", option.url, true);
 		xhr.responseType = option.responseType || "arraybuffer";
@@ -90,7 +90,7 @@ export function sjisBufferToStr(sjisBuffer: Buffer) {
 	return decode(sjisBuffer, "Shift_JIS");
 }
 
-function setRequestHeaders(xhr: XMLHttpRequest, options: IRequestOption): void {
+function setRequestHeaders(xhr: XMLHttpRequest, options: RequestOption): void {
 	if (options.headers) {
 		outer: for (let [k, v] of Object.entries(options.headers)) {
 			switch (k) {
@@ -107,7 +107,7 @@ function setRequestHeaders(xhr: XMLHttpRequest, options: IRequestOption): void {
 	}
 }
 
-function getResponseHeaders(xhr: XMLHttpRequest): IResponseHeader {
+function getResponseHeaders(xhr: XMLHttpRequest): XhrResponseHeader {
 	const headers: { [name: string]: string } = Object.create(null);
 	for (const line of xhr.getAllResponseHeaders().split(/\r\n|\n|\r/g)) {
 		if (line) {

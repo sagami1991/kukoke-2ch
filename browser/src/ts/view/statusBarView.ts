@@ -1,12 +1,8 @@
-
 class StatusBarView {
 	private readonly _el: Element;
 	private readonly _msg: HTMLElement;
 	private template() {
-		return `
-		<div class="status-bar-message">
-		</div>
-		`;
+		return `<div class="status-bar-message"></div>`;
 	}
 
 	constructor() {

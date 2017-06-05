@@ -7,18 +7,33 @@ export class ComponentScanner {
 		option: ComponentOption
 	}[] = [];
 	private static id: number = 0;
+
 	public static register(component: BaseComponent, option: ComponentOption) {
 		this.components.push({ component: component, option: option });
 		this.id++;
 		return this.id;
 	}
-	public static scanHtml(html: string) {
+
+	public static scanHtml(html: string): HTMLElement {
 		const outerElem = ElementUtil.createElement(html);
 		this.scan(outerElem);
 		return outerElem;
 	}
 
-	public static scan(outerElem: Element) {
+	public static scanHtmls(html: string): HTMLElement[] {
+		const container = document.createElement('div');
+		container.innerHTML = html;
+		this.scan(container);
+		const elements: HTMLElement[] = [];
+		while (container.firstChild) {
+			const element = container.firstChild;
+			container.removeChild(element);
+			elements.push(<HTMLElement>element);
+		}
+		return elements;
+	}
+
+	public static scan(outerElem: HTMLElement) {
 		const elems = outerElem.querySelectorAll(".my-component");
 		if (elems.length === 0) {
 			// throw new Error("Component not found");
@@ -33,8 +48,8 @@ export class ComponentScanner {
 			if (!componentSet) {
 				throw new Error("すでにスキャン済み");
 			}
-			componentSet.component.preInitElem(elem);
-			componentSet.component.initElem(elem, componentSet.option);
+			componentSet.component.preInitElem();
+			componentSet.component.initElem(<HTMLElement>elem, componentSet.option);
 		}
 	}
 }

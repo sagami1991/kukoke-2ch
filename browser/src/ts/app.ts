@@ -1,3 +1,4 @@
+import { ImageViewerPanel } from './panel/imagePanel';
 import { SubmitFormPanel } from './panel/formPanel';
 import { createObserverId } from './base/observable';
 import { db } from './database/database';
@@ -14,24 +15,27 @@ import { electron } from "common/libs";
 
 class MyApp {
 	// views
-	private readonly _leftSideBar: LeftSideBarView;
-	private readonly _tofuSheet: TofuSheet;
+	private readonly leftSideBar: LeftSideBarView;
+	private readonly tofuSheet: TofuSheet;
 
 	// panels
-	private readonly _allPanels: Panel[];
-	private readonly _boardListPanel: BbsMenuPanel;
-	private readonly _sureListPanel: SureListPanel;
-	private readonly _resListPanel: ResListPanel;
-	private readonly _submitFormPanel: SubmitFormPanel;
+	private readonly allPanels: Panel[];
+	private readonly boardListPanel: BbsMenuPanel;
+	private readonly sureListPanel: SureListPanel;
+	private readonly resListPanel: ResListPanel;
+	private readonly submitFormPanel: SubmitFormPanel;
+	private readonly imagePanel: ImageViewerPanel;
 
 	constructor() {
-		this._leftSideBar = new LeftSideBarView();
-		this._tofuSheet = new TofuSheet();
-		this._allPanels = [
-			this._boardListPanel = new BbsMenuPanel(),
-			this._sureListPanel = new SureListPanel(),
-			this._resListPanel = new ResListPanel(),
-			this._submitFormPanel = new SubmitFormPanel()];
+		this.leftSideBar = new LeftSideBarView();
+		this.tofuSheet = new TofuSheet();
+		this.allPanels = [
+			this.boardListPanel = new BbsMenuPanel(),
+			this.sureListPanel = new SureListPanel(),
+			this.resListPanel = new ResListPanel(),
+			this.submitFormPanel = new SubmitFormPanel(),
+			this.imagePanel = new ImageViewerPanel(),
+		];
 		this.init();
 	}
 
@@ -52,7 +56,7 @@ class MyApp {
 
 	private registerEvent() {
 		window.addEventListener("beforeunload", async () => {
-			for (const panel of this._allPanels) {
+			for (const panel of this.allPanels) {
 				await panel.saveStorage();
 			}
 		});
@@ -70,49 +74,53 @@ class MyApp {
 	}
 
 	private async initPanel() {
-		await this._boardListPanel.init();
-		await this._sureListPanel.init();
-		await this._resListPanel.init();
+		await this.boardListPanel.init();
+		await this.sureListPanel.init();
+		await this.resListPanel.init();
 		const kariId = createObserverId();
-		this._boardListPanel.addListener("openBoard", kariId, async (board) => {
-			await this.preListenPanel(this._sureListPanel);
-			this._sureListPanel.openBoard(board);
+		this.boardListPanel.addListener("openBoard", kariId, async (board) => {
+			await this.preListenPanel(this.sureListPanel);
+			this.sureListPanel.openBoard(board);
 		});
-		this._boardListPanel.addListener("openRecent", kariId, async () => {
-			await this.preListenPanel(this._sureListPanel);
-			this._sureListPanel.openRecent();
+		this.boardListPanel.addListener("openRecent", kariId, async () => {
+			await this.preListenPanel(this.sureListPanel);
+			this.sureListPanel.openRecent();
 		});
-		this._sureListPanel.addListener("openSure", kariId, async (sure) => {
-			await this.preListenPanel(this._resListPanel);
-			this._resListPanel.openSure(sure);
+		this.sureListPanel.addListener("openSure", kariId, async (sure) => {
+			await this.preListenPanel(this.resListPanel);
+			this.resListPanel.openSure(sure);
 		});
-		this._resListPanel.addListener("changeSure", kariId, async (sure) => {
+		this.resListPanel.addListener("changeSure", kariId, async (sure) => {
 			// await this.preListenPanel(this._sureListPanel);
-			this._sureListPanel.onChangeSureModel(sure);
+			this.sureListPanel.onChangeSureModel(sure);
 		});
-		this._resListPanel.addListener("openForm", kariId, async (option) => {
-			await this.preListenPanel(this._submitFormPanel);
-			this._submitFormPanel.openForm(option);
+		this.resListPanel.addListener("openForm", kariId, async (option) => {
+			await this.preListenPanel(this.submitFormPanel);
+			this.submitFormPanel.openForm(option);
 		});
-		this._submitFormPanel.addListener("doneWrite", kariId, async (sure) => {
-			this._tofuSheet.closeBlock(this._submitFormPanel.panelType);
-			await this.preListenPanel(this._resListPanel);
-			this._resListPanel.openSure(sure);
+		this.resListPanel.addListener("openImage", kariId, async (url) => {
+			await this.preListenPanel(this.imagePanel);
+			this.imagePanel.openImage(url);
+		});
+		this.submitFormPanel.addListener("doneWrite", kariId, async (sure) => {
+			this.tofuSheet.closeBlock(this.submitFormPanel.panelType);
+			await this.preListenPanel(this.resListPanel);
+			this.resListPanel.openSure(sure);
 		});
 	}
 
 	private async preListenPanel(panel: Panel) {
-		if (!this._tofuSheet.isOpenedPanel(panel.panelType)) {
-			await this._tofuSheet.addBlock(panel);
+		if (!this.tofuSheet.isOpenedPanel(panel.panelType)) {
+			await this.tofuSheet.addBlock(panel);
 		}
-		this._tofuSheet.toFront(panel.panelType);
+		this.tofuSheet.toFront(panel.panelType);
 	}
 
 	private async initTofuSheet() {
-		this._tofuSheet.init();
-		await this._tofuSheet.addBlock(this._boardListPanel);
-		await this._tofuSheet.addBlock(this._sureListPanel);
-		await this._tofuSheet.addBlock(this._resListPanel);
+		this.tofuSheet.init();
+		await this.tofuSheet.addBlock(this.boardListPanel);
+		await this.tofuSheet.addBlock(this.sureListPanel);
+		await this.tofuSheet.addBlock(this.resListPanel);
 	}
 }
 

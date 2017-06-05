@@ -1,6 +1,6 @@
 import { alertMessage } from '../common/utils';
 import { BaseComponent, ComponentOption } from './baseComponent';
-import { templateUtil } from '../common/commons';
+import { TemplateUtil } from '../common/commons';
 import { ElementUtil } from "../common/element";
 import { VirtualScrollView } from "common/virtualScrollView/virtualScrollView";
 
@@ -24,14 +24,14 @@ export class List<T> extends BaseComponent<ListOption<T>> {
 	private _tBodyContainer: HTMLElement;
 	private _virtualList: VirtualScrollView;
 
-	private tableTmpl(option: ListOption<T>) {
+	private tableTemplate(option: ListOption<T>) {
 		return `
 		<div class="my-list-component my-list-component-${this._id} ${super.getClassNames()}"
 			${super.htmlAttr()}
 		>
-			${templateUtil.when(!option.noHeader, () => `
+			${TemplateUtil.when(!option.noHeader, () => `
 				<div class="my-list-header">
-					${templateUtil.each(option.cellOptions, (cell, i) => `
+					${TemplateUtil.each(option.cellOptions, (cell, i) => `
 						<div class="my-list-th">${cell.label}</div>	
 					`)}
 				</div>
@@ -44,19 +44,18 @@ export class List<T> extends BaseComponent<ListOption<T>> {
 		`;
 	}
 
-	private rowTmpl(row: T, i: number) {
-		return  `
-		<div class="my-list-tr" row-index="${i}">
-			${templateUtil.each(this._cellOptions, (cell) => `
+	private rowTemplate(row: T, i: number) {
+		return `` +
+		`<div class="my-list-tr" row-index="${i}">
+			${TemplateUtil.each(this._cellOptions, (cell) => `
 				<div class="my-list-td ${cell.className ? cell.className(row) : ""}">	
 					${cell.parse(row)}
 				</div>
 			`)}
-		</div>
-		`;
+		</div>`;
 
 	}
-	private styleTmpl(cellOptions: CellOption<T>[]) {
+	private styleTemplate(cellOptions: CellOption<T>[]) {
 		// let totalWidth = 0;
 		// cellOptions.forEach(cell => totalWidth += (cell.width || 0));
 		// .my-list-component-${this._id} .my-list-header,
@@ -65,10 +64,10 @@ export class List<T> extends BaseComponent<ListOption<T>> {
 		// 	${totalWidth ? `min-width: ${totalWidth}px;` : ""}
 		// }
 		return `
-		${templateUtil.each(cellOptions, (cell, i) => `
+		${TemplateUtil.each(cellOptions, (cell, i) => `
 			.my-list-component-${this._id} .my-list-th:nth-child(${i + 1}),
 			.my-list-component-${this._id} .my-list-td:nth-child(${i + 1}) {
-				${templateUtil.when(cell.width, () => `
+				${TemplateUtil.when(cell.width, () => `
 					width: ${cell.width}px;
 					min-width: ${cell.width}px;
 				`)}
@@ -79,11 +78,11 @@ export class List<T> extends BaseComponent<ListOption<T>> {
 
 	/** @override */
 	public html() {
-		return this.tableTmpl(this.option!);
+		return this.tableTemplate(this.option!);
 	}
 
 	/** @override */
-	public initElem(elem: Element, option: ListOption<T>) {
+	public initElem(elem: HTMLElement, option: ListOption<T>) {
 		this._tBodyContainer = <HTMLElement> elem.querySelector(".my-list-body")!;
 		this._virtualList = new VirtualScrollView({
 			parent: this._tBodyContainer,
@@ -94,7 +93,7 @@ export class List<T> extends BaseComponent<ListOption<T>> {
 		this._cellOptions = option.cellOptions;
 		this.changeData(option.array);
 		const style = elem.querySelector("style")!;
-		style.innerHTML = this.styleTmpl(option.cellOptions);
+		style.innerHTML = this.styleTemplate(option.cellOptions);
 		this.registerEvent(elem, option.onRowClick, option.onRowRightClick);
 	}
 
@@ -130,7 +129,7 @@ export class List<T> extends BaseComponent<ListOption<T>> {
 	}
 
 	public refresh() {
-		const rowElems = this._items.map((item, i ) => ElementUtil.createElement(this.rowTmpl(item, i)));
+		const rowElems = ElementUtil.createElements(TemplateUtil.each(this._items, (row, i) => this.rowTemplate(row, i)));
 		this._virtualList.changeContents(rowElems);
 	}
 }

@@ -1,5 +1,5 @@
 import { BoardAttr } from './tables';
-import { TPanelType } from 'panel/basePanel';
+import { PanelType } from 'panel/basePanel';
 import { BlockState } from "tofu/tofuDefs";
 
 /** 
@@ -47,7 +47,7 @@ export interface SureAttr {
 	bookmarkIndex?: number;
 }
 
-export type TImageType = "image/png" | "image/jpeg" | "image/gif" | "image/bmp";
+export type ImageType = "image/png" | "image/jpeg" | "image/gif" | "image/bmp";
 /**
  * 主キー（id）オートインクリメント
  * ユニーク制約（url）
@@ -55,7 +55,7 @@ export type TImageType = "image/png" | "image/jpeg" | "image/gif" | "image/bmp";
 export interface ImageTable {
 	id?: number;
 	url: string;
-	imageType: TImageType;
+	imageType: ImageType;
 	fileName: string;
 	width: number;
 	height: number;
@@ -76,6 +76,6 @@ export interface ImageTable {
  * 主キー（panelType）
  */
 export interface PanelBlockStateTable {
-	panelType: TPanelType;
+	panelType: PanelType;
 	blockState: BlockState;
 }

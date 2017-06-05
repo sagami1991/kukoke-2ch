@@ -1,4 +1,4 @@
-import { IRequestHeaders } from '../common/request';
+import { XhrRequestHeader } from '../common/request';
 import { xhrRequest } from 'common/commons';
 import { Nichan } from "const";
 
@@ -11,7 +11,7 @@ export class NichanAuthClient {
 		const res = await xhrRequest({
 			method: "POST",
 			url: "https://api.2ch.net/v1/auth/",
-			headers: <IRequestHeaders>{
+			headers: <XhrRequestHeader>{
 				"Content-Type": "application/x-www-form-urlencoded",
 			},
 			formData: new Map([

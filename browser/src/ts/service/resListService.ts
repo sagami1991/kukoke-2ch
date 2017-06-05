@@ -1,21 +1,19 @@
 import { emojiUtil } from '../common/emoji';
-import { boardRepository } from 'database/boardRepository';
-import { SureTable } from 'database/tables';
 import { db } from 'database/database';
 import { sureRepository } from 'database/sureRepository';
 import { FileUtil, sjisBufferToStr } from "common/commons";
 import { NichanResListClient } from 'client/nichanResListClient';
 import { ResModel, IUserBe } from 'model/resModel';
 import { SureModel } from 'model/sureModel';
-import { IRequestHeaders, IResponseHeader } from "common/request";
+import { XhrRequestHeader, XhrResponseHeader } from "common/request";
 import { notify } from "common/libs";
 
-export interface IPopupRes {
+export interface PopupRes {
 	nestCount: number;
 	res: ResModel;
 }
 
-interface IResHeader {
+interface ResHeader {
 	name: string;
 	mail: string;
 	postDate: string;
@@ -24,7 +22,6 @@ interface IResHeader {
 }
 
 class ResListService {
-
 	public async getResListFromCache(sure: SureModel) {
 		const savedDat = await this.readDatFile(sure);
 		return this.toResListFromSaved(savedDat);
@@ -32,7 +29,7 @@ class ResListService {
 
 	public async getResListFromServer(sure: SureModel): Promise<ResModel[]> {
 		let savedDatFile: Buffer | null = null;
-		let requestHeader: IRequestHeaders | undefined;
+		let requestHeader: XhrRequestHeader | undefined;
 		if (sure.saved) {
 			savedDatFile = await this.readDatFile(sure);
 			requestHeader = sure.getRequestHeader();
@@ -73,7 +70,7 @@ class ResListService {
 	}
 
 	/** 深さ優先でツリーつくる */
-	public deepSearchAnker(resList: ResModel[], index: number, popupReses: IPopupRes[] = [], nestCount = 0) {
+	public deepSearchAnker(resList: ResModel[], index: number, popupReses: PopupRes[] = [], nestCount = 0) {
 		if (nestCount === 0) {
 			popupReses.push({nestCount: 0, res: resList[index]});
 		}
@@ -89,7 +86,7 @@ class ResListService {
 		await FileUtil.deleteFile(sure.getDatFilePath());
 	}
 
-	private async createResList(sure: SureModel, dat: Buffer, responseHeaders: IResponseHeader, oldResCount: number) {
+	private async createResList(sure: SureModel, dat: Buffer, responseHeaders: XhrResponseHeader, oldResCount: number) {
 		const datStr = sjisBufferToStr(dat!);
 		const resList = this.toResList(datStr, oldResCount);
 		const sureTitle = this.extractTitle(datStr);
@@ -182,7 +179,7 @@ class ResListService {
 		return imgUrls;
 	}
 
-	private getResHeaders(splited: string[]): IResHeader {
+	private getResHeaders(splited: string[]): ResHeader {
 		const name = splited[0].replace(/<\/?b>|/g, "");
 		const mail = splited[1];
 		const dateAndId = splited[2].split(" ID:");

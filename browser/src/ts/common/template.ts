@@ -1,6 +1,6 @@
 import { _ } from "./libs";
 const dateFmt = require('dateformat');
-export namespace templateUtil {
+export namespace TemplateUtil {
 	export function each<T>(array: T[], cb: (item: T, index: number) => string): string {
 		return array.map((item, index) => cb(item, index)).join("");
 	}

@@ -1,4 +1,4 @@
-import { getSvgIcon, TIconName, templateUtil } from 'common/commons';
+import { getSvgIcon, TIconName, TemplateUtil } from 'common/commons';
 import { BaseComponent, ComponentOption } from './baseComponent';
 import { Popup } from "common/popup";
 import { ElementUtil } from "common/element";
@@ -28,7 +28,7 @@ export class MenuButton extends BaseComponent<MenuButtonOption> {
 	private itemTempl(item: MenuItem, index: number) {
 		return `
 			<div class="menu-item" index="${index}">
-				${templateUtil.when(item.icon, () => `
+				${TemplateUtil.when(item.icon, () => `
 					${getSvgIcon(item.icon!, "s")}
 				`)}
 				<div class="menu-label">${item.label}</div>
@@ -39,13 +39,13 @@ export class MenuButton extends BaseComponent<MenuButtonOption> {
 	private itemListTempl(items: MenuItem[]) {
 		return `
 			<div class="menu-items">
-				${templateUtil.each(items, (item, i) => this.itemTempl(item, i))}
+				${TemplateUtil.each(items, (item, i) => this.itemTempl(item, i))}
 			</div>
 		`;
 	}
 
 	/** @override */
-	public initElem(elem: Element, option: MenuButtonOption) {
+	public initElem(elem: HTMLElement, option: MenuButtonOption) {
 		const items = option.items;
 		const itemsElem = ElementUtil.createElement(this.itemListTempl(items));
 		let popup: Popup;

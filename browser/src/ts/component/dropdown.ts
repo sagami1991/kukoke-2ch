@@ -1,4 +1,4 @@
-import { getSvgIcon, TIconName, templateUtil } from 'common/commons';
+import { getSvgIcon, TIconName, TemplateUtil } from 'common/commons';
 import { BaseComponent, ComponentOption } from './baseComponent';
 import { Popup } from "common/popup";
 import { ElementUtil } from "common/element";
@@ -30,7 +30,7 @@ export class Dropdown extends BaseComponent<DropdownOption> {
 	private itemTempl(item: DropdownItem, i: number) {
 		return `
 			<div class="dropdown-item" id="${item.id ? item.id : i}">
-				${templateUtil.when(item.icon, () => `
+				${TemplateUtil.when(item.icon, () => `
 					${getSvgIcon(item.icon!, "s")}
 				`)}
 				<div class="dropdown-label">${item.label}</div>
@@ -42,13 +42,13 @@ export class Dropdown extends BaseComponent<DropdownOption> {
 	private itemListTempl(items: DropdownItem[]) {
 		return `
 			<div class="dropdown-items">
-				${templateUtil.each(items, (item, i) => this.itemTempl(item, i))}
+				${TemplateUtil.each(items, (item, i) => this.itemTempl(item, i))}
 			</div>
 		`;
 	}
 
 	/** @override */
-	public initElem(elem: Element, option: DropdownOption) {
+	public initElem(elem: HTMLElement, option: DropdownOption) {
 		const {items, onSelect} = option;
 		const itemsElem = ElementUtil.createElement(this.itemListTempl(items));
 		let popup: Popup;

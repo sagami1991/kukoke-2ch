@@ -1,12 +1,12 @@
 import { contextMenuController } from '../common/contextmenu';
 import { boardRepository } from '../database/boardRepository';
-import { templateUtil } from 'common/commons';
+import { TemplateUtil } from 'common/commons';
 import { List, Button, SearchText} from 'component/components';
 import { ListOption , ButtonOption, SearchTextOption } from 'component/components';
 import { ComponentScanner } from 'component/scanner';
 import { sureListService } from 'service/sureListService';
 import { SureModel } from 'model/sureModel';
-import { Panel, TPanelType } from './basePanel';
+import { Panel, PanelType } from './basePanel';
 import { BoardTable } from "database/tables";
 import { emojiUtil } from "common/emoji";
 import { electron } from "common/libs";
@@ -22,7 +22,7 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 	private _sures: SureModel[];
 	private _openedBoard: BoardTable | undefined;
 
-	public get panelType(): TPanelType {
+	public get panelType(): PanelType {
 		return "sureList";
 	}
 
@@ -60,8 +60,8 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 	}
 
 	public async init() {
-		if (this._storage.boardId !== null) {
-			const board = await boardRepository.getBoard(this._storage.boardId);
+		if (this.storage.boardId !== null) {
+			const board = await boardRepository.getBoard(this.storage.boardId);
 			if (board) {
 				await this.refreshFromDb(board);
 			}
@@ -147,12 +147,12 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 					width: 50
 				}, {
 					label: "勢い",
-					parse: (sure) => templateUtil.numberFormat(sure.ikioi, 1),
+					parse: (sure) => TemplateUtil.numberFormat(sure.ikioi, 1),
 					className: (sure) => `sure-ikioi ikioi-color-${sure.ikioiColor}`,
 					width: 80
 				}, {
 					label: "日付",
-					parse: (sure) => templateUtil.dateFormat(sure.createdAt),
+					parse: (sure) => TemplateUtil.dateFormat(sure.createdAt),
 					className: () => "sure-created-at",
 					width: 100
 				}

@@ -1,31 +1,33 @@
 import { XhrRequestError } from '../common/error';
-import { xhrRequest, IXhrResponse } from '../common/request';
-import { ImageTable, TImageType } from '../database/tables';
+import { xhrRequest, XhrResponse } from '../common/request';
+import { ImageTable, ImageType } from '../database/tables';
 import { db } from '../database/database';
 import { CancelablePromise } from '../common/promise';
 import { Observable } from '../base/observable';
 import { AppConstant } from "../../../../src/const";
 import { Consts } from "const";
-import { templateUtil, FileUtil } from "common/commons";
+import { TemplateUtil, FileUtil } from "common/commons";
 import { electron } from "common/libs";
+import { ImageModel } from "model/imageModel";
+import { imageRepository } from "database/imageRepository";
 
-interface IImageClientEvent {
+interface ImageClientEvent {
 	"progress": [number, number];
 	"done": ImageModel;
 	"abort": string;
 	"error": string;
 }
 
-const imageTypes: TImageType[] = ["image/png", "image/jpeg", "image/gif", "image/bmp"];
+const imageTypes: ImageType[] = ["image/png", "image/jpeg", "image/gif", "image/bmp"];
 
 /** TODO クラス分け */
-export class ImageClient extends Observable<IImageClientEvent> {
+export class ImageClient extends Observable<ImageClientEvent> {
 	private static clientMap: Map<string, ImageClient> = new Map();
 
 	private readonly url: string;
-	private xhrPromise: CancelablePromise<IXhrResponse<Blob>> | null;
+	private xhrPromise: CancelablePromise<XhrResponse<Blob>> | null;
 	private _status: "noRequest" | "done" | "requesting";
-	private imageId: number | undefined;
+	private imageModel: ImageModel | undefined;
 	public get status() {
 		return this._status;
 	}
@@ -46,10 +48,9 @@ export class ImageClient extends Observable<IImageClientEvent> {
 	public async getSavedImage(): Promise<ImageModel | null> {
 		const imageAttr = await imageRepository.getImageByUrl(this.url);
 		if (imageAttr) {
-			this.imageId = imageAttr.id;
-			const model = new ImageModel(imageAttr);
+			this.imageModel = new ImageModel(imageAttr);
 			this._status = "done";
-			return model;
+			return this.imageModel;
 		} else {
 			return null;
 		}
@@ -66,7 +67,7 @@ export class ImageClient extends Observable<IImageClientEvent> {
 			responseType: "blob",
 			onHeaderReceive: (header) => {
 				const byteSize = +header["content-length"]!;
-				const contentType = <TImageType>header["content-type"]!;
+				const contentType = <ImageType>header["content-type"]!;
 				if (!isLargeOk && byteSize >= 10000000) {
 					this.cancel("サイズが10MBを超えています" + byteSize);
 				}
@@ -84,17 +85,10 @@ export class ImageClient extends Observable<IImageClientEvent> {
 				this.trigger("error", "200番以外のレスポンスコードを返しました レスポンスコード: " + res.statusCode);
 				return;
 			}
-			const resizedInfo: IResizedImageInfo = await ImageModel.resizeImage(res.body);
-			const notIdModel: ImageModel = ImageModel.createInstance(this.url, resizedInfo);
-			await FileUtil.wrtiteFile(notIdModel.filePath, resizedInfo.rawBuffer);
-			await FileUtil.wrtiteFile(notIdModel.thumbnailPath, resizedInfo.resizedBuffer);
+			this.imageModel = await ImageModel.saveImageFromResponse(res.body, this.url);
 			this._status = "done";
 			this.xhrPromise = null;
-			await db.transaction("rw", db.images, async () => {
-				const id = await imageRepository.insertImage(notIdModel.getAttr());
-				this.imageId = id;
-			});
-			this.trigger("done", notIdModel);
+			this.trigger("done", this.imageModel);
 		}).catch((reason) => {
 			if (reason instanceof XhrRequestError) {
 				this.trigger("error", "リクエストできませんでした");
@@ -115,27 +109,43 @@ export class ImageClient extends Observable<IImageClientEvent> {
 		}
 	}
 
-	public async delete() {
-		if (this.imageId !== undefined) {
-			const imageAttr = await imageRepository.getImage(this.imageId);
-			if (imageAttr) {
-				await imageRepository.deleteImage(this.imageId);
-				const model = new ImageModel(imageAttr);
-				await FileUtil.deleteFile(model.filePath);
-				await FileUtil.deleteFile(model.thumbnailPath);
+	public getImageContextMenu(deleteCallback: () => void): Electron.MenuItemOptions[] {
+		return [
+			{
+				label: "画像を削除",
+				click: async () => {
+					await this.delete();
+					deleteCallback();
+				}
+			}, {
+				label: "エクスプローラで開く",
+				click: () => this.openFolder()
+			}, {
+				label: "他のアプリで画像を開く",
+				click: () => this.openApp()
 			}
-			this.imageId = undefined;
+		];
+	}
+
+	public async delete() {
+			if (this.imageModel) {
+				await FileUtil.deleteFile(this.imageModel.filePath);
+				await FileUtil.deleteFile(this.imageModel.thumbnailPath);
+				await imageRepository.deleteImage(this.imageModel.id!);
+			}
+			this.imageModel = undefined;
 			this._status = "noRequest";
-		}
 	}
 
 	public async openFolder() {
-		if (this.imageId !== undefined) {
-			const imageAttr = await imageRepository.getImage(this.imageId);
-			if (imageAttr) {
-				const model = new ImageModel(imageAttr);
-				electron.shell.showItemInFolder(model.filePath);
-			}
+		if (this.imageModel) {
+			electron.shell.showItemInFolder(this.imageModel.filePath);
+		}
+	}
+
+	public async openApp() {
+		if (this.imageModel) {
+			electron.shell.openItem(this.imageModel.filePath);
 		}
 	}
 
@@ -148,135 +158,3 @@ export class ImageClient extends Observable<IImageClientEvent> {
 	}
 
 }
-
-interface IResizedImageInfo {
-	type: TImageType;
-	rawWidth: number;
-	rawHeight: number;
-	rawByteLength: number;
-	rawBuffer: Buffer;
-	resizedBuffer: Buffer;
-}
-export class ImageModel {
-	private static THUMBAIL_SIZE = 300;
-	private attr: ImageTable;
-	public get url() {
-		return this.attr.url;
-	}
-	public get imageType() {
-		return this.attr.imageType;
-	}
-	public get byteLength() {
-		return this.attr.byteLength;
-	}
-	public get width() {
-		return this.attr.width;
-	}
-	public get height() {
-		return this.attr.height;
-	}
-	public get filePath() {
-		return `${Consts.USER_PATH}/${AppConstant.IMAGE_DIR_NAME}/${this.attr.fileName}`;
-	}
-	public get thumbnailPath() {
-		return `${Consts.USER_PATH}/${AppConstant.THUBNAIL_DIR_NAME}/${this.attr.fileName}`;
-	}
-
-	public static getImageExtension(imageType: TImageType) {
-		switch (imageType) {
-			case "image/bmp":
-				return "bmp";
-			case "image/gif":
-				return "gif";
-			case "image/jpeg":
-				return "jpg";
-			case "image/png":
-				return "png";
-			default:
-				new Error("unexpected image type");
-		}
-	}
-
-	public static createInstance(url: string, resizedInfo: IResizedImageInfo) {
-		return new this({
-			url: url,
-			imageType: resizedInfo.type,
-			fileName: templateUtil.dateFormatForFile(new Date()) + `.` + this.getImageExtension(resizedInfo.type),
-			width: resizedInfo.rawWidth,
-			height: resizedInfo.rawHeight,
-			byteLength: resizedInfo.rawByteLength,
-			exif: {},
-		});
-	}
-
-	public static async resizeImage(blob: Blob) {
-		return new Promise<IResizedImageInfo>((resolve, reject) => {
-			const reader = new FileReader();
-			reader.addEventListener("load", () => {
-				const dataURL: string = reader.result;
-				const canvas = document.createElement("canvas");
-				const canvasContext = canvas.getContext("2d")!;
-				const image = new Image();
-				image.addEventListener("load", () => {
-					let width: number;
-					let height: number;
-					if (image.height > image.width) {
-						height = Math.min(this.THUMBAIL_SIZE, image.height);
-						width = image.width * height / image.height;
-					} else {
-						width = Math.min(this.THUMBAIL_SIZE, image.width);
-						height = image.height * width / image.width;
-					}
-					canvas.width = width;
-					canvas.height = height;
-					canvasContext.drawImage(image, 0, 0, width, height);
-					const buffer = new Buffer(canvas.toDataURL(blob.type, 0.95).split(",")[1], "base64");
-					resolve({
-						type: <TImageType>blob.type,
-						rawWidth: image.width,
-						rawHeight: image.height,
-						rawByteLength: blob.size,
-						rawBuffer: new Buffer(dataURL.split(",")[1], "base64"),
-						resizedBuffer: buffer
-					});
-				});
-				image.addEventListener("error", (e) => {
-					reject(e.message);
-				});
-				image.src = dataURL;
-			});
-			reader.addEventListener("error", (e) => {
-				reject(e.message);
-			});
-			reader.readAsDataURL(blob);
-		});
-	}
-	constructor(attr: ImageTable) {
-		this.attr = attr;
-	}
-
-	public getAttr() {
-		return this.attr;
-	}
-
-
-}
-
-class ImageRepository {
-	public getImage(id: number): Promise<ImageTable | undefined> {
-		return db.images.get(id);
-	}
-	public getImageByUrl(url: string): Promise<ImageTable | undefined> {
-		return db.images.where("url").equals(url).first();
-	}
-
-	public insertImage(image: ImageTable): Promise<number> {
-		return db.images.add(image);
-	}
-
-	public deleteImage(id: number): Promise<void> {
-		return db.images.delete(id);
-	}
-}
-
-const imageRepository = new ImageRepository();

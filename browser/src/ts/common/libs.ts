@@ -16,7 +16,8 @@ export namespace electron {
 	export const {
 		app,
 		shell,
-		Menu
+		Menu,
+		dialog
 	 } = remote;
 }
 

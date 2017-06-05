@@ -1,4 +1,4 @@
-import { templateUtil } from '../common/commons';
+import { TemplateUtil } from '../common/commons';
 import { BaseComponent, ComponentOption } from './baseComponent';
 import { ElementUtil } from "../common/element";
 export interface RadioButtonOption<T extends string> extends ComponentOption {
@@ -15,7 +15,7 @@ export class RadioButton<T extends string> extends BaseComponent<RadioButtonOpti
 				class="my-radio-component ${super.getClassNames()}"
 				${super.htmlAttr()}
 			>
-				${templateUtil.each(this.option!.items, (item) => `
+				${TemplateUtil.each(this.option!.items, (item) => `
 					<div
 						class="my-radio-item"
 						value="${item.value}"
@@ -29,7 +29,7 @@ export class RadioButton<T extends string> extends BaseComponent<RadioButtonOpti
 	}
 
 	/** @override */
-	public initElem(elem: Element, option: RadioButtonOption<T>) {
+	public initElem(elem: HTMLElement, option: RadioButtonOption<T>) {
 		const initItem = elem.querySelector(`[value=${option.initValue}]`);
 		if (initItem) {
 			initItem.classList.add("my-radio-checked");

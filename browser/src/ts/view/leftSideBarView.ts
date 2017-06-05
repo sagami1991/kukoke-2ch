@@ -1,5 +1,4 @@
 import { ElementUtil, getSvgIcon, alertMessage } from "../common/commons";
-
 export type TofuType = "board" | "sureList" | "resList";
 export class LeftSideBarView {
 	private readonly _el: Element;

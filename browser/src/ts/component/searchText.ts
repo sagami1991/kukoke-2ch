@@ -21,7 +21,7 @@ export class SearchText extends BaseComponent<SearchTextOption> {
 		`;
 	}
 	/** @override */
-	public initElem(elem: Element, option: SearchTextOption) {
+	public initElem(elem: HTMLElement, option: SearchTextOption) {
 		const input = <HTMLInputElement>elem.querySelector("input");
 		input.addEventListener("keyup", () => {
 			const newValue = input.value;

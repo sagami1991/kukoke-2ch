@@ -1,4 +1,4 @@
-import { IRequestHeaders } from '../common/request';
+import { XhrRequestHeader } from '../common/request';
 import { sureRepository } from '../database/sureRepository';
 import { SureTable, BoardTable } from 'database/tables';
 import { boardRepository } from "database/boardRepository";
@@ -109,7 +109,7 @@ export class SureModel {
 		}
 	}
 
-	public getRequestHeader(): IRequestHeaders {
+	public getRequestHeader(): XhrRequestHeader {
 		if (!this._saved) {
 			return {};
 		} else {

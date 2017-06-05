@@ -1,9 +1,9 @@
-import { TPanelType } from 'panel/basePanel';
+import { PanelType } from 'panel/basePanel';
 import { PanelBlockStateTable } from './tables';
 import { db } from "database/database";
 
 class BlockStateRepository {
-	public async getState(panelType: TPanelType) {
+	public async getState(panelType: PanelType) {
 		const state = await db.panelStates.get(panelType);
 		if (state) {
 			return state.blockState;

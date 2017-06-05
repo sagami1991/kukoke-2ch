@@ -1,5 +1,5 @@
-import { IRequestHeaders } from 'common/request';
-import { xhrRequest, IXhrResponse } from 'common/commons';
+import { XhrRequestHeader } from 'common/request';
+import { xhrRequest, XhrResponse } from 'common/commons';
 import { NichanAuthClient } from './nichanAuthClient';
 import { Nichan } from "const";
 import { createHmac } from "crypto";
@@ -9,22 +9,22 @@ import { XhrRequestError } from "common/error";
 
 interface ResponseResult {
 	type: "notModified" | "datOti" | "success" | "sabun" | "unexpectedCode";
-	response: IXhrResponse | null;
+	response: XhrResponse | null;
 }
 
 export class NichanResListClient {
 	private static nichanSessionId: string;
-	public static async fetchResList(board: BoardTable, datNo: number, reqHeaders?: IRequestHeaders): Promise<ResponseResult> {
+	public static async fetchResList(board: BoardTable, datNo: number, reqHeaders?: XhrRequestHeader): Promise<ResponseResult> {
 		if (!this.nichanSessionId) {
 			this.nichanSessionId = await NichanAuthClient.getSessionId();
 		}
 		const uri = `/v1/${board.subDomain}/${board.path}/${datNo}`;
-		let res: IXhrResponse;
+		let res: XhrResponse;
 		try {
 			res = await xhrRequest({
 				method: "POST",
 				url: `https://api.2ch.net${uri}`,
-				headers: <IRequestHeaders>{...reqHeaders, "Content-Type":  "application/x-www-form-urlencoded"},
+				headers: <XhrRequestHeader>{...reqHeaders, "Content-Type":  "application/x-www-form-urlencoded"},
 				formData: new Map([
 					["sid", this.nichanSessionId],
 					["hobo", this.calcHoboValue(uri)],

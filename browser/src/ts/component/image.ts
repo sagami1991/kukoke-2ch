@@ -1,23 +1,23 @@
 import { contextMenuController } from '../common/contextmenu';
 import { createObserverId } from '../base/observable';
-import { ImageClient, ImageModel } from '../client/imageClient';
+import { ImageClient } from '../client/imageClient';
 import { BaseComponent, ComponentOption } from './baseComponent';
-import { templateUtil } from "common/commons";
+import { TemplateUtil } from "common/commons";
+import { ImageModel } from "model/imageModel";
 export interface ImageOption extends ComponentOption {
 	readonly url: string;
 }
 
+interface ImageThumbnailEvent {
+	"openImage": string;
+}
 
-export class ImageThumbnail extends BaseComponent<ImageOption> {
+export class ImageThumbnail extends BaseComponent<ImageOption, ImageThumbnailEvent> {
 	private obserberId: string;
-	private imageModel: ImageModel | null;
 	/** @override */
 	public html() {
 		return `
-		<div 
-			class="image-component ${super.getClassNames()}"
-			${super.htmlAttr()}
-		>
+		<div class="image-component ${super.getClassNames()}" ${super.htmlAttr()}>
 		</div>
 		`;
 	}
@@ -27,16 +27,15 @@ export class ImageThumbnail extends BaseComponent<ImageOption> {
 		this.obserberId = createObserverId();
 		element.textContent = "未取得";
 		const instance = ImageClient.createInstance(option.url);
-		this.imageModel = await instance.getSavedImage();
-		if (this.imageModel) {
-			this.appendImage(element, this.imageModel);
+		const imageModel = await instance.getSavedImage();
+		if (imageModel) {
+			this.appendImage(element, imageModel);
 		}
 		instance.addListener("done", this.obserberId, (imageModel) => {
-			this.imageModel = imageModel;
 			this.appendImage(element, imageModel);
 		});
 		instance.addListener("progress", this.obserberId, ([loaded, total]) => {
-			element.textContent = `取得中... ${templateUtil.kbFormat(loaded)} / ${templateUtil.kbFormat(total)}`;
+			element.innerText = `取得中... \n${TemplateUtil.kbFormat(loaded)} / ${TemplateUtil.kbFormat(total)}`;
 		});
 		instance.addListener("abort", this.obserberId, (reason) => {
 			element.textContent = `キャンセルされました 理由: ${reason}`;
@@ -45,6 +44,14 @@ export class ImageThumbnail extends BaseComponent<ImageOption> {
 			element.textContent = `エラー 理由: ${reason}`;
 		});
 		element.addEventListener("click", () => {
+			switch (instance.status) {
+				case "noRequest":
+					instance.getImage(false);
+					break;
+				case "done":
+					this.trigger("openImage", option.url);
+					break;
+			}
 			if (instance.status === "noRequest") {
 				instance.getImage(false);
 			}
@@ -60,18 +67,7 @@ export class ImageThumbnail extends BaseComponent<ImageOption> {
 					}]);
 					break;
 				case "done":
-					contextMenuController.addMenu([
-						{
-							label: "画像を削除",
-							click: async () => {
-								await instance.delete();
-								element.textContent = "未取得";
-							}
-						}, {
-							label: "エクスプローラで開く",
-							click: () => instance.openFolder()
-						}
-					]);
+					contextMenuController.addMenu(instance.getImageContextMenu(() => element.textContent = "未取得"));
 			}
 		});
 		element.addEventListener("DOMNodeRemoved", (e) => {
@@ -85,7 +81,7 @@ export class ImageThumbnail extends BaseComponent<ImageOption> {
 		outerElem.innerHTML = `
 			<div class="image-container">
 				<img src=${model.thumbnailPath} />
-				<div class="image-info">${templateUtil.kbFormat(model.byteLength)} ${model.width}x${model.height}</div>
+				<div class="image-info">${TemplateUtil.kbFormat(model.byteLength)} ${model.width}x${model.height}</div>
 			</div>`;
 	}
 }

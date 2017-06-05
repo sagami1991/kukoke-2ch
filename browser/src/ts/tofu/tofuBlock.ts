@@ -1,7 +1,7 @@
 import { createObserverId, Observable } from 'base/observable';
 import { ComponentScanner } from 'component/scanner';
 import { Button, ButtonOption } from 'component/components';
-import { Panel, TPanelType } from 'panel/basePanel';
+import { Panel, PanelType } from 'panel/basePanel';
 import { BlockPosition, BlockSize, BlockState } from './tofuDefs';
 import { blockStateRepository } from "database/blockStateRepository";
 import { db } from "database/database";
@@ -26,7 +26,7 @@ export class TofuBlock extends Observable<BlockEvent> {
 	public get el() {
 		return this._el;
 	}
-	public get panelType(): TPanelType {
+	public get panelType(): PanelType {
 		return this.panel.panelType;
 	}
 	public get state(): BlockState {

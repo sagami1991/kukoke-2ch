@@ -1,7 +1,6 @@
 import * as fs from "fs";
 import { Consts } from "const";
 
-
 export namespace FileUtil {
 
 	export function getPath(path: string) {

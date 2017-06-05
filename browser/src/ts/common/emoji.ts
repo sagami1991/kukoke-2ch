@@ -1,5 +1,5 @@
 
-interface IEmojiSheet {
+interface EmojiSheet {
 	pointerCode: number[];
 	raw: string;
 	x: number;
@@ -8,9 +8,9 @@ interface IEmojiSheet {
 
 class Emoji {
 	private readonly regExp: RegExp;
-	private readonly emojiMap: Map<number, IEmojiSheet>;
+	private readonly emojiMap: Map<number, EmojiSheet>;
 	constructor() {
-		const emojis: IEmojiSheet[] = require("../../resource/emojis.json");
+		const emojis: EmojiSheet[] = require("../../resource/emojis.json");
 		this.emojiMap = new Map();
 		for (const emoji of emojis) {
 			this.emojiMap.set(emoji.pointerCode[0], emoji);

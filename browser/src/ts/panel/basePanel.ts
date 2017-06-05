@@ -1,23 +1,26 @@
+import { createObserverId } from '../base/observable';
 import { MyStorage } from 'common/commons';
 import { Observable } from 'base/observable';
 export interface IBasePanelEvent {
 	"changeTitle": string;
 	"hoge": number;
 };
-export type TPanelType = "board" | "sureList" | "resList" | "form";
+export type PanelType = "board" | "sureList" | "resList" | "form" | "image";
 
 export abstract class Panel<T = IBasePanelEvent, S = {}> extends Observable<T & IBasePanelEvent> {
 	protected _el: Element;
 	protected _title: string;
-	protected readonly _storage: S;
+	protected readonly storage: S;
+	protected readonly ovserverId: string;
 
-	public abstract get panelType(): TPanelType;
+	public abstract get panelType(): PanelType;
 	public get el() { return this._el; }
 	public get title(): string { return this._title; }
 	constructor() {
 		super();
 		this._title = "";
-		this._storage = this.getSavedStorage();
+		this.storage = this.getSavedStorage();
+		this.ovserverId = createObserverId();
 	}
 
 	protected abstract getStorageForSave(): S;

@@ -13,6 +13,18 @@ export namespace ElementUtil {
 		return <HTMLElement>element;
 	}
 
+	export function createElements(html: string): HTMLElement[] {
+		const container = document.createElement('div');
+		container.innerHTML = html;
+		const elements: HTMLElement[] = [];
+		while (container.firstChild) {
+			let element = container.firstChild;
+			container.removeChild(element);
+			elements.push(<HTMLElement>element);
+		}
+		return elements;
+	}
+
 	/** @deprecated */
 	export function htmlParser(html: string): Document {
 		const elem = new DOMParser().parseFromString(html, "text/html");

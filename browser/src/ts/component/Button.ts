@@ -32,7 +32,7 @@ export class Button extends BaseComponent<ButtonOption> {
 	}
 
 	/** @override */
-	public initElem(elem: Element, option: ButtonOption) {
+	public initElem(elem: HTMLElement, option: ButtonOption) {
 		elem.addEventListener("click", () => option.onClick());
 	}
 }

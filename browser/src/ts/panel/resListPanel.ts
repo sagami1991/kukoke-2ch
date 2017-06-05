@@ -3,18 +3,16 @@ import { VirtualScrollView, VirtualScrillViewOption } from "common/virtualScroll
 import { alertMessage } from '../common/utils';
 import { notify, electron } from '../common/libs';
 import { Popup } from '../common/popup';
-import { IPopupRes } from 'service/resListService';
-import { SureTable } from 'database/tables';
+import { PopupRes } from 'service/resListService';
 import { SureModel } from 'model/sureModel';
 import { ResModel } from 'model/resModel';
-import { templateUtil, ElementUtil } from 'common/commons';
+import { TemplateUtil, ElementUtil } from 'common/commons';
 import { ComponentScanner } from 'component/scanner';
 import { Button, SearchText, Dropdown} from 'component/components';
-import { ButtonOption, SearchTextOption, DropdownOption, MenuButtonOption, ImageThumbnail } from 'component/components';
+import { ButtonOption, SearchTextOption, DropdownOption, ImageThumbnail } from 'component/components';
 import { resListService } from 'service/resListService';
-import { Panel, TPanelType } from './basePanel';
+import { Panel, PanelType } from './basePanel';
 import { OpenFormOption } from "panel/formPanel";
-import { MenuButton } from "component/menuButton";
 
 interface ResListStorage {
 	sureId: number | null;
@@ -23,6 +21,7 @@ interface ResListStorage {
 interface ResListPanelEvent {
 	"changeSure": SureModel;
 	"openForm": OpenFormOption;
+	"openImage": string;
 }
 
 type FilterType = "none" | "popularity" | "image" | "link";
@@ -33,7 +32,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	private openedSure: SureModel | undefined;
 	private resCollection: ResModel[];
 	private renderMode: RenderMode;
-	public get panelType(): TPanelType {
+	public get panelType(): PanelType {
 		return "resList";
 	}
 
@@ -70,7 +69,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		return `` +
 		`<div class="res-container ${className || ""}" res-index = "${res.index}">` +
 			`<div class="res-header">` +
-				`<span class="res-no ${res.getResColor()} ${templateUtil.when(res.isNew, () => "res-new")}" ` +
+				`<span class="res-no ${res.getResColor()} ${TemplateUtil.when(res.isNew, () => "res-new")}" ` +
 					`res-index = "${res.index}"` +
 				 `>` +
 					`${res.index + 1}${res.getIndexFormat()}` +
@@ -81,12 +80,12 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 				`<span class="res-postdate">` +
 					`${res.postDate}` +
 				`</span>` +
-				`${templateUtil.when(res.userId, () => `` +
+				`${TemplateUtil.when(res.userId, () => `` +
 					`<span class="res-user-id ${res.getIdColor()}" res-index="${res.index}">` +
 						`ID:${res.userId} (${res.getIdCountFormat()})` +
 					`</span>`
 				)}` +
-				`${templateUtil.when(res.userBe, () => `` +
+				`${TemplateUtil.when(res.userBe, () => `` +
 					`<span class="res-user-be">` +
 						`BE:${res.userBe!.displayName}` +
 					`</span>`
@@ -96,9 +95,13 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 				`${res.body}` +
 			`</div>` +
 			`<div class="res-thumbnails">${
-				templateUtil.each(res.imageUrls, url =>
-					new ImageThumbnail({url: url}).html()
-				)}
+				TemplateUtil.each(res.imageUrls, url => {
+					const imageComponent = new ImageThumbnail({url: url});
+					imageComponent.addListener("openImage", this.ovserverId, (url) => {
+						this.trigger("openImage", url);
+					});
+					return imageComponent.html();
+				})}
 			</div>` +
 		`</div>`
 		;
@@ -124,14 +127,14 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	}
 
 	public async init() {
-		if (this._storage.sureId !== null) {
+		if (this.storage.sureId !== null) {
 			try {
-				this.openedSure = await SureModel.createInstanceFromId(this._storage.sureId);
+				this.openedSure = await SureModel.createInstanceFromId(this.storage.sureId);
 				const resList = await resListService.getResListFromCache(this.openedSure);
 				this.setResCollection(this.openedSure, resList);
-				this.virtialResList.changeContents(this.getElems(resList), this.openedSure.bookmarkIndex);
+				this.virtialResList.changeContents(this.convertResElements(resList), this.openedSure.bookmarkIndex);
 			} catch (error) {
-				this._storage.sureId = null;
+				this.storage.sureId = null;
 				console.error(error);
 			}
 		}
@@ -193,7 +196,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 				throw new Error();
 			}
 			const userResIndexes = this.resCollection[+index].userIndexes;
-			const userReses = userResIndexes.map<IPopupRes>(index => ({nestCount: 0, res: this.resCollection[index]}));
+			const userReses = userResIndexes.map<PopupRes>(index => ({nestCount: 0, res: this.resCollection[index]}));
 			this.popup(userReses, current);
 		});
 
@@ -315,7 +318,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		if (this.openedSure) {
 			const resList = await resListService.getResListFromServer(this.openedSure);
 			this.setResCollection(this.openedSure, resList);
-			this.virtialResList.changeContentsWithKeep(this.getElems(resList));
+			this.virtialResList.changeContentsWithKeep(this.convertResElements(resList));
 			this.renderMode = "all";
 		}
 	}
@@ -340,13 +343,13 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		let reses: ResModel[] = this.resCollection;
 		switch (type) {
 		case "none":
-			this.virtialResList.changeContents(this.getElems(reses), this.openedSure.bookmarkIndex);
+			this.virtialResList.changeContents(this.convertResElements(reses), this.openedSure.bookmarkIndex);
 			this.renderMode = "all";
 			break;
 		case "popularity":
 			reses = this.resCollection.filter(res => res.fromAnkers.length >= 3);
 			this.saveBookMark();
-			this.virtialResList.changeContents(this.getElems(reses));
+			this.virtialResList.changeContents(this.convertResElements(reses));
 			this.renderMode = "filtering";
 			break;
 		case "image": // TODO
@@ -375,18 +378,18 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		this.renderMode = "all";
 		const resList = await resListService.getResListFromServer(sure);
 		this.setResCollection(sure, resList);
-		this.virtialResList.changeContents(this.getElems(resList), sure.bookmarkIndex);
+		this.virtialResList.changeContents(this.convertResElements(resList), sure.bookmarkIndex);
 		this.trigger("changeSure", sure);
 	}
 
-	private popup(reses: IPopupRes[], target: Element) {
+	private popup(reses: PopupRes[], target: Element) {
 		const popupHtml = `
 		<div class="res-popups">
-			${templateUtil.each(reses , (item) =>
+			${TemplateUtil.each(reses , (item) =>
 				this.resTemplate(item.res, `res-popup-nest-${item.nestCount}`)
 			)}
 		</div>`;
-		const popupElem =ComponentScanner.scanHtml(popupHtml);
+		const popupElem = ComponentScanner.scanHtml(popupHtml);
 		this.addClickEvent(popupElem);
 		new Popup(popupElem, target);
 	}
@@ -402,17 +405,18 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			return;
 		}
 		if (text === "") {
-			this.virtialResList.changeContents(this.getElems(this.resCollection), this.openedSure.bookmarkIndex);
+			this.virtialResList.changeContents(this.convertResElements(this.resCollection), this.openedSure.bookmarkIndex);
 			this.renderMode = "all";
 			return;
 		}
 		this.saveBookMark();
 		const reses = this.resCollection.filter(res => res.body.match(text) !== null);
-		this.virtialResList.changeContents(this.getElems(reses));
+		this.virtialResList.changeContents(this.convertResElements(reses));
 		this.renderMode = "filtering";
 	};
 
-	private getElems(reses: ResModel[]) {
-		return reses.map(res => ComponentScanner.scanHtml(this.resTemplate(res)));
+	private convertResElements(reses: ResModel[]): HTMLElement[] {
+		const html = TemplateUtil.each(reses, (res, i) => this.resTemplate(res));
+		return ComponentScanner.scanHtmls(html);
 	}
 }

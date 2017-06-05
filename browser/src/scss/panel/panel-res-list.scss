@@ -40,8 +40,10 @@ $resColorRed: rgb(210, 12, 12);
 	.res-thumbnails {
 		display: flex;
 		padding-left: 1em;
+		flex-wrap: wrap;
 		.image-component {
 			margin-right: 10px;
+			margin-bottom: 10px;
 		}
 	}
 }

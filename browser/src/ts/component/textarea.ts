@@ -1,10 +1,10 @@
-import { templateUtil } from '../common/commons';
 import { BaseComponent, ComponentOption } from './baseComponent';
 export interface TextareaOption extends ComponentOption {
 	initValue?: string;
 }
 
-export class Textarea extends BaseComponent<TextareaOption, HTMLTextAreaElement> {
+export class Textarea extends BaseComponent<TextareaOption> {
+	private element: HTMLTextAreaElement;
 	/** @override */
 	public html() {
 		return `
@@ -17,15 +17,16 @@ export class Textarea extends BaseComponent<TextareaOption, HTMLTextAreaElement>
 	}
 
 	/** @override */
-	public initElem(elem: HTMLTextAreaElement, option: TextareaOption) {
-		elem.value = option.initValue || "";
+	public initElem(element: HTMLTextAreaElement, option: TextareaOption) {
+		this.element = element;
+		element.value = option.initValue || "";
 	}
 
 	public setValue(value: string) {
-		this.elem.value = value;
+		this.element.value = value;
 	}
 
 	public getValue() {
-		return this.elem.value;
+		return this.element.value;
 	}
 }
