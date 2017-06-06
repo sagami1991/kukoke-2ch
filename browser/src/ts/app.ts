@@ -5,7 +5,7 @@ import { db } from './database/database';
 import { ResListPanel } from './panel/resListPanel';
 import { SureListPanel } from './panel/sureListPanel';
 import { BbsMenuPanel } from './panel/bbsMenuPanel';
-import { Panel } from './panel/basePanel';
+import { BasePanelEvent, Panel } from './panel/basePanel';
 import { TofuSheet } from './tofu/tofuSheet';
 import { LeftSideBarView } from './view/leftSideBarView';
 import "jquery-ui/ui/widgets/draggable";
@@ -60,7 +60,6 @@ class MyApp {
 				await panel.saveStorage();
 			}
 		});
-
 		window.addEventListener("click", event => {
 			const elem = <Element> event.target;
 			if (elem.tagName === "A") {
@@ -78,35 +77,40 @@ class MyApp {
 		await this.sureListPanel.init();
 		await this.resListPanel.init();
 		const kariId = createObserverId();
-		this.boardListPanel.addListener("openBoard", kariId, async (board) => {
-			await this.preListenPanel(this.sureListPanel);
-			this.sureListPanel.openBoard(board);
+		this.boardListPanel.addListener("openBoard", kariId, (board) => {
+			this.lockPanelWrapper(this.sureListPanel, () => this.sureListPanel.openBoard(board));
 		});
-		this.boardListPanel.addListener("openRecent", kariId, async () => {
-			await this.preListenPanel(this.sureListPanel);
-			this.sureListPanel.openRecent();
+		this.boardListPanel.addListener("openRecent", kariId, () => {
+			this.lockPanelWrapper(this.sureListPanel, () => this.sureListPanel.openRecent());
 		});
-		this.sureListPanel.addListener("openSure", kariId, async (sure) => {
-			await this.preListenPanel(this.resListPanel);
-			this.resListPanel.openSure(sure);
+		this.sureListPanel.addListener("openSure", kariId, (sure) => {
+			this.lockPanelWrapper(this.resListPanel, () => this.resListPanel.openSure(sure));
 		});
-		this.resListPanel.addListener("changeSure", kariId, async (sure) => {
+		this.resListPanel.addListener("changeSure", kariId, (sure) => {
 			// await this.preListenPanel(this._sureListPanel);
 			this.sureListPanel.onChangeSureModel(sure);
 		});
-		this.resListPanel.addListener("openForm", kariId, async (option) => {
-			await this.preListenPanel(this.submitFormPanel);
-			this.submitFormPanel.openForm(option);
+		this.resListPanel.addListener("openForm", kariId, (option) => {
+			this.lockPanelWrapper(this.submitFormPanel, () => this.submitFormPanel.openForm(option));
 		});
-		this.resListPanel.addListener("openImage", kariId, async (url) => {
-			await this.preListenPanel(this.imagePanel);
-			this.imagePanel.openImage(url);
+		this.resListPanel.addListener("openImage", kariId, (url) => {
+			this.lockPanelWrapper(this.imagePanel, () => this.imagePanel.openImage(url));
 		});
 		this.submitFormPanel.addListener("doneWrite", kariId, async (sure) => {
 			this.tofuSheet.closeBlock(this.submitFormPanel.panelType);
-			await this.preListenPanel(this.resListPanel);
-			this.resListPanel.openSure(sure);
+			this.lockPanelWrapper(this.resListPanel, () => this.resListPanel.openSure(sure));
 		});
+	}
+
+	private async lockPanelWrapper(panel: Panel, execute: () => Promise<any>) {
+		await this.preListenPanel(panel);
+		panel.lock();
+		try {
+			await execute();
+		} finally {
+			panel.unLock();
+		}
+
 	}
 
 	private async preListenPanel(panel: Panel) {

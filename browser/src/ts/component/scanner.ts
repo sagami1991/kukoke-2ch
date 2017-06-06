@@ -34,12 +34,12 @@ export class ComponentScanner {
 	}
 
 	public static scan(outerElem: HTMLElement) {
-		const elems = outerElem.querySelectorAll(".my-component");
-		if (elems.length === 0) {
+		const elements = outerElem.querySelectorAll(".my-component");
+		if (elements.length === 0) {
 			// throw new Error("Component not found");
 		}
-		for (const elem of elems) {
-			const id = elem.getAttribute("component-id");
+		for (const element of elements) {
+			const id = element.getAttribute("component-id");
 			if (!id) {
 				throw new Error("予期せぬエラー component-idが存在しない");
 			}
@@ -48,8 +48,8 @@ export class ComponentScanner {
 			if (!componentSet) {
 				throw new Error("すでにスキャン済み");
 			}
-			componentSet.component.preInitElem();
-			componentSet.component.initElem(<HTMLElement>elem, componentSet.option);
+			componentSet.component.preInitElem(<HTMLElement>element);
+			componentSet.component.initElem(<HTMLElement>element, componentSet.option);
 		}
 	}
 }

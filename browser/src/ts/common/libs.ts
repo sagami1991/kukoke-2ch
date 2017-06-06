@@ -17,7 +17,7 @@ export namespace electron {
 		app,
 		shell,
 		Menu,
-		dialog
+		dialog,
 	 } = remote;
 }
 

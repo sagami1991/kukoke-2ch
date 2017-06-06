@@ -1,5 +1,5 @@
 import { TemplateUtil } from '../common/commons';
-import { BaseComponent, ComponentOption } from './baseComponent';
+import { BaseComponent, ComponentOption, ComponentGenerics } from './baseComponent';
 import { ElementUtil } from "../common/element";
 export interface RadioButtonOption<T extends string> extends ComponentOption {
 	items: { label: string, value: T }[];
@@ -7,7 +7,10 @@ export interface RadioButtonOption<T extends string> extends ComponentOption {
 	onChangeValue: (value: T) => void;
 }
 
-export class RadioButton<T extends string> extends BaseComponent<RadioButtonOption<T>> {
+interface RadioButtonGenerics<T extends string> extends ComponentGenerics {
+	option: RadioButtonOption<T>;
+}
+export class RadioButton<T extends string> extends BaseComponent<RadioButtonGenerics<T>> {
 	/** @override */
 	public html() {
 		return `

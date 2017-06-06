@@ -1,11 +1,14 @@
-import { BaseComponent, ComponentOption } from './baseComponent';
+import { BaseComponent, ComponentOption, ComponentGenerics } from './baseComponent';
 export interface SearchTextOption extends ComponentOption {
 	width: number;
 	placeholder?: string;
 	onChange: (text: string) => void;
 }
-
-export class SearchText extends BaseComponent<SearchTextOption> {
+interface SearchTextGenerics extends ComponentGenerics {
+	option: SearchTextOption;
+	element: HTMLInputElement;
+}
+export class SearchText extends BaseComponent<SearchTextGenerics> {
 	private _oldValue: string;
 	private _timer: number;
 	/** @override */

@@ -8,9 +8,13 @@ export namespace TemplateUtil {
 	export function escape(raw: string): string {
 		return _.escape(raw);
 	}
-
+	const now = new Date();
 	export function dateFormat(date: Date): string {
-		return dateFmt(date, "mm/dd HH:MM");
+		if (date.getFullYear() === now.getFullYear()) {
+			return dateFmt(date, "mm/dd HH:MM");
+		} else {
+			return dateFmt(date, "yyyy mm/dd HH:MM");
+		}
 	}
 	export function dateFormatForFile(date: Date): string {
 		return dateFmt(date, "yyyy-mm-dd-HHMMssl");

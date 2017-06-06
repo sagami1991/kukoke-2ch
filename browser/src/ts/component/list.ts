@@ -1,5 +1,5 @@
 import { alertMessage } from '../common/utils';
-import { BaseComponent, ComponentOption } from './baseComponent';
+import { BaseComponent, ComponentOption, ComponentGenerics } from './baseComponent';
 import { TemplateUtil } from '../common/commons';
 import { ElementUtil } from "../common/element";
 import { VirtualScrollView } from "common/virtualScrollView/virtualScrollView";
@@ -18,7 +18,11 @@ export interface ListOption<T> extends ComponentOption {
 	readonly noHeader?: boolean;
 }
 
-export class List<T> extends BaseComponent<ListOption<T>> {
+interface ListGenerics<T> extends ComponentGenerics {
+	option: ListOption<T>;
+}
+
+export class List<T> extends BaseComponent<ListGenerics<T>> {
 	private _items: T[];
 	private _cellOptions: CellOption<T>[];
 	private _tBodyContainer: HTMLElement;

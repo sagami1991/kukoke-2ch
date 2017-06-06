@@ -1,16 +1,20 @@
-import { getSvgIcon, TIconName, TIconSize } from 'common/commons';
-import { BaseComponent, ComponentOption } from './baseComponent';
+import { getSvgIcon, IconName, IconSize } from 'common/commons';
+import { BaseComponent, ComponentOption, ComponentGenerics } from './baseComponent';
 export interface ButtonOption extends ComponentOption {
 	readonly label?: string;
-	readonly icon: TIconName;
-	readonly iconSize?: TIconSize;
+	readonly icon: IconName;
+	readonly iconSize?: IconSize;
 	readonly style?: "icon-only" | "normal";
 	readonly onClick: () => void;
 	readonly subLabel?: string;
 }
 
+interface ButtonGenerics extends ComponentGenerics {
+	option: ButtonOption;
+	element: HTMLInputElement;
+}
 
-export class Button extends BaseComponent<ButtonOption> {
+export class Button extends BaseComponent<ButtonGenerics> {
 	/** @override */
 	public html() {
 		return `

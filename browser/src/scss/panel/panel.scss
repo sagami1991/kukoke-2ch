@@ -2,17 +2,56 @@
 @import "./panel-sure-list.scss";
 @import "./panel-res-list.scss";
 @import "./panel-image.scss";
+@keyframes loadingBar {
+	0% {
+		left: -100px;
+	}
+	100% {
+		left: 100%;
+	}
+}
 
 .panel-container {
 	display: flex;
 	flex-direction: column;
 	flex:1;
+	position: relative;
+	
+	&.loading {
+		.panel-layer {
+			position: absolute;
+			z-index: 1;
+			background-color: rgba(255, 255, 255, 0.7);
+			width: 100%;
+			height: 100%;
+		}
+		.panel-loading-bar {
+			position: absolute;
+			bottom: 0px;
+			height: 3px;
+			width: 100%;
+			&:before {
+				display: block;
+				z-index: 2;
+				width: 100px;
+				height: 100%;
+				position: absolute;
+				content: "";
+				animation-name: loadingBar;
+				animation-duration: 2s;
+				animation-timing-function: linear;
+				animation-iteration-count: infinite;
+				background-color: $kukokeBlue;
+			}
+		}	
+	}
 	.panel-command-bar {
 		display: flex;
 		padding: 0 2px 2px 2px; 
 		border-bottom: 1px solid #ccc;
 		align-items: center;
 		overflow-x: hidden;
+		position: relative;
 	}
 	.panel-content {
 		flex:1;

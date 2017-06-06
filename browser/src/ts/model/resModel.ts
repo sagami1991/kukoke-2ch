@@ -1,10 +1,10 @@
-export interface IRes {
+export interface Res {
 	index: number;
 	name: string;
 	mail: string;
 	postDate: string;
 	userId: string;
-	userBe?: IUserBe;
+	userBe?: UserBe;
 	body: string;
 	fromAnkers: number[];
 	userIndexes: number[];
@@ -12,7 +12,7 @@ export interface IRes {
 	imageUrls: string[];
 }
 
-export interface IUserBe {
+export interface UserBe {
 	id: string;
 	displayName: string;
 }
@@ -23,14 +23,14 @@ export class ResModel {
 	public readonly mail: string;
 	public readonly postDate: string;
 	public readonly userId: string;
-	public readonly userBe?: IUserBe;
+	public readonly userBe?: UserBe;
 	public readonly body: string;
 	public readonly fromAnkers: number[];
 	public readonly userIndexes: number[];
 	public readonly isNew: boolean;
 	public readonly imageUrls: string[];
 
-	constructor(attr: IRes) {
+	constructor(attr: Res) {
 		this.index = attr.index;
 		this.name = attr.name;
 		this.mail = attr.mail;
@@ -46,12 +46,15 @@ export class ResModel {
 
 	public getIndexFormat() {
 		const count = this.fromAnkers.length;
-		return count ? `(${count})` : ``; 
+		return count ? `(${count})` : ``;
 	}
 
 	/** (2/4)のような文字列 */
-	public getIdCountFormat() {
-		return `${this.userIndexes.indexOf(this.index) + 1}/${this.userIndexes.length}`;
+	public getIdCountFormat(): string {
+		if (this.userIndexes.length === 1) {
+			return "";
+		}
+		return `(${this.userIndexes.indexOf(this.index) + 1}/${this.userIndexes.length})`;
 	}
 
 	public getIdColor(): "red" | "blue" | "normal" {

@@ -49,7 +49,7 @@ export class TofuSheet {
 
 
 	public init() {
-		this.el.appendChild(this.shadow._el);
+		this.el.appendChild(this.shadow.el);
 	}
 
 	private async createBlock(panel: Panel) {

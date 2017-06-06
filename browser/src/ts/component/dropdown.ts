@@ -1,9 +1,9 @@
-import { getSvgIcon, TIconName, TemplateUtil } from 'common/commons';
-import { BaseComponent, ComponentOption } from './baseComponent';
+import { getSvgIcon, IconName, TemplateUtil } from 'common/commons';
+import { BaseComponent, ComponentOption, ComponentGenerics } from './baseComponent';
 import { Popup } from "common/popup";
 import { ElementUtil } from "common/element";
 export interface DropdownItem<T = string> {
-	readonly icon?: TIconName;
+	readonly icon?: IconName;
 	readonly label: string;
 	readonly id?: T;
 }
@@ -12,8 +12,11 @@ export interface DropdownOption<T = string> extends ComponentOption {
 	readonly items: DropdownItem<T>[];
 	readonly onSelect: (itemId: T) => void;
 }
-
-export class Dropdown extends BaseComponent<DropdownOption> {
+interface DropdownGenerics extends ComponentGenerics {
+	option: DropdownOption;
+	element: HTMLInputElement;
+}
+export class Dropdown extends BaseComponent<DropdownGenerics> {
 	/** @override */
 	public html() {
 		return `
@@ -48,19 +51,22 @@ export class Dropdown extends BaseComponent<DropdownOption> {
 	}
 
 	/** @override */
-	public initElem(elem: HTMLElement, option: DropdownOption) {
+	public initElem(element: HTMLElement, option: DropdownOption) {
 		const {items, onSelect} = option;
-		const itemsElem = ElementUtil.createElement(this.itemListTempl(items));
+		const itemsElement = ElementUtil.createElement(this.itemListTempl(items));
 		let popup: Popup;
-		ElementUtil.addDelegateEventListener(itemsElem, "click", ".dropdown-item", (event, target) => {
+		ElementUtil.addDelegateEventListener(itemsElement, "click", ".dropdown-item", (event, target) => {
 			const itemId = target.getAttribute("id");
 			if (itemId) {
 				onSelect(itemId);
 				popup.close();
 			}
 		});
-		elem.addEventListener("click", () => {
-			popup = new Popup(itemsElem, elem);
+		element.addEventListener("click", () => {
+			popup = new Popup({
+				innerElement: itemsElement,
+				target: element
+			});
 		});
 	}
 }

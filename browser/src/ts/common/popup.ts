@@ -1,5 +1,9 @@
 import { ElementUtil } from "common/element";
 
+interface PopupOption {
+	innerElement: HTMLElement;
+	target: Element;
+}
 export class Popup {
 	private static popups: Popup[] | undefined;
 	private readonly popupElem: HTMLElement;
@@ -13,9 +17,9 @@ export class Popup {
 		return `<div class="popup-overlay"></div>`;
 	}
 
-	constructor(innerElem: Element, target: Element) {
+	constructor(option: PopupOption) {
 		this.popupElem = ElementUtil.createElement(this.teml());
-		const rect = target.getBoundingClientRect();
+		const rect = option.target.getBoundingClientRect();
 		const bottom = ElementUtil.appContainer.clientHeight - rect.bottom;
 		if (rect.top > bottom) {
 			this.popupElem.style.bottom = bottom + 8 + "px";
@@ -28,7 +32,7 @@ export class Popup {
 		}
 		this.popupElem.style.left = rect.left + "px";
 		this.overlayElem = ElementUtil.createElement(this.overlay());
-		this.popupElem.appendChild(innerElem);
+		this.popupElem.appendChild(option.innerElement);
 		if (!Popup.popups) {
 			ElementUtil.appContainer.appendChild(this.overlayElem);
 			this.overlayElem.addEventListener("click", () => {

@@ -29,12 +29,15 @@ export class BbsMenuPanel extends Panel<BbsMenuPanelEvent, BbsMenuStorage> {
 	private template() {
 		return `
 		<div class="panel-container panel-bbs-menu">
+			<div class="panel-layer"></div>
 			<div class="panel-command-bar">
 				${this._modeRadio.html()}
 				${this._searchText.html()}
 				${this._reloadButton.html()}
+				<div class="panel-loading-bar"></div>
 			</div>
 			<div class="panel-content">
+				<div class="panel-loading-bar"></div>
 				${this._list.html()}
 			</div>
 		</div>

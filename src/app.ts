@@ -1,5 +1,5 @@
 import { readJsonFile, toJson, wrtiteJsonFile, mkdir } from './utils';
-import {app, BrowserWindow, Menu, MenuItem} from "electron";
+import {app, BrowserWindow, Menu, MenuItem, shell} from "electron";
 import * as Electron from "electron";
 import {getMenuItems} from "./appmenu";
 import {AppConstant} from "./const";
@@ -44,6 +44,10 @@ class MainApp {
 	}
 
 	private setAppSetting(browser: Electron.BrowserWindow) {
+		browser.webContents.on('new-window', function(event, url) {
+			event.preventDefault();
+			shell.openExternal(url);
+		});
 		browser.webContents.setUserAgent("Mozilla/3.0 (compatible; JaneStyle/3.83)");
 		browser.webContents.session.webRequest.onBeforeSendHeaders({
 			urls: ['*']

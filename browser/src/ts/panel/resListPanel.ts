@@ -8,7 +8,7 @@ import { SureModel } from 'model/sureModel';
 import { ResModel } from 'model/resModel';
 import { TemplateUtil, ElementUtil } from 'common/commons';
 import { ComponentScanner } from 'component/scanner';
-import { Button, SearchText, Dropdown} from 'component/components';
+import { Button, SearchText, Dropdown, Text} from 'component/components';
 import { ButtonOption, SearchTextOption, DropdownOption, ImageThumbnail } from 'component/components';
 import { resListService } from 'service/resListService';
 import { Panel, PanelType } from './basePanel';
@@ -49,6 +49,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	private template() {
 		return `
 			<div class="panel-container panel-res-list">
+				<div class="panel-layer"></div>
 				<div class="panel-command-bar">
 					${this.backButton.html()}
 					${this.refreshButton.html()}
@@ -57,9 +58,9 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 					${this.searchText.html()}
 					${this.urlButton.html()}
 					${this.menuButton.html()}
+					<div class="panel-loading-bar"></div>
 				</div>
-				<div class="panel-content">
-				</div>
+				<div class="panel-content"></div>
 			</div>
 		`;
 	}
@@ -82,7 +83,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 				`</span>` +
 				`${TemplateUtil.when(res.userId, () => `` +
 					`<span class="res-user-id ${res.getIdColor()}" res-index="${res.index}">` +
-						`ID:${res.userId} (${res.getIdCountFormat()})` +
+						`ID:${res.userId} ${res.getIdCountFormat()}` +
 					`</span>`
 				)}` +
 				`${TemplateUtil.when(res.userBe, () => `` +
@@ -117,7 +118,10 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			icon: "icon-link",
 			label: "URL",
 			className: "url-button",
-			onClick: () => alertMessage("info", "未実装")
+			onClick: () => new Popup({
+				innerElement: ComponentScanner.scanHtml(`<div>${new Text({value: this.openedSure!.getSureUrl()}).html()}</div>`),
+				target: this.urlButton.element
+			})
 		});
 		this.menuButton = new Button(this.getMenuButtonOption());
 		this._el = ComponentScanner.scanHtml(this.template());
@@ -391,7 +395,10 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		</div>`;
 		const popupElem = ComponentScanner.scanHtml(popupHtml);
 		this.addClickEvent(popupElem);
-		new Popup(popupElem, target);
+		new Popup({
+			innerElement: popupElem,
+			target: target
+		});
 	}
 
 	private setResCollection(sure: SureModel, resList: ResModel[]) {

@@ -36,11 +36,13 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 	private template() {
 		return `
 			<div class="panel-container panel-sure-list">
+				<div class="panel-layer"></div>
 				<div class="panel-command-bar">
 					${this._backButton.html()}
 					${this._reloadButton.html()}
 					${this._createButton.html()}
 					${this._searchText.html()}
+					<div class="panel-loading-bar"></div>
 				</div>
 				<div class="panel-content">
 					${this._list.html()}

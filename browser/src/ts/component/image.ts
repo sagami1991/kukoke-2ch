@@ -1,7 +1,7 @@
 import { contextMenuController } from '../common/contextmenu';
 import { createObserverId } from '../base/observable';
 import { ImageClient } from '../client/imageClient';
-import { BaseComponent, ComponentOption } from './baseComponent';
+import { BaseComponent, ComponentOption, ComponentGenerics } from './baseComponent';
 import { TemplateUtil } from "common/commons";
 import { ImageModel } from "model/imageModel";
 export interface ImageOption extends ComponentOption {
@@ -11,8 +11,18 @@ export interface ImageOption extends ComponentOption {
 interface ImageThumbnailEvent {
 	"openImage": string;
 }
+export interface ComponentGeneric {
+	option: ComponentOption;
+	element: HTMLElement;
+	event: {};
+}
 
-export class ImageThumbnail extends BaseComponent<ImageOption, ImageThumbnailEvent> {
+interface ImageGenerics extends ComponentGenerics {
+	option: ImageOption;
+	event: ImageThumbnailEvent;
+}
+
+export class ImageThumbnail extends BaseComponent<ImageGenerics> {
 	private obserberId: string;
 	/** @override */
 	public html() {

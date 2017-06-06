@@ -1,10 +1,14 @@
-import { BaseComponent, ComponentOption } from './baseComponent';
+import { BaseComponent, ComponentOption, ComponentGenerics } from './baseComponent';
 export interface TextareaOption extends ComponentOption {
 	initValue?: string;
 }
 
-export class Textarea extends BaseComponent<TextareaOption> {
-	private element: HTMLTextAreaElement;
+interface TextareaGenerics extends ComponentGenerics {
+	option: TextareaOption;
+	element: HTMLTextAreaElement;
+}
+
+export class Textarea extends BaseComponent<TextareaGenerics> {
 	/** @override */
 	public html() {
 		return `
@@ -18,7 +22,6 @@ export class Textarea extends BaseComponent<TextareaOption> {
 
 	/** @override */
 	public initElem(element: HTMLTextAreaElement, option: TextareaOption) {
-		this.element = element;
 		element.value = option.initValue || "";
 	}
 

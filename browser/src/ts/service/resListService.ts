@@ -3,7 +3,7 @@ import { db } from 'database/database';
 import { sureRepository } from 'database/sureRepository';
 import { FileUtil, sjisBufferToStr } from "common/commons";
 import { NichanResListClient } from 'client/nichanResListClient';
-import { ResModel, IUserBe } from 'model/resModel';
+import { ResModel, UserBe } from 'model/resModel';
 import { SureModel } from 'model/sureModel';
 import { XhrRequestHeader, XhrResponseHeader } from "common/request";
 import { notify } from "common/libs";
@@ -18,7 +18,7 @@ interface ResHeader {
 	mail: string;
 	postDate: string;
 	userId: string;
-	beInfo?: IUserBe;
+	beInfo?: UserBe;
 }
 
 class ResListService {
@@ -177,6 +177,14 @@ class ResListService {
 			imgUrls.push(array[1]);
 		}
 		return imgUrls;
+	}
+
+	/** TODO */
+	private replace2chUrl(body: string) {
+		const macher = /<a class="res-link" href="http:\/\/(.+?)\.(.+?)\/test\/read\.cgi\/(.+?)\/([0-9]{9,10}?)\/?">/g;
+		let array: RegExpExecArray | null;
+		while ((array = macher.exec(body)) !== null) {
+		}
 	}
 
 	private getResHeaders(splited: string[]): ResHeader {

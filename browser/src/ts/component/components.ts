@@ -1,3 +1,4 @@
+import { Text, TextOption } from './text';
 import { TextareaOption } from './textarea';
 import { Button, ButtonOption } from './button';
 import { SearchText, SearchTextOption } from './searchText';
@@ -16,7 +17,8 @@ export {
 	MenuButton,
 	Dropdown,
 	Textarea,
-	ImageThumbnail
+	ImageThumbnail,
+	Text
 };
 export {
 	ButtonOption,
@@ -25,4 +27,6 @@ export {
 	RadioButtonOption,
 	DropdownOption,
 	TextareaOption,
-	MenuButtonOption };
+	MenuButtonOption,
+	TextOption
+ };
