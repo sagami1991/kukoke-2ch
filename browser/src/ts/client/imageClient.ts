@@ -112,6 +112,12 @@ export class ImageClient extends Observable<ImageClientEvent> {
 	public getImageContextMenu(deleteCallback: () => void): Electron.MenuItemOptions[] {
 		return [
 			{
+				label: "リンクをコピー",
+				click: () => {
+					electron.clipboard.writeText(this.url);
+				}
+			},
+			{
 				label: "画像を削除",
 				click: async () => {
 					await this.delete();

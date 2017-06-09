@@ -18,6 +18,7 @@ export namespace electron {
 		shell,
 		Menu,
 		dialog,
+		clipboard
 	 } = remote;
 }
 

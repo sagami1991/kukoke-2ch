@@ -168,14 +168,18 @@ class ResListService {
 		return resList;
 	}
 
-
+	
 	private getImageUrls(body: string): string[] {
-		const macher = /href="(http:\/\/[\w/:;%#\$&\?\(\)~\.=\+\-]+\.(png|gif|jpg|jpeg))">/g;
+		let macher = /href="(http:\/\/[\w/:;%#\$&\?\(\)~\.=\+\-]+\.(png|gif|jpg|jpeg))">/g;
 		let array: RegExpExecArray | null;
 		const imgUrls: string[] = [];
 		while ((array = macher.exec(body)) !== null) {
 			imgUrls.push(array[1]);
 		}
+		body.replace(/sssp:\/\/(o\.8ch\.net\/....\.png)/g, ($$, $1) => {
+			imgUrls.push(`http://${$1}`);
+			return "";
+		});
 		return imgUrls;
 	}
 
@@ -223,7 +227,7 @@ class ResListService {
 	private static BR_REGEXP = /\s<br>/g;
 	private static ANKER_REGEXP = /<a.+>&gt;&gt;([0-9]{1,4})-?<\/a>/g;
 	private static TAG_REGEXP = /<a.+>(.+)<\/a>/g;
-	private static LINK_REGEXP = /h?(ttps?|sssp):\/\/([\w/:;%#\$&\?\(\)~\.=\+\-]+)/g;
+	private static LINK_REGEXP = /h?ttps?:\/\/([\w/:;%#\$&\?\(\)~\.=\+\-]+)/g;
 	private static IMAGE_REGEXP = /href="(http:\/\/[\w/:;%#\$&\?\(\)~\.=\+\-]+\.(png|gif|jpg|jpeg))">/g;
 
 	/** 本文整形 */
@@ -235,7 +239,8 @@ class ResListService {
 		// その他アンカー系
 		allBody = allBody.replace(ResListService.TAG_REGEXP, `$1`);
 		// リンク
-		allBody = allBody.replace(ResListService.LINK_REGEXP, `<a class="res-link" href="http://$2">$&</a>`);
+		allBody = allBody.replace(ResListService.LINK_REGEXP, `<a class="res-link" href="http://$1">$&</a>`);
+		allBody = allBody.replace(/sssp:\/\/(img\.2ch\.net.+?\.gif)/g, `<img class="nichan-be-icon" src="http://$1">`);
 		// // 画像
 		// body = body.replace(/(h?ttps?:.+\.(png|gif|jpg|jpeg))<br>/, `<span class="res-image-link">$1</span><br>`);
 		allBody = emojiUtil.replace(allBody);

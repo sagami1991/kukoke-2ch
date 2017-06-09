@@ -9,12 +9,9 @@
     "build": "gulp watch"
   },
   "dependencies": {
-    "electron": "^1.7.2",
-    "lodash": "^4.17.4",
-    "source-map-support": "^0.4.5"
+    "electron": "^1.7.2"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.62",
     "@types/node": "^6.0.45",
     "electron-packager": "^8.7.0",
     "gulp": "^3.9.1",

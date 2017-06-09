@@ -112,7 +112,7 @@ export class BbsMenuPanel extends Panel<BbsMenuPanelEvent, BbsMenuStorage> {
 		if (!this._allBoards || this._mode === "history") {
 			return;
 		}
-		const boards =  this._allBoards.filter(board => board.displayName.match(text) !== null);
+		const boards =  this._allBoards.filter(board => board.displayName.toLowerCase().match(text) !== null);
 		this._list.changeData(boards);
 	};
 

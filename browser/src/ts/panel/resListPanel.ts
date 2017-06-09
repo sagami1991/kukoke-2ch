@@ -417,7 +417,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			return;
 		}
 		this.saveBookMark();
-		const reses = this.resCollection.filter(res => res.body.match(text) !== null);
+		const reses = this.resCollection.filter(res => res.body.toLowerCase().match(text) !== null);
 		this.virtialResList.changeContents(this.convertResElements(reses));
 		this.renderMode = "filtering";
 	};

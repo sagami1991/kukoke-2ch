@@ -6,7 +6,9 @@
 		"dist": true,
 		"node_modules": true,
 		"browser": true,
-		"build": true
+		"build": true,
+		"package": true,
+		"docs": true
 		// "**/*.js.map": {"when": "$(basename)"},
 		// "**/*.js": { "when": "$(basename).ts" }
 	},

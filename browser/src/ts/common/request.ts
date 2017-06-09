@@ -72,7 +72,7 @@ export function xhrRequest<T = Buffer>(option: RequestOption) {
 
 		});
 		xhr.send(option.formData ? mapToForm(option.formData) : undefined);
-	}).setCancelCallback(() => {
+	}).onCancel(() => {
 		xhr.abort();
 	});
 }

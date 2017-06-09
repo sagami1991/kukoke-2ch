@@ -213,7 +213,8 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 		if (!this._sures) {
 			return;
 		}
-		const sures = this._sures.filter(sure => sure.titleName.match(text) !== null);
+		const regexp = new RegExp(text, "i");
+		const sures = this._sures.filter(sure => sure.titleName.toLowerCase().match(regexp) !== null);
 		this._list.changeData(sures);
 	};
 

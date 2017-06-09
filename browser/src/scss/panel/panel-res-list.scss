@@ -41,6 +41,9 @@ $resColorRed: rgb(210, 12, 12);
 		display: flex;
 		padding-left: 1em;
 		flex-wrap: wrap;
+		img.nichan-be-icon {
+			display: block;
+		}
 		.image-component {
 			margin-right: 10px;
 			margin-bottom: 10px;
