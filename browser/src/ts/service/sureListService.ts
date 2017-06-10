@@ -30,9 +30,18 @@ class SureListService {
 	}
 
 	public async getSuresFromNichan(board: BoardTable): Promise<SureModel[]> {
-		const html = await NichanSureListClient.fetchSures(board);
-		const sureAttrsFromNichan = this.htmlToSureAttrs(html, board);
-		const sureAttrsFromDb = await db.transaction("rw", db.sures, async () => {
+		const response = await NichanSureListClient.fetchSures(board);
+		const sureAttrsFromNichan = this.htmlToSureAttrs(response.body, board);
+		const sureAttrsFromDb = await db.transaction("rw", [db.sures, db.boards], async () => {
+			if (response.isRedirected) {
+				const array = response.redirectedUrl.match(/https?:\/\/(.+?)\./);
+				const subDomain = array && array[1];
+				if (subDomain) {
+					board.subDomain = subDomain;
+					await boardRepository.putBoard(board);
+					notify.info("板移転を確認");
+				}
+			}
 			await sureRepository.deleteNotSavedSureByBoard(board.id);
 			await sureRepository.disableSureByBoard(board.id);
 			await sureRepository.upsertAllSure(sureAttrsFromNichan);

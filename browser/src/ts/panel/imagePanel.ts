@@ -39,6 +39,8 @@ export class ImageViewerPanel extends Panel {
 	}
 
 	public async openImage(url: string) {
+		this.container.classList.toggle("normal", true);
+		this.container.classList.toggle("zoomed", false);
 		this.imageClient = ImageClient.createInstance(url);
 		const model = await this.imageClient.getSavedImage();
 		if (model === null) {

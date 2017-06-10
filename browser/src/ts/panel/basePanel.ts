@@ -48,7 +48,19 @@ export abstract class Panel<T = BasePanelEvent, S = {}> extends Observable<T & B
 		}
 	}
 
+	public async loadingTransaction(execute: () => Promise<any>) {
+		this.lock();
+		try {
+			await execute();
+		} finally {
+			this.unLock();
+		}
+	}
+
 	public canClose() {
 		return false;
+	}
+
+	public onChangeSize() {
 	}
 }

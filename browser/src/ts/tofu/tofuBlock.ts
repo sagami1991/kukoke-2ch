@@ -122,7 +122,7 @@ export class TofuBlock extends Observable<BlockEvent> {
 		this._el.style.zIndex = "" + zIndex;
 	}
 
-	public onStop() {
+	public onTranceFormStop() {
 		db.transaction("rw", db.panelStates, () => {
 			blockStateRepository.putState({
 				panelType: this.panelType,
@@ -131,6 +131,7 @@ export class TofuBlock extends Observable<BlockEvent> {
 		});
 		this._el.classList.add("tofu-stop");
 		this.applyCss();
+		this.panel.onChangeSize();
 	}
 
 	public validateState(parentSize: {width: number, height: number}) {

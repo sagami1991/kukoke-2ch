@@ -100,6 +100,6 @@ export class TofuSheet {
 	private onTranceformStop(block: TofuBlock) {
 		this.shadow.hide();
 		block.validateState({width: this.el.clientWidth, height: this.el.clientHeight});
-		block.onStop();
+		block.onTranceFormStop();
 	}
 }

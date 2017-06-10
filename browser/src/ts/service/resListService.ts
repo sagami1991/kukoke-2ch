@@ -146,10 +146,10 @@ class ResListService {
 				return;
 			}
 			const {name, mail, postDate, userId, beInfo } = this.getResHeaders(splited);
-			const body = splited[3];
-			this.setAnker(body, index, resList);
+			const rawBody = splited[3];
+			this.setAnker(rawBody, index, resList);
 			this.pushUserResMap(userResMap, userId, index);
-			const imageUrls = this.getImageUrls(body);
+			const imageUrls = this.getImageUrls(rawBody);
 			const resAttr = new ResModel({
 				index: index,
 				name: name,
@@ -157,18 +157,18 @@ class ResListService {
 				postDate: postDate,
 				userId: userId,
 				userBe: beInfo,
-				body: body,
+				body: rawBody,
 				fromAnkers: [],
 				userIndexes: !userId ? [] : userResMap[userId],
 				isNew: index >= oldResCount,
-				imageUrls: imageUrls
+				imageUrls: imageUrls,
+				isAsciiArt: this.isAsciiArtRes(rawBody)
 			});
 			resList.push(resAttr);
 		});
 		return resList;
 	}
 
-	
 	private getImageUrls(body: string): string[] {
 		let macher = /href="(http:\/\/[\w/:;%#\$&\?\(\)~\.=\+\-]+\.(png|gif|jpg|jpeg))">/g;
 		let array: RegExpExecArray | null;
@@ -253,6 +253,10 @@ class ResListService {
 		if (result && +result[1] < nowIndex) {
 			resList[+result[1]].fromAnkers.push(nowIndex);
 		}
+	}
+
+	private isAsciiArtRes(body: string) {
+		return /(●●|　\s)/.test(body);
 	}
 }
 

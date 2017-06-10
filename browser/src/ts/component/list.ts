@@ -9,6 +9,7 @@ interface CellOption<T> {
 	readonly width?: number;
 	readonly className?: (row: T) => string;
 	readonly parse: (row: T) => string;
+	readonly sortKey?: keyof T;
 }
 export interface ListOption<T> extends ComponentOption {
 	readonly array: T[];
@@ -36,7 +37,7 @@ export class List<T> extends BaseComponent<ListGenerics<T>> {
 			${TemplateUtil.when(!option.noHeader, () => `
 				<div class="my-list-header">
 					${TemplateUtil.each(option.cellOptions, (cell, i) => `
-						<div class="my-list-th">${cell.label}</div>	
+						<div class="my-list-th" cell-id="${i}">${cell.label}</div>	
 					`)}
 				</div>
 			`)}
@@ -101,6 +102,10 @@ export class List<T> extends BaseComponent<ListGenerics<T>> {
 		this.registerEvent(elem, option.onRowClick, option.onRowRightClick);
 	}
 
+	public changeParentSize() {
+		this._virtualList.changeParentSize();
+	}
+
 	private registerEvent(elem: Element, onRowClick: (row: T) => void, onRowRightClick?: (row: T) => void) {
 		ElementUtil.addDelegateEventListener(elem, "click", ".my-list-tr", (e, currentTarget) => {
 			const index = currentTarget.getAttribute("row-index");
@@ -123,9 +128,30 @@ export class List<T> extends BaseComponent<ListGenerics<T>> {
 		});
 
 		ElementUtil.addDelegateEventListener(elem, "click", ".my-list-th", (e, currentTarget) => {
-			alertMessage("error", "未実装");
+			const index = currentTarget.getAttribute("cell-id");
+			if (index === null) {
+				throw new Error("indexがnull");
+			}
+			const cell = this._cellOptions[+index];
+			if (!cell.sortKey) {
+				alertMessage("info", "この列はソート不可能");
+				return;
+			}
+			const sortKey = cell.sortKey;
+			const sorted = this._items.sort((a, b) => {
+				if ( a[sortKey] < b[sortKey] ) {
+					return -1 * this.toggle;
+				} else if ( a[sortKey] > b[sortKey] ) {
+					return 1 * this.toggle;
+				} else {
+					return 0;
+				}
+			});
+			this.toggle = this.toggle * -1;
+			this.changeData(sorted);
 		});
 	}
+	private toggle: number = - 1;
 
 	public changeData(array: T[]) {
 		this._items = array;

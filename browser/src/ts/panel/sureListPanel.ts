@@ -151,12 +151,13 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 					label: "勢い",
 					parse: (sure) => TemplateUtil.numberFormat(sure.ikioi, 1),
 					className: (sure) => `sure-ikioi ikioi-color-${sure.ikioiColor}`,
-					width: 80
+					width: 80,
+					sortKey: "ikioi"
 				}, {
 					label: "日付",
 					parse: (sure) => TemplateUtil.dateFormat(sure.createdAt),
 					className: () => "sure-created-at",
-					width: 100
+					width: 140
 				}
 			],
 			onRowClick: (sure) => this.trigger("openSure", sure),
@@ -179,12 +180,19 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 		this.changeSureCollection(sureCollection, undefined, "最近開いたスレ");
 	}
 
+	/** @override */
+	public onChangeSize() {
+		this._list.changeParentSize();
+	}
+
 	private async reload() {
-		if (this._openedBoard) {
-			const board = this._openedBoard;
-			const sureCollection = await sureListService.getSuresFromNichan(board);
-			this.changeSureCollection(sureCollection, board, board.displayName);
-		}
+		await this.loadingTransaction(async () => {
+			if (this._openedBoard) {
+				const board = this._openedBoard;
+				const sureCollection = await sureListService.getSuresFromNichan(board);
+				this.changeSureCollection(sureCollection, board, board.displayName);
+			}
+		});
 	}
 
 	private async refreshFromDb(board: BoardTable) {

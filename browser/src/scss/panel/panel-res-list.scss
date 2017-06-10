@@ -13,7 +13,7 @@ $resColorRed: rgb(210, 12, 12);
 		font-size: 12px;
 		.res-no {
 			&.res-new {
-				font-weight: bold;
+				font-weight: 500;
 			}
 		}
 		.res-no, .res-name, .res-user-id, .res-postdate {
@@ -29,6 +29,10 @@ $resColorRed: rgb(210, 12, 12);
 	.res-body {
 		word-wrap: break-word;
 		padding-left: 1em;
+		&.res-ascii-art  {
+			font-family: "MS PGothic";
+			line-height: initial;
+		}
 		.res-anker, .res-image-link, .res-link {
 			color: $kukokeBlue;
 			cursor: pointer;

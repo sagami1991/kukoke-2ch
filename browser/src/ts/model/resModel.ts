@@ -10,6 +10,7 @@ export interface Res {
 	userIndexes: number[];
 	isNew: boolean;
 	imageUrls: string[];
+	isAsciiArt: boolean;
 }
 
 export interface UserBe {
@@ -29,6 +30,7 @@ export class ResModel {
 	public readonly userIndexes: number[];
 	public readonly isNew: boolean;
 	public readonly imageUrls: string[];
+	public readonly isAsciiArt: boolean;
 
 	constructor(attr: Res) {
 		this.index = attr.index;
@@ -42,6 +44,7 @@ export class ResModel {
 		this.userIndexes = attr.userIndexes;
 		this.isNew = attr.isNew;
 		this.imageUrls = attr.imageUrls;
+		this.isAsciiArt = attr.isAsciiArt;
 	}
 
 	public getIndexFormat() {

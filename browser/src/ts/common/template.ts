@@ -1,5 +1,9 @@
 import { _ } from "./libs";
 const dateFmt = require('dateformat');
+dateFmt.i18n.dayNames = [
+      '日', '月', '火', '水', '木', '金', '土',
+      'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'
+    ];
 export namespace TemplateUtil {
 	export function each<T>(array: T[], cb: (item: T, index: number) => string): string {
 		return array.map((item, index) => cb(item, index)).join("");
@@ -11,9 +15,9 @@ export namespace TemplateUtil {
 	const now = new Date();
 	export function dateFormat(date: Date): string {
 		if (date.getFullYear() === now.getFullYear()) {
-			return dateFmt(date, "mm/dd HH:MM");
+			return dateFmt(date, "m/dd(ddd) HH:MM");
 		} else {
-			return dateFmt(date, "yyyy mm/dd HH:MM");
+			return dateFmt(date, "yyyy m/dd(ddd) HH:MM");
 		}
 	}
 	export function dateFormatForFile(date: Date): string {

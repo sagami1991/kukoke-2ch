@@ -32,6 +32,7 @@ export interface XhrResponse<T = Buffer> {
 	statusCode: number;
 	headers: XhrResponseHeader;
 	body: T;
+	responseURL: string;
 }
 
 export function xhrRequest<T = Buffer>(option: RequestOption) {
@@ -67,7 +68,8 @@ export function xhrRequest<T = Buffer>(option: RequestOption) {
 			resolve({
 				statusCode: xhr.status,
 				headers: getResponseHeaders(xhr),
-				body: responseBody
+				body: responseBody,
+				responseURL: xhr.responseURL
 			});
 
 		});

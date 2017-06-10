@@ -48,4 +48,10 @@ export namespace ElementUtil {
 		});
 	}
 
+	export function removeChildren(container: HTMLElement) {
+		while (container.firstChild) {
+			container.removeChild(container.firstChild);
+		}
+	}
+
 }

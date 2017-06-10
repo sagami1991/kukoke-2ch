@@ -92,7 +92,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 					`</span>`
 				)}` +
 			`</div>` +
-			`<div class="res-body">` +
+			`<div class="res-body ${res.isAsciiArt ? "res-ascii-art" : ""}">` +
 				`${res.body}` +
 			`</div>` +
 			`<div class="res-thumbnails">${
@@ -147,6 +147,10 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	public async saveStorage() {
 		super.saveStorage();
 		await this.saveBookMark();
+	}
+
+	public onChangeSize() {
+		this.virtialResList.changeParentSize();
 	}
 
 	private async saveBookMark() {
@@ -319,12 +323,14 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	}
 
 	private async reload() {
-		if (this.openedSure) {
-			const resList = await resListService.getResListFromServer(this.openedSure);
-			this.setResCollection(this.openedSure, resList);
-			this.virtialResList.changeContentsWithKeep(this.convertResElements(resList));
-			this.renderMode = "all";
-		}
+		await this.loadingTransaction(async () => {
+			if (this.openedSure) {
+				const resList = await resListService.getResListFromServer(this.openedSure);
+				this.setResCollection(this.openedSure, resList);
+				this.virtialResList.changeContentsWithKeep(this.convertResElements(resList));
+				this.renderMode = "all";
+			}
+		});
 	}
 
 	private async deleteLog() {
@@ -344,6 +350,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		if (!this.openedSure || !this.resCollection) {
 			return;
 		}
+		this.saveBookMark();
 		let reses: ResModel[] = this.resCollection;
 		switch (type) {
 		case "none":
@@ -352,7 +359,6 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			break;
 		case "popularity":
 			reses = this.resCollection.filter(res => res.fromAnkers.length >= 3);
-			this.saveBookMark();
 			this.virtialResList.changeContents(this.convertResElements(reses));
 			this.renderMode = "filtering";
 			break;

@@ -63,6 +63,11 @@ export class BbsMenuPanel extends Panel<BbsMenuPanelEvent, BbsMenuStorage> {
 		await this.refreshBoards();
 	}
 
+	/** @override */
+	public onChangeSize() {
+		this._list.changeParentSize();
+	}
+
 	private getListOption(): ListOption<BoardTable> {
 		return {
 			array: [],

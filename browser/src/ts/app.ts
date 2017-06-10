@@ -15,7 +15,7 @@ import { electron } from "common/libs";
 
 class MyApp {
 	// views
-	private readonly leftSideBar: LeftSideBarView;
+	// private readonly leftSideBar: LeftSideBarView;
 	private readonly tofuSheet: TofuSheet;
 
 	// panels
@@ -27,7 +27,7 @@ class MyApp {
 	private readonly imagePanel: ImageViewerPanel;
 
 	constructor() {
-		this.leftSideBar = new LeftSideBarView();
+		// this.leftSideBar = new LeftSideBarView();
 		this.tofuSheet = new TofuSheet();
 		this.allPanels = [
 			this.boardListPanel = new BbsMenuPanel(),
@@ -104,13 +104,7 @@ class MyApp {
 
 	private async lockPanelWrapper(panel: Panel, execute: () => Promise<any>) {
 		await this.preListenPanel(panel);
-		panel.lock();
-		try {
-			await execute();
-		} finally {
-			panel.unLock();
-		}
-
+		await panel.loadingTransaction(execute);
 	}
 
 	private async preListenPanel(panel: Panel) {

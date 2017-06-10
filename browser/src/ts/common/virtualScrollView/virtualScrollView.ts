@@ -1,4 +1,5 @@
 import {VisibleRowsView} from "./visibleRowsView";
+import { ElementUtil } from "common/commons";
 
 export interface VirtualScrillViewOption {
 	readonly parent: HTMLElement;
@@ -42,12 +43,11 @@ export class VirtualScrollView {
 		$(this.slider).draggable({
 			axis: "y",
 			containment: "parent",
+			drag: (event, draggableEvent) => {
+				this.onSliderMove(draggableEvent);
+			},
 			stop: (event: MouseEvent, draggableEvent) => {
-				let y = draggableEvent.position.top;
-				if (y > (this.clientHeight / 2)) {
-					y += this.sliderHeight;
-				}
-				this.moveY(y);
+				this.onSliderMove(draggableEvent);
 			}
 		});
 		this.verticalScrollBar.addEventListener("click", (e) => {
@@ -57,7 +57,15 @@ export class VirtualScrollView {
 
 	}
 
-	private init(items: HTMLElement[], startIndex: number, offset: number) {
+	private onSliderMove(draggableEvent: JQueryUI.DraggableEventUIParams) {
+		let y = draggableEvent.position.top;
+		if (y > (this.clientHeight / 2)) {
+			y += this.sliderHeight;
+		}
+		this.moveY(y);
+	}
+
+	private init(items: HTMLElement[], startIndex: number, offsetHeight: number) {
 		this.clientHeight = this.parent.clientHeight;
 		const maxVisibleRowSize = Math.ceil(this.clientHeight / this.minRowHeight);
 		if (this.visibleRowsView) {
@@ -68,7 +76,7 @@ export class VirtualScrollView {
 		});
 		this.container.appendChild(this.visibleRowsView.el);
 		this.allRowElements = items;
-		this.offsetHeight = offset;
+		this.offsetHeight = offsetHeight;
 		this.sliderHeight = this.clientHeight / this.allRowElements.length * this.clientHeight / this.minRowHeight;
 		this.sliderHeight = Math.min(this.clientHeight, this.sliderHeight);
 		this.sliderHeight = Math.max(30, this.sliderHeight);
@@ -90,6 +98,12 @@ export class VirtualScrollView {
 		const top = this.visibleRowsView.getTopRow(this.offsetHeight);
 		return top || 0;
 	}
+
+	public changeParentSize() {
+		ElementUtil.removeChildren(this.visibleRowsView.el);
+		this.init(this.allRowElements, this.visibleRowsView.beginIndex, this.offsetHeight);
+	}
+
 	private moveY(layerY: number) {
 		let index = Math.ceil(this.allRowElements.length * layerY / this.clientHeight);
 		this.moveIndex(index);

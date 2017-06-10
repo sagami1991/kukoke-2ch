@@ -1,5 +1,4 @@
 import {_} from "common/libs";
-type Key<T, K extends keyof T> = Map<string, Map<K, (args: T[K]) => void>>;
 
 export class Observable<T> {
 	private listenMap: Map<string, {[key in keyof T]?: (args: T[key]) => void}> = new Map();
