@@ -34,6 +34,11 @@ body {
     align-items: center;
     justify-content: center;
     text-decoration: none;
+    margin-right: 4px;
+}
+
+.button:hover {
+    background-color: #d5e1f2;
 }
 .button:active {
     background-color: #d5e1f2;
