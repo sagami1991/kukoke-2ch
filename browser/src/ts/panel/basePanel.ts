@@ -11,6 +11,11 @@ export type PanelType = "board" | "sureList" | "resList" | "form" | "image";
 export enum KeyCode {
 	W = 87
 }
+
+export interface TransactionOption {
+	finallyExecute?: () => void;
+	delayLockKey?: number;
+}
 export type KeyType = "Alt+W";
 export abstract class Panel<T = BasePanelEvent, S = {}> extends Observable<T & BasePanelEvent> {
 	public isActive: boolean;
@@ -19,6 +24,7 @@ export abstract class Panel<T = BasePanelEvent, S = {}> extends Observable<T & B
 	protected readonly storage: S;
 	protected readonly ovserverId: string;
 	private lockCount: number;
+	private readonly lockKeys: Map<number, boolean>;
 
 	public abstract get panelType(): PanelType;
 	public get el() { return this._el; }
@@ -29,6 +35,7 @@ export abstract class Panel<T = BasePanelEvent, S = {}> extends Observable<T & B
 		this.storage = this.getSavedStorage();
 		this.ovserverId = createObserverId();
 		this.lockCount = 0;
+		this.lockKeys = new Map();
 	}
 
 	protected abstract getStorageForSave(): S;
@@ -54,7 +61,15 @@ export abstract class Panel<T = BasePanelEvent, S = {}> extends Observable<T & B
 		}
 	}
 
-	protected async loadingTransaction(execute: () => Promise<any>, postTransaction?: () => void) {
+	protected async loadingTransaction(execute: () => Promise<any>, option: TransactionOption) {
+		if (option.delayLockKey) {
+			if (this.lockKeys.has(option.delayLockKey)) {
+				notify.info("2秒ぐらい操作をロックしています");
+				throw new Error("遅延ロック中");
+			} else {
+				this.lockKeys.set(option.delayLockKey, true);
+			}
+		}
 		if (this.lockCount > 0) {
 			notify.info("パネルをロック中です");
 			throw new Error("パネルをロック中");
@@ -64,8 +79,11 @@ export abstract class Panel<T = BasePanelEvent, S = {}> extends Observable<T & B
 			await execute();
 		} finally {
 			this.unLock();
-			if (postTransaction) {
-				postTransaction();
+			if (option.delayLockKey) {
+				setTimeout(() => this.lockKeys.delete(option.delayLockKey!), 2000);
+			}
+			if (option.finallyExecute) {
+				option.finallyExecute();
 			}
 		}
 	}

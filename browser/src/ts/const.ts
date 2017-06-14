@@ -8,13 +8,13 @@ export namespace Consts {
 			panelType: "board",
 			blockState: {
 				position: { x: 0, y: 0, z: 0 },
-				size: { width: 120, height: 420 }
+				size: { width: 210, height: 420 }
 			}
 		},
 		{
 			panelType: "sureList",
 			blockState: {
-				position: { x: 120, y: 0, z: 0 },
+				position: { x: 210, y: 0, z: 0 },
 				size: { width: 630, height: 420 }
 			}
 		},

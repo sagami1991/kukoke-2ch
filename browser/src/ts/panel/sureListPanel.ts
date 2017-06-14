@@ -194,11 +194,11 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 	}
 
 	private async reload(board: BoardTable, mode: "recent" | "localDb" | "server") {
+		if (board.type === "recentOpen") {
+			mode = "recent";
+		}
 		await this.loadingTransaction(async () => {
 			let sureModels: SureModel[] | undefined;
-			if (board.type === "recentOpen") {
-				mode = "recent";
-			}
 			switch (mode) {
 				case "recent":
 					sureModels = await sureListService.getRecentOpenSures();
@@ -214,6 +214,8 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 			const isKeep = this._openedBoard === board && (mode === "localDb" || mode === "recent");
 			this._list.changeData(sureModels!, isKeep, mode === "recent");
 			this.trigger("changeTitle", board.displayName);
+		}, {
+			delayLockKey: mode === "server" ? board.id : undefined
 		});
 	}
 

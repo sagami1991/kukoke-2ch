@@ -81,8 +81,8 @@ export class SubmitFormPanel extends Panel<FormPanelEvent> {
 			} else {
 				notify.error(result.body, result.title);
 			}
-		}, () => {
-			this._submitButton.toggleActive(false);
+		}, {
+			finallyExecute: () => this._submitButton.toggleActive(false)
 		});
 	}
 

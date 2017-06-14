@@ -384,6 +384,8 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			}
 			this.renderMode = "all";
 			this.filterDropdown.changeItem(this.renderMode);
+		}, {
+			delayLockKey: mode === "server" ? sure.id : undefined
 		});
 	}
 
