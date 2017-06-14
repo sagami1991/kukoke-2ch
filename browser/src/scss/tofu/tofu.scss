@@ -38,11 +38,15 @@ $baseWhite: #fefefe;
 		transition-property: top, bottom, width, height;
 		transition-duration: .2s;
 	}
+	&.block-active {
+		border-color: $kukokeLightBlue;
+	}
 	.tofu-top-bar {
 		height: 26px;
 		display: flex;
 		align-items: center;
 		cursor: default;
+		border-bottom: 1px solid #dedede;
 		.tofu-title {
 			margin: 0 4px;
 			overflow: hidden;

@@ -12,11 +12,7 @@ export class Textarea extends BaseComponent<TextareaGenerics> {
 	/** @override */
 	public html() {
 		return `
-			<textarea 
-				class="my-radio-component ${super.getClassNames()}"
-				${super.htmlAttr()}
-			>
-			</textarea>
+			<textarea class="textarea-component ${super.getClassNames()}" ${super.htmlAttr()}></textarea>
 		`;
 	}
 

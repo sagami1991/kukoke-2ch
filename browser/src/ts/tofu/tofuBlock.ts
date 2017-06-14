@@ -122,6 +122,12 @@ export class TofuBlock extends Observable<BlockEvent> {
 		this._el.style.zIndex = "" + zIndex;
 	}
 
+	public active(toggle: boolean) {
+		this._el.classList.toggle("block-active", toggle);
+		this.panel.isActive = toggle;
+	}
+
+
 	public onTranceFormStop() {
 		db.transaction("rw", db.panelStates, () => {
 			blockStateRepository.putState({

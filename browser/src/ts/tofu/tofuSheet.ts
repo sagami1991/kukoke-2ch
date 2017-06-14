@@ -41,9 +41,16 @@ export class TofuSheet {
 
 	public toFront(panelType: PanelType) {
 		if (this.frontBlock !== panelType) {
-			const block = this.blockMap.get(panelType);
-			block!.changeZindex(this.zIndex++); // TODO null時処理
-			this.frontBlock = block!.panelType;
+			const frontBlock = this.blockMap.get(panelType);
+			frontBlock!.changeZindex(this.zIndex++); // TODO null時処理
+			this.frontBlock = frontBlock!.panelType;
+			this.blockMap.forEach(block => {
+				if (block === frontBlock) {
+					block.active(true);
+				} else {
+					block.active(false);
+				}
+			});
 		}
 	}
 

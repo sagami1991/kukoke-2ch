@@ -7,7 +7,6 @@ import { SureListPanel } from './panel/sureListPanel';
 import { BbsMenuPanel } from './panel/bbsMenuPanel';
 import { BasePanelEvent, Panel } from './panel/basePanel';
 import { TofuSheet } from './tofu/tofuSheet';
-import { LeftSideBarView } from './view/leftSideBarView';
 import "jquery-ui/ui/widgets/draggable";
 import "jquery-ui/ui/widgets/resizable";
 import "./common/contextmenu";
@@ -15,7 +14,6 @@ import { electron } from "common/libs";
 
 class MyApp {
 	// views
-	// private readonly leftSideBar: LeftSideBarView;
 	private readonly tofuSheet: TofuSheet;
 
 	// panels
@@ -27,7 +25,6 @@ class MyApp {
 	private readonly imagePanel: ImageViewerPanel;
 
 	constructor() {
-		// this.leftSideBar = new LeftSideBarView();
 		this.tofuSheet = new TofuSheet();
 		this.allPanels = [
 			this.boardListPanel = new BbsMenuPanel(),
@@ -78,33 +75,33 @@ class MyApp {
 		await this.resListPanel.init();
 		const kariId = createObserverId();
 		this.boardListPanel.addListener("openBoard", kariId, (board) => {
-			this.lockPanelWrapper(this.sureListPanel, () => this.sureListPanel.openBoard(board));
+			this.preOpenPanel(this.sureListPanel, () => this.sureListPanel.openBoard(board));
 		});
-		this.boardListPanel.addListener("openRecent", kariId, () => {
-			this.lockPanelWrapper(this.sureListPanel, () => this.sureListPanel.openRecent());
+		this.boardListPanel.addListener("openRecent", kariId, (board) => {
+			this.preOpenPanel(this.sureListPanel, () => this.sureListPanel.openBoard(board));
 		});
 		this.sureListPanel.addListener("openSure", kariId, (sure) => {
-			this.lockPanelWrapper(this.resListPanel, () => this.resListPanel.openSure(sure));
+			this.preOpenPanel(this.resListPanel, () => this.resListPanel.openSure(sure));
 		});
 		this.resListPanel.addListener("changeSure", kariId, (sure) => {
 			// await this.preListenPanel(this._sureListPanel);
 			this.sureListPanel.onChangeSureModel(sure);
 		});
 		this.resListPanel.addListener("openForm", kariId, (option) => {
-			this.lockPanelWrapper(this.submitFormPanel, () => this.submitFormPanel.openForm(option));
+			this.preOpenPanel(this.submitFormPanel, () => this.submitFormPanel.openForm(option));
 		});
 		this.resListPanel.addListener("openImage", kariId, (url) => {
-			this.lockPanelWrapper(this.imagePanel, () => this.imagePanel.openImage(url));
+			this.preOpenPanel(this.imagePanel, () => this.imagePanel.openImage(url));
 		});
-		this.submitFormPanel.addListener("doneWrite", kariId, async (sure) => {
+		this.submitFormPanel.addListener("doneWrite", kariId, async ([sure, body]) => {
 			this.tofuSheet.closeBlock(this.submitFormPanel.panelType);
-			this.lockPanelWrapper(this.resListPanel, () => this.resListPanel.openSure(sure));
+			this.preOpenPanel(this.resListPanel, () => this.resListPanel.openSure(sure, body));
 		});
 	}
 
-	private async lockPanelWrapper(panel: Panel, execute: () => Promise<any>) {
+	private async preOpenPanel(panel: Panel, execute: () => Promise<any>) {
 		await this.preListenPanel(panel);
-		await panel.loadingTransaction(execute);
+		await execute();
 	}
 
 	private async preListenPanel(panel: Panel) {
@@ -119,6 +116,7 @@ class MyApp {
 		await this.tofuSheet.addBlock(this.boardListPanel);
 		await this.tofuSheet.addBlock(this.sureListPanel);
 		await this.tofuSheet.addBlock(this.resListPanel);
+		this.tofuSheet.toFront("resList");
 	}
 }
 

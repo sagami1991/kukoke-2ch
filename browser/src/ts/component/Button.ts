@@ -39,4 +39,8 @@ export class Button extends BaseComponent<ButtonGenerics> {
 	public initElem(elem: HTMLElement, option: ButtonOption) {
 		elem.addEventListener("click", () => option.onClick());
 	}
+
+	public toggleActive(toggel: boolean) {
+		this.element.classList.toggle("active", toggel);
+	}
 }

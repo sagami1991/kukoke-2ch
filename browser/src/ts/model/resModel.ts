@@ -11,6 +11,8 @@ export interface Res {
 	isNew: boolean;
 	imageUrls: string[];
 	isAsciiArt: boolean;
+	isMyRes: boolean;
+	isReplyRes: boolean;
 }
 
 export interface UserBe {
@@ -31,6 +33,8 @@ export class ResModel {
 	public readonly isNew: boolean;
 	public readonly imageUrls: string[];
 	public readonly isAsciiArt: boolean;
+	public readonly isMyRes: boolean;
+	public readonly isReplyRes: boolean;
 
 	constructor(attr: Res) {
 		this.index = attr.index;
@@ -45,6 +49,8 @@ export class ResModel {
 		this.isNew = attr.isNew;
 		this.imageUrls = attr.imageUrls;
 		this.isAsciiArt = attr.isAsciiArt;
+		this.isMyRes = attr.isMyRes;
+		this.isReplyRes = attr.isReplyRes;
 	}
 
 	public getIndexFormat() {

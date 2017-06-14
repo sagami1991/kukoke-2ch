@@ -1,4 +1,4 @@
-$resColorNormal: rgb(120,140,155);
+$resColorNormal: #647786;
 $resColorBlue: rgb(132, 75, 191);
 $resColorRed: rgb(210, 12, 12);
 
@@ -8,12 +8,18 @@ $resColorRed: rgb(210, 12, 12);
 	&[kukoke-active] {
 		background-color: $hoverColor;
 	}
+	&.res-my{
+		    border-left: 4px solid $resColorRed;
+	}
+	&.res-reply{
+		    border-left: 4px solid $kukokeLightBlue;
+	}
 	.res-header {
 		color: $resColorNormal;
 		font-size: 12px;
 		.res-no {
 			&.res-new {
-				font-weight: 500;
+				font-weight: 700;
 			}
 		}
 		.res-no, .res-name, .res-user-id, .res-postdate {

@@ -45,6 +45,8 @@ export interface SureAttr {
 	byteLength?: number;
 	lastModified?: string;
 	bookmarkIndex?: number;
+	myResIndex?: number[];
+	myUserId?: string[];
 }
 
 export type ImageType = "image/png" | "image/jpeg" | "image/gif" | "image/bmp";

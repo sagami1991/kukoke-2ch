@@ -15,10 +15,10 @@ input, button, textarea {
 }
 
 @mixin commonHoverBg {
-	&:hover {
+	&.hover, &:hover {
 		background-color: $hoverColor;
 	}
-	&:active {
+	&.active, &:active {
 		background-color: $activeColor;
 	}
 }
@@ -182,6 +182,9 @@ input, button, textarea {
 	.dropdown-item {
 		@include dropdownItem;
 	}
+	.dropdown-icon {
+		margin-left: auto;
+	}
 }
 .dropdown-items {
 	border: 1px solid $inputBorderColor;
@@ -233,3 +236,7 @@ input, button, textarea {
 		}
 	}
 }
+
+.textarea-component {
+	resize: none;
+} 

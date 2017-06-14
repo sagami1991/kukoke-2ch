@@ -1,3 +1,4 @@
+import { notify } from '../common/libs';
 import { createObserverId } from '../base/observable';
 import { MyStorage } from 'common/commons';
 import { Observable } from 'base/observable';
@@ -7,7 +8,12 @@ export interface BasePanelEvent {
 };
 export type PanelType = "board" | "sureList" | "resList" | "form" | "image";
 
+export enum KeyCode {
+	W = 87
+}
+export type KeyType = "Alt+W";
 export abstract class Panel<T = BasePanelEvent, S = {}> extends Observable<T & BasePanelEvent> {
+	public isActive: boolean;
 	protected _el: Element;
 	protected _title: string;
 	protected readonly storage: S;
@@ -37,23 +43,30 @@ export abstract class Panel<T = BasePanelEvent, S = {}> extends Observable<T & B
 
 	public lock() {
 		this._el.classList.add("loading");
-		this.lockCount ++;
+		this.lockCount++;
 	}
 
 
 	public unLock() {
-		this.lockCount --;
+		this.lockCount--;
 		if (this.lockCount === 0) {
 			this._el.classList.remove("loading");
 		}
 	}
 
-	public async loadingTransaction(execute: () => Promise<any>) {
+	protected async loadingTransaction(execute: () => Promise<any>, postTransaction?: () => void) {
+		if (this.lockCount > 0) {
+			notify.info("パネルをロック中です");
+			throw new Error("パネルをロック中");
+		}
 		this.lock();
 		try {
 			await execute();
 		} finally {
 			this.unLock();
+			if (postTransaction) {
+				postTransaction();
+			}
 		}
 	}
 
@@ -62,5 +75,19 @@ export abstract class Panel<T = BasePanelEvent, S = {}> extends Observable<T & B
 	}
 
 	public onChangeSize() {
+	}
+
+	protected addKeyEvent(funcKey: "alt" | null, key: KeyCode, callback: () => void) {
+		window.addEventListener("keydown", (event) => {
+			if (!this.isActive) {
+				return;
+			}
+			if (funcKey === "alt" && !event.altKey) {
+				return;
+			}
+			if (event.keyCode === key) {
+				callback();
+			}
+		});
 	}
 }

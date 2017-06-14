@@ -24,7 +24,7 @@ export class TofuShadow {
 	}
 
 	public hide() {
-		this.el.style.display = "none";
+		this.el.style.display = "all";
 	}
 
 	public changeCss(option: BlockState) {

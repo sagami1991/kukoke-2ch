@@ -1,0 +1,10 @@
+.status-bar-container {
+	font-size: 12px;
+	padding: 0 10px;
+	display: flex;
+	align-items: center;
+	overflow: hidden;
+	color: #eee;
+	height: 22px;
+	background-color: $kukokeBlue;
+}

@@ -2,7 +2,7 @@ import { notify } from '../common/libs';
 import { SureModel } from 'model/sureModel';
 import { ComponentScanner } from 'component/scanner';
 import { Button, Textarea } from 'component/components';
-import { Panel, PanelType } from './basePanel';
+import { Panel, PanelType, KeyCode } from './basePanel';
 import { NichanSubmitClient } from "client/nichanSubmitClient";
 
 type SubmitType =  "resList" | "sureList";
@@ -19,7 +19,7 @@ export interface OpenFormOption {
 	initBody?: string;
 }
 interface FormPanelEvent {
-	"doneWrite": SureModel;
+	"doneWrite": [SureModel, string];
 }
 
 export class SubmitFormPanel extends Panel<FormPanelEvent> {
@@ -35,10 +35,16 @@ export class SubmitFormPanel extends Panel<FormPanelEvent> {
 	// components
 	private template() {
 		return `
-		<div class="panel-container panel-bbs-menu">
+		<div class="panel-container panel-form">
+			<div class="panel-layer"></div>
+			<div class="panel-loading-bar"></div>
 			<div class="panel-content">
-				${this._textarea.html()}
-				${this._submitButton.html()}
+				<div class="form-container">
+					${this._textarea.html()}
+					<div class="form-buttons">
+						${this._submitButton.html()}
+					</div>
+				</div>
 			</div>
 		</div>
 		`;
@@ -47,7 +53,9 @@ export class SubmitFormPanel extends Panel<FormPanelEvent> {
 	constructor() {
 		super();
 		this._title = "書き込み";
-		this._textarea = new Textarea({});
+		this._textarea = new Textarea({
+			className: "form-textarea"
+		});
 		this._submitButton = new Button({
 			icon: "icon-ok",
 			iconSize: "s",
@@ -57,18 +65,25 @@ export class SubmitFormPanel extends Panel<FormPanelEvent> {
 		});
 		this._el = ComponentScanner.scanHtml(this.template());
 		this._content = this._el.querySelector(".panel-content")!;
-	}
-	public async init() {
+		super.addKeyEvent("alt", KeyCode.W, () => {
+			this.submit(this._sure);
+		});
 	}
 
-	private async submit(sure: SureModel) {
-		const result = await NichanSubmitClient.submitRes(sure.board, sure.datNo, this.getValue());
-		if (result.type === "success") {
-			notify.success(result.body, result.title);
-			this.trigger("doneWrite", sure);
-		} else {
-			notify.error(result.body, result.title);
-		}
+	private submit(sure: SureModel) {
+		this.loadingTransaction(async () => {
+			this._submitButton.toggleActive(true);
+			const values = this.getValue();
+			const result = await NichanSubmitClient.submitRes(sure.board, sure.datNo, values);
+			if (result.type === "success") {
+				notify.success(result.body, result.title);
+				this.trigger("doneWrite", [sure, values.message]);
+			} else {
+				notify.error(result.body, result.title);
+			}
+		}, () => {
+			this._submitButton.toggleActive(false);
+		});
 	}
 
 	private getValue(): NichanFormValue {
@@ -81,6 +96,8 @@ export class SubmitFormPanel extends Panel<FormPanelEvent> {
 	}
 	public async openForm(option: OpenFormOption) {
 		this._textarea.setValue(option.initBody || "");
+		this.trigger("changeTitle", `書き込み - ${option.sure.titleName}`);
+		this._textarea.element.focus();
 		this._sure = option.sure;
 	}
 

@@ -1,13 +1,16 @@
+import { boardRepository } from '../database/boardRepository';
+import { contextMenuController } from '../common/contextmenu';
 import { bbsMenuService } from 'service/bbsMenuService';
 import { ComponentScanner } from 'component/scanner';
 import { RadioButton, RadioButtonOption, SearchText, SearchTextOption, List, ListOption, Button, ButtonOption } from 'component/components';
 import { Panel, PanelType } from './basePanel';
 import { BoardTable } from "database/tables";
+import { electron } from "common/libs";
 
 type BbsMenuMode =  "allList" | "history";
 interface BbsMenuPanelEvent {
 	"openBoard": BoardTable;
-	"openRecent": void;
+	"openRecent": BoardTable;
 }
 interface BbsMenuStorage {
 	mode: BbsMenuMode;
@@ -26,6 +29,18 @@ export class BbsMenuPanel extends Panel<BbsMenuPanelEvent, BbsMenuStorage> {
 	private readonly _modeRadio: RadioButton<BbsMenuMode>;
 	private readonly _reloadButton: Button;
 	private readonly _searchText: SearchText;
+
+	public static getRecentOpenSure(): BoardTable {
+		return {
+			id: -1,
+			domain: "",
+			subDomain: "",
+			path: "",
+			displayName: "最近開いたスレ",
+			type: "recentOpen",
+		};
+	}
+
 	private template() {
 		return `
 		<div class="panel-container panel-bbs-menu">
@@ -78,6 +93,19 @@ export class BbsMenuPanel extends Panel<BbsMenuPanelEvent, BbsMenuStorage> {
 				}
 			],
 			onRowClick: (board) => this.openBoard(board),
+			onRowRightClick: (board) => {
+				if (this._mode === "history" && board.type === undefined) {
+					contextMenuController.addMenu([{
+						label: "最近開いた板から削除",
+						click: () => {
+							board.isTemporary = 0;
+							boardRepository.putBoard(board);
+							this.refreshBoards();
+						}
+					}]);
+
+				}
+			},
 			noHeader: true
 		};
 	}
@@ -134,26 +162,15 @@ export class BbsMenuPanel extends Panel<BbsMenuPanelEvent, BbsMenuStorage> {
 			break;
 		case "history":
 			const historiedBoards = await bbsMenuService.getBoardsHistories();
-			boards = [this.getRecentOpenSure(), ...historiedBoards];
+			boards = [BbsMenuPanel.getRecentOpenSure(), ...historiedBoards];
 			break;
 		}
 		this._list.changeData(boards);
 	}
 
-	private getRecentOpenSure(): BoardTable {
-		return {
-			id: -1,
-			domain: "",
-			subDomain: "",
-			path: "",
-			displayName: "最近開いたスレ",
-			type: "recentOpen",
-		};
-	}
-
 	private openBoard(board: BoardTable) {
 		if (board.type === "recentOpen") {
-			this.trigger("openRecent", undefined);
+			this.trigger("openRecent", board);
 			return;
 		}
 		bbsMenuService.addHistory(board);

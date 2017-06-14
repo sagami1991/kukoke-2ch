@@ -1,3 +1,4 @@
+import { SureTable } from '../database/tables';
 import { contextMenuController } from '../common/contextmenu';
 import { boardRepository } from '../database/boardRepository';
 import { TemplateUtil } from 'common/commons';
@@ -10,9 +11,11 @@ import { Panel, PanelType } from './basePanel';
 import { BoardTable } from "database/tables";
 import { emojiUtil } from "common/emoji";
 import { electron } from "common/libs";
+import { BbsMenuPanel } from "panel/bbsMenuPanel";
 
 interface SureListStorage {
 	boardId: number | null;
+	sortKey: keyof SureModel | undefined;
 }
 
 interface SureListPanelEvent {
@@ -65,24 +68,28 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 		if (this.storage.boardId !== null) {
 			const board = await boardRepository.getBoard(this.storage.boardId);
 			if (board) {
-				await this.refreshFromDb(board);
+				this._openedBoard = board;
 			}
-		} else {
-			await this.openRecent();
 		}
+		if (this._openedBoard === undefined) {
+			this._openedBoard = BbsMenuPanel.getRecentOpenSure();
+		}
+		await this.reload(this._openedBoard, "localDb");
 	}
 
 	/** @override */
 	protected getStorageForSave(): SureListStorage {
 		return {
-			boardId: this._openedBoard ? this._openedBoard.id : null
+			boardId: this._openedBoard ? this._openedBoard.id : null,
+			sortKey: this._list.nowSortKey
 		};
 	}
 
 	/** @override */
 	protected getDefaultStorage(): SureListStorage {
 		return {
-			boardId: null
+			boardId: null,
+			sortKey: undefined
 		};
 	}
 
@@ -100,7 +107,11 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 			icon: "icon-reload",
 			iconSize: "m",
 			style: "icon-only",
-			onClick: () => this.reload()
+			onClick: () => {
+				if (this._openedBoard) {
+					this.reload(this._openedBoard, "server");
+				}
+			}
 		};
 	}
 
@@ -141,7 +152,8 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 					label: "スレタイ",
 					parse: (sure) => emojiUtil.replace(sure.titleName), // TODO エスケープ済みっぽいが危険
 					className: (sure) => `sure-suretai ${!sure.enabled ?  "sure-oti" : sure.saved ? "sure-saved" : ""}`,
-					width: 400
+					width: 400,
+					tooltip: (sure) => sure.board.displayName
 				}, {
 					label: "レス",
 					parse: (sure) => "" + sure.resCount,
@@ -157,7 +169,8 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 					label: "日付",
 					parse: (sure) => TemplateUtil.dateFormat(sure.createdAt),
 					className: () => "sure-created-at",
-					width: 140
+					width: 140,
+					sortKey: "createdAt"
 				}
 			],
 			onRowClick: (sure) => this.trigger("openSure", sure),
@@ -167,17 +180,13 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 					click: () => electron.shell.openExternal(sure.getSureUrl())
 				}]);
 			},
+			sortKey: this.storage.sortKey
 		};
 	}
 
 	public async openBoard(board: BoardTable) {
-		const sureCollection = await sureListService.getSuresFromNichan(board);
-		this.changeSureCollection(sureCollection, board, board.displayName);
-	}
-
-	public async openRecent() {
-		const sureCollection = await sureListService.getRecentOpenSures();
-		this.changeSureCollection(sureCollection, undefined, "最近開いたスレ");
+		this._openedBoard = board;
+		this.reload(board, "server");
 	}
 
 	/** @override */
@@ -185,35 +194,33 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 		this._list.changeParentSize();
 	}
 
-	private async reload() {
+	private async reload(board: BoardTable, mode: "recent" | "localDb" | "server") {
 		await this.loadingTransaction(async () => {
-			if (this._openedBoard) {
-				const board = this._openedBoard;
-				const sureCollection = await sureListService.getSuresFromNichan(board);
-				this.changeSureCollection(sureCollection, board, board.displayName);
+			let sureModels: SureModel[] | undefined;
+			if (board.type === "recentOpen") {
+				mode = "recent";
 			}
+			switch (mode) {
+				case "recent":
+					sureModels = await sureListService.getRecentOpenSures();
+					break;
+				case "localDb":
+					sureModels = await sureListService.getSuresFromDb(board);
+					break;
+				case "server":
+					sureModels = await sureListService.getSuresFromNichan(board);
+					break;
+			}
+			this._sures = sureModels!;
+			const isKeep = this._openedBoard === board && (mode === "localDb" || mode === "recent");
+			this._list.changeData(sureModels!, isKeep, mode === "recent");
+			this.trigger("changeTitle", board.displayName);
 		});
 	}
 
-	private async refreshFromDb(board: BoardTable) {
-		const sureCollection = await sureListService.getSuresFromDb(board);
-		this.changeSureCollection(sureCollection, board, board.displayName);
-	}
-
-
 	public async onChangeSureModel(sure: SureModel) {
-		if (this._openedBoard && this._openedBoard.path === sure.board.path) {
-			await this.refreshFromDb(this._openedBoard);
-		}
-	}
-
-	private changeSureCollection(sures: SureModel[], board: BoardTable | undefined, title: string) {
-		this._sures = sures;
-		this._openedBoard = board;
-		this._list.changeData(sures);
-		if (this._title !== title) {
-			this._title = title;
-			this.trigger("changeTitle", title);
+		if (this._openedBoard && (this._openedBoard.type === "recentOpen" || this._openedBoard.path === sure.board.path)) {
+			this.reload(this._openedBoard, "localDb");
 		}
 	}
 

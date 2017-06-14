@@ -1,8 +1,8 @@
 @import "./const.scss";
 
 @import "./tofu/tofu.scss";
-@import "./view/side-bar.scss";
-@import "./view/status-bar.scss";
+// @import "./view/side-bar.scss";
+// @import "./view/status-bar.scss";
 @import "./component/component.scss";
 @import "./component/virtualList.scss";
 @import "./panel/panel.scss";
@@ -24,29 +24,19 @@ body {
 	flex-direction: column;
 	font-size: 13px;
 	color: #333;
+	line-height: 20px;
 }
 
 body, input, textarea, button {
 	font-family: "Segoe UI", メイリオ, "MS PGothic";
-	line-height: 20px;
 }
 
 
 .app-container {
-	height: calc(100% - 22px);
+	// height: calc(100% - 22px);
+	height: 100%;
 	width: 100%;
 	display: flex;
-}
-
-.status-bar-container {
-	font-size: 12px;
-	padding: 0 10px;
-	display: flex;
-	align-items: center;
-	overflow: hidden;
-	color: #eee;
-	height: 22px;
-	background-color: $kukokeBlue;
 }
 
 .icon {

@@ -16,4 +16,4 @@ class StatusBarView {
 	}
 }
 
-export const statusBar = new StatusBarView();
+// export const statusBar = new StatusBarView();

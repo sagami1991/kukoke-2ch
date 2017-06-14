@@ -57,13 +57,11 @@ export class ImageThumbnail extends BaseComponent<ImageGenerics> {
 			switch (instance.status) {
 				case "noRequest":
 					instance.getImage(false);
+					element.textContent = "取得準備中...";
 					break;
 				case "done":
 					this.trigger("openImage", option.url);
 					break;
-			}
-			if (instance.status === "noRequest") {
-				instance.getImage(false);
 			}
 		});
 		element.addEventListener("contextmenu", () => {

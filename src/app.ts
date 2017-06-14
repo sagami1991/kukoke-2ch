@@ -48,7 +48,7 @@ class MainApp {
 			event.preventDefault();
 			shell.openExternal(url);
 		});
-		browser.webContents.setUserAgent("Mozilla/3.0 (compatible; JaneStyle/3.83)");
+		// browser.webContents.setUserAgent("Mozilla/3.0 (compatible; JaneStyle/3.83)");
 		browser.webContents.session.webRequest.onBeforeSendHeaders({
 			urls: ['*']
 		}, (details, callback) => {

@@ -22,12 +22,12 @@ interface ResHeader {
 }
 
 class ResListService {
-	public async getResListFromCache(sure: SureModel) {
+	public async getResListFromLocal(sure: SureModel) {
 		const savedDat = await this.readDatFile(sure);
-		return this.toResListFromSaved(savedDat);
+		return this.toResListFromSaved(savedDat, sure);
 	}
 
-	public async getResListFromServer(sure: SureModel): Promise<ResModel[]> {
+	public async getResListFromServer(sure: SureModel, myPostBody?: string): Promise<ResModel[]> {
 		let savedDatFile: Buffer | null = null;
 		let requestHeader: XhrRequestHeader | undefined;
 		if (sure.saved) {
@@ -42,12 +42,12 @@ class ResListService {
 			sure.enabled = false;
 			this.updateSureTable(sure);
 			savedDatFile = this.checkSavedDat(savedDatFile, sure);
-			resList = this.toResListFromSaved(savedDatFile);
+			resList = this.toResListFromSaved(savedDatFile, sure);
 			notify.warning("dat落ち");
 			break;
 		case "notModified":
 			savedDatFile = this.checkSavedDat(savedDatFile, sure);
-			resList = this.toResListFromSaved(savedDatFile);
+			resList = this.toResListFromSaved(savedDatFile, sure);
 			notify.info("新着なし");
 			break;
 		case "sabun":
@@ -88,10 +88,10 @@ class ResListService {
 
 	private async createResList(sure: SureModel, dat: Buffer, responseHeaders: XhrResponseHeader, oldResCount: number) {
 		const datStr = sjisBufferToStr(dat!);
-		const resList = this.toResList(datStr, oldResCount);
+		const resList = this.toResList(datStr, oldResCount, sure);
 		const sureTitle = this.extractTitle(datStr);
-		sure.update(sureTitle, dat!.byteLength, responseHeaders["last-modified"]!, resList.length);
 		await this.saveDatFile(sure.getDatFilePath(), dat);
+		sure.update(sureTitle, dat!.byteLength, responseHeaders["last-modified"]!, resList.length);
 		await this.updateSureTable(sure);
 		return resList;
 	}
@@ -102,8 +102,8 @@ class ResListService {
 		});
 	}
 
-	private toResListFromSaved(savedDat: Buffer) {
-		return this.toResList(sjisBufferToStr(savedDat), Infinity);
+	private toResListFromSaved(savedDat: Buffer, sure: SureModel) {
+		return this.toResList(sjisBufferToStr(savedDat), Infinity, sure);
 	}
 
 	private async readDatFile(sure: SureModel) {
@@ -135,7 +135,7 @@ class ResListService {
 	}
 
 	/** TODO 正規表現とsplitのパフォーマンス確認 */
-	private toResList(datBody: string, oldResCount: number) {
+	private toResList(datBody: string, oldResCount: number, sure: SureModel) {
 		datBody = this.bodyReplace(datBody);
 		const lines = datBody.split("\n");
 		const resList: ResModel[] = [];
@@ -147,7 +147,7 @@ class ResListService {
 			}
 			const {name, mail, postDate, userId, beInfo } = this.getResHeaders(splited);
 			const rawBody = splited[3];
-			this.setAnker(rawBody, index, resList);
+			const toAnkerIndexes = this.setAnker(rawBody, index, resList);
 			this.pushUserResMap(userResMap, userId, index);
 			const imageUrls = this.getImageUrls(rawBody);
 			const resAttr = new ResModel({
@@ -162,7 +162,9 @@ class ResListService {
 				userIndexes: !userId ? [] : userResMap[userId],
 				isNew: index >= oldResCount,
 				imageUrls: imageUrls,
-				isAsciiArt: this.isAsciiArtRes(rawBody)
+				isAsciiArt: this.isAsciiArtRes(rawBody),
+				isMyRes: sure.isMyRes(index, userId),
+				isReplyRes: toAnkerIndexes[0] ? sure.isMyRes(toAnkerIndexes[0], resList[toAnkerIndexes[0]].userId) : false
 			});
 			resList.push(resAttr);
 		});
@@ -170,7 +172,7 @@ class ResListService {
 	}
 
 	private getImageUrls(body: string): string[] {
-		let macher = /href="(http:\/\/[\w/:;%#\$&\?\(\)~\.=\+\-]+\.(png|gif|jpg|jpeg))">/g;
+		let macher = /href="(http:\/\/[\w/:;%#\$&\?\(\)~\.=\+\-@]+\.(png|gif|jpg|jpeg))">/g;
 		let array: RegExpExecArray | null;
 		const imgUrls: string[] = [];
 		while ((array = macher.exec(body)) !== null) {
@@ -225,10 +227,10 @@ class ResListService {
 	}
 
 	private static BR_REGEXP = /\s<br>/g;
-	private static ANKER_REGEXP = /<a.+>&gt;&gt;([0-9]{1,4})-?<\/a>/g;
-	private static TAG_REGEXP = /<a.+>(.+)<\/a>/g;
-	private static LINK_REGEXP = /h?ttps?:\/\/([\w/:;%#\$&\?\(\)~\.=\+\-]+)/g;
-	private static IMAGE_REGEXP = /href="(http:\/\/[\w/:;%#\$&\?\(\)~\.=\+\-]+\.(png|gif|jpg|jpeg))">/g;
+	private static ANKER_REGEXP = /<a.+?>&gt;&gt;([0-9]{1,4})-?<\/a>/g;
+	private static TAG_REGEXP = /<a.+?>(.+?)<\/a>/g;
+	private static LINK_REGEXP = /h?ttps?:\/\/([\w/:;%#\$&\?\(\)~\.=\+\-@]+)/g;
+	private static IMAGE_REGEXP = /href="(http:\/\/[\w/:;%#\$&\?\(\)~\.=\+\-@]+\.(png|gif|jpg|jpeg))">/g;
 
 	/** 本文整形 */
 	private bodyReplace(allBody: string) {
@@ -248,15 +250,21 @@ class ResListService {
 	}
 
 	/** アンカー先のankerFromに設定 */
-	private setAnker(line: string, nowIndex: number, resList: ResModel[]) {
+	private setAnker(line: string, nowIndex: number, resList: ResModel[]): number[] {
 		const result = new RegExp(/anker-to="([0-9]{1,4})">/g).exec(line);
 		if (result && +result[1] < nowIndex) {
-			resList[+result[1]].fromAnkers.push(nowIndex);
+			const toIndex = +result[1];
+			resList[toIndex].fromAnkers.push(nowIndex);
+			return [toIndex];
 		}
+		return [];
 	}
 
 	private isAsciiArtRes(body: string) {
 		return /(●●|　\s)/.test(body);
+	}
+
+	private rawBodyToNichanFormat(body: string) {
 	}
 }
 

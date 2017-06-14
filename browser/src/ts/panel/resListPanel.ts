@@ -24,13 +24,13 @@ interface ResListPanelEvent {
 	"openImage": string;
 }
 
-type FilterType = "none" | "popularity" | "image" | "link";
+type FilterType = "all" | "popularity" | "image" | "link" | "search";
 type RefreshMode = "reload" | "change";
 type RenderMode = "all" | "filtering";
 export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	private readonly content: HTMLElement;
 	private openedSure: SureModel | undefined;
-	private resCollection: ResModel[];
+	private resModels: ResModel[];
 	private renderMode: RenderMode;
 	public get panelType(): PanelType {
 		return "resList";
@@ -41,7 +41,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	private readonly backButton: Button;
 	private readonly refreshButton: Button;
 	private readonly createButton: Button;
-	private readonly filterDropdown: Dropdown;
+	private readonly filterDropdown: Dropdown<FilterType>;
 	private readonly searchText: SearchText;
 	private readonly urlButton: Button;
 	private readonly menuButton: Button;
@@ -68,7 +68,13 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 
 	private resTemplate(res: ResModel, className?: string) {
 		return `` +
-		`<div class="res-container ${className || ""}" res-index = "${res.index}">` +
+		`<div class="` +
+				`res-container ${className || ""} ` +
+				`${res.isMyRes ? "res-my" : ""} ` +
+				`${res.isReplyRes ? "res-reply" : ""} ` +
+				`"` +
+			` res-index = "${res.index}"` +
+		`>` +
 			`<div class="res-header">` +
 				`<span class="res-no ${res.getResColor()} ${TemplateUtil.when(res.isNew, () => "res-new")}" ` +
 					`res-index = "${res.index}"` +
@@ -92,7 +98,9 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 					`</span>`
 				)}` +
 			`</div>` +
-			`<div class="res-body ${res.isAsciiArt ? "res-ascii-art" : ""}">` +
+			`<div class="res-body ` +
+				`${res.isAsciiArt ? "res-ascii-art" : ""}" ` +
+			`>` +
 				`${res.body}` +
 			`</div>` +
 			`<div class="res-thumbnails">${
@@ -118,10 +126,16 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			icon: "icon-link",
 			label: "URL",
 			className: "url-button",
-			onClick: () => new Popup({
-				innerElement: ComponentScanner.scanHtml(`<div>${new Text({value: this.openedSure!.getSureUrl()}).html()}</div>`),
-				target: this.urlButton.element
-			})
+			onClick: () => {
+				const text = new Text({
+					value: this.openedSure!.getSureUrl(),
+
+				});
+				new Popup({
+					innerElement: ComponentScanner.scanHtml(`<div class="popup-url">${text.html()}</div>`),
+					target: this.urlButton.element
+				});
+			}
 		});
 		this.menuButton = new Button(this.getMenuButtonOption());
 		this._el = ComponentScanner.scanHtml(this.template());
@@ -133,10 +147,9 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	public async init() {
 		if (this.storage.sureId !== null) {
 			try {
-				this.openedSure = await SureModel.createInstanceFromId(this.storage.sureId);
-				const resList = await resListService.getResListFromCache(this.openedSure);
-				this.setResCollection(this.openedSure, resList);
-				this.virtialResList.changeContents(this.convertResElements(resList), this.openedSure.bookmarkIndex);
+				const sure = await SureModel.createInstanceFromId(this.storage.sureId);
+				await this.reload(sure, "localDb");
+				this.openedSure = sure;
 			} catch (error) {
 				this.storage.sureId = null;
 				console.error(error);
@@ -145,8 +158,8 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	}
 
 	public async saveStorage() {
-		super.saveStorage();
 		await this.saveBookMark();
+		super.saveStorage();
 	}
 
 	public onChangeSize() {
@@ -167,7 +180,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			if (index === null) {
 				throw new Error();
 			}
-			const result = resListService.deepSearchAnker(this.resCollection, +index);
+			const result = resListService.deepSearchAnker(this.resModels, +index);
 			this.popup(result, current);
 		});
 		ElementUtil.addDelegateEventListener(parent, "contextmenu", ".res-container", (e, current) => {
@@ -180,6 +193,19 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 				{
 					label: "これにレス",
 					click: () => this.openForm(`>>${+index + 1}`)
+				}, {
+					label: "自分のレスとマーク",
+					click: () => {
+						if (this.openedSure && this.resModels) {
+							const userId = this.resModels[+index].userId;
+							if (userId) {
+								this.openedSure.addMyUserResId(userId);
+							} else {
+								this.openedSure.addMyResIndex(+index);
+							}
+							this.reload(this.openedSure, "localDb");
+						}
+					}
 				}
 			]);
 			contextMenuController.setCallBack(() => {
@@ -191,7 +217,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			if (index === null) {
 				throw new Error();
 			}
-			const res = this.resCollection[+index];
+			const res = this.resModels[+index];
 			if (!res) {
 				return;
 			}
@@ -203,8 +229,8 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			if (index === null) {
 				throw new Error();
 			}
-			const userResIndexes = this.resCollection[+index].userIndexes;
-			const userReses = userResIndexes.map<PopupRes>(index => ({nestCount: 0, res: this.resCollection[index]}));
+			const userResIndexes = this.resModels[+index].userIndexes;
+			const userReses = userResIndexes.map<PopupRes>(index => ({nestCount: 0, res: this.resModels[index]}));
 			this.popup(userReses, current);
 		});
 
@@ -247,7 +273,11 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			icon: "icon-reload",
 			iconSize: "m",
 			style: "icon-only",
-			onClick: () => this.reload()
+			onClick: () => {
+				if (this.openedSure) {
+					this.reload(this.openedSure, "server");
+				}
+			}
 		};
 	}
 
@@ -273,6 +303,13 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 								electron.shell.openExternal(this.openedSure.getSureUrl());
 							}
 						}
+					}, {
+						label: "datファイルを開く",
+						click: () => {
+							if (this.openedSure) {
+								electron.shell.showItemInFolder(this.openedSure.getDatFilePath());
+							}
+						}
 					}
 				]);
 			}
@@ -289,27 +326,29 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 
 	private getDropdownOption(): DropdownOption<FilterType> {
 		return {
-			defaultItem: {
-				icon: "icon-filter",
-				label: "フィルター"
-			},
+			defaultItem: "all",
 			items: [
 				{
-					label: "フィルターなし",
-					id: "none"
+					icon: "icon-filter",
+					label: "フィルター選択",
+					id: "all"
 				}, {
+					icon: "icon-comment",
 					label: "人気レス",
 					id: "popularity"
 				}, {
+					icon: "icon-image",
 					label: "画像レス",
 					id: "image"
 				}, {
+					icon: "icon-link",
 					label: "リンクレス",
 					id: "link"
 
 				}
 			],
-			onSelect: (filterType) => this.filter(filterType)
+			onSelect: (filterType) => this.filter(filterType),
+			width: 150
 		};
 	}
 
@@ -322,14 +361,29 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		};
 	}
 
-	private async reload() {
+	public async openSure(sure: SureModel, myPostBody?: string) {
+		await this.reload(sure, "server");
+		this.openedSure = sure;
+		this.trigger("changeSure", sure);
+	}
+
+	private async reload(sure: SureModel, mode: "localDb" | "server" ) {
 		await this.loadingTransaction(async () => {
-			if (this.openedSure) {
-				const resList = await resListService.getResListFromServer(this.openedSure);
-				this.setResCollection(this.openedSure, resList);
-				this.virtialResList.changeContentsWithKeep(this.convertResElements(resList));
-				this.renderMode = "all";
+			let resModels: ResModel[];
+			if (mode === "localDb") {
+				resModels = await resListService.getResListFromLocal(sure);
+			} else {
+				resModels = await resListService.getResListFromServer(sure);
 			}
+			this.setResCollection(sure, resModels);
+			if (this.openedSure === sure) {
+				this.virtialResList.changeContentsWithKeep(this.convertResElements(resModels));
+			} else {
+				await this.saveBookMark();
+				this.virtialResList.changeContents(this.convertResElements(resModels), sure.bookmarkIndex);
+			}
+			this.renderMode = "all";
+			this.filterDropdown.changeItem(this.renderMode);
 		});
 	}
 
@@ -338,7 +392,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			const sure = this.openedSure;
 			this.virtialResList.empty();
 			this.openedSure = undefined;
-			this.resCollection = [];
+			this.resModels = [];
 			this._title = "";
 			await resListService.deleteSure(sure);
 			this.trigger("changeSure", sure);
@@ -346,26 +400,39 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		}
 	}
 
-	private filter(type: FilterType) {
-		if (!this.openedSure || !this.resCollection) {
+	private filter(type: FilterType, text?: string) {
+		if (!this.openedSure || !this.resModels) {
 			return;
 		}
-		this.saveBookMark();
-		let reses: ResModel[] = this.resCollection;
+		if (this.renderMode === "all") {
+			this.saveBookMark();
+		}
+		let resModels: ResModel[] | undefined;
+		let index: number | undefined;
 		switch (type) {
-		case "none":
-			this.virtialResList.changeContents(this.convertResElements(reses), this.openedSure.bookmarkIndex);
+		case "all":
+			resModels = this.resModels;
+			index = this.openedSure.bookmarkIndex;
 			this.renderMode = "all";
 			break;
 		case "popularity":
-			reses = this.resCollection.filter(res => res.fromAnkers.length >= 3);
-			this.virtialResList.changeContents(this.convertResElements(reses));
+			resModels = this.resModels.filter(res => res.fromAnkers.length >= 3);
 			this.renderMode = "filtering";
 			break;
-		case "image": // TODO
-		case "link": // TODO
-			alertMessage("info", "未実装");
+		case "image":
+			resModels = this.resModels.filter(res => res.imageUrls.length > 0);
+			this.renderMode = "filtering";
 			break;
+		case "link":
+			alertMessage("info", "未実装");
+			return;
+		case "search":
+			resModels = this.resModels.filter(res => res.body.toLowerCase().match(text!) !== null);
+			this.renderMode = "filtering";
+		}
+		if (resModels) {
+			this.virtialResList.changeContents(this.convertResElements(resModels), index);
+			this.filterDropdown.changeItem(type);
 		}
 		return;
 	}
@@ -380,16 +447,6 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			sure: this.openedSure,
 			initBody: initBody
 		});
-	}
-
-	public async openSure(sure: SureModel) {
-		this.saveBookMark();
-		this.openedSure = sure;
-		this.renderMode = "all";
-		const resList = await resListService.getResListFromServer(sure);
-		this.setResCollection(sure, resList);
-		this.virtialResList.changeContents(this.convertResElements(resList), sure.bookmarkIndex);
-		this.trigger("changeSure", sure);
 	}
 
 	private popup(reses: PopupRes[], target: Element) {
@@ -408,24 +465,17 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	}
 
 	private setResCollection(sure: SureModel, resList: ResModel[]) {
-		this.resCollection = resList;
+		this.resModels = resList;
 		this._title = `${sure.board.displayName} - ${sure.titleName} (${resList.length})`;
 		this.trigger("changeTitle", this._title);
 	}
 
 	private search(text: string) {
-		if (!this.openedSure || !this.resCollection) {
-			return;
-		}
 		if (text === "") {
-			this.virtialResList.changeContents(this.convertResElements(this.resCollection), this.openedSure.bookmarkIndex);
-			this.renderMode = "all";
-			return;
+			this.filter("all");
+		} else {
+			this.filter("search", text);
 		}
-		this.saveBookMark();
-		const reses = this.resCollection.filter(res => res.body.toLowerCase().match(text) !== null);
-		this.virtialResList.changeContents(this.convertResElements(reses));
-		this.renderMode = "filtering";
 	};
 
 	private convertResElements(reses: ResModel[]): HTMLElement[] {

@@ -2,6 +2,8 @@
 @import "./panel-sure-list.scss";
 @import "./panel-res-list.scss";
 @import "./panel-image.scss";
+@import "./panel-form.scss";
+
 @keyframes loadingBar {
 	0% {
 		left: -100px;
@@ -16,7 +18,7 @@
 	flex-direction: column;
 	flex:1;
 	position: relative;
-	
+	overflow: hidden;
 	&.loading {
 		.panel-layer {
 			position: absolute;
@@ -55,7 +57,7 @@
 	}
 	.panel-content {
 		flex:1;
-		overflow-x: hidden;
+		overflow: hidden;
 		position: relative;
 	}
 

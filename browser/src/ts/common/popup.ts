@@ -6,10 +6,10 @@ interface PopupOption {
 }
 export class Popup {
 	private static popups: Popup[] | undefined;
-	private readonly popupElem: HTMLElement;
+	private readonly popupElement: HTMLElement;
 	private readonly overlayElem: Element;
 
-	private teml() {
+	private template() {
 		return `<div class="popup"></div>`;
 	}
 
@@ -18,21 +18,22 @@ export class Popup {
 	}
 
 	constructor(option: PopupOption) {
-		this.popupElem = ElementUtil.createElement(this.teml());
+		this.popupElement = ElementUtil.createElement(this.template());
 		const rect = option.target.getBoundingClientRect();
 		const bottom = ElementUtil.appContainer.clientHeight - rect.bottom;
 		if (rect.top > bottom) {
-			this.popupElem.style.bottom = bottom + 8 + "px";
-			this.popupElem.style.maxHeight = `calc(100% - ${bottom + 8}px)`;
+			this.popupElement.style.bottom = bottom + 8 + "px";
+			this.popupElement.style.maxHeight = `calc(100% - ${bottom + 8}px)`;
 		} else {
 			const top = rect.top + rect.height;
-			this.popupElem.style.top = top + "px";
-			this.popupElem.style.maxHeight = `calc(100% - ${top + 8}px)`;
+			this.popupElement.style.top = top + "px";
+			this.popupElement.style.maxHeight = `calc(100% - ${top + 8}px)`;
 
 		}
-		this.popupElem.style.left = rect.left + "px";
+		this.popupElement.style.left = rect.left + "px";
 		this.overlayElem = ElementUtil.createElement(this.overlay());
-		this.popupElem.appendChild(option.innerElement);
+		this.popupElement.appendChild(option.innerElement);
+
 		if (!Popup.popups) {
 			ElementUtil.appContainer.appendChild(this.overlayElem);
 			this.overlayElem.addEventListener("click", () => {
@@ -42,7 +43,15 @@ export class Popup {
 		} else {
 			Popup.popups.push(this);
 		}
-		ElementUtil.appContainer.appendChild(this.popupElem);
+		ElementUtil.appContainer.appendChild(this.popupElement);
+		const popupRect = this.popupElement.getBoundingClientRect();
+		if (popupRect.left < 0) {
+			this.popupElement.style.left = "0px";
+			this.popupElement.style.right = "";
+		} else if (popupRect.right > window.innerWidth) {
+			this.popupElement.style.left = "";
+			this.popupElement.style.right = "0px";
+		}
 	}
 
 	public close() {
@@ -53,7 +62,7 @@ export class Popup {
 				popup.close();
 			});
 		}
-		this.popupElem.remove();
+		this.popupElement.remove();
 		this.overlayElem.remove();
 	}
 

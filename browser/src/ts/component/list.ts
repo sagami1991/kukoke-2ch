@@ -10,6 +10,7 @@ interface CellOption<T> {
 	readonly className?: (row: T) => string;
 	readonly parse: (row: T) => string;
 	readonly sortKey?: keyof T;
+	readonly tooltip?: (row: T) => string;
 }
 export interface ListOption<T> extends ComponentOption {
 	readonly array: T[];
@@ -17,6 +18,7 @@ export interface ListOption<T> extends ComponentOption {
 	readonly onRowClick: (row: T) => void;
 	readonly onRowRightClick?: (row: T) => void;
 	readonly noHeader?: boolean;
+	readonly sortKey?: keyof T;
 }
 
 interface ListGenerics<T> extends ComponentGenerics {
@@ -28,6 +30,11 @@ export class List<T> extends BaseComponent<ListGenerics<T>> {
 	private _cellOptions: CellOption<T>[];
 	private _tBodyContainer: HTMLElement;
 	private _virtualList: VirtualScrollView;
+	private _nowSortKey: keyof T | undefined;
+
+	public get nowSortKey(): keyof T | undefined {
+		return this._nowSortKey;
+	}
 
 	private tableTemplate(option: ListOption<T>) {
 		return `
@@ -52,11 +59,13 @@ export class List<T> extends BaseComponent<ListGenerics<T>> {
 	private rowTemplate(row: T, i: number) {
 		return `` +
 		`<div class="my-list-tr" row-index="${i}">
-			${TemplateUtil.each(this._cellOptions, (cell) => `
-				<div class="my-list-td ${cell.className ? cell.className(row) : ""}">	
-					${cell.parse(row)}
-				</div>
-			`)}
+			${TemplateUtil.each(this._cellOptions, (cellOption) => `` +
+				`<div class="my-list-td ${cellOption.className ? cellOption.className(row) : ""}" ` +
+					`title="${cellOption.tooltip ? cellOption.tooltip(row) : ""}" ` +
+				`>` +	
+					`${cellOption.parse(row)}` +
+				`</div>` +
+			``)}
 		</div>`;
 
 	}
@@ -96,6 +105,7 @@ export class List<T> extends BaseComponent<ListGenerics<T>> {
 			minRowHeight: 25,
 		});
 		this._cellOptions = option.cellOptions;
+		this._nowSortKey = option.sortKey;
 		this.changeData(option.array);
 		const style = elem.querySelector("style")!;
 		style.innerHTML = this.styleTemplate(option.cellOptions);
@@ -134,32 +144,38 @@ export class List<T> extends BaseComponent<ListGenerics<T>> {
 			}
 			const cell = this._cellOptions[+index];
 			if (!cell.sortKey) {
-				alertMessage("info", "この列はソート不可能");
+				alertMessage("info", "TODO");
 				return;
 			}
 			const sortKey = cell.sortKey;
-			const sorted = this._items.sort((a, b) => {
-				if ( a[sortKey] < b[sortKey] ) {
-					return -1 * this.toggle;
-				} else if ( a[sortKey] > b[sortKey] ) {
-					return 1 * this.toggle;
-				} else {
-					return 0;
-				}
-			});
-			this.toggle = this.toggle * -1;
-			this.changeData(sorted);
+			this._nowSortKey = sortKey;
+			this.changeData(this._items);
 		});
 	}
-	private toggle: number = - 1;
 
-	public changeData(array: T[]) {
-		this._items = array;
-		this.refresh();
+	public changeData(array: T[], isKeepPosition?: boolean, noSort?: boolean) {
+		if (!noSort && this._nowSortKey) {
+			this._items = this.sort(array, this._nowSortKey);
+		} else {
+			this._items = array;
+		}
+		const rowElems = ElementUtil.createElements(TemplateUtil.each(this._items, (row, i) => this.rowTemplate(row, i)));
+		if (isKeepPosition) {
+			this._virtualList.changeContentsWithKeep(rowElems);
+		} else {
+			this._virtualList.changeContents(rowElems);
+		}
 	}
 
-	public refresh() {
-		const rowElems = ElementUtil.createElements(TemplateUtil.each(this._items, (row, i) => this.rowTemplate(row, i)));
-		this._virtualList.changeContents(rowElems);
+	private sort(array: T[], sortKey: keyof T) {
+		return array.sort((a, b) => {
+			if ( a[sortKey] < b[sortKey] ) {
+				return 1;
+			} else if ( a[sortKey] > b[sortKey] ) {
+				return -1;
+			} else {
+				return 0;
+			}
+		});
 	}
 }

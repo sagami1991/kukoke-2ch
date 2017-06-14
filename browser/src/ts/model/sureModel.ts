@@ -3,6 +3,7 @@ import { sureRepository } from '../database/sureRepository';
 import { SureTable, BoardTable } from 'database/tables';
 import { boardRepository } from "database/boardRepository";
 import { FileUtil } from "common/commons";
+import {_} from "common/libs";
 
 export class SureModel {
 	private readonly _id: number;
@@ -18,6 +19,8 @@ export class SureModel {
 	private _lastModified: string | undefined;
 	private _isTemporary: boolean;
 	private _updatedAt: Date;
+	private _myResIndex: number[];
+	private _myUserId: string[];
 
 	private _ikioi: number;
 	private _ikioiColor: "red" | "blackRed" | "";
@@ -37,7 +40,6 @@ export class SureModel {
 	public get enabled() { return this._enabled; }
 	public get bookmarkIndex() { return this._bookmarkIndex; }
 	public set bookmarkIndex(bookmarkIndex: number) { this._bookmarkIndex = bookmarkIndex; }
-
 	public set enabled(enable: boolean) { this._enabled = enable; }
 
 	public static async createInstanceFromId(id: number): Promise<SureModel> {
@@ -69,6 +71,8 @@ export class SureModel {
 		this._ikioi = this.calcIkioi();
 		this._updatedAt = sure.updatedAt;
 		this._bookmarkIndex = sure.bookmarkIndex || 0;
+		this._myResIndex = sure.myResIndex || [];
+		this._myUserId = sure.myUserId || [];
 	}
 
 	private calcIkioi() {
@@ -96,7 +100,7 @@ export class SureModel {
 	}
 
 	public getDatFilePath() {
-		return FileUtil.getPath(`dat/${this._board.path}_${this._datNo}.dat`);
+		return FileUtil.getPath(`dat\\${this._board.path}_${this._datNo}.dat`);
 	}
 
 	public setIkioiColor(ikioiAve: number) {
@@ -114,8 +118,8 @@ export class SureModel {
 			return {};
 		} else {
 			return {
-				"If-Modified-Since": this._lastModified!,
-				"Range": `bytes=${this._byteLength!}-`,
+				"If-Modified-Since": this._lastModified,
+				"Range": `bytes=${this._byteLength}-`,
 			};
 		}
 	}
@@ -142,7 +146,10 @@ export class SureModel {
 			byteLength: this._byteLength,
 			lastModified: this._lastModified,
 			updatedAt: this._updatedAt,
-			bookmarkIndex: this._bookmarkIndex
+			bookmarkIndex: this._bookmarkIndex,
+			myResIndex: this._myResIndex,
+			myUserId: this._myUserId,
+
 		};
 	}
 
@@ -154,5 +161,21 @@ export class SureModel {
 
 	public getSureUrl() {
 		return `http://${this._board.subDomain}.${this._board.domain}/test/read.cgi/${this._board.path}/${this._datNo}/`;
+	}
+
+	public addMyResIndex(index: number) {
+		if (!this._myResIndex.includes(index)) {
+			this._myResIndex.push(index);
+		}
+	}
+
+	public addMyUserResId(userId: string) {
+		if (!this._myUserId.includes(userId)) {
+			this._myUserId.push(userId);
+		}
+	}
+
+	public isMyRes(index: number, userId: string): boolean {
+		return this._myResIndex.includes(index) || this._myUserId.includes(userId);
 	}
 }

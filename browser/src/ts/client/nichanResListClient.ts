@@ -4,7 +4,6 @@ import { NichanAuthClient } from './nichanAuthClient';
 import { Nichan } from "const";
 import { createHmac } from "crypto";
 import { BoardTable } from "database/tables";
-import { statusBar } from "view/statusBarView";
 import { XhrRequestError } from "common/error";
 
 interface ResponseResult {
@@ -55,7 +54,6 @@ export class NichanResListClient {
 				response: res
 			};
 		case 304: // 更新なし
-			statusBar.message("更新なし");
 			return {
 				type: "notModified",
 				response: res
