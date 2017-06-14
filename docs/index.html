@@ -46,7 +46,7 @@
         <script>
             var button = document.querySelector(".dl-button");
             var xhr = new XMLHttpRequest();
-            xhr.onload = () => {
+            xhr.onload = function() {
                 var resJson = xhr.responseText;
                 var releaseInfo = JSON.parse(resJson);
                 button.setAttribute("href", releaseInfo.assets[0].browser_download_url);
