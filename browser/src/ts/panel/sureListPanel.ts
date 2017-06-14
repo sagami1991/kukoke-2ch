@@ -65,16 +65,15 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 	}
 
 	public async init() {
+		let board: BoardTable | undefined;
 		if (this.storage.boardId !== null) {
-			const board = await boardRepository.getBoard(this.storage.boardId);
-			if (board) {
-				this._openedBoard = board;
-			}
+			board = await boardRepository.getBoard(this.storage.boardId);
 		}
-		if (this._openedBoard === undefined) {
-			this._openedBoard = BbsMenuPanel.getRecentOpenSure();
+		if (board === undefined) {
+			board = BbsMenuPanel.getRecentOpenSure();
 		}
-		await this.reload(this._openedBoard, "localDb");
+		await this.reload(board, "localDb");
+		this._openedBoard = board;
 	}
 
 	/** @override */
@@ -185,8 +184,8 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 	}
 
 	public async openBoard(board: BoardTable) {
+		await this.reload(board, "server");
 		this._openedBoard = board;
-		this.reload(board, "server");
 	}
 
 	/** @override */
