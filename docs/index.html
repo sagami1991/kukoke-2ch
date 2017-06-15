@@ -13,7 +13,21 @@
             <div>
                 <a class="button dl-button">ダウンロード（利用不可）</a>
                 <a href="https://github.com/socket1016/kukoke-2ch" class="button" target="_blank">ソースコード</a>
+            </div>
+            <div class="github-labels">
+                <div class="badge-container">
+                    <div class="badge-label">downloads</div>
+                    <div class="badge-value badge-download badge-green"></div>
                 </div>
+                <div class="badge-container">
+                    <div class="badge-label">version</div>
+                    <div class="badge-value badge-version badge-blue"></div>
+                </div>
+                <div class="badge-container">
+                    <div class="badge-label">update</div>
+                    <div class="badge-value badge-update badge-blue"></div>
+                </div>
+            </div>
         </div>
         <div class="body-container">
             <img src="http://i.imgur.com/PQ7Z18Q.png" style="max-width: 60%; max-height: 300px;">
@@ -45,12 +59,19 @@
         </div>
         <script>
             var button = document.querySelector(".dl-button");
+            var downloadBadge = document.querySelector(".badge-download");
+            var versionBadge = document.querySelector(".badge-version");
+            var updateBadge = document.querySelector(".badge-update");
             var xhr = new XMLHttpRequest();
             xhr.onload = function() {
                 var resJson = xhr.responseText;
                 var releaseInfo = JSON.parse(resJson);
                 button.setAttribute("href", releaseInfo.assets[0].browser_download_url);
                 button.textContent = "ダウンロード";
+                downloadBadge.textContent = releaseInfo.assets[0].download_count + " total";
+                versionBadge.textContent = releaseInfo.name;
+                var date = new Date(releaseInfo.published_at);
+                updateBadge.textContent = date.toISOString().slice(0, 10);
             }
             xhr.open("GET", "https://api.github.com/repos/socket1016/kukoke-2ch/releases/latest", true);
             xhr.send();

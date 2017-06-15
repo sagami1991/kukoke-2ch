@@ -11,12 +11,41 @@ body {
 .top-container {
     background: radial-gradient(at top, #706c8c 0%, #263f58 100%);
     color: white;
-    padding: 40px 0;
+    padding: 40px 0 20px 0;
     text-align: center;
 }
 
-.body-container {
+.github-labels {
+    margin-top: 20px;
 }
+.github-labels img {
+    margin-right: 6px;
+}
+.badge-container {
+    font-size: 12px;
+    display: inline-flex;
+    color: white;
+    text-shadow: 0px 0.6px 0 rgba(0, 0, 0, 0.38);
+    margin-right: 6px;
+    border-radius: 4px;
+    overflow: hidden;
+    line-height: 20px;
+    font-family: "メイリオ";
+}
+.badge-label {
+    padding: 0 4px;
+    background: linear-gradient(to bottom, #5f5f5f, #4d4d4d);
+}
+.badge-value {
+    padding: 0 4px;
+}
+.badge-green {
+    background-color: #40ba12;
+}
+.badge-blue {
+    background-color: #0172b3;
+}
+
 .top-logo {
     font-size: 50px;
 }
@@ -56,7 +85,7 @@ body {
     text-align: center;
 }
 
-img {
+.body-container img {
     display: block;
     max-width: 100%;
     height: auto;
