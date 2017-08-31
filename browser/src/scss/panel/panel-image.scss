@@ -4,10 +4,10 @@
 		height: 100%;
 		position: relative;
 		background-image: url("../resource/image-viewer-bg.png");
-		display: flex;
-		align-items: center;
-		justify-content: center;
 		&.normal {
+			display: flex;
+			align-items: center;
+			justify-content: center;
 			cursor: zoom-in;
 			img {
 				max-width: 100%;
@@ -17,6 +17,13 @@
 		&.zoomed {
 			cursor: zoom-out;
 			overflow: auto;
+			img {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+			}
 		}
 		img {
 			margin: auto;
