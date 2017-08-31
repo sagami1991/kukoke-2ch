@@ -27,6 +27,7 @@ body {
     color: white;
     text-shadow: 0px 0.6px 0 rgba(0, 0, 0, 0.38);
     margin-right: 6px;
+    margin-bottom: 4px;
     border-radius: 4px;
     overflow: hidden;
     line-height: 20px;
