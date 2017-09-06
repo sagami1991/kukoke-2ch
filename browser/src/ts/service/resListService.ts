@@ -27,7 +27,7 @@ class ResListService {
 		return this.toResListFromSaved(savedDat, sure);
 	}
 
-	public async getResListFromServer(sure: SureModel, myPostBody?: string): Promise<ResModel[]> {
+	public async getResListFromServer(sure: SureModel, myPostBody: string | undefined): Promise<ResModel[]> {
 		let savedDatFile: Buffer | null = null;
 		let requestHeader: XhrRequestHeader | undefined;
 		if (sure.saved) {
@@ -35,7 +35,7 @@ class ResListService {
 			requestHeader = sure.getRequestHeader();
 		}
 		const result = await NichanResListClient.fetchResList(sure.board, sure.datNo, requestHeader);
-		let dat: Buffer;
+		const responseHeaders = result.response!.headers;
 		let resList: ResModel[] = [];
 		switch (result.type) {
 		case "datOti":
@@ -52,14 +52,18 @@ class ResListService {
 			break;
 		case "sabun":
 			savedDatFile = this.checkSavedDat(savedDatFile, sure);
-			dat = Buffer.concat([savedDatFile, result.response!.body]);
+			const concatedDat = Buffer.concat([savedDatFile, result.response!.body]);
 			const oldResCount = sure.savedResCount || 0;
-			resList = await this.createResList(sure, dat, result.response!.headers, oldResCount);
+			const sureInfo = this.convertDatToResListAndTitle(sure, concatedDat, oldResCount, myPostBody);
+			resList = sureInfo.resList;
+			await this.saveDatFileAndUpdateSureTable(sure, concatedDat, sureInfo.sureTitle, responseHeaders["last-modified"]!, resList.length);
 			notify.success(`新着あり ${sure.savedResCount! - oldResCount}件` );
 			break;
 		case "success":
-			dat = result.response!.body;
-			resList = await this.createResList(sure, dat, result.response!.headers, 0);
+			const dat = result.response!.body;
+			const sureInfo2 = this.convertDatToResListAndTitle(sure, dat , 0, undefined);
+			resList = sureInfo2.resList;
+			await this.saveDatFileAndUpdateSureTable(sure, dat, sureInfo2.sureTitle, responseHeaders["last-modified"]!, resList.length);
 			notify.success(`新規取得完了 ${resList.length}件` );
 			break;
 		case "unexpectedCode":
@@ -86,14 +90,20 @@ class ResListService {
 		await FileUtil.deleteFile(sure.getDatFilePath());
 	}
 
-	private async createResList(sure: SureModel, dat: Buffer, responseHeaders: XhrResponseHeader, oldResCount: number) {
-		const datStr = sjisBufferToStr(dat!);
-		const resList = this.toResList(datStr, oldResCount, sure);
+	private convertDatToResListAndTitle(sure: SureModel, dat: Buffer, oldResCount: number, mySubmitedBody: string | undefined): { resList: ResModel[], sureTitle: string } {
+		const datStr = sjisBufferToStr(dat);
+		const resList = this.datStringToResList(datStr, oldResCount, sure, mySubmitedBody);
 		const sureTitle = this.extractTitle(datStr);
+		return {
+			resList: resList,
+			sureTitle: sureTitle
+		};
+	}
+
+	private async saveDatFileAndUpdateSureTable(sure: SureModel, dat: Buffer, sureTitle: string, lastModified: string, resLength: number) {
 		await this.saveDatFile(sure.getDatFilePath(), dat);
-		sure.update(sureTitle, dat!.byteLength, responseHeaders["last-modified"]!, resList.length);
+		sure.update(sureTitle, dat!.byteLength, lastModified, resLength);
 		await this.updateSureTable(sure);
-		return resList;
 	}
 
 	public async updateSureTable(sure: SureModel) {
@@ -103,7 +113,7 @@ class ResListService {
 	}
 
 	private toResListFromSaved(savedDat: Buffer, sure: SureModel) {
-		return this.toResList(sjisBufferToStr(savedDat), Infinity, sure);
+		return this.datStringToResList(sjisBufferToStr(savedDat), Infinity, sure, undefined);
 	}
 
 	private async readDatFile(sure: SureModel) {
@@ -135,7 +145,7 @@ class ResListService {
 	}
 
 	/** TODO 正規表現とsplitのパフォーマンス確認 */
-	private toResList(datBody: string, oldResCount: number, sure: SureModel) {
+	private datStringToResList(datBody: string, oldResCount: number, sure: SureModel, submitMyBody: string | undefined) {
 		datBody = this.bodyReplace(datBody);
 		const lines = datBody.split("\n");
 		const resList: ResModel[] = [];
@@ -150,6 +160,11 @@ class ResListService {
 			const toAnkerIndexes = this.setAnker(rawBody, index, resList);
 			this.pushUserResMap(userResMap, userId, index);
 			const imageUrls = this.getImageUrls(rawBody);
+			const isNew = index >= oldResCount;
+			let isMyres = sure.isMyRes(index, userId);
+			if (!isMyres && isNew && submitMyBody !== undefined) {
+				isMyres = this.isMyRes(rawBody, submitMyBody);
+			}
 			const resAttr = new ResModel({
 				index: index,
 				name: name,
@@ -160,15 +175,19 @@ class ResListService {
 				body: rawBody,
 				fromAnkers: [],
 				userIndexes: !userId ? [] : userResMap[userId],
-				isNew: index >= oldResCount,
+				isNew: isNew,
 				imageUrls: imageUrls,
 				isAsciiArt: this.isAsciiArtRes(rawBody),
-				isMyRes: sure.isMyRes(index, userId),
+				isMyRes: isMyres,
 				isReplyRes: toAnkerIndexes[0] ? sure.isMyRes(toAnkerIndexes[0], resList[toAnkerIndexes[0]].userId) : false
 			});
 			resList.push(resAttr);
 		});
 		return resList;
+	}
+
+	private isMyRes(rawBody: string, submitedMyBody: string): boolean {
+		return rawBody.replace(/<>|\s|<.+?>|&.+?;|Rock54:.+?\)/g, "") === submitedMyBody.replace(/\s|\n|&|>|</g, "");
 	}
 
 	private getImageUrls(body: string): string[] {

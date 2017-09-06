@@ -81,7 +81,7 @@ class MyApp {
 			this.preOpenPanel(this.sureListPanel, () => this.sureListPanel.openBoard(board));
 		});
 		this.sureListPanel.addListener("openSure", kariId, (sure) => {
-			this.preOpenPanel(this.resListPanel, () => this.resListPanel.openSure(sure));
+			this.preOpenPanel(this.resListPanel, () => this.resListPanel.openSure(sure, undefined));
 		});
 		this.resListPanel.addListener("changeSure", kariId, (sure) => {
 			// await this.preListenPanel(this._sureListPanel);
@@ -93,9 +93,9 @@ class MyApp {
 		this.resListPanel.addListener("openImage", kariId, (url) => {
 			this.preOpenPanel(this.imagePanel, () => this.imagePanel.openImage(url));
 		});
-		this.submitFormPanel.addListener("doneWrite", kariId, async ([sure, body]) => {
+		this.submitFormPanel.addListener("doneWrite", kariId, async ([sure, mySubmitedBody]) => {
 			this.tofuSheet.closeBlock(this.submitFormPanel.panelType);
-			this.preOpenPanel(this.resListPanel, () => this.resListPanel.openSure(sure, body));
+			this.preOpenPanel(this.resListPanel, () => this.resListPanel.openSure(sure, mySubmitedBody));
 		});
 	}
 

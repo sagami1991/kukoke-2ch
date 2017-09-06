@@ -148,7 +148,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		if (this.storage.sureId !== null) {
 			try {
 				const sure = await SureModel.createInstanceFromId(this.storage.sureId);
-				await this.reload(sure, "localDb");
+				await this.reload(sure, "localDb", undefined);
 				this.openedSure = sure;
 			} catch (error) {
 				this.storage.sureId = null;
@@ -203,7 +203,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 							} else {
 								this.openedSure.addMyResIndex(+index);
 							}
-							this.reload(this.openedSure, "localDb");
+							this.reload(this.openedSure, "localDb", undefined);
 						}
 					}
 				}
@@ -275,7 +275,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			style: "icon-only",
 			onClick: () => {
 				if (this.openedSure) {
-					this.reload(this.openedSure, "server");
+					this.reload(this.openedSure, "server", undefined);
 				}
 			}
 		};
@@ -361,19 +361,19 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		};
 	}
 
-	public async openSure(sure: SureModel, myPostBody?: string) {
-		await this.reload(sure, "server");
+	public async openSure(sure: SureModel, mySubmitedBody: string | undefined) {
+		await this.reload(sure, "server", mySubmitedBody);
 		this.openedSure = sure;
 		this.trigger("changeSure", sure);
 	}
 
-	private async reload(sure: SureModel, mode: "localDb" | "server" ) {
+	private async reload(sure: SureModel, mode: "localDb" | "server", mySubmitedBody: string | undefined) {
 		await this.loadingTransaction(async () => {
 			let resModels: ResModel[];
 			if (mode === "localDb") {
 				resModels = await resListService.getResListFromLocal(sure);
 			} else {
-				resModels = await resListService.getResListFromServer(sure);
+				resModels = await resListService.getResListFromServer(sure, mySubmitedBody);
 			}
 			this.setResCollection(sure, resModels);
 			if (this.openedSure === sure) {
