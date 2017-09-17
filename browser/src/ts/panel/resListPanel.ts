@@ -197,12 +197,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 					label: "自分のレスとマーク",
 					click: () => {
 						if (this.openedSure && this.resModels) {
-							const userId = this.resModels[+index].userId;
-							if (userId) {
-								this.openedSure.addMyUserResId(userId);
-							} else {
-								this.openedSure.addMyResIndex(+index);
-							}
+							this.openedSure.addMyResIndex(+index);
 							this.reload(this.openedSure, "localDb", undefined);
 						}
 					}

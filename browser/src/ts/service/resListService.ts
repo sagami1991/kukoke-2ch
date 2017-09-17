@@ -161,9 +161,8 @@ class ResListService {
 			this.pushUserResMap(userResMap, userId, index);
 			const imageUrls = this.getImageUrls(rawBody);
 			const isNew = index >= oldResCount;
-			let isMyres = sure.isMyRes(index, userId);
-			if (!isMyres && isNew && submitMyBody !== undefined) {
-				isMyres = this.isMyRes(rawBody, submitMyBody);
+			if (isNew && submitMyBody !== undefined && this.isMyRes(rawBody, submitMyBody)) {
+				sure.addMyResIndex(index);
 			}
 			const resAttr = new ResModel({
 				index: index,
@@ -178,8 +177,8 @@ class ResListService {
 				isNew: isNew,
 				imageUrls: imageUrls,
 				isAsciiArt: this.isAsciiArtRes(rawBody),
-				isMyRes: isMyres,
-				isReplyRes: toAnkerIndexes[0] ? sure.isMyRes(toAnkerIndexes[0], resList[toAnkerIndexes[0]].userId) : false
+				isMyRes: sure.isMyRes(index),
+				isReplyRes: toAnkerIndexes[0] ? sure.isMyRes(toAnkerIndexes[0]) : false
 			});
 			resList.push(resAttr);
 		});

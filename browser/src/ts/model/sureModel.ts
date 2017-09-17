@@ -20,7 +20,6 @@ export class SureModel {
 	private _isTemporary: boolean;
 	private _updatedAt: Date;
 	private _myResIndex: number[];
-	private _myUserId: string[];
 
 	private _ikioi: number;
 	private _ikioiColor: "red" | "blackRed" | "";
@@ -72,7 +71,6 @@ export class SureModel {
 		this._updatedAt = sure.updatedAt;
 		this._bookmarkIndex = sure.bookmarkIndex || 0;
 		this._myResIndex = sure.myResIndex || [];
-		this._myUserId = sure.myUserId || [];
 	}
 
 	private calcIkioi() {
@@ -148,8 +146,6 @@ export class SureModel {
 			updatedAt: this._updatedAt,
 			bookmarkIndex: this._bookmarkIndex,
 			myResIndex: this._myResIndex,
-			myUserId: this._myUserId,
-
 		};
 	}
 
@@ -169,13 +165,7 @@ export class SureModel {
 		}
 	}
 
-	public addMyUserResId(userId: string) {
-		if (!this._myUserId.includes(userId)) {
-			this._myUserId.push(userId);
-		}
-	}
-
-	public isMyRes(index: number, userId: string): boolean {
-		return this._myResIndex.includes(index) || this._myUserId.includes(userId);
+	public isMyRes(index: number): boolean {
+		return this._myResIndex.includes(index);
 	}
 }
