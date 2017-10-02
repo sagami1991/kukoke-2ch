@@ -69,7 +69,7 @@ class SureListService {
 				bId: board.id,
 				datNo: +result[0].replace(".dat", ""),
 				index: index,
-				displayName: result[2].replace(/(\s\[無断転載禁止\])?(&#169;2ch\.net)/, ""),
+				displayName: result[2].replace(/(\s\[無断転載禁止\])?(&#169;[2,5]ch\.net)/, ""),
 				resCount: resCount,
 				enabled: 1,
 				saved: 0,

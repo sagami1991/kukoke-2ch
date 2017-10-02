@@ -34,7 +34,7 @@ export namespace Nichan  {
 	export const CT = "1234567890";
 	export const HB = "e639a54671ccf9f839f0aee2a58fc7d5ad36b031a80611fd9e4409201fda8e69";
 	export const USER_AGENT = "Mozilla/3.0 (compatible; JaneStyle/3.83)";
-	export const BBS_MENU_URL = "http://menu.2ch.net/bbsmenu.html";
+	export const BBS_MENU_URL = "http://menu.5ch.net/bbsmenu.html";
 	export enum ThreadStatus {
 		/** 取得不可能？ */
 		NOT_AVAILABLE = 0,

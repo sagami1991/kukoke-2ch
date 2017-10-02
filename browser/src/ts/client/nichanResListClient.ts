@@ -22,7 +22,7 @@ export class NichanResListClient {
 		try {
 			res = await xhrRequest({
 				method: "POST",
-				url: `https://api.2ch.net${uri}`,
+				url: `https://api.5ch.net${uri}`,
 				headers: <XhrRequestHeader>{...reqHeaders, "Content-Type":  "application/x-www-form-urlencoded"},
 				formData: new Map([
 					["sid", this.nichanSessionId],

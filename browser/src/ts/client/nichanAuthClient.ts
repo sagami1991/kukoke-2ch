@@ -10,7 +10,7 @@ export class NichanAuthClient {
 		}
 		const res = await xhrRequest({
 			method: "POST",
-			url: "https://api.2ch.net/v1/auth/",
+			url: "https://api.5ch.net/v1/auth/",
 			headers: <XhrRequestHeader>{
 				"Content-Type": "application/x-www-form-urlencoded",
 			},

@@ -260,7 +260,7 @@ class ResListService {
 		allBody = allBody.replace(ResListService.TAG_REGEXP, `$1`);
 		// リンク
 		allBody = allBody.replace(ResListService.LINK_REGEXP, `<a class="res-link" href="http://$1">$&</a>`);
-		allBody = allBody.replace(/sssp:\/\/(img\.2ch\.net.+?\.gif)/g, `<img class="nichan-be-icon" src="http://$1">`);
+		allBody = allBody.replace(/sssp:\/\/(img\.[2,5]ch\.net.+?\.gif)/g, `<img class="nichan-be-icon" src="http://$1">`);
 		// // 画像
 		// body = body.replace(/(h?ttps?:.+\.(png|gif|jpg|jpeg))<br>/, `<span class="res-image-link">$1</span><br>`);
 		allBody = emojiUtil.replace(allBody);
