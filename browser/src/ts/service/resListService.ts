@@ -156,12 +156,12 @@ class ResListService {
 				return;
 			}
 			const {name, mail, postDate, userId, beInfo } = this.getResHeaders(splited);
-			const rawBody = splited[3];
-			const toAnkerIndexes = this.setAnker(rawBody, index, resList);
+			const resBody = splited[3];
+			const toAnkerIndexes = this.setAnker(resBody, index, resList);
 			this.pushUserResMap(userResMap, userId, index);
-			const imageUrls = this.getImageUrls(rawBody);
+			const imageUrls = this.getImageUrls(resBody);
 			const isNew = index >= oldResCount;
-			if (isNew && submitMyBody !== undefined && this.isMyRes(rawBody, submitMyBody)) {
+			if (isNew && submitMyBody !== undefined && this.isMyRes(resBody, submitMyBody)) {
 				sure.addMyResIndex(index);
 			}
 			const resAttr = new ResModel({
@@ -171,12 +171,12 @@ class ResListService {
 				postDate: postDate,
 				userId: userId,
 				userBe: beInfo,
-				body: rawBody,
+				body: resBody,
 				fromAnkers: [],
 				userIndexes: !userId ? [] : userResMap[userId],
 				isNew: isNew,
 				imageUrls: imageUrls,
-				isAsciiArt: this.isAsciiArtRes(rawBody),
+				isAsciiArt: this.isAsciiArtRes(resBody),
 				isMyRes: sure.isMyRes(index),
 				isReplyRes: toAnkerIndexes[0] ? sure.isMyRes(toAnkerIndexes[0]) : false
 			});
@@ -190,12 +190,13 @@ class ResListService {
 	}
 
 	private getImageUrls(body: string): string[] {
-		let macher = /href="(http:\/\/[\w/:;%#\$&\?\(\)~\.=\+\-@]+\.(png|gif|jpg|jpeg))">/g;
+		let macher = /href="(https?:\/\/[\w/:;%#\$&\?\(\)~\.=\+\-@]+\.(png|gif|jpg|jpeg))">/g;
 		let array: RegExpExecArray | null;
 		const imgUrls: string[] = [];
 		while ((array = macher.exec(body)) !== null) {
 			imgUrls.push(array[1]);
 		}
+		// おえかき
 		body.replace(/sssp:\/\/(o\.8ch\.net\/....\.png)/g, ($$, $1) => {
 			imgUrls.push(`http://${$1}`);
 			return "";
@@ -247,7 +248,7 @@ class ResListService {
 	private static BR_REGEXP = /\s<br>/g;
 	private static ANKER_REGEXP = /<a.+?>&gt;&gt;([0-9]{1,4})-?<\/a>/g;
 	private static TAG_REGEXP = /<a.+?>(.+?)<\/a>/g;
-	private static LINK_REGEXP = /h?ttps?:\/\/([\w/:;%#\$&\?\(\)~\.=\+\-@]+)/g;
+	private static LINK_REGEXP = /h?(ttps?:\/\/[\w/:;%#\$&\?\(\)~\.=\+\-@]+)/g;
 	private static IMAGE_REGEXP = /href="(http:\/\/[\w/:;%#\$&\?\(\)~\.=\+\-@]+\.(png|gif|jpg|jpeg))">/g;
 
 	/** 本文整形 */
@@ -259,7 +260,8 @@ class ResListService {
 		// その他アンカー系
 		allBody = allBody.replace(ResListService.TAG_REGEXP, `$1`);
 		// リンク
-		allBody = allBody.replace(ResListService.LINK_REGEXP, `<a class="res-link" href="http://$1">$&</a>`);
+		allBody = allBody.replace(ResListService.LINK_REGEXP, `<a class="res-link" href="h$1">$&</a>`);
+		// be-icon
 		allBody = allBody.replace(/sssp:\/\/(img\.[2,5]ch\.net.+?\.gif)/g, `<img class="nichan-be-icon" src="http://$1">`);
 		// // 画像
 		// body = body.replace(/(h?ttps?:.+\.(png|gif|jpg|jpeg))<br>/, `<span class="res-image-link">$1</span><br>`);
