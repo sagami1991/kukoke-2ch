@@ -190,7 +190,7 @@ class ResListService {
 	}
 
 	private getImageUrls(body: string): string[] {
-		let macher = /href="(https?:\/\/[\w/:;%#\$&\?\(\)~\.=\+\-@]+\.(png|gif|jpg|jpeg))">/g;
+		let macher = /href="(https?:\/\/[\w/:;%#\$&\?\(\)~\.=\+\-@]+\.(png|gif|jpg|jpeg))">/ig;
 		let array: RegExpExecArray | null;
 		const imgUrls: string[] = [];
 		while ((array = macher.exec(body)) !== null) {
