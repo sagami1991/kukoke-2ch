@@ -39,6 +39,9 @@ export class SureModel {
 	public get enabled() { return this._enabled; }
 	public get bookmarkIndex() { return this._bookmarkIndex; }
 	public set bookmarkIndex(bookmarkIndex: number) { this._bookmarkIndex = bookmarkIndex; }
+	public set saved(saved: boolean) { this._saved = saved; }
+	public set resCount(resCount: number) { this._resCount = resCount; }
+	public set savedResCount(savedResCount: number | undefined) { this._savedResCount = savedResCount; }
 	public set enabled(enable: boolean) { this._enabled = enable; }
 
 	public static async createInstanceFromId(id: number): Promise<SureModel> {

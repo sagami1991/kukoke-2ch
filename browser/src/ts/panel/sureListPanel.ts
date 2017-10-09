@@ -221,7 +221,14 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 
 	public async onChangeSureModel(sure: SureModel) {
 		if (this._openedBoard && (this._openedBoard.type === "recentOpen" || this._openedBoard.path === sure.board.path)) {
-			this.reload(this._openedBoard, "localDb");
+			const targetSure = this._sures.find(s => s.id === sure.id);
+			if (targetSure) {
+				targetSure.enabled = sure.enabled;
+				targetSure.saved = sure.saved;
+				targetSure.resCount = sure.resCount;
+				targetSure.savedResCount = sure.savedResCount;
+			}
+			this._list.changeData(this._sures, true);
 		}
 	}
 
