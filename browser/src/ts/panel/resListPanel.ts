@@ -84,6 +84,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 				`<span class="res-name">` +
 					`名前: ${res.name}` +
 				`</span>` +
+				`<span class="res-mail">${res.mail}</span>` + // TODO エスケープ確認（2ch仕様）
 				`<span class="res-postdate">` +
 					`${res.postDate}` +
 				`</span>` +
