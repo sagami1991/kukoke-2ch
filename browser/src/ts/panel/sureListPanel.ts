@@ -192,6 +192,7 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 	}
 
 	public async openBoard(board: BoardTable) {
+		this._searchText.empty();
 		await this.reload(board, "server");
 		this._openedBoard = board;
 	}
