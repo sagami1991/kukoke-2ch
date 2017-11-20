@@ -6,7 +6,7 @@ import { Popup } from '../common/popup';
 import { PopupRes } from 'service/resListService';
 import { SureModel } from 'model/sureModel';
 import { ResModel } from 'model/resModel';
-import { TemplateUtil, ElementUtil } from 'common/commons';
+import { TemplateUtil, ElementUtil, toHighlightHtml } from 'common/commons';
 import { ComponentScanner } from 'component/scanner';
 import { Button, SearchText, Dropdown, Text} from 'component/components';
 import { ButtonOption, SearchTextOption, DropdownOption, ImageThumbnail } from 'component/components';
@@ -101,7 +101,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			`<div class="res-body ` +
 				`${res.isAsciiArt ? "res-ascii-art" : ""}" ` +
 			`>` +
-				`${res.body}` +
+				`${toHighlightHtml(res.body, this.searchText.getValue())}` +
 			`</div>` +
 			`<div class="res-thumbnails">${
 				TemplateUtil.each(res.imageUrls, url => {
@@ -379,6 +379,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			}
 			this.renderMode = "all";
 			this.filterDropdown.changeItem(this.renderMode);
+			this.searchText.empty();
 		}, {
 			delayLockKey: mode === "server" ? sure.id : undefined
 		});

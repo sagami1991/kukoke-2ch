@@ -6,7 +6,8 @@
   "scripts": {
     "start": "electron ./build/app.js --arch=ia32",
     "package": "electron-packager ./build kukoke2ch --platform=win32 --arch=ia32 --no-prune --overwrite --electron-version=1.7.1 --icon=src/resources/app_icon.ico",
-    "build": "gulp watch"
+    "build": "gulp build",
+    "watch": "gulp watch"
   },
   "dependencies": {
     "electron": "^1.7.2"

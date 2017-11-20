@@ -9,8 +9,9 @@ interface SearchTextGenerics extends ComponentGenerics {
 	element: HTMLInputElement;
 }
 export class SearchText extends BaseComponent<SearchTextGenerics> {
-	private _oldValue: string;
+	private _value: string;
 	private _timer: number;
+	private _input: HTMLInputElement;
 	/** @override */
 	public html() {
 		return `
@@ -25,17 +26,26 @@ export class SearchText extends BaseComponent<SearchTextGenerics> {
 	}
 	/** @override */
 	public initElem(elem: HTMLElement, option: SearchTextOption) {
-		const input = <HTMLInputElement>elem.querySelector("input");
-		input.addEventListener("keyup", () => {
-			const newValue = input.value;
+		this._input = <HTMLInputElement>elem.querySelector("input");
+		this._input.addEventListener("keyup", () => {
+			const newValue = this._input.value;
 			window.clearTimeout(this._timer);
 			this._timer = window.setTimeout(() => {
-				if (newValue !== this._oldValue) {
-					this._oldValue = newValue;
+				if (newValue !== this._value) {
+					this._value = newValue;
 					option.onChange(newValue);
 					this._timer = new Date().getTime();
 				}
 			}, 300);
 		});
+	}
+
+	public empty() {
+		this._input.value = "";
+		this._value = "";
+	}
+
+	public getValue() {
+		return this._value;
 	}
 }

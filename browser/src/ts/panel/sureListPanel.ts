@@ -1,3 +1,4 @@
+import { toHighlightHtml } from "../common/commons";
 import { SureTable } from '../database/tables';
 import { contextMenuController } from '../common/contextmenu';
 import { boardRepository } from '../database/boardRepository';
@@ -6,6 +7,7 @@ import { List, Button, SearchText} from 'component/components';
 import { ListOption , ButtonOption, SearchTextOption } from 'component/components';
 import { ComponentScanner } from 'component/scanner';
 import { sureListService } from 'service/sureListService';
+import { resListService } from 'service/resListService';
 import { SureModel } from 'model/sureModel';
 import { Panel, PanelType } from './basePanel';
 import { BoardTable } from "database/tables";
@@ -127,7 +129,7 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 		return {
 			width: 160,
 			placeholder: "スレタイを検索",
-			onChange: (text) => this.search(text)
+			onChange: () => this._list.changeData(this.getSearchedSures())
 		};
 	}
 
@@ -149,7 +151,7 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 				},
 				{
 					label: "スレタイ",
-					parse: (sure) => emojiUtil.replace(sure.titleName), // TODO エスケープ済みっぽいが危険
+					parse: (sure) => emojiUtil.replace(toHighlightHtml(sure.titleName, this._searchText.getValue())), // TODO エスケープ済みっぽいが危険
 					className: (sure) => `sure-suretai ${!sure.enabled ?  "sure-oti" : sure.saved ? "sure-saved" : ""}`,
 					width: 400,
 					tooltip: (sure) => sure.board.displayName
@@ -175,6 +177,12 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 			onRowClick: (sure) => this.trigger("openSure", sure),
 			onRowRightClick: (sure) => {
 				contextMenuController.addMenu([{
+					label: "ログを削除",
+					click: async () => {
+						await resListService.deleteSure(sure);
+						await this.reload(this._openedBoard!, "localDb");
+					}
+				},{
 					label: "ブラウザで開く",
 					click: () => electron.shell.openExternal(sure.getSureUrl())
 				}]);
@@ -228,18 +236,21 @@ export class SureListPanel extends Panel<SureListPanelEvent, SureListStorage> {
 				targetSure.resCount = sure.resCount;
 				targetSure.savedResCount = sure.savedResCount;
 			}
-			this._list.changeData(this._sures, true);
+			this._list.changeData(this.getSearchedSures(), true);
 		}
 	}
 
-	private search(text: string) {
+	private getSearchedSures(): Array<SureModel> {
+		const text = this._searchText.getValue();
 		if (!this._sures) {
-			return;
+			return [];
+		}
+		if (!text) {
+			return this._sures;
 		}
 		const regexp = new RegExp(text, "i");
-		const sures = this._sures.filter(sure => sure.titleName.toLowerCase().match(regexp) !== null);
-		this._list.changeData(sures);
-	};
+		return this._sures.filter(sure => sure.titleName.toLowerCase().match(regexp) !== null);
+	}
 
 
  }

@@ -23,6 +23,10 @@ gulp.task("copy-resources", () => {
 	.pipe(gulp.dest(`${Settings.dist}`));
 });
 
+gulp.task("build", () => {
+	gulp.start(["ts", "copy-resources","launch"]);
+});
+
 gulp.task("watch", () => {
 	gulp.start(["ts", "copy-resources","launch"]);
 	gulp.watch(["./src/**/*.ts"], ["ts","relaunch"]);
