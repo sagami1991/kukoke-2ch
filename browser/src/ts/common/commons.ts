@@ -20,11 +20,9 @@ export function toHighlightHtml(body: string, highlightWord: string) {
 	if (!body || !highlightWord) {
 		return body;
 	}
-	const index = body.indexOf(highlightWord);
+	const index = body.toLowerCase().indexOf(highlightWord.toLowerCase());
 	if (index === -1) {
 		return body;
 	}
 	return body.substring(0, index) + "<span class='highlight-word'>" + body.substring(index, index + highlightWord.length) + "</span>" + body.substring(index + highlightWord.length);
-
-
 }
