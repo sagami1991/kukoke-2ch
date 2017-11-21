@@ -8,7 +8,7 @@ import { SureModel } from 'model/sureModel';
 import { ResModel } from 'model/resModel';
 import { TemplateUtil, ElementUtil, toHighlightHtml } from 'common/commons';
 import { ComponentScanner } from 'component/scanner';
-import { Button, SearchText, Dropdown, Text} from 'component/components';
+import { Button, SearchText, Dropdown, Text } from 'component/components';
 import { ButtonOption, SearchTextOption, DropdownOption, ImageThumbnail } from 'component/components';
 import { resListService } from 'service/resListService';
 import { Panel, PanelType } from './basePanel';
@@ -68,53 +68,53 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 
 	private resTemplate(res: ResModel, className?: string) {
 		return `` +
-		`<div class="` +
-				`res-container ${className || ""} ` +
-				`${res.isMyRes ? "res-my" : ""} ` +
-				`${res.isReplyRes ? "res-reply" : ""} ` +
-				`"` +
+			`<div class="` +
+			`res-container ${className || ""} ` +
+			`${res.isMyRes ? "res-my" : ""} ` +
+			`${res.isReplyRes ? "res-reply" : ""} ` +
+			`"` +
 			` res-index = "${res.index}"` +
-		`>` +
+			`>` +
 			`<div class="res-header">` +
-				`<span class="res-no ${res.getResColor()} ${TemplateUtil.when(res.isNew, () => "res-new")}" ` +
-					`res-index = "${res.index}"` +
-				 `>` +
-					`${res.index + 1}${res.getIndexFormat()}` +
-				`</span>` +
-				`<span class="res-name">` +
-					`名前: ${res.name}` +
-				`</span>` +
-				`<span class="res-mail">${res.mail}</span>` + // TODO エスケープ確認（2ch仕様）
-				`<span class="res-postdate">` +
-					`${res.postDate}` +
-				`</span>` +
-				`${TemplateUtil.when(res.userId, () => `` +
-					`<span class="res-user-id ${res.getIdColor()}" res-index="${res.index}">` +
-						`ID:${res.userId} ${res.getIdCountFormat()}` +
-					`</span>`
-				)}` +
-				`${TemplateUtil.when(res.userBe, () => `` +
-					`<span class="res-user-be">` +
-						`BE:${res.userBe!.displayName}` +
-					`</span>`
-				)}` +
+			`<span class="res-no ${res.getResColor()} ${TemplateUtil.when(res.isNew, () => "res-new")}" ` +
+			`res-index = "${res.index}"` +
+			`>` +
+			`${res.index + 1}${res.getIndexFormat()}` +
+			`</span>` +
+			`<span class="res-name">` +
+			`名前: ${res.name}` +
+			`</span>` +
+			`<span class="res-mail">${res.mail}</span>` + // TODO エスケープ確認（2ch仕様）
+			`<span class="res-postdate">` +
+			`${res.postDate}` +
+			`</span>` +
+			`${TemplateUtil.when(res.userId, () => `` +
+				`<span class="res-user-id ${res.getIdColor()}" res-index="${res.index}">` +
+				`ID:${res.userId} ${res.getIdCountFormat()}` +
+				`</span>`
+			)}` +
+			`${TemplateUtil.when(res.userBe, () => `` +
+				`<span class="res-user-be">` +
+				`BE:${res.userBe!.displayName}` +
+				`</span>`
+			)}` +
 			`</div>` +
 			`<div class="res-body ` +
-				`${res.isAsciiArt ? "res-ascii-art" : ""}" ` +
+			`${res.isAsciiArt ? "res-ascii-art" : ""}" ` +
 			`>` +
-				`${toHighlightHtml(res.body, this.searchText.getValue())}` +
+			`${toHighlightHtml(res.body, this.searchText.getValue())}` +
 			`</div>` +
 			`<div class="res-thumbnails">${
-				TemplateUtil.each(res.imageUrls, url => {
-					const imageComponent = new ImageThumbnail({url: url});
-					imageComponent.addListener("openImage", this.ovserverId, (url) => {
-						this.trigger("openImage", url);
-					});
-					return imageComponent.html();
-				})}
+			TemplateUtil.each(res.imageUrls, url => {
+				const imageComponent = new ImageThumbnail({ url: url });
+				imageComponent.addListener("openImage", this.ovserverId, (url) => {
+					this.trigger("openImage", url);
+				});
+				return imageComponent.html();
+			})}
 			</div>` +
-		`</div>`
-		;
+			`</div>`
+			;
 	}
 	constructor() {
 		super();
@@ -217,7 +217,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			if (!res) {
 				return;
 			}
-			this.popup([{nestCount: 0, res: res}], current);
+			this.popup([{ nestCount: 0, res: res }], current);
 		});
 
 		ElementUtil.addDelegateEventListener(parent, "click", ".res-user-id", (e, current) => {
@@ -226,7 +226,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 				throw new Error();
 			}
 			const userResIndexes = this.resModels[+index].userIndexes;
-			const userReses = userResIndexes.map<PopupRes>(index => ({nestCount: 0, res: this.resModels[index]}));
+			const userReses = userResIndexes.map<PopupRes>(index => ({ nestCount: 0, res: this.resModels[index] }));
 			this.popup(userReses, current);
 		});
 
@@ -382,8 +382,8 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 			this.filterDropdown.changeItem(this.renderMode);
 			this.searchText.empty();
 		}, {
-			delayLockKey: mode === "server" ? sure.id : undefined
-		});
+				delayLockKey: mode === "server" ? sure.id : undefined
+			});
 	}
 
 	private async deleteLog() {
@@ -409,29 +409,33 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		let resModels: ResModel[] | undefined;
 		let index: number | undefined;
 		switch (type) {
-		case "all":
-			resModels = this.resModels;
-			index = this.openedSure.bookmarkIndex;
-			this.renderMode = "all";
-			break;
-		case "popularity":
-			resModels = this.resModels.filter(res => res.fromAnkers.length >= 3);
-			this.renderMode = "filtering";
-			break;
-		case "image":
-			resModels = this.resModels.filter(res => res.imageUrls.length > 0);
-			this.renderMode = "filtering";
-			break;
-		case "link":
-			alertMessage("info", "未実装");
-			return;
-		case "search":
-			resModels = this.resModels.filter(res => res.body.toLowerCase().match(text!) !== null);
-			this.renderMode = "filtering";
+			case "all":
+				resModels = this.resModels;
+				index = this.openedSure.bookmarkIndex;
+				this.renderMode = "all";
+				this.filterDropdown.changeItem("all");
+				break;
+			case "popularity":
+				resModels = this.resModels.filter(res => res.fromAnkers.length >= 3);
+				this.renderMode = "filtering";
+				this.filterDropdown.changeItem("popularity");
+				break;
+			case "image":
+				resModels = this.resModels.filter(res => res.imageUrls.length > 0);
+				this.renderMode = "filtering";
+				this.filterDropdown.changeItem("image");
+				break;
+			case "link":
+				alertMessage("info", "未実装");
+				return;
+			case "search":
+				resModels = this.resModels.filter(res => res.body.toLowerCase().match(text!) !== null);
+				this.renderMode = "filtering";
+				this.filterDropdown.changeItem("all");
+				break;
 		}
 		if (resModels) {
 			this.virtialResList.changeContents(this.convertResElements(resModels), index);
-			this.filterDropdown.changeItem(type);
 		}
 		return;
 	}
@@ -451,7 +455,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 	private popup(reses: PopupRes[], target: Element) {
 		const popupHtml = `
 		<div class="res-popups">
-			${TemplateUtil.each(reses , (item) =>
+			${TemplateUtil.each(reses, (item) =>
 				this.resTemplate(item.res, `res-popup-nest-${item.nestCount}`)
 			)}
 		</div>`;

@@ -112,8 +112,18 @@ input, button, textarea {
 .my-search-text-component {
 	overflow: hidden;
 	white-space: nowrap;
+	position: relative;
 	input {
 		width: 100%;
+	}
+	.search-reset-button {
+		position: absolute;
+		margin: auto;
+		right: 1px;
+		top: 0;
+		bottom: 0;
+		width: 20px;
+		height: 21px;
 	}
 }
 
