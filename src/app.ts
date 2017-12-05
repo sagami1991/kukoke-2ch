@@ -15,6 +15,12 @@ class MainApp {
 	public init() {
 		app.once("window-all-closed", () => this.onAllClose());
 		app.once("ready", () => this.initMainWindow());
+		// OS X用
+		app.once("activate", () => {
+			if (!this.mainWindow) {
+				this.initMainWindow();
+			}
+		});
 	}
 
 	private onAllClose() {
