@@ -24,7 +24,7 @@ export class RadioButton<T extends string> extends BaseComponent<RadioButtonGene
 						value="${item.value}"
 					>
 						<div class="my-radio-mark"></div>
-						<div class="my-radio-label">${item.label}</div>
+						<div class="my-radio-label">${TemplateUtil.escape(item.label)}</div>
 					</div>
 				`)}
 			</div>

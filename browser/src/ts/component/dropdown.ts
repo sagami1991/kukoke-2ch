@@ -53,7 +53,7 @@ export class Dropdown<T extends string = string> extends BaseComponent<DropdownG
 				${TemplateUtil.when(item.icon, () => `
 					${getSvgIcon(item.icon!, "s")}
 				`)}
-				<div class="dropdown-label">${item.label}</div>
+				<div class="dropdown-label">${TemplateUtil.escape(item.label)}</div>
 			</div>
 		`;
 	}
