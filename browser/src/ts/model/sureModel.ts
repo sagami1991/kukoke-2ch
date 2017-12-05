@@ -101,7 +101,7 @@ export class SureModel {
 	}
 
 	public getDatFilePath() {
-		return FileUtil.getPath(`dat\\${this._board.path}_${this._datNo}.dat`);
+		return FileUtil.getPath(`dat/${this._board.path}_${this._datNo}.dat`);
 	}
 
 	public setIkioiColor(ikioiAve: number) {

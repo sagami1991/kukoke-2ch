@@ -5,7 +5,7 @@ import { Consts } from "const";
 export namespace FileUtil {
 
 	export function getPath(path: string) {
-		return `${Consts.USER_PATH}\\${path}`;
+		return `${Consts.USER_PATH}/${path}`;
 	}
 
 	export function readFile(path: string) {

@@ -39,7 +39,7 @@ class MainApp {
 		if (restoreData.maximized) {
 			this.mainWindow.maximize();
 		}
-		this.mainWindow.loadURL(`${__dirname}/browser/index.html`);
+		this.mainWindow.loadURL(`file://${__dirname}/browser/index.html`);
 		this.mainWindow.once("close", async (event) => {
 			event.preventDefault();
 			await this.saveWindowState();

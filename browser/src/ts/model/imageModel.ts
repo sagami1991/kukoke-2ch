@@ -37,10 +37,10 @@ export class ImageModel {
 		return this.attr.height;
 	}
 	public get filePath() {
-		return `${Consts.USER_PATH}\\${AppConstant.IMAGE_DIR_NAME}\\${this.attr.fileName}`;
+		return `${Consts.USER_PATH}/${AppConstant.IMAGE_DIR_NAME}/${this.attr.fileName}`;
 	}
 	public get thumbnailPath() {
-		return `${Consts.USER_PATH}\\${AppConstant.THUBNAIL_DIR_NAME}\\${this.attr.fileName}`;
+		return `${Consts.USER_PATH}/${AppConstant.THUBNAIL_DIR_NAME}/${this.attr.fileName}`;
 	}
 
 	public static getImageExtension(imageType: ImageType) {

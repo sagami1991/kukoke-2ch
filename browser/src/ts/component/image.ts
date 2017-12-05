@@ -88,7 +88,7 @@ export class ImageThumbnail extends BaseComponent<ImageGenerics> {
 	private appendImage(outerElem: HTMLElement, model: ImageModel) {
 		outerElem.innerHTML = `
 			<div class="image-container">
-				<img src=${model.thumbnailPath} />
+				<img src="${model.thumbnailPath}" />
 				<div class="image-info">${TemplateUtil.kbFormat(model.byteLength)} ${model.width}x${model.height}</div>
 			</div>`;
 	}
