@@ -2,10 +2,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const ProvidePlugin = require('webpack/lib/ProvidePlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
 const config = {
-	outputPath: "../build/browser"
+	outputPath: path.resolve("../build/browser")
 }
-var path = require('path');
 
 module.exports = [
 	// typescriptビルド

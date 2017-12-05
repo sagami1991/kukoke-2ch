@@ -109,7 +109,7 @@ export class ImageClient extends Observable<ImageClientEvent> {
 		}
 	}
 
-	public getImageContextMenu(deleteCallback: () => void): Electron.MenuItemOptions[] {
+	public getImageContextMenu(deleteCallback: () => void): Electron.MenuItemConstructorOptions[] {
 		return [
 			{
 				label: "リンクをコピー",

@@ -1,7 +1,7 @@
 import { electron } from "common/libs";
 
 class ContextMenuController {
-	private menus: Electron.MenuItemOptions[];
+	private menus: Electron.MenuItemConstructorOptions[];
 	private commonMenuMode: "visible" | "hidden";
 	private callBack: (() => void) | null;
 	constructor() {
@@ -27,11 +27,11 @@ class ContextMenuController {
 		});
 	}
 
-	public popupMenu(menus: Electron.MenuItemOptions[]) {
+	public popupMenu(menus: Electron.MenuItemConstructorOptions[]) {
 		electron.Menu.buildFromTemplate(menus).popup();
 	}
 
-	public addMenu(menus: Electron.MenuItemOptions[]) {
+	public addMenu(menus: Electron.MenuItemConstructorOptions[]) {
 		this.menus.push(...menus, { type: "separator" });
 	}
 
@@ -43,7 +43,7 @@ class ContextMenuController {
 		this.commonMenuMode = "hidden";
 	}
 
-	private commonMenuItems(target: HTMLElement): Electron.MenuItemOptions[] {
+	private commonMenuItems(target: HTMLElement): Electron.MenuItemConstructorOptions[] {
 		const isInput = target.matches("textarea,input");
 		if (isInput) {
 			return [
