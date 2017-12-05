@@ -399,7 +399,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		}
 	}
 
-	private filter(type: FilterType, text?: string) {
+	private filter(type: FilterType) {
 		if (!this.openedSure || !this.resModels) {
 			return;
 		}
@@ -429,7 +429,8 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 				alertMessage("info", "未実装");
 				return;
 			case "search":
-				resModels = this.resModels.filter(res => res.body.toLowerCase().match(text!) !== null);
+				const searchValue = this.searchText.getValue().toLowerCase();
+				resModels = this.resModels.filter(res => res.body.toLowerCase().match(searchValue) !== null);
 				this.renderMode = "filtering";
 				this.filterDropdown.changeItem("all");
 				break;
@@ -477,7 +478,7 @@ export class ResListPanel extends Panel<ResListPanelEvent, ResListStorage> {
 		if (text === "") {
 			this.filter("all");
 		} else {
-			this.filter("search", text);
+			this.filter("search");
 		}
 	};
 
